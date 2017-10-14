@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
-    "JP.Utils.UWP": "1.1.22",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "JP.Utils.UWP": "1.2.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "6.0.1",
     "Win2D.uwp": "1.21.0"
   },
   "frameworks": {
