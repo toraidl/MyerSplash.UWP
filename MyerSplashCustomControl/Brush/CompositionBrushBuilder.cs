@@ -2,7 +2,7 @@
 using Windows.UI;
 using Windows.UI.Composition;
 
-namespace MyerSplash.Common.Brush
+namespace MyerSplashCustomControl.Brush
 {
     public enum BackdropBrushType
     {

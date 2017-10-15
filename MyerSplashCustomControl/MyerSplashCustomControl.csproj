@@ -107,8 +107,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Brush\AcrylicBrush.cs" />
+    <Compile Include="Brush\AcrylicBrushBase.cs" />
+    <Compile Include="Brush\AcrylicHostBrush.cs" />
+    <Compile Include="Brush\CompositionBrushBuilder.cs" />
     <Compile Include="ContentPopupEx\ContentPopupEx.cs" />
     <Compile Include="ContentPopupEx\PopupService.cs" />
+    <Compile Include="Control\AcrylicCompatGrid.cs" />
     <Compile Include="Control\AdaptiveGridView.cs" />
     <Compile Include="Drawing\BaseGeoControl.cs" />
     <Compile Include="Drawing\CustomCanvasControl.cs" />

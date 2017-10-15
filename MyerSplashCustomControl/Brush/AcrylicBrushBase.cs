@@ -1,9 +1,10 @@
 ﻿using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 
-namespace MyerSplash.Common.Brush
+namespace MyerSplashCustomControl.Brush
 {
     public abstract class AcrylicBrushBase : XamlCompositionBrushBase
     {
@@ -59,7 +60,7 @@ namespace MyerSplash.Common.Brush
         protected override void OnConnected()
         {
             base.OnConnected();
-            _compositor = Window.Current.Content.GetVisual().Compositor;
+            _compositor = ElementCompositionPreview.GetElementVisual(Window.Current.Content).Compositor;
             _brush = new CompositionBrushBuilder(GetBrushType()).SetTintColor(TintColor)
                 .SetBackdropFactor((float)BackdropFactor)
                 .SetTintColorFactor((float)TintColorFactor)

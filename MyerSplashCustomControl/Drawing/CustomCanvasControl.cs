@@ -1,10 +1,9 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 
 namespace MyerSplashCustomControl
 {
-    public class CustomCanvasControl : Control
+    public class CustomCanvasControl : Windows.UI.Xaml.Controls.Control
     {
         private TaskCompletionSource<int> _tcs;
         private CanvasControl _canvasControl;

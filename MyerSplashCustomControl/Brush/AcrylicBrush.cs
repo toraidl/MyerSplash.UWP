@@ -1,4 +1,4 @@
-﻿namespace MyerSplash.Common.Brush
+﻿namespace MyerSplashCustomControl.Brush
 {
     public class AcrylicBrush : AcrylicBrushBase
     {

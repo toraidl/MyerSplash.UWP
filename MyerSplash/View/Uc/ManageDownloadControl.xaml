@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attach="using:JP.Utils.Framework"
+    xmlns:c="using:MyerSplashCustomControl.Control"
     xmlns:common="using:MyerSplash.Common"
     xmlns:control="using:MyerSplashCustomControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +17,7 @@
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColorBrush" />
     </UserControl.Background>
-    <Grid x:Name="RootGrid" Background="{StaticResource AppBackgroundBrushDark}">
+    <c:AcrylicCompatGrid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -100,5 +101,5 @@
                 </Grid>
             </Grid>
         </Button>
-    </Grid>
+    </c:AcrylicCompatGrid>
 </common:NavigableUserControl>

@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace MyerSplashCustomControl
 {
-    public class ToastService : Control
+    public class ToastService : Windows.UI.Xaml.Controls.Control
     {
         #region DependencyProperty
 

@@ -5,6 +5,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:attach="using:JP.Utils.Framework"
+    xmlns:c="using:MyerSplashCustomControl.Control"
     xmlns:cc="using:MyerSplashCustomControl"
     xmlns:common="using:MyerSplash.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -63,7 +64,7 @@
             </Button>
         </Grid>
         <Grid x:Name="TitleGrid" Background="Transparent" />
-        <Grid
+        <c:AcrylicCompatGrid
             x:Name="TitleStack"
             Margin="16"
             HorizontalAlignment="Left"
@@ -74,10 +75,6 @@
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition x:Name="C3" Width="60" />
             </Grid.ColumnDefinitions>
-            <Border
-                x:Name="BlurBorder"
-                Grid.ColumnSpan="5"
-                Background="{StaticResource AppBackgroundBrushLittleDark}" />
             <Border x:Name="HamBtnBorder" VerticalAlignment="Center">
                 <uc:HamburgerButton
                     x:Name="HamBtn"
@@ -148,7 +145,7 @@
                     Foreground="{StaticResource MainBarIconColorBrush}"
                     Glyph="&#xE118;" />
             </Button>
-        </Grid>
+        </c:AcrylicCompatGrid>
         <uc:PhotoDetailControl
             x:Name="DetailControl"
             Grid.RowSpan="2"
