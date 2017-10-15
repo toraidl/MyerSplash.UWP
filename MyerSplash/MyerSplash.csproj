@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>3556EBAFCC3FBE9B536C322029E01389867F9C68</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>27F2FBECE1B4729139702BCE1DDCFAD921D5AA87</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -112,6 +112,7 @@
     <Compile Include="Common\AppSettings.cs" />
     <Compile Include="Common\Brush\AcrylicBrush.cs" />
     <Compile Include="Common\Brush\AcrylicBrushBase.cs" />
+    <Compile Include="Common\Brush\AcrylicBrushCompatGrid.cs" />
     <Compile Include="Common\Brush\AcrylicHostBrush.cs" />
     <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
