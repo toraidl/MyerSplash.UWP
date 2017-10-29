@@ -25,4 +25,5 @@
     <SolidColorBrush x:Key="MaskColorBrush">#E5000000</SolidColorBrush>
     <SolidColorBrush x:Key="HintColorBrush">#FFBFBFBF</SolidColorBrush>
     <SolidColorBrush x:Key="SettingsButtonBackgroundBrush">#991D1D1D</SolidColorBrush>
+    <Color x:Key="LightColor">#92FFFFFF</Color>
 </ResourceDictionary>

@@ -10,7 +10,7 @@
     d:DesignWidth="500"
     mc:Ignorable="d">
     <Grid>
-        <c:AcrylicCompatGrid
+        <c:MaterialCompatGrid
             x:Name="MaskBorder"
             Grid.RowSpan="2"
             attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.HideSearchCommand, Mode=OneWay}" />

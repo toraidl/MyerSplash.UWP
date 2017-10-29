@@ -113,8 +113,10 @@
     <Compile Include="Brush\CompositionBrushBuilder.cs" />
     <Compile Include="ContentPopupEx\ContentPopupEx.cs" />
     <Compile Include="ContentPopupEx\PopupService.cs" />
-    <Compile Include="Control\AcrylicCompatGrid.cs" />
     <Compile Include="Control\AdaptiveGridView.cs" />
+    <Compile Include="Control\AmbLight.cs" />
+    <Compile Include="Control\HoverLight.cs" />
+    <Compile Include="Control\MaterialCompatGrid.cs" />
     <Compile Include="Drawing\BaseGeoControl.cs" />
     <Compile Include="Drawing\CustomCanvasControl.cs" />
     <Compile Include="Drawing\EllipseShadowControl.cs" />

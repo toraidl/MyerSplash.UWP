@@ -64,11 +64,12 @@
             </Button>
         </Grid>
         <Grid x:Name="TitleGrid" Background="Transparent" />
-        <c:AcrylicCompatGrid
+        <c:MaterialCompatGrid
             x:Name="TitleStack"
             Margin="16"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            LightEnabled="true">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="Auto" />
@@ -145,7 +146,7 @@
                     Foreground="{StaticResource MainBarIconColorBrush}"
                     Glyph="&#xE118;" />
             </Button>
-        </c:AcrylicCompatGrid>
+        </c:MaterialCompatGrid>
         <uc:PhotoDetailControl
             x:Name="DetailControl"
             Grid.RowSpan="2"

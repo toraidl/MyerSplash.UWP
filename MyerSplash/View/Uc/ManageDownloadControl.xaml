@@ -17,7 +17,7 @@
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColorBrush" />
     </UserControl.Background>
-    <c:AcrylicCompatGrid x:Name="RootGrid">
+    <c:MaterialCompatGrid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -101,5 +101,5 @@
                 </Grid>
             </Grid>
         </Button>
-    </c:AcrylicCompatGrid>
+    </c:MaterialCompatGrid>
 </common:NavigableUserControl>

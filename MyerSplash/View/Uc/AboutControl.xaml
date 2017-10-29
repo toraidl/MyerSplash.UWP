@@ -9,7 +9,7 @@
     d:DesignHeight="700"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <c:AcrylicCompatGrid x:Name="RootGrid">
+    <c:MaterialCompatGrid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -145,5 +145,5 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-    </c:AcrylicCompatGrid>
+    </c:MaterialCompatGrid>
 </common:NavigableUserControl>

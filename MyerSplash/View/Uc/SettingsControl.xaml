@@ -23,7 +23,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style>
     </UserControl.Resources>
-    <c:AcrylicCompatGrid>
+    <c:MaterialCompatGrid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -189,5 +189,5 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-    </c:AcrylicCompatGrid>
+    </c:MaterialCompatGrid>
 </common:NavigableUserControl>
