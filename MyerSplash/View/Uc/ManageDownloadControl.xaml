@@ -5,7 +5,9 @@
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:common="using:MyerSplash.Common"
     xmlns:control="using:MyerSplashCustomControl"
+    xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:MyerSplash.Model"
     xmlns:uc="using:MyerSplash.View.Uc"
@@ -16,7 +18,10 @@
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColorBrush" />
     </UserControl.Background>
-    <Grid x:Name="RootGrid" Background="{StaticResource AppBackgroundBrushDark}">
+    <Grid
+        x:Name="RootGrid"
+        cu:Background="{StaticResource AppBackgroundBrush}"
+        fcu:Background="{StaticResource CustomAcrylicInAppBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />

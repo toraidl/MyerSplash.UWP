@@ -300,9 +300,10 @@
                             <Border
                                 x:Name="SelectedBorder"
                                 Width="8"
-                                CornerRadius="2"
+                                Margin="12"
                                 HorizontalAlignment="Left"
-                                Background="{StaticResource MyerSplashThemeColorBrush}" Margin="12" />
+                                Background="{StaticResource MyerSplashThemeColorBrush}"
+                                CornerRadius="2" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">

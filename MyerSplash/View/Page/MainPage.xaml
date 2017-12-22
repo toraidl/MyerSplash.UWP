@@ -7,7 +7,9 @@
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:cc="using:MyerSplashCustomControl"
     xmlns:common="using:MyerSplash.Common"
+    xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:MyerSplash.View.Uc"
     Background="{StaticResource TitleBarDarkBrush}"
@@ -77,7 +79,8 @@
             <Border
                 x:Name="BlurBorder"
                 Grid.ColumnSpan="5"
-                Background="{StaticResource AppBackgroundBrushLittleDark}" />
+                cu:Background="{StaticResource AppBackgroundBrushLittleDark}"
+                fcu:Background="{StaticResource CustomAcrylicInAppBrush}" />
             <Border x:Name="HamBtnBorder" VerticalAlignment="Center">
                 <uc:HamburgerButton
                     x:Name="HamBtn"
