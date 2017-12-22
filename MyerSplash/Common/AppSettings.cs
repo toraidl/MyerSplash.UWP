@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
@@ -24,6 +25,20 @@ namespace MyerSplash.Common
                 {
                     LiveTileUpdater.CleanUpTile();
                 }
+            }
+        }
+
+        public bool EnableTodayRecommendation
+        {
+            get
+            {
+                return ReadSettings(nameof(EnableTodayRecommendation), true);
+            }
+            set
+            {
+                SaveSettings(nameof(EnableTodayRecommendation), value);
+                RaisePropertyChanged(() => EnableTodayRecommendation);
+                ToastService.SendToast("Please refresh the list to apply this option.", 5000);
             }
         }
 
