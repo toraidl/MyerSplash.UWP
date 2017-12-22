@@ -2,10 +2,12 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
+using JP.Utils.Network;
 using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
+using MyerSplashShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -40,6 +42,7 @@ namespace MyerSplash.Model
         public event Action<DownloadItem, bool> OnMenuStatusChanged;
 
         private TaskCompletionSource<int> _tcs;
+        private CloudService _service = new CloudService();
 
         public Guid DownloadOperationGUID { get; set; }
 
@@ -386,8 +389,14 @@ namespace MyerSplash.Model
             catch (Exception e)
             {
                 await Logger.LogAsync(e);
-                ToastService.SendToast("No right to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.", 5000);
+                ToastService.SendToast("No permission to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.", 5000);
                 return false;
+            }
+
+            var locationUrl = ImageItem.GetDownloadLocationUrl();
+            if (locationUrl != null)
+            {
+                var reportTask = ReportDownloadAsync(locationUrl);
             }
 
             var backgroundDownloader = new BackgroundDownloader()
@@ -432,6 +441,11 @@ namespace MyerSplash.Model
 
                 return false;
             }
+        }
+
+        private async Task ReportDownloadAsync(string url)
+        {
+            await _service.ReportPhotoDownload(url, CTSFactory.MakeCTS(5000).Token);
         }
 
         private void Progress_ProgressChanged(object sender, DownloadOperation e)

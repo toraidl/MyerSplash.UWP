@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MyerSplashShared.Data;
+using Newtonsoft.Json;
 using System;
 
 namespace MyerSplash.Data
@@ -65,6 +66,9 @@ namespace MyerSplash.Data
                 }
             }
         }
+
+        [JsonProperty("links")]
+        public UnsplashLinks Links;
 
         private ImageExif _exif;
         [JsonProperty("exif")]

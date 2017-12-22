@@ -16,6 +16,12 @@ namespace MyerSplashShared.Service
             return param;
         }
 
+        public async Task<CommonRespMsg> ReportPhotoDownload(string downloadLocationUrl, CancellationToken token)
+        {
+            var param = GetDefaultParam();
+            return await HttpRequestSender.SendGetRequestAsync(Request.AppendParamsToUrl(downloadLocationUrl, param), token);
+        }
+
         internal async Task<CommonRespMsg> GetImagesAsync(int page, int pageCount, CancellationToken token, string url)
         {
             var param = GetDefaultParam();
