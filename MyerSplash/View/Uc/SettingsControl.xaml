@@ -2,9 +2,10 @@
     x:Class="MyerSplash.View.Uc.SettingsControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:backdrop="using:MyerSplash.Common.Brush"
     xmlns:common="using:MyerSplash.Common"
+    xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:framework="using:JP.Utils.Framework"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="700"
@@ -23,7 +24,10 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style>
     </UserControl.Resources>
-    <Grid Background="{StaticResource AppBackgroundBrushDark}">
+    <Grid
+        cu:Background="{StaticResource AppBackgroundBrushDark}"
+        fcu:Background="{StaticResource CustomAcrylicInAppBrush}"
+        RequestedTheme="Dark">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -91,6 +95,24 @@
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableScaleAnimation, Mode=TwoWay}"
+                            Style="{StaticResource ToggleSwitchStyle}" />
+                    </Grid>
+                    <Grid
+                        Height="48"
+                        Margin="0"
+                        framework:UIElementTapCommand.ItemTapCommand="{x:Bind SettingsVM.ToggleScaleAnimationCommand, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Enable today's recommendation" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTodayRecommendation, Mode=TwoWay}"
                             Style="{StaticResource ToggleSwitchStyle}" />
                     </Grid>
                     <Button

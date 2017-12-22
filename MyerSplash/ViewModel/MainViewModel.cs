@@ -614,7 +614,7 @@ namespace MyerSplash.ViewModel
             IsRefreshing = true;
             await DataVM.RefreshAsync();
 
-            if (SelectedIndex == NEW_INDEX)
+            if (SelectedIndex == NEW_INDEX && AppSettings.Instance.EnableTodayRecommendation)
             {
                 await InsertTodayWallpaperAsync();
             }
