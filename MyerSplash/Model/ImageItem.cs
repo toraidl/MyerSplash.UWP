@@ -449,6 +449,11 @@ namespace MyerSplash.Model
             }
         }
 
+        public string GetDownloadLocationUrl()
+        {
+            return Image?.Links?.DownloadLocation;
+        }
+
         public async Task GetExifInfoAsync()
         {
             var result = await _service.GetImageDetailAsync(Image.ID, JP.Utils.Network.CTSFactory.MakeCTS().Token);
