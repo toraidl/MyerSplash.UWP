@@ -8,6 +8,7 @@ using MyerSplash.Data;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Service;
+using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -223,9 +224,9 @@ namespace MyerSplash.Model
             get
             {
                 if (_setAsCommand != null) return _setAsCommand;
-                return _setAsCommand = new RelayCommand(() =>
+                return _setAsCommand = new RelayCommand(async() =>
                   {
-                      IsMenuOn = !IsMenuOn;
+                      await SetAsAsync();
                   });
             }
         }
@@ -306,6 +307,18 @@ namespace MyerSplash.Model
             ProgressString = "0 %";
             IsMenuOn = false;
             DisplayIndex = (int)DisplayMenu.Downloading;
+        }
+
+        private async Task SetAsAsync()
+        {
+            if (DeviceUtil.IsXbox)
+            {
+                await WallpaperSettingHelper.SetAsBackgroundAsync(_resultFile as StorageFile);
+            }
+            else
+            {
+                IsMenuOn = !IsMenuOn;
+            }
         }
 
         public async Task RetryAsync()

@@ -1,5 +1,6 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Common.Composition;
+using MyerSplashShared.Utils;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -42,6 +43,16 @@ namespace MyerSplash.View.Uc
             this.InitializeComponent();
             this.InitComposition();
             this.DataContextChanged += DownloadItemTemplate_DataContextChanged;
+
+            TailorUi();
+        }
+
+        private void TailorUi()
+        {
+            if (DeviceUtil.IsXbox)
+            {
+                SetAsTB.Text = "Set as wallpaper";
+            }
         }
 
         private void DownloadItemTemplate_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)

@@ -1,6 +1,7 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
+using MyerSplashShared.Utils;
 using System;
 using System.Diagnostics;
 using System.Numerics;
@@ -242,6 +243,8 @@ namespace MyerSplash.View.Page
 
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
         {
+            if (DeviceUtil.IsXbox) return;
+
             if ((scrollViewer.VerticalOffset - _lastVerticalOffset) > 5 && !_isHideTitleGrid)
             {
                 _isHideTitleGrid = true;
