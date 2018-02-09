@@ -86,16 +86,12 @@
                 </StackPanel>
             </Grid>
         </Button>
-        <Grid
-            x:Name="MenuGrid"
+        <StackPanel
+            x:Name="MenuPanel"
             Grid.RowSpan="2"
             Margin="0,40,0,52"
-            VerticalAlignment="Bottom">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+            VerticalAlignment="Bottom"
+            Orientation="Vertical">
             <Button
                 x:Name="SetAsWallpaperBtn"
                 Command="{Binding SetWallpaperCommand}"
@@ -137,7 +133,7 @@
                         Text="Both" />
                 </Grid>
             </Button>
-        </Grid>
+        </StackPanel>
         <flipper:FlipperControl
             Grid.Row="1"
             AllowTapToFlip="False"
