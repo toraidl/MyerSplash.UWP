@@ -1,10 +1,12 @@
 ﻿using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.View.Page;
+using MyerSplashShared.Utils;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -73,6 +75,20 @@ namespace MyerSplash
 
             rootFrame.Navigate(typeof(MainPage), arg);
             Window.Current.Activate();
+
+            var view = ApplicationView.GetForCurrentView();
+            if (DeviceUtil.IsXbox)
+            {
+                if (view.TryEnterFullScreenMode())
+                {
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+                }
+            }
+            else
+            {
+                view.ExitFullScreenMode();
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+            }
 
             TitleBarHelper.SetUpLightTitleBar();
 
