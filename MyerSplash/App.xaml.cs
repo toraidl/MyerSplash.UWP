@@ -79,6 +79,8 @@ namespace MyerSplash
             var view = ApplicationView.GetForCurrentView();
             if (DeviceUtil.IsXbox)
             {
+                ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+
                 if (view.TryEnterFullScreenMode())
                 {
                     ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
