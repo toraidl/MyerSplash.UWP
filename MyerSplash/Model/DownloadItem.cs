@@ -450,7 +450,7 @@ namespace MyerSplash.Model
             {
                 ImageItem.DownloadStatus = Common.DownloadStatus.Pending;
                 await Logger.LogAsync(e);
-                ToastService.SendToast("ERROR" + e.Message, 2000);
+                ToastService.SendToast("ERROR: " + e.Message, 3000);
 
                 return false;
             }
