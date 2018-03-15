@@ -1,10 +1,8 @@
-﻿using JP.Utils.Data.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using Windows.Storage;
 using Windows.System.UserProfile;
 
@@ -21,19 +19,11 @@ namespace MyerSplashShared.Utils
 
             try
             {
-                var client = new HttpClient();
-                var result = await client.GetAsync(url);
-                result.EnsureSuccessStatusCode();
-                var str = await result.Content.ReadAsStringAsync();
-                var json = JsonObject.TryParse(str, out var obj);
-                if (obj == null)
+                if (!string.IsNullOrEmpty(url))
                 {
-                    return false;
-                }
-                var downloadUrl = JsonParser.GetStringFromJsonObj(obj, "url");
-                if (!string.IsNullOrEmpty(downloadUrl))
-                {
-                    var fileName = Path.GetFileName(downloadUrl);
+                    var client = new HttpClient();
+
+                    var fileName = Path.GetFileName(url);
 
                     var pictureLib = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
                     var targetFolder = await pictureLib.CreateFolderAsync("Auto-change wallpapers", CreationCollisionOption.OpenIfExists);
@@ -45,9 +35,9 @@ namespace MyerSplashShared.Utils
                     // Download
                     if (file == null)
                     {
-                        Debug.WriteLine($"===========url {downloadUrl}==============");
+                        Debug.WriteLine($"===========url {url}==============");
 
-                        var imageResp = await client.GetAsync(downloadUrl);
+                        var imageResp = await client.GetAsync(url);
                         using (var stream = await imageResp.Content.ReadAsStreamAsync())
                         {
                             Debug.WriteLine($"===========download complete==============");
@@ -92,8 +82,9 @@ namespace MyerSplashShared.Utils
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine($"===========TrySetWallpaperImageAsync failed {e.Message}=============");
                 return false;
             }
         }
