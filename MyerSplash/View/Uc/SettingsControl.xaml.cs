@@ -1,5 +1,6 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.ViewModel;
+using MyerSplashShared.Utils;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 
@@ -15,6 +16,11 @@ namespace MyerSplash.View.Uc
             if (!DesignMode.DesignModeEnabled)
             {
                 this.DataContext = SettingsVM = new SettingsViewModel();
+            }
+
+            if (DeviceUtil.IsXbox)
+            {
+                AutoChangeSP.Visibility = Visibility.Collapsed;
             }
         }
 
