@@ -101,6 +101,12 @@ namespace MyerSplash.View.Uc
                });
 
             Window.Current.CoreWindow.SizeChanged += CoreWindow_SizeChanged;
+
+            if (DeviceUtil.IsXbox)
+            {
+                SetAsBothBtn.Visibility = Visibility.Collapsed;
+                SetAsLockScreenBtn.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void CoreWindow_SizeChanged(CoreWindow sender, WindowSizeChangedEventArgs args)

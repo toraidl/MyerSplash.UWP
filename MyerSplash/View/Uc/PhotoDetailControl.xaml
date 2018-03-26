@@ -163,6 +163,7 @@
                             Foreground="White"
                             Text="SET AS" />
                         <Button
+                            x:Name="SetAsBackgroundBtn"
                             HorizontalAlignment="Right"
                             Click="SetAsBackgroundBtn_Click"
                             Style="{StaticResource ButtonCommonStyle}">
@@ -174,6 +175,7 @@
                             </Border>
                         </Button>
                         <Button
+                            x:Name="SetAsLockScreenBtn"
                             HorizontalAlignment="Right"
                             Click="SetAsLockscreenBtn_Click"
                             Style="{StaticResource ButtonCommonStyle}">
@@ -185,6 +187,7 @@
                             </Border>
                         </Button>
                         <Button
+                            x:Name="SetAsBothBtn"
                             HorizontalAlignment="Right"
                             Click="SetAsBothBtn_Click"
                             Style="{StaticResource ButtonCommonStyle}">
