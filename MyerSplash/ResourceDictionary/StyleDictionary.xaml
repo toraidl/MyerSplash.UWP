@@ -10,7 +10,7 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
     <Style x:Key="CloseIconStyle" TargetType="FontIcon">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Glyph" Value="&#xE0A6;" />
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />

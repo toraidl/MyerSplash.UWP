@@ -92,16 +92,15 @@ namespace MyerSplash.View.Uc
             _tappedContainer = ImageGridView.ContainerFromItem(image) as FrameworkElement;
 
             var rootGrid = (_tappedContainer as GridViewItem).ContentTemplateRoot as Grid;
-            var contentGrid = rootGrid.Children[0] as Grid;
 
             _tappedContainerVisual = ElementCompositionPreview.GetElementVisual(_tappedContainer);
 
-            var maskBorder = contentGrid.Children[2] as FrameworkElement;
-            var img = contentGrid.Children[1] as FrameworkElement;
+            var maskBorder = rootGrid.Children[2] as FrameworkElement;
+            var img = rootGrid.Children[1] as FrameworkElement;
 
             ToggleItemPointOverAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(image, contentGrid);
+            OnClickItemStarted?.Invoke(image, rootGrid);
         }
 
         public void ScrollToTop()

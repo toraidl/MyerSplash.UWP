@@ -1,15 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using JP.Utils.Data;
 using JP.Utils.Framework;
 using JP.Utils.Helper;
 using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.Model;
-using MyerSplash.View.Uc;
 using MyerSplash.ViewModel.DataViewModel;
-using MyerSplashCustomControl;
 using MyerSplashShared.API;
 using MyerSplashShared.Service;
 using System;
@@ -124,7 +121,6 @@ namespace MyerSplash.ViewModel
                 if (_searchCommand != null) return _searchCommand;
                 return _searchCommand = new RelayCommand(() =>
                   {
-                      DrawerOpened = false;
                       ShowSearchBar = true;
                       NavigationService.AddOperation(() =>
                           {
@@ -198,48 +194,6 @@ namespace MyerSplash.ViewModel
                       FooterReloadVisibility = Visibility.Collapsed;
                       await DataVM.RetryAsync();
                   });
-            }
-        }
-
-        private RelayCommand _openDrawerCommand;
-        public RelayCommand OpenDrawerCommand
-        {
-            get
-            {
-                if (_openDrawerCommand != null) return _openDrawerCommand;
-                return _openDrawerCommand = new RelayCommand(() =>
-                  {
-                      DrawerOpened = !DrawerOpened;
-                      if (DrawerOpened)
-                      {
-                          NavigationService.AddOperation(() =>
-                          {
-                              if (DrawerOpened)
-                              {
-                                  DrawerOpened = false;
-                                  return true;
-                              }
-                              else return false;
-                          });
-                      }
-                  });
-            }
-        }
-
-        private bool _drawerOpened;
-        public bool DrawerOpened
-        {
-            get
-            {
-                return _drawerOpened;
-            }
-            set
-            {
-                if (_drawerOpened != value)
-                {
-                    _drawerOpened = value;
-                    RaisePropertyChanged(() => DrawerOpened);
-                }
             }
         }
 
@@ -353,7 +307,6 @@ namespace MyerSplash.ViewModel
                 if (_goToSettingsCommand != null) return _goToSettingsCommand;
                 return _goToSettingsCommand = new RelayCommand(() =>
                   {
-                      DrawerOpened = false;
                       ShowSettingsUC = true;
                       NavigationService.AddOperation(() =>
                           {
@@ -428,7 +381,6 @@ namespace MyerSplash.ViewModel
                 return _showDownloadsCommand = new RelayCommand(() =>
                   {
                       ShowDownloadsUC = !ShowDownloadsUC;
-                      DrawerOpened = false;
 
                       if (ShowDownloadsUC)
                       {
@@ -454,7 +406,6 @@ namespace MyerSplash.ViewModel
                 if (_goToAboutCommand != null) return _goToAboutCommand;
                 return _goToAboutCommand = new RelayCommand(() =>
                   {
-                      DrawerOpened = false;
                       ShowAboutUC = true;
                       NavigationService.AddOperation(() =>
                           {
@@ -486,7 +437,6 @@ namespace MyerSplash.ViewModel
                       {
                           ApplicationView.GetForCurrentView().ExitFullScreenMode();
                       }
-                      DrawerOpened = false;
                   });
             }
         }
@@ -507,7 +457,6 @@ namespace MyerSplash.ViewModel
                     _selectedIndex = value;
                     RaisePropertyChanged(() => SelectedIndex);
                     RaisePropertyChanged(() => SelectedTitle);
-                    DrawerOpened = false;
                     if (value == -1)
                     {
                         return;

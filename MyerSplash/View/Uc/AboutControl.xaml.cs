@@ -17,7 +17,7 @@ namespace MyerSplash.View.Uc
         public override void OnShow()
         {
             base.OnShow();
-            Window.Current.SetTitleBar(TitleBar);
+            Window.Current.SetTitleBar(DummyTitleBar);
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

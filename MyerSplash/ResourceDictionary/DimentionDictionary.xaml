@@ -7,4 +7,10 @@
     <Thickness x:Key="PhoneButtonContentPadding">9.5,0,9.5,3.5</Thickness>
     <Thickness x:Key="PhoneBorderThickness">2.5</Thickness>
     <Thickness x:Key="ComboBoxItemPadding">11,5,11,7</Thickness>
+    <x:Double x:Key="MainButtonSize">40</x:Double>
+    <x:Double x:Key="SetAsHeight">44</x:Double>
+    <GridLength x:Key="SetAsGridHeight">44</GridLength>
+    <x:Double x:Key="SmallFontSize">12</x:Double>
+    <x:Double x:Key="MediumFontSize">15</x:Double>
+    <x:Double x:Key="LargeFontSize">18</x:Double>
 </ResourceDictionary>

@@ -18,15 +18,16 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="Transparent" />
+        <Grid x:Name="DummyTitleBar" Background="Transparent" />
         <Button
             x:Name="CloseBtn"
-            Width="68"
+            Width="{StaticResource MainButtonSize}"
+            Height="{StaticResource MainButtonSize}"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
-            Style="{StaticResource ListButtonStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" />
+            Style="{StaticResource ListButtonStyle}" Margin="12,0,0,0">
+            <FontIcon Style="{StaticResource CloseIconStyle}" FontSize="12" />
         </Button>
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerCommonStyle}">

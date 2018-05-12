@@ -9,11 +9,10 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style
-            x:Key="SetAsButtonStyle"
-            BasedOn="{StaticResource ButtonCommonStyle}"
-            TargetType="Button">
-            <Setter Property="Height" Value="52" />
+        <Style x:Key="SetAsButtonStyle"
+               BasedOn="{StaticResource ButtonCommonStyle}"
+               TargetType="Button">
+            <Setter Property="Height" Value="{StaticResource SetAsHeight}" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
@@ -23,7 +22,8 @@
         <Style x:Key="SetAsTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="12,0,0,0" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="FontSize" Value="15"/>
         </Style>
         <SolidColorBrush x:Key="SetAsButtonMaskColorBrush">#26000000</SolidColorBrush>
     </UserControl.Resources>
@@ -33,7 +33,7 @@
         SizeChanged="RootGrid_SizeChanged">
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="52" />
+            <RowDefinition Height="{StaticResource SetAsGridHeight}" />
         </Grid.RowDefinitions>
         <Image
             x:Name="Img"
@@ -73,7 +73,7 @@
                     Orientation="Horizontal">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
-                        FontSize="15"
+                        FontSize="{StaticResource SmallFontSize}"
                         Foreground="White"
                         Glyph="&#xE8C8;" />
                     <TextBlock
@@ -81,6 +81,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontWeight="Bold"
+                        FontSize="{StaticResource SmallFontSize}"
                         Foreground="White"
                         Text="COPY URL" />
                 </StackPanel>
@@ -89,7 +90,7 @@
         <StackPanel
             x:Name="MenuPanel"
             Grid.RowSpan="2"
-            Margin="0,40,0,52"
+            Margin="0,40,0,44"
             VerticalAlignment="Bottom"
             Orientation="Vertical">
             <Button
@@ -102,7 +103,7 @@
                     <TextBlock
                         Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                         Style="{StaticResource SetAsTextBlockStyle}"
-                        Text="Background" />
+                        Text="Background" FontSize="{StaticResource SmallFontSize}"/>
                 </Grid>
             </Button>
             <Button
@@ -116,7 +117,7 @@
                     <TextBlock
                         Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                         Style="{StaticResource SetAsTextBlockStyle}"
-                        Text="Lock screen" />
+                        Text="Lock screen" FontSize="{StaticResource SmallFontSize}" />
                 </Grid>
             </Button>
             <Button
@@ -130,7 +131,7 @@
                     <TextBlock
                         Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                         Style="{StaticResource SetAsTextBlockStyle}"
-                        Text="Both" />
+                        Text="Both" FontSize="{StaticResource SmallFontSize}"/>
                 </Grid>
             </Button>
         </StackPanel>
@@ -170,11 +171,13 @@
                                 Grid.ColumnSpan="2"
                                 Margin="12,0,0,0"
                                 FontWeight="Bold"
+                                FontSize="{StaticResource SmallFontSize}"
                                 Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                                 Text="SET AS" />
                             <FontIcon
                                 x:Name="BackFI"
                                 Margin="12,0,0,0"
+                                FontSize="{StaticResource MediumFontSize}"
                                 HorizontalAlignment="Left"
                                 FontFamily="Segoe MDL2 Assets"
                                 Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
@@ -190,7 +193,7 @@
                         Style="{StaticResource ListButtonStyle}">
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
-                            FontSize="20"
+                            FontSize="{StaticResource MediumFontSize}"
                             Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                             Glyph="&#xEC50;" />
                         <ToolTipService.ToolTip>
@@ -232,6 +235,7 @@
                         Style="{StaticResource ListButtonStyle}">
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
+                            FontSize="{StaticResource MediumFontSize}"
                             Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                             Glyph="&#xE107;" />
                     </Button>
@@ -253,6 +257,7 @@
                         VerticalAlignment="Center"
                         FontWeight="Bold"
                         Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay}"
+                        FontSize="{StaticResource SmallFontSize}"
                         Text="{Binding ProgressString, FallbackValue=30%, Mode=OneWay}" />
                     <Button
                         Width="{StaticResource DownloadProgressBarHeight}"
@@ -263,7 +268,7 @@
                         Style="{StaticResource ListButtonStyle}">
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
-                            FontSize="15"
+                            FontSize="{StaticResource SmallFontSize}"
                             Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                             Glyph="&#xE106;" />
                     </Button>

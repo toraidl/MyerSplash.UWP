@@ -26,25 +26,28 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="Transparent">
+        <Grid x:Name="DummyTitleBar" Background="Transparent"/>
+        <StackPanel Orientation="Horizontal">
+            <Button
+                x:Name="CloseBtn"
+                Width="{StaticResource MainButtonSize}"
+                Height="{StaticResource MainButtonSize}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Click="CloseBtn_Click"
+                Style="{StaticResource ListButtonStyle}" Margin="12,0,0,0">
+                <FontIcon Style="{StaticResource CloseIconStyle}"
+                          FontSize="{StaticResource SmallFontSize}" />
+            </Button>
             <TextBlock
-                Margin="0,0,0,0"
-                HorizontalAlignment="Center"
+                Margin="12,0,0,0"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                FontSize="25"
+                FontSize="{StaticResource MediumFontSize}"
                 FontWeight="Bold"
                 Foreground="White"
                 Text="DOWNLOADS" />
-        </Grid>
-        <Button
-            x:Name="CloseBtn"
-            Width="70"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Stretch"
-            Click="CloseBtn_Click"
-            Style="{StaticResource ListButtonStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" />
-        </Button>
+        </StackPanel>
         <control:AdaptiveGridView
             x:Name="ImageGridView"
             Grid.Row="1"
@@ -52,8 +55,8 @@
             attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
             IncrementalLoadingTrigger="Edge"
             ItemsSource="{x:Bind DownloadsVM.DownloadingImages, Mode=OneWay}"
-            MinItemHeight="240"
-            MinItemWidth="240"
+            MinItemHeight="220"
+            MinItemWidth="220"
             SelectionMode="None"
             ShowsScrollingPlaceholders="False">
             <control:AdaptiveGridView.ItemTemplate>

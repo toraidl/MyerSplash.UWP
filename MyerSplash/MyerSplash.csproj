@@ -153,6 +153,9 @@
     <Compile Include="View\Uc\LoadingTextControl.xaml.cs">
       <DependentUpon>LoadingTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Uc\MainNavigationControl.xaml.cs">
+      <DependentUpon>MainNavigationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Uc\ManageDownloadControl.xaml.cs">
       <DependentUpon>ManageDownloadControl.xaml</DependentUpon>
     </Compile>
@@ -185,9 +188,6 @@
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="Common\TitleBarHelper.cs" />
-    <Compile Include="View\Uc\DrawerControl.xaml.cs">
-      <DependentUpon>DrawerControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Uc\HamburgerButton.xaml.cs">
       <DependentUpon>HamburgerButton.xaml</DependentUpon>
     </Compile>
@@ -316,10 +316,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\DrawerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Uc\EllipseShadowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -333,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Uc\ManageDownloadControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Uc\MainNavigationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

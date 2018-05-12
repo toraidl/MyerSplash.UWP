@@ -10,6 +10,13 @@
         FallbackColor="Black"
         TintColor="Black"
         TintOpacity="0.8" />
+    <backdrop:AcrylicHostBrush
+        x:Key="CustomAcrylicWindowBrush"
+        BackdropFactor="1.0"
+        BlurAmount="10"
+        TintColor="Black"
+        TintColorFactor="2.0">
+    </backdrop:AcrylicHostBrush>
     <backdrop:AcrylicBrush
         x:Key="AppBackgroundBrush"
         BackdropFactor="0.5"
