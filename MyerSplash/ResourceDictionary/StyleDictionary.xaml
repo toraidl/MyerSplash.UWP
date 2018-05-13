@@ -1,4 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:cc="using:MyerSplashCustomControl"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FontFamily x:Key="PhoneFontFamilyNormal">Segoe WP</FontFamily>
     <FontWeight x:Key="PhoneButtonFontWeight">Semibold</FontWeight>
     <SolidColorBrush x:Key="ButtonDisabledBackgroundThemeBrush" Color="Transparent" />
@@ -15,6 +17,21 @@
         <Setter Property="Glyph" Value="&#xE0A6;" />
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
         <Setter Property="FontWeight" Value="Black" />
+    </Style>
+    <Style x:Key="MainButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}">
+        <Setter Property="BorderThickness" Value="{StaticResource RevealThinkness}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="RequestedTheme" Value="Dark"/>
+    </Style>
+    <Style x:Key="MainButtonCompatStyle" TargetType="Button" BasedOn="{StaticResource ButtonCommonStyle}">
+        <Setter Property="BorderThickness" Value="{StaticResource RevealThinkness}"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style x:Key="MainFabStyle" TargetType="cc:EllipseShadowControl">
+        <Setter Property="Width" Value="46"/>
+        <Setter Property="Height" Value="46"/>
+        <Setter Property="Radius" Value="21"/>
+        <Setter Property="ForeColor" Value="White"/>
     </Style>
     <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />

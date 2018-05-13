@@ -27,7 +27,7 @@ namespace MyerSplash.View.Uc
         public override async void OnShow()
         {
             base.OnShow();
-            Window.Current.SetTitleBar(TitleBar);
+            Window.Current.SetTitleBar(DummyTitleBar);
             await SettingsVM.CalculateCacheAsync();
         }
 

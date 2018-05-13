@@ -26,8 +26,7 @@
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="NEW" Opacity="1" Style="{StaticResource NavigationItemBlock}" 
-                       />
+            <TextBlock Text="NEW" Opacity="1" Style="{StaticResource NavigationItemBlock}"/>
             <TextBlock Text="FEATURED" Style="{StaticResource NavigationItemBlock}"/>
             <TextBlock Text="RANDOM" Style="{StaticResource NavigationItemBlock}"/>
         </StackPanel>

@@ -32,25 +32,28 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="Transparent">
-            <TextBlock
-                Margin="0,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="25"
-                FontWeight="Bold"
-                Foreground="White"
-                Text="SETTINGS" />
-        </Grid>
+        <Grid x:Name="DummyTitleBar" Background="Transparent"/>
         <Button
             x:Name="CloseBtn"
-            Width="70"
+            Width="{StaticResource MainButtonSize}"
+            Height="{StaticResource MainButtonSize}"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
-            Style="{StaticResource ListButtonStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" />
+            Margin="12,0,0,0"
+            fcu:Style="{StaticResource MainButtonStyle}"
+            cu:Style="{StaticResource MainButtonCompatStyle}">
+            <FontIcon Style="{StaticResource CloseIconStyle}" 
+                      FontSize="{StaticResource SmallFontSize}"/>
         </Button>
+        <TextBlock
+            Margin="12,0,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="{StaticResource MediumFontSize}"
+            FontWeight="Bold"
+            Foreground="White"
+            Text="SETTINGS" />
         <Grid Grid.Row="1" MaxWidth="600">
             <ScrollViewer
                 HorizontalScrollBarVisibility="Disabled"
@@ -119,24 +122,26 @@
                         Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
-                            <TextBlock
-                                Margin="12"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                Text="Open folder that wallpapers are saved into" />
-                        </Border>
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        cu:Style="{StaticResource MainButtonCompatStyle}"
+                        VerticalAlignment="Center" 
+                        HorizontalContentAlignment="Left">
+                        <TextBlock
+                            Margin="{StaticResource SettingsButtonMargin}"
+                            Foreground="White"
+                            Text="Open folder that wallpapers are saved into" />
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" />
+                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" VerticalAlignment="Center" Margin="12,0,0,0" />
                             <Button
                                 Margin="12,0,0,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}"
-                                Style="{StaticResource ButtonCommonStyle}">
+                                fcu:Style="{StaticResource MainButtonStyle}"
+                                cu:Style="{StaticResource MainButtonCompatStyle}">
                                 <Grid>
                                     <Ellipse
                                         Width="20"
@@ -179,14 +184,15 @@
                         Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
-                            <TextBlock
-                                Margin="12"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
-                        </Border>
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        HorizontalContentAlignment="Left"
+                        cu:Style="{StaticResource MainButtonCompatStyle}">
+                        <TextBlock
+                            Margin="{StaticResource SettingsButtonMargin}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
                     </Button>
                     <TextBlock
                         Margin="12,12,12,0"
@@ -199,14 +205,15 @@
                         Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
-                            <TextBlock
-                                Margin="12"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                Text="Clean up temp files" />
-                        </Border>
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        HorizontalContentAlignment="Left"
+                        cu:Style="{StaticResource MainButtonCompatStyle}">
+                        <TextBlock
+                            Margin="{StaticResource SettingsButtonMargin}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            Text="Clean up temp files" />
                     </Button>
                 </StackPanel>
             </ScrollViewer>

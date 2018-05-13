@@ -568,8 +568,6 @@ namespace MyerSplash.ViewModel
                 await InsertTodayWallpaperAsync();
             }
 
-            // Don't hide the refreshing hint too fast
-            await Task.Delay(1000);
             IsRefreshing = false;
         }
 
