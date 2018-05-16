@@ -32,7 +32,7 @@
         </StackPanel>
         <Border Grid.Row="1" 
                 Margin="10,0,10,0" 
-                Width="32"
+                Width="35"
                 Background="White"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"/>
