@@ -38,11 +38,6 @@ namespace MyerSplash.Common
             }
         }
 
-        protected virtual void SetUpTitleBarExtend()
-        {
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-        }
-
         protected virtual void SetUpPageAnimation()
         {
             TransitionCollection collection = new TransitionCollection();
@@ -87,8 +82,6 @@ namespace MyerSplash.Common
                     NavigationViewModel.Activate(e.Parameter);
                 }
             }
-
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
             SetNavigationBackBtn();
             SetUpTitleBar();

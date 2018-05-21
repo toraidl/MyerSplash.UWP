@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Numerics;
 using Windows.UI.Composition;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -143,20 +144,11 @@ namespace MyerSplash.View.Page
                 ToggleRefreshBtnAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
-
-            Debug.WriteLine("offset:" + scrollViewer.VerticalOffset);
         }
-
         #endregion Scrolling
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            CustomTitleBar();
-        }
-
         protected override void SetUpTitleBar()
-        {
+        {            
             TitleBarHelper.SetUpLightTitleBar();
         }
 

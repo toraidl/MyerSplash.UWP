@@ -21,7 +21,8 @@
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.SearchCommand}" PressedKey="F6" />
         </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
-    <Grid x:Name="RootGrid" cu:Background="{StaticResource CustomAcrylicWindowBrush}"
+    <Grid x:Name="RootGrid" 
+          cu:Background="{StaticResource CustomAcrylicWindowBrush}"
           fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
@@ -60,10 +61,12 @@
                 </Grid>
             </Button>
         </Grid>
-        <Grid x:Name="DummyTitleBar" Background="Transparent"/>
-        <Grid x:Name="TitleGridContent"
+        <Grid x:Name="DummyTitleBar"
               cu:Background="{StaticResource CustomAcrylicWindowBrush}"
-              fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}" Padding="0,30,0,0">
+              fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}"
+              VerticalAlignment="Stretch"/>
+        <Grid x:Name="TitleGridContent"
+              Padding="0,30,0,0">
             <cc:TopNavigationControl 
                 Margin="12,0,0,0"
                 SliderBrush="White"

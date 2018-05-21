@@ -5,6 +5,7 @@ using MyerSplashShared.Utils;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -56,6 +57,9 @@ namespace MyerSplash
             }
 #endif
             if (e.PrelaunchActivated) return;
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
         }
