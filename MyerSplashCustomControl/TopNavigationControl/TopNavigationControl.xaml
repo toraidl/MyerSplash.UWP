@@ -11,11 +11,11 @@
                         <Canvas>
                             <Border
                                 x:Name="NavigationBorder"
-                                Height="5"
-                                VerticalAlignment="Bottom"
+                                Height="4"
+                                VerticalAlignment="Top"
                                 Width="25"
                                 HorizontalAlignment="Left"
-                                Background="{TemplateBinding BorderBrush}">
+                                Background="{TemplateBinding SliderBrush}">
                             </Border>
                         </Canvas>
                     </StackPanel>

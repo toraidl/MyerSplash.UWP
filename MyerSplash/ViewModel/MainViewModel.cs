@@ -10,6 +10,7 @@ using MyerSplash.ViewModel.DataViewModel;
 using MyerSplashShared.API;
 using MyerSplashShared.Service;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -21,9 +22,9 @@ namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
-        private const int RANDOM_INDEX = 0;
-        private const int FEATURED_INDEX = 2;
-        private const int NEW_INDEX = 1;
+        private const int NEW_INDEX = 0;
+        private const int FEATURED_INDEX = 1;
+        private const int RANDOM_INDEX = 2;
 
         private string DefaultTitleName
         {
@@ -31,13 +32,15 @@ namespace MyerSplash.ViewModel
             {
                 switch (AppSettings.Instance.DefaultCategory)
                 {
-                    case 0: return "RANDOM";
-                    case 1: return "NEW";
-                    case 2: return "FEATURED";
+                    case 0: return "NEW";
+                    case 1: return "FEATURED";
+                    case 2: return "RANDOM";
                     default: return "MyerSplash";
                 }
             }
         }
+
+        private Dictionary<int, WeakReference<ImageDataViewModel>> _vms = new Dictionary<int, WeakReference<ImageDataViewModel>>();
 
         private ImageDataViewModel _dataVM;
         public ImageDataViewModel DataVM
@@ -465,27 +468,8 @@ namespace MyerSplash.ViewModel
                     // From search to category
                     if (lastValue != -1)
                     {
-                        if (value == NEW_INDEX)
-                        {
-                            DataVM = new ImageDataViewModel(this,
-                                new ImageService(Request.GetNewImages, NormalFactory));
-                        }
-                        else if (value == FEATURED_INDEX)
-                        {
-                            DataVM = new ImageDataViewModel(this,
-                                new ImageService(Request.GetFeaturedImages, FeaturedFactory));
-                        }
-                        else if (value == RANDOM_INDEX)
-                        {
-                            DataVM = new RandomImagesDataViewModel(this,
-                                new RandomImageService(NormalFactory));
-                        }
-                        else if (value > NEW_INDEX)
-                        {
-                            DataVM = new SearchResultViewModel(this,
-                                new SearchImageService(NormalFactory, Categories[value].Title));
-                        }
-                        if (DataVM != null)
+                        DataVM = CreateOrCacheDataVm(value);
+                        if (DataVM != null && DataVM.DataList.Count == 0)
                         {
                             var task = RefreshListAsync();
                         }
@@ -548,6 +532,37 @@ namespace MyerSplash.ViewModel
 
             DataVM = new ImageDataViewModel(this,
                 new ImageService(Request.GetNewImages, NormalFactory));
+        }
+
+        private ImageDataViewModel CreateOrCacheDataVm(int index)
+        {
+            ImageDataViewModel vm = null;
+            if (_vms.ContainsKey(index))
+            {
+                _vms[index].TryGetTarget(out vm);
+            }
+
+            if (vm == null)
+            {
+                switch (index)
+                {
+                    case NEW_INDEX:
+                        vm = new ImageDataViewModel(this, new ImageService(Request.GetNewImages, NormalFactory));
+                        break;
+                    case FEATURED_INDEX:
+                        vm = new ImageDataViewModel(this, new ImageService(Request.GetFeaturedImages, FeaturedFactory));
+                        break;
+                    case RANDOM_INDEX:
+                        vm = new RandomImagesDataViewModel(this, new RandomImageService(NormalFactory));
+                        break;
+                    default:
+                        vm = new SearchResultViewModel(this, new SearchImageService(NormalFactory, Categories[index].Title));
+                        break;
+                }
+                _vms[index] = new WeakReference<ImageDataViewModel>(vm, true);
+            }
+
+            return vm;
         }
 
         private async Task SearchByKeywordAsync()
