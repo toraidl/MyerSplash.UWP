@@ -11,7 +11,6 @@ using MyerSplashShared.API;
 using MyerSplashShared.Service;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.System;
@@ -40,7 +39,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private Dictionary<int, WeakReference<ImageDataViewModel>> _vms = new Dictionary<int, WeakReference<ImageDataViewModel>>();
+        private Dictionary<int, ImageDataViewModel> _vms = new Dictionary<int, ImageDataViewModel>();
 
         private ImageDataViewModel _dataVM;
         public ImageDataViewModel DataVM
@@ -59,26 +58,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private ObservableCollection<UnsplashCategory> _categories;
-        public ObservableCollection<UnsplashCategory> Categories
-        {
-            get
-            {
-                return _categories;
-            }
-            set
-            {
-                if (_categories != value)
-                {
-                    _categories = value;
-                    RaisePropertyChanged(() => Categories);
-                }
-            }
-        }
-
         public bool IsInView { get; set; }
-
-        public bool IsFirstActived { get; set; } = true;
 
         #region Search
 
@@ -491,10 +471,6 @@ namespace MyerSplash.ViewModel
                     }
                     else name = SearchKeyword.ToUpper();
                 }
-                else if (Categories?.Count > 0)
-                {
-                    name = Categories[SelectedIndex].Title.ToUpper();
-                }
                 else name = DefaultTitleName;
                 return $"{name}";
             }
@@ -518,6 +494,8 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        public bool IsFirstActived { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public MainViewModel()
         {
             FooterLoadingVisibility = Visibility.Collapsed;
@@ -539,7 +517,7 @@ namespace MyerSplash.ViewModel
             ImageDataViewModel vm = null;
             if (_vms.ContainsKey(index))
             {
-                _vms[index].TryGetTarget(out vm);
+                vm = _vms[index];
             }
 
             if (vm == null)
@@ -555,11 +533,8 @@ namespace MyerSplash.ViewModel
                     case RANDOM_INDEX:
                         vm = new RandomImagesDataViewModel(this, new RandomImageService(NormalFactory));
                         break;
-                    default:
-                        vm = new SearchResultViewModel(this, new SearchImageService(NormalFactory, Categories[index].Title));
-                        break;
                 }
-                _vms[index] = new WeakReference<ImageDataViewModel>(vm, true);
+                _vms[index] = vm;
             }
 
             return vm;
@@ -598,13 +573,6 @@ namespace MyerSplash.ViewModel
                 imageItem.Init();
                 await imageItem.DownloadBitmapForListAsync();
             }
-        }
-
-        private async Task InitCategoriesAsync()
-        {
-            if (Categories?.Count > 0) return;
-            Categories = await UnsplashCategoryFactory.GetCategoriesAsync();
-            SelectedIndex = NEW_INDEX;
         }
 
         public void Activate(object param)
@@ -649,7 +617,6 @@ namespace MyerSplash.ViewModel
                         case Value.SET_AS:
                             await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
                             break;
-
                         case Value.VIEW:
                             await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
                             break;
@@ -662,14 +629,9 @@ namespace MyerSplash.ViewModel
         {
         }
 
-        public async void OnLoaded()
+        public void OnLoaded()
         {
-            if (IsFirstActived)
-            {
-                IsFirstActived = false;
-                await InitCategoriesAsync();
-                await RefreshListAsync();
-            }
+            SelectedIndex = NEW_INDEX;
         }
     }
 }
