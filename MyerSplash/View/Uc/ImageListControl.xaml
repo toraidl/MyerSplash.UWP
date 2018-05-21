@@ -26,6 +26,7 @@
         ItemClick="ImageGridView_ItemClick"
         ItemContainerTransitions="{x:Null}"
         ItemsSource="{x:Bind MainVM.DataVM.DataList, Mode=OneWay}"
+        ChoosingItemContainer="ImageGridView_ChoosingItemContainer"
         Loaded="ImageGridView_Loaded"
         MinItemHeight="200"
         MinItemWidth="300"

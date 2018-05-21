@@ -17,21 +17,31 @@ namespace MyerSplashShared.Utils
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private BitmapImage _bitmap;
+        private WeakReference<BitmapImage> _bitmapRef;
         [IgnoreDataMember]
+        public WeakReference<BitmapImage> BitmapRef
+        {
+            get
+            {
+                return _bitmapRef;
+            }
+            private set
+            {
+                if (_bitmapRef != value)
+                {
+                    _bitmapRef = value;
+                    RaisePropertyChanged(nameof(Bitmap));
+                }
+            }
+        }
+
         public BitmapImage Bitmap
         {
             get
             {
-                return _bitmap;
-            }
-            private set
-            {
-                if (_bitmap != value)
-                {
-                    _bitmap = value;
-                    RaisePropertyChanged(nameof(Bitmap));
-                }
+                BitmapImage image = null;
+                BitmapRef?.TryGetTarget(out image);
+                return image;
             }
         }
 
@@ -107,8 +117,9 @@ namespace MyerSplashShared.Utils
 
         public async Task SetImageSourceAsync(IRandomAccessStream source)
         {
-            Bitmap = new BitmapImage();
-            await Bitmap.SetSourceAsync(source);
+            var bitmap = new BitmapImage();
+            await bitmap.SetSourceAsync(source);
+            BitmapRef = new WeakReference<BitmapImage>(bitmap);
         }
 
         public async Task SetImageSourceAsync(StorageFile source)
@@ -121,7 +132,7 @@ namespace MyerSplashShared.Utils
 
         public void SetBitmap(BitmapImage targetBitmap)
         {
-            Bitmap = targetBitmap;
+            BitmapRef = new WeakReference<BitmapImage>(targetBitmap);
         }
 
         private string GenerateRandomFileName()

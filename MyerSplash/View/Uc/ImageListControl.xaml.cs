@@ -326,5 +326,16 @@ namespace MyerSplash.View.Uc
         {
             e.Handled = true;
         }
+
+        private async void ImageGridView_ChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
+        {
+            if (!(args.Item is ImageItem imageItem)) return;
+            var cacheBitmap = imageItem.ListImageBitmap;
+            var bitmap = cacheBitmap.Bitmap;
+            if (bitmap == null)
+            {
+                await cacheBitmap.LoadBitmapAsync();
+            }
+        }
     }
 }
