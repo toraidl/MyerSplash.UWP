@@ -16,6 +16,12 @@ using Windows.UI.Xaml.Media;
 
 namespace MyerSplashCustomControl
 {
+    public class TitleClickEventArg
+    {
+        public int NewIndex { get; set; }
+        public int OldIndex { get; set; }
+    }
+
     [ContentProperty(Name = "Items")]
     public class TopNavigationControl : Control
     {
@@ -25,6 +31,8 @@ namespace MyerSplashCustomControl
         private Border _navigationBorder;
         private Visual _borderVisual;
         private Compositor _compositor;
+
+        public event EventHandler<TitleClickEventArg> TitleClicked;
 
         public Collection<Object> Items
         {
@@ -290,7 +298,13 @@ namespace MyerSplashCustomControl
 
         private void Element_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            int old = SelectedIndex;
             SelectedIndex = _rootPanel.Children.IndexOf(sender as UIElement);
+            TitleClicked?.Invoke(this, new TitleClickEventArg()
+            {
+                OldIndex = old,
+                NewIndex = SelectedIndex
+            });
         }
 
         private void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

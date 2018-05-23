@@ -71,6 +71,7 @@
             <cc:TopNavigationControl 
                 Margin="12,0,0,0"
                 SliderBrush="White"
+                TitleClicked="TopNavigationControl_TitleClicked"
                 SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
                 ItemsSource="{x:Bind MainVM.Tabs, Mode=TwoWay}"
                 HorizontalAlignment="Left" 

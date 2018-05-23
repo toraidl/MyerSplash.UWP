@@ -1,6 +1,7 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
+using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Numerics;
@@ -87,12 +88,6 @@ namespace MyerSplash.View.Page
         }
 
         #endregion Loading animation
-
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ListControl.ScrollToTop();
-        }
-
         private void ListControl_OnClickItemStarted(ImageItem img, FrameworkElement container)
         {
             _clickedContainer = container;
@@ -145,7 +140,7 @@ namespace MyerSplash.View.Page
         #endregion Scrolling
 
         protected override void SetUpTitleBar()
-        {            
+        {
             TitleBarHelper.SetUpLightTitleBar();
         }
 
@@ -160,6 +155,14 @@ namespace MyerSplash.View.Page
         private void MoreBtn_Click(object sender, RoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void TopNavigationControl_TitleClicked(object sender, TitleClickEventArg e)
+        {
+            if (e.NewIndex == e.OldIndex)
+            {
+                ListControl.ScrollToTop();
+            }
         }
     }
 }
