@@ -12,7 +12,7 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
     <Style x:Key="CloseIconStyle" TargetType="FontIcon">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Glyph" Value="&#xE0A6;" />
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
@@ -38,6 +38,7 @@
         <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
         <Setter Property="SelectionHighlightColor" Value="{ThemeResource SystemControlHighlightAccentBrush}" />
         <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}" />
@@ -1305,6 +1306,7 @@
         <Setter Property="MinWidth" Value="154" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="RequestedTheme" Value="Dark" />
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="OnContent" Value="On" />
         <Setter Property="OffContent" Value="Off" />
         <Setter Property="HorizontalAlignment" Value="Right" />
@@ -1683,7 +1685,7 @@
         <Setter Property="Margin" Value="0,24,0,0" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="{StaticResource MyerSplashThemeColorBrush}" />
     </Style>

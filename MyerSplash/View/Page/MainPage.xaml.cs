@@ -3,17 +3,14 @@ using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Utils;
 using System;
-using System.Diagnostics;
 using System.Numerics;
 using Windows.UI.Composition;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
 {

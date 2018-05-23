@@ -12,12 +12,20 @@
     d:DesignWidth="700"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <Style x:Key="SettingItemButtonContentStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="{StaticResource SettingsButtonMargin}" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style x:Key="SettingItemTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="12,12,0,0" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14"/>
         </Style>
         <Style x:Key="SettingItemComboBoxStyle" TargetType="ComboBox">
             <Setter Property="Margin" Value="12,12,12,0" />
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="RequestedTheme" Value="Dark" />
@@ -75,7 +83,7 @@
                         <TextBlock
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
-                            Foreground="White"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Enable Live Tile" />
                         <ToggleSwitch
                             Grid.Column="1"
@@ -93,7 +101,7 @@
                         <TextBlock
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
-                            Foreground="White"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Enable scale animation when pointer enters" />
                         <ToggleSwitch
                             Grid.Column="1"
@@ -111,7 +119,7 @@
                         <TextBlock
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
-                            Foreground="White"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Enable today's recommendation" />
                         <ToggleSwitch
                             Grid.Column="1"
@@ -128,20 +136,18 @@
                         VerticalAlignment="Center" 
                         HorizontalContentAlignment="Left">
                         <TextBlock
-                            Margin="{StaticResource SettingsButtonMargin}"
-                            Foreground="White"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Open folder that wallpapers are saved into" />
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                             <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" VerticalAlignment="Center" Margin="12,0,0,0" />
                             <Button
-                                Margin="12,0,0,0"
                                 HorizontalAlignment="Right"
+                                Margin="12,0,0,0"
                                 VerticalAlignment="Bottom"
-                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}"
-                                fcu:Style="{StaticResource MainButtonStyle}"
-                                cu:Style="{StaticResource MainButtonCompatStyle}">
+                                Style="{StaticResource ButtonCommonStyle}"
+                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}">
                                 <Grid>
                                     <Ellipse
                                         Width="20"
@@ -189,9 +195,7 @@
                         HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}">
                         <TextBlock
-                            Margin="{StaticResource SettingsButtonMargin}"
-                            HorizontalAlignment="Left"
-                            Foreground="White"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
                     </Button>
                     <TextBlock
@@ -210,9 +214,7 @@
                         HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}">
                         <TextBlock
-                            Margin="{StaticResource SettingsButtonMargin}"
-                            HorizontalAlignment="Left"
-                            Foreground="White"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Clean up temp files" />
                     </Button>
                 </StackPanel>

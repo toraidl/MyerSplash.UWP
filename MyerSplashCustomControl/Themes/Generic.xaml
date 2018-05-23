@@ -39,9 +39,6 @@
                                                     ContentTransitions="{TemplateBinding ContentTransitions}" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
-                                                        <!--<VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0:0:0.2" />
-                                </VisualStateGroup.Transitions>-->
                                                         <VisualState x:Name="Normal">
                                                             <Storyboard>
                                                                 <ColorAnimation
