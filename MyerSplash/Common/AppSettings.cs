@@ -85,7 +85,7 @@ namespace MyerSplash.Common
         {
             get
             {
-                return ReadSettings(nameof(DefaultCategory), 1);
+                return ReadSettings(nameof(DefaultCategory), 0);
             }
             set
             {
@@ -109,7 +109,6 @@ namespace MyerSplash.Common
                     case 0:
                         var task0 = BackgroundTaskRegister.UnregisterAsync();
                         break;
-
                     case 1:
                     // fall through
                     case 2:

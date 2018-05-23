@@ -12,10 +12,13 @@ using MyerSplashShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using System.Collections.ObjectModel;
+using Windows.UI.Core;
 
 namespace MyerSplash.ViewModel
 {
@@ -25,16 +28,29 @@ namespace MyerSplash.ViewModel
         private const int FEATURED_INDEX = 1;
         private const int RANDOM_INDEX = 2;
 
+        public const string NEW_NAME = "NEW";
+        public const string FEATURED_NAME = "FEATURED";
+        public const string RANDOM_NAME = "RANDOM";
+
+        public Dictionary<int, string> INDEX_TO_NAME = new Dictionary<int, string>()
+        {
+            { NEW_INDEX,NEW_NAME },
+            { FEATURED_INDEX,FEATURED_NAME },
+            { RANDOM_INDEX,RANDOM_NAME }
+        };
+
         private string DefaultTitleName
         {
             get
             {
-                switch (AppSettings.Instance.DefaultCategory)
+                var key = AppSettings.Instance.DefaultCategory;
+                if (INDEX_TO_NAME.ContainsKey(key))
                 {
-                    case 0: return "NEW";
-                    case 1: return "FEATURED";
-                    case 2: return "RANDOM";
-                    default: return "MyerSplash";
+                    return INDEX_TO_NAME[AppSettings.Instance.DefaultCategory];
+                }
+                else
+                {
+                    return "MyerSplash";
                 }
             }
         }
@@ -59,6 +75,23 @@ namespace MyerSplash.ViewModel
         }
 
         public bool IsInView { get; set; }
+
+        private ObservableCollection<string> _tabs;
+        public ObservableCollection<string> Tabs
+        {
+            get
+            {
+                return _tabs;
+            }
+            set
+            {
+                if (_tabs != value)
+                {
+                    _tabs = value;
+                    RaisePropertyChanged(() => Tabs);
+                }
+            }
+        }
 
         #region Search
 
@@ -141,7 +174,6 @@ namespace MyerSplash.ViewModel
                   {
                       if (ShowSearchBar)
                       {
-                          SelectedIndex = -1;
                           ShowSearchBar = false;
                           await SearchByKeywordAsync();
                           SearchKeyword = "";
@@ -439,13 +471,11 @@ namespace MyerSplash.ViewModel
 
                     _selectedIndex = value;
                     RaisePropertyChanged(() => SelectedIndex);
-                    RaisePropertyChanged(() => SelectedTitle);
                     if (value == -1)
                     {
                         return;
                     }
 
-                    // From search to category
                     if (lastValue != -1)
                     {
                         DataVM = CreateOrCacheDataVm(value);
@@ -455,24 +485,6 @@ namespace MyerSplash.ViewModel
                         }
                     }
                 }
-            }
-        }
-
-        public string SelectedTitle
-        {
-            get
-            {
-                var name = "";
-                if (SelectedIndex == -1)
-                {
-                    if (SearchKeyword == null)
-                    {
-                        name = DefaultTitleName;
-                    }
-                    else name = SearchKeyword.ToUpper();
-                }
-                else name = DefaultTitleName;
-                return $"{name}";
             }
         }
 
@@ -507,6 +519,7 @@ namespace MyerSplash.ViewModel
             ShowDownloadsUC = false;
 
             SelectedIndex = -1;
+            Tabs = new ObservableCollection<string>();
 
             DataVM = new ImageDataViewModel(this,
                 new ImageService(Request.GetNewImages, NormalFactory));
@@ -534,7 +547,11 @@ namespace MyerSplash.ViewModel
                         vm = new RandomImagesDataViewModel(this, new RandomImageService(NormalFactory));
                         break;
                 }
-                _vms[index] = vm;
+
+                if (vm != null)
+                {
+                    _vms[index] = vm;
+                }
             }
 
             return vm;
@@ -543,8 +560,17 @@ namespace MyerSplash.ViewModel
         private async Task SearchByKeywordAsync()
         {
             var searchService = new SearchImageService(NormalFactory, SearchKeyword);
+
+            var list = INDEX_TO_NAME.Select(s => s.Value).ToList();
+            list.Add(SearchKeyword.ToUpper());
+
+            Tabs = new ObservableCollection<string>(list);
+
+            SelectedIndex = Tabs.Count - 1;
             DataVM = new SearchResultViewModel(this, searchService);
-            RaisePropertyChanged(() => SelectedTitle);
+
+            _vms[SelectedIndex] = DataVM;
+
             await RefreshListAsync();
         }
 
@@ -632,6 +658,7 @@ namespace MyerSplash.ViewModel
         public void OnLoaded()
         {
             SelectedIndex = NEW_INDEX;
+            Tabs = new ObservableCollection<string>(INDEX_TO_NAME.Select(s => s.Value).ToList());
         }
     }
 }

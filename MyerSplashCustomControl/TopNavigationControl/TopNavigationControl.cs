@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -30,6 +31,20 @@ namespace MyerSplashCustomControl
             get;
         }
 
+        public IEnumerable ItemsSource
+        {
+            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+            set { SetValue(ItemsSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register("ItemsSource", typeof(IEnumerable),
+                typeof(TopNavigationControl), new PropertyMetadata(null, (s, r) =>
+                {
+                    TopNavigationControl target = s as TopNavigationControl;
+                    target?.UpdateViews();
+                }));
+
         public int SelectedIndex
         {
             get { return (int)GetValue(SelectedIndexProperty); }
@@ -41,7 +56,7 @@ namespace MyerSplashCustomControl
                 typeof(TopNavigationControl), new PropertyMetadata(1, (s, r) =>
                 {
                     TopNavigationControl target = s as TopNavigationControl;
-                    target.UpdateSelectedSlider();
+                    target?.UpdateSelectedSlider();
                 }));
 
         public DataTemplate ItemTemplate
@@ -55,7 +70,7 @@ namespace MyerSplashCustomControl
                 typeof(TopNavigationControl), new PropertyMetadata(null, (s, r) =>
                 {
                     TopNavigationControl target = s as TopNavigationControl;
-                    target.UpdateViews();
+                    target?.UpdateViews();
                 }));
 
         public Brush SliderBrush
@@ -161,7 +176,7 @@ namespace MyerSplashCustomControl
 
         private void UpdateViews()
         {
-            if (_rootPanel == null) return;
+            if (_rootPanel == null || ItemsSource == null) return;
 
             foreach (var child in _rootPanel.Children)
             {
@@ -170,9 +185,26 @@ namespace MyerSplashCustomControl
 
             _rootPanel.Children.Clear();
 
-            for (var i = 0; i < Items.Count; i++)
+            IEnumerable<object> source;
+
+            if (ItemsSource is IEnumerable<object>)
             {
-                var item = Items[i];
+                source = ItemsSource as IEnumerable<object>;
+            }
+            else
+            {
+                source = Items;
+            }
+
+            if (source == null) return;
+
+            var enumerator = source.GetEnumerator();
+
+            var i = -1;
+            while (enumerator.MoveNext())
+            {
+                i++;
+                var item = enumerator.Current;
 
                 DependencyObject container;
                 if (IsItemItsOwnContainerOverride(item))

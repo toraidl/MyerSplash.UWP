@@ -70,12 +70,10 @@
             <cc:TopNavigationControl 
                 Margin="12,0,0,0"
                 SliderBrush="White"
-                SelectedIndex="{x:Bind MainVM.SelectedIndex,Mode=TwoWay}"
+                SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
+                ItemsSource="{x:Bind MainVM.Tabs, Mode=TwoWay}"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center">
-                <x:String>NEW</x:String>
-                <x:String>FEATURED</x:String>
-                <x:String>RANDOM</x:String>
                 <cc:TopNavigationControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock 
@@ -85,7 +83,6 @@
                     </DataTemplate>
                 </cc:TopNavigationControl.ItemTemplate>
             </cc:TopNavigationControl>
-
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
                 <Button
                     x:Name="DownloadEntryBtn"
