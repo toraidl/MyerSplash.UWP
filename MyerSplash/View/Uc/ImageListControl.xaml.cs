@@ -4,6 +4,7 @@ using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Numerics;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
@@ -43,6 +44,14 @@ namespace MyerSplash.View.Uc
 
         private ScrollViewer _scrollViewer;
         private FrameworkElement _tappedContainer;
+
+        public double ScrollingPosition
+        {
+            get
+            {
+                return ImageGridView.GetScrollViewer().VerticalOffset;
+            }
+        }
 
         public bool Refreshing
         {
@@ -106,6 +115,16 @@ namespace MyerSplash.View.Uc
         public void ScrollToTop()
         {
             ImageGridView.GetScrollViewer().ChangeView(null, 0, null);
+        }
+
+        public void ScrollToPosition(double y)
+        {
+            ImageGridView.GetScrollViewer().ChangeView(null, y, null, true);
+        }
+
+        public void SmoothScrollToPosition(double y)
+        {
+            ImageGridView.GetScrollViewer().ChangeView(null, y, null, false);
         }
 
         #region List Animation

@@ -4,6 +4,7 @@ using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -29,6 +30,8 @@ namespace MyerSplash.View.Page
 
         private ImageItem _clickedImg;
         private FrameworkElement _clickedContainer;
+
+        private Dictionary<int, double> _scrollingPositions = new Dictionary<int, double>();
 
         public bool IsLoading
         {
@@ -56,6 +59,20 @@ namespace MyerSplash.View.Page
             this.DataContext = MainVM = new MainViewModel();
             InitComposition();
             InitBinding();
+
+            // Ugly, I should come up with better solutions.
+            MainVM.AboutToUpdateSelectedIndex += MainVM_AboutToUpdateSelectedIndex;
+            MainVM.DataUpdated += MainVM_DataUpdated;
+        }
+
+        private void MainVM_DataUpdated(object sender, EventArgs e)
+        {
+            ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
+        }
+
+        private void MainVM_AboutToUpdateSelectedIndex(object sender, int e)
+        {
+            RecordScrollingPosition(e);
         }
 
         private void InitBinding()
@@ -75,6 +92,11 @@ namespace MyerSplash.View.Page
             _refreshBtnVisual = RefreshBtn.GetVisual();
         }
 
+        private void RecordScrollingPosition(int oldValue)
+        {
+            _scrollingPositions[oldValue] = ListControl.ScrollingPosition;
+        }
+
         #region Loading animation
 
         private void ShowLoading()
@@ -88,6 +110,7 @@ namespace MyerSplash.View.Page
         }
 
         #endregion Loading animation
+
         private void ListControl_OnClickItemStarted(ImageItem img, FrameworkElement container)
         {
             _clickedContainer = container;

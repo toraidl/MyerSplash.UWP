@@ -39,6 +39,9 @@ namespace MyerSplash.ViewModel
             { RANDOM_INDEX,RANDOM_NAME }
         };
 
+        public event EventHandler<int> AboutToUpdateSelectedIndex;
+        public event EventHandler DataUpdated;
+
         private string DefaultTitleName
         {
             get
@@ -470,18 +473,21 @@ namespace MyerSplash.ViewModel
                     var lastValue = value;
 
                     _selectedIndex = value;
-                    RaisePropertyChanged(() => SelectedIndex);
-                    if (value == -1)
-                    {
-                        return;
-                    }
 
-                    if (lastValue != -1)
+                    AboutToUpdateSelectedIndex?.Invoke(this, lastValue);
+
+                    RaisePropertyChanged(() => SelectedIndex);
+
+                    if (value >= 0)
                     {
-                        DataVM = CreateOrCacheDataVm(value);
-                        if (DataVM != null && DataVM.DataList.Count == 0)
+                        if (lastValue != -1)
                         {
-                            var task = RefreshListAsync();
+                            DataVM = CreateOrCacheDataVm(value);
+                            if (DataVM != null && DataVM.DataList.Count == 0)
+                            {
+                                var task = RefreshListAsync();
+                            }
+                            DataUpdated?.Invoke(this, null);
                         }
                     }
                 }
