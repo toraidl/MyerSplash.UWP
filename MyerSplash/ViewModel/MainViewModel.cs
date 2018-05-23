@@ -561,10 +561,11 @@ namespace MyerSplash.ViewModel
         {
             var searchService = new SearchImageService(NormalFactory, SearchKeyword);
 
-            var list = INDEX_TO_NAME.Select(s => s.Value).ToList();
-            list.Add(SearchKeyword.ToUpper());
-
-            Tabs = new ObservableCollection<string>(list);
+            if (Tabs.Count != INDEX_TO_NAME.Count && Tabs.Count > 0)
+            {
+                Tabs.RemoveAt(Tabs.Count - 1);
+            }
+            Tabs.Add(SearchKeyword.ToUpper());
 
             SelectedIndex = Tabs.Count - 1;
             DataVM = new SearchResultViewModel(this, searchService);
@@ -658,7 +659,10 @@ namespace MyerSplash.ViewModel
         public void OnLoaded()
         {
             SelectedIndex = NEW_INDEX;
-            Tabs = new ObservableCollection<string>(INDEX_TO_NAME.Select(s => s.Value).ToList());
+            INDEX_TO_NAME.Select(s => s.Value).ToList().ForEach(s =>
+            {
+                Tabs.Add(s);
+            });
         }
     }
 }

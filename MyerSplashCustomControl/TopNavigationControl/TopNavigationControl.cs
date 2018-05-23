@@ -39,11 +39,31 @@ namespace MyerSplashCustomControl
 
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register("ItemsSource", typeof(IEnumerable),
-                typeof(TopNavigationControl), new PropertyMetadata(null, (s, r) =>
-                {
-                    TopNavigationControl target = s as TopNavigationControl;
-                    target?.UpdateViews();
-                }));
+                typeof(TopNavigationControl), new PropertyMetadata(null, OnItemsSourcePropertyChanged));
+
+        private static void OnItemsSourcePropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            TopNavigationControl target = o as TopNavigationControl;
+
+            var oldValue = e.OldValue;
+            if (oldValue is INotifyCollectionChanged oldNotify)
+            {
+                oldNotify.CollectionChanged -= target.Notify_CollectionChanged;
+            }
+
+            var newValue = e.NewValue;
+            if (newValue is INotifyCollectionChanged newNotify)
+            {
+                newNotify.CollectionChanged += target.Notify_CollectionChanged;
+            }
+
+            target?.UpdateViews();
+        }
+
+        private void Notify_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateViews();
+        }
 
         public int SelectedIndex
         {
