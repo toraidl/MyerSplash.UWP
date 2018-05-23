@@ -90,6 +90,7 @@
                 <Button
                     x:Name="DownloadEntryBtn"
                     Grid.Column="3"
+                    Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
                     ToolTipService.ToolTip="Downloads"
                     Margin="0"
@@ -99,23 +100,12 @@
                     fcu:Style="{StaticResource MainButtonStyle}"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}">
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon
-                            Margin="4"
-                            FontFamily="Segoe MDL2 Assets"
-                            Foreground="{StaticResource MainBarIconColorBrush}"
-                            Glyph="&#xE118;"
-                            FontSize="{StaticResource MediumFontSize}"/>
-                        <Border Margin="8,8,8,8" Padding="4" 
-                                Background="{StaticResource MyerSplashThemeColorBrush}">
-                            <TextBlock 
-                                FontWeight="Bold" 
-                                Text="12"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-                        </Border>
-                    </StackPanel>
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Glyph="&#xE118;"
+                        FontSize="{StaticResource MediumFontSize}">
+                    </FontIcon>
                 </Button>
                 <Button
                     x:Name="SearchBtn"
