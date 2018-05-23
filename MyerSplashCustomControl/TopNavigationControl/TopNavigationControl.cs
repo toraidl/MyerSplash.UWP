@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Numerics;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -82,15 +83,19 @@ namespace MyerSplashCustomControl
 
         protected virtual DependencyObject GetContainerForItemOverride()
         {
-            return new ContentPresenter();
+            var cp = new ContentPresenter
+            {
+                Background = new SolidColorBrush(Colors.Transparent)
+            };
+            return cp;
         }
 
-        protected virtual bool IsItemItsOwnContainerOverride(System.Object item)
+        protected virtual bool IsItemItsOwnContainerOverride(Object item)
         {
             return item is UIElement;
         }
 
-        protected virtual void PrepareContainerForItemOverride(DependencyObject container, System.Object item)
+        protected virtual void PrepareContainerForItemOverride(DependencyObject container, Object item)
         {
             if (container is ContentControl)
             {
