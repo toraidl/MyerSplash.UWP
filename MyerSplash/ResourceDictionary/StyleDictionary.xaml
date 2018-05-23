@@ -793,8 +793,8 @@
                                 <Rectangle
                                     x:Name="ThumbVisual"
                                     Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                                    RadiusX="5"
-                                    RadiusY="5">
+                                    RadiusX="{StaticResource ThumbRadius}"
+                                    RadiusY="{StaticResource ThumbRadius}">
                                     <VisualStateManager.VisualStateGroups>
                                         <VisualStateGroup x:Name="CommonStates">
                                             <VisualState x:Name="Normal" />
@@ -829,8 +829,8 @@
                                 <Rectangle
                                     x:Name="ThumbVisual"
                                     Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                                    RadiusX="5"
-                                    RadiusY="5">
+                                    RadiusX="{StaticResource ThumbRadius}"
+                                    RadiusY="{StaticResource ThumbRadius}">
                                     <VisualStateManager.VisualStateGroups>
                                         <VisualStateGroup x:Name="CommonStates">
                                             <VisualState x:Name="Normal" />
@@ -876,8 +876,8 @@
                                 Height="7"
                                 Margin="0"
                                 Fill="Transparent"
-                                RadiusX="5"
-                                RadiusY="5"
+                                RadiusX="{StaticResource ThumbRadius}"
+                                RadiusY="{StaticResource ThumbRadius}"
                                 Stroke="{ThemeResource SystemControlForegroundTransparentBrush}"
                                 StrokeThickness="{ThemeResource ScrollBarTrackBorderThemeThickness}" />
                             <RepeatButton
@@ -954,8 +954,8 @@
                                 Grid.RowSpan="5"
                                 Height="7"
                                 Margin="0"
-                                RadiusX="5"
-                                RadiusY="5"
+                                RadiusX="{StaticResource ThumbRadius}"
+                                RadiusY="{StaticResource ThumbRadius}"
                                 Stroke="{ThemeResource SystemControlForegroundTransparentBrush}"
                                 StrokeThickness="{ThemeResource ScrollBarTrackBorderThemeThickness}" />
                             <RepeatButton

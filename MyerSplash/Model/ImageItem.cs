@@ -254,7 +254,7 @@ namespace MyerSplash.Model
             }
         }
 
-        public Visibility LikesVisibility
+        public Visibility AuthorVisibility
         {
             get
             {
@@ -313,7 +313,7 @@ namespace MyerSplash.Model
         {
             get
             {
-                return Image.Likes.ToString();
+                return Image.Owner.Name;
             }
         }
 

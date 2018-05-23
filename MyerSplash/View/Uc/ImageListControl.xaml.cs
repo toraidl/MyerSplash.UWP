@@ -302,20 +302,6 @@ namespace MyerSplash.View.Uc
             LoadingControl.Stop();
         }
 
-        private async void RootGrid_DragStarting(UIElement sender, DragStartingEventArgs args)
-        {
-            var image = (sender as FrameworkElement).DataContext as ImageItem;
-            var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
-            if (file == null)
-            {
-                args.Cancel = true;
-                return;
-            }
-            args.Data.SetStorageItems(new List<StorageFile>() { file });
-            args.Data.RequestedOperation = DataPackageOperation.Copy;
-            args.Data.SetText(image.ShareText);
-        }
-
         private void RootGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var image = (sender as FrameworkElement).DataContext as ImageItem;

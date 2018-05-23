@@ -5,7 +5,9 @@
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:control="using:MyerSplashCustomControl"
     xmlns:converter="using:MyerSplash.Converter"
+    xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:MyerSplash.Model"
     xmlns:uc="using:MyerSplash.View.Uc"
@@ -50,8 +52,7 @@
             <DataTemplate x:DataType="model:ImageItem">
                 <Grid
                     x:Name="RootGrid"
-                    CanDrag="True"
-                    DragStarting="RootGrid_DragStarting"
+                    CanDrag="False"
                     Loaded="RootGrid_Loaded"
                     SizeChanged="RootGrid_SizeChanged"
                     Tapped="RootGrid_Tapped"
@@ -67,19 +68,10 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Orientation="Horizontal"
-                            Visibility="{x:Bind LikesVisibility, Mode=OneWay}">
-                            <FontIcon
-                                FontFamily="Segoe MDL2 Assets"
-                                Foreground="#FFFF4A43"
-                                Glyph="&#xE00B;" />
+                            Visibility="{x:Bind AuthorVisibility, Mode=OneWay}">
                             <TextBlock
-                                Margin="8,0,0,0"
                                 FontWeight="Bold"
-                                Foreground="White"
-                                Text="Likes" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                FontWeight="Bold"
+                                FontSize="12"
                                 Foreground="White"
                                 Text="{x:Bind LikesString, Mode=OneWay}" />
                         </StackPanel>
@@ -88,9 +80,11 @@
                             Width="50"
                             Height="50"
                             HorizontalAlignment="Right"
+                            ToolTipService.ToolTip="Download"
                             VerticalAlignment="Bottom"
                             Command="{x:Bind DownloadCommand}"
-                            Style="{StaticResource ListButtonStyle}"
+                            fcu:Style="{StaticResource MainButtonStyle}"
+                            cu:Style="{StaticResource MainButtonCompatStyle}"
                             Tapped="DownloadBtn_Tapped">
                             <FontIcon
                                 HorizontalAlignment="Center"
