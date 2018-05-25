@@ -1,8 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using MyerSplash.Common;
+using MyerSplash.Common.Composition;
 using MyerSplash.ViewModel;
+using System;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.View.Uc
 {
@@ -26,9 +30,15 @@ namespace MyerSplash.View.Uc
             DependencyProperty.Register("CloseCommand", typeof(RelayCommand), typeof(ManageDownloadControl),
                 new PropertyMetadata(null));
 
+        private Compositor _compositor;
+        private ImplicitAnimationCollection _elementImplicitAnimation;
+
         public ManageDownloadControl()
         {
             this.InitializeComponent();
+
+            _compositor = this.GetVisual().Compositor;
+            _elementImplicitAnimation = ImplicitAnimationFactory.CreateListOffsetAnimationCollection(_compositor);
         }
 
         public void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -40,6 +50,20 @@ namespace MyerSplash.View.Uc
         {
             base.OnShow();
             Window.Current.SetTitleBar(DummyTitleBar);
+        }
+
+        private void ImageGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            var elementVisual = args.ItemContainer.GetVisual();
+            if (args.InRecycleQueue)
+            {
+                elementVisual.ImplicitAnimations = null;
+            }
+            else
+            {
+                //Add implicit animation to each visual 
+                elementVisual.ImplicitAnimations = _elementImplicitAnimation;
+            }
         }
     }
 }

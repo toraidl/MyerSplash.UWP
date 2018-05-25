@@ -120,6 +120,7 @@
     <Compile Include="Common\BindablePage.cs" />
     <Compile Include="Common\Brush\CompositionBrushBuilder.cs" />
     <Compile Include="Common\Composition\CompositionAnimationBuilder.cs" />
+    <Compile Include="Common\Composition\ImplicitAnimationFactory.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\CustomizedTitleBarPage.cs" />
     <Compile Include="Common\DownloadStatus.cs" />

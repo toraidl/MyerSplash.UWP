@@ -24,6 +24,7 @@ namespace MyerSplash.View.Uc
         private Visual _openBtnVisual;
         private Visual _copyBtnVisual;
         private bool _showMenu = false;
+        private ImplicitAnimationCollection _elementImplicitAnimation;
 
         public bool IsMenuOn
         {

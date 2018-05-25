@@ -59,6 +59,7 @@
             MinItemHeight="220"
             MinItemWidth="220"
             SelectionMode="None"
+            ContainerContentChanging="ImageGridView_ContainerContentChanging"
             ShowsScrollingPlaceholders="False">
             <control:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DownloadItem">

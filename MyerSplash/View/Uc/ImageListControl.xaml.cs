@@ -1,5 +1,6 @@
 ﻿using JP.Utils.UI;
 using MyerSplash.Common;
+using MyerSplash.Common.Composition;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
@@ -45,6 +46,8 @@ namespace MyerSplash.View.Uc
         private ScrollViewer _scrollViewer;
         private FrameworkElement _tappedContainer;
 
+        private ImplicitAnimationCollection _elementImplicitAnimation;
+
         public double ScrollingPosition
         {
             get
@@ -76,8 +79,10 @@ namespace MyerSplash.View.Uc
         public ImageListControl()
         {
             this.InitializeComponent();
-            this._compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            this._compositor = this.GetVisual().Compositor;
             this._listVisual = ImageGridView.GetVisual();
+
+            _elementImplicitAnimation = ImplicitAnimationFactory.CreateListOffsetAnimationCollection(_compositor);
         }
 
         private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -137,6 +142,16 @@ namespace MyerSplash.View.Uc
             {
                 args.ItemContainer.Loaded -= ItemContainer_Loaded;
                 args.ItemContainer.Loaded += ItemContainer_Loaded;
+            }
+
+            var elementVisual = args.ItemContainer.GetVisual();
+            if (args.InRecycleQueue)
+            {
+                elementVisual.ImplicitAnimations = null;
+            }
+            else
+            {
+                elementVisual.ImplicitAnimations = _elementImplicitAnimation;
             }
         }
 
