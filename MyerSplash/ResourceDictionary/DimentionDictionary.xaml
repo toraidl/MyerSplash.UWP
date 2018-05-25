@@ -16,4 +16,5 @@
     <x:Double x:Key="LargeFontSize">18</x:Double>
     <Thickness x:Key="RevealThinkness">0.7</Thickness>
     <Thickness x:Key="SettingsButtonMargin">8</Thickness>
+    <x:Double x:Key="DialogWidth">400</x:Double>
 </ResourceDictionary>
