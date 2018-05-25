@@ -193,6 +193,7 @@
                         fcu:Style="{StaticResource MainButtonStyle}"
                         Background="{StaticResource SettingsButtonBackgroundBrush}"
                         HorizontalContentAlignment="Left"
+                        IsEnabled="{x:Bind SettingsVM.ClearCacheCommandEnabled, Mode=TwoWay}"
                         cu:Style="{StaticResource MainButtonCompatStyle}">
                         <TextBlock
                             Style="{StaticResource SettingItemButtonContentStyle}"
