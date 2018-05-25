@@ -147,7 +147,7 @@
                     d:IsHidden="True">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition Width="52" />
+                        <ColumnDefinition Width="{StaticResource SetAsGridHeight}" />
                     </Grid.ColumnDefinitions>
                     <Border
                         x:Name="BackgrdBorder"

@@ -2,7 +2,7 @@
     <x:Double x:Key="MaxWidthOfDetails">800</x:Double>
     <x:Double x:Key="DrawerBottomHeight">48</x:Double>
     <x:Double x:Key="PosterHeight">60</x:Double>
-    <x:Double x:Key="DownloadProgressBarHeight">52</x:Double>
+    <x:Double x:Key="DownloadProgressBarHeight">44</x:Double>
     <x:Double x:Key="TextStyleLargeFontSize">18.14</x:Double>
     <Thickness x:Key="PhoneButtonContentPadding">9.5,0,9.5,3.5</Thickness>
     <Thickness x:Key="PhoneBorderThickness">2.5</Thickness>

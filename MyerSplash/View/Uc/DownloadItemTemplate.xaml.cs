@@ -1,6 +1,7 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Common.Composition;
 using MyerSplashShared.Utils;
+using System;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -77,6 +78,16 @@ namespace MyerSplash.View.Uc
             _openBtnVisual = OpenBtn.GetVisual();
             _copyBtnVisual = CopyUrlBtn.GetVisual();
 
+            var opacityAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            opacityAnimation.InsertExpressionKeyFrame(1f, "this.FinalValue");
+            opacityAnimation.Target = "Opacity";
+            opacityAnimation.Duration = TimeSpan.FromMilliseconds(200);
+
+            var animations = _compositor.CreateImplicitAnimationCollection();
+            animations["Opacity"] = opacityAnimation;
+
+            _copyBtnVisual.ImplicitAnimations = animations;
+
             _setAsWallpaperVisual.SetTranslation(new Vector3(0, 52 * 3, 0));
             _setAsLockVisual.SetTranslation(new Vector3(0, 52 * 2, 0));
             _setBothVisual.SetTranslation(new Vector3(0, 52 * 1, 0));
@@ -142,18 +153,12 @@ namespace MyerSplash.View.Uc
 
         private void Img_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            _copyBtnVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
-                .To(1f)
-                .Spend(300)
-                .Start();
+            _copyBtnVisual.Opacity = 1f;
         }
 
         private void Img_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            _copyBtnVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
-                .To(0f)
-                .Spend(300)
-                .Start();
+            _copyBtnVisual.Opacity = 0f;
         }
     }
 }
