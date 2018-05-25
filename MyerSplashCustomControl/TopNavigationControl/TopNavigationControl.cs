@@ -208,7 +208,7 @@ namespace MyerSplashCustomControl
 
             foreach (var child in _rootPanel.Children)
             {
-                child.PointerPressed -= Element_PointerPressed;
+                child.PointerReleased -= Element_PointerReleased;
             }
 
             _rootPanel.Children.Clear();
@@ -248,7 +248,7 @@ namespace MyerSplashCustomControl
                 if (container is UIElement)
                 {
                     var element = container as UIElement;
-                    element.PointerPressed += Element_PointerPressed;
+                    element.PointerReleased += Element_PointerReleased;
 
                     var implicitAnimationCollection = _compositor.CreateImplicitAnimationCollection();
                     implicitAnimationCollection.Add("Opacity", CreateOpacityAnimation());
@@ -296,7 +296,7 @@ namespace MyerSplashCustomControl
             return offsetAnimation;
         }
 
-        private void Element_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void Element_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             int old = SelectedIndex;
             SelectedIndex = _rootPanel.Children.IndexOf(sender as UIElement);
