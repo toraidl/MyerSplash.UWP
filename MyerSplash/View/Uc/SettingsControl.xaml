@@ -84,7 +84,7 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Enable Live Tile" />
+                            Text="Live Tile" />
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTile, Mode=TwoWay}"
@@ -102,7 +102,7 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Enable scale animation on pointer entering" />
+                            Text="Scale animation on pointer entering" />
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableScaleAnimation, Mode=TwoWay}"
@@ -120,7 +120,7 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Enable Today highlight" />
+                            Text="Today highlight" />
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTodayRecommendation, Mode=TwoWay}"
@@ -141,7 +141,7 @@
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" VerticalAlignment="Center" Margin="12,0,0,0" />
+                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change wallpaper in background every day" VerticalAlignment="Center" Margin="12,0,0,0" />
                             <Button
                                 HorizontalAlignment="Right"
                                 Margin="12,0,0,0"
@@ -169,13 +169,13 @@
                             <ComboBoxItem Content="Desktop and lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
                         </ComboBox>
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Loading quality in list" />
+                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Thumbnails quality" />
                     <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=LoadQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
                         <ComboBoxItem Content="Large (Recommended)" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
-                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Image quality for downloading" />
+                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Save quality" />
                     <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=SaveQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
                         <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="High (Default)" Style="{StaticResource ComboBoxItemStyle}" />
