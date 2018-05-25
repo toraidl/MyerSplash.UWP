@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using MyerSplash.Common;
 using MyerSplash.Common.Composition;
+using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using Windows.UI.Composition;
@@ -50,6 +51,17 @@ namespace MyerSplash.View.Uc
         {
             base.OnShow();
             Window.Current.SetTitleBar(DummyTitleBar);
+        }
+
+        private async void ImageGridView_ChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
+        {
+            if (!(args.Item is DownloadItem item)) return;
+            var cacheBitmap = item.ImageItem.ListImageBitmap;
+            var bitmap = cacheBitmap.Bitmap;
+            if (bitmap == null)
+            {
+                await cacheBitmap.LoadBitmapAsync();
+            }
         }
 
         private void ImageGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)

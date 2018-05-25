@@ -57,6 +57,7 @@
             IncrementalLoadingTrigger="Edge"
             ItemsSource="{x:Bind DownloadsVM.DownloadingImages, Mode=OneWay}"
             MinItemHeight="220"
+            ChoosingItemContainer="ImageGridView_ChoosingItemContainer"
             MinItemWidth="220"
             SelectionMode="None"
             ContainerContentChanging="ImageGridView_ContainerContentChanging"
