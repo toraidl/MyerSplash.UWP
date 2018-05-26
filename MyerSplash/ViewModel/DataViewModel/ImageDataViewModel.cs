@@ -130,7 +130,7 @@ namespace MyerSplash.ViewModel.DataViewModel
                 await UpdateLiveTileAsync();
             }
 
-            _mainViewModel.FooterReloadVisibility = Visibility.Collapsed;
+            _mainViewModel.FooterReloadVisibility = list.Count() == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private async Task UpdateLiveTileAsync()
