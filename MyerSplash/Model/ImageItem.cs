@@ -396,6 +396,7 @@ namespace MyerSplash.Model
 
         public async Task DownloadBitmapForListAsync()
         {
+            if (ListImageBitmap.Bitmap != null) return;
             var url = GetListImageUrlFromSettings();
 
             if (string.IsNullOrEmpty(url)) return;
