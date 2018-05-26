@@ -167,7 +167,7 @@ namespace MyerSplash.View.Page
         }
         #endregion Scrolling
 
-        private void OnShownChanged(object sender, PresentedArgs e)
+        private void OnPresentedChanged(object sender, PresentedArgs e)
         {
             if (!e.Presented)
             {
