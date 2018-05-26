@@ -47,9 +47,9 @@ namespace MyerSplash.View.Uc
             CloseCommand?.Execute(null);
         }
 
-        public override void OnShow()
+        public override void OnPresented()
         {
-            base.OnShow();
+            base.OnPresented();
             Window.Current.SetTitleBar(DummyTitleBar);
         }
 

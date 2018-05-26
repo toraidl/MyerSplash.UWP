@@ -13,7 +13,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
 
 namespace MyerSplash.View.Page
 {
@@ -168,9 +167,9 @@ namespace MyerSplash.View.Page
         }
         #endregion Scrolling
 
-        private void OnShownChanged(object sender, ShownArgs e)
+        private void OnShownChanged(object sender, PresentedArgs e)
         {
-            if (!e.Shown)
+            if (!e.Presented)
             {
                 SetupTitleBar();
             }

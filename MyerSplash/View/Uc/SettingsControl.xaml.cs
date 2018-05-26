@@ -24,16 +24,16 @@ namespace MyerSplash.View.Uc
             }
         }
 
-        public override async void OnShow()
+        public override async void OnPresented()
         {
-            base.OnShow();
+            base.OnPresented();
             Window.Current.SetTitleBar(DummyTitleBar);
             await SettingsVM.CalculateCacheAsync();
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Shown = false;
+            this.Presented = false;
         }
     }
 }

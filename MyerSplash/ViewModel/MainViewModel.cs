@@ -317,20 +317,20 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _goToSettingsCommand;
-        public RelayCommand GoToSettingsCommand
+        private RelayCommand _presentSettingsCommand;
+        public RelayCommand PresentSettingsCommand
         {
             get
             {
-                if (_goToSettingsCommand != null) return _goToSettingsCommand;
-                return _goToSettingsCommand = new RelayCommand(() =>
+                if (_presentSettingsCommand != null) return _presentSettingsCommand;
+                return _presentSettingsCommand = new RelayCommand(() =>
                   {
-                      ShowSettingsUC = true;
+                      SettingsPagePresented = true;
                       NavigationService.AddOperation(() =>
                           {
-                              if (ShowSettingsUC)
+                              if (SettingsPagePresented)
                               {
-                                  ShowSettingsUC = false;
+                                  SettingsPagePresented = false;
                                   return true;
                               }
                               return false;
@@ -339,74 +339,74 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private bool _showAboutUC;
-        public bool ShowAboutUC
+        private bool _aboutPagePresented;
+        public bool AboutPagePresented
         {
             get
             {
-                return _showAboutUC;
+                return _aboutPagePresented;
             }
             set
             {
-                if (_showAboutUC != value)
+                if (_aboutPagePresented != value)
                 {
-                    _showAboutUC = value;
-                    RaisePropertyChanged(() => ShowAboutUC);
+                    _aboutPagePresented = value;
+                    RaisePropertyChanged(() => AboutPagePresented);
                 }
             }
         }
 
-        private bool _showDownloadsUC;
-        public bool ShowDownloadsUC
+        private bool _downloadsPagePresented;
+        public bool DownloadsPagePresented
         {
             get
             {
-                return _showDownloadsUC;
+                return _downloadsPagePresented;
             }
             set
             {
-                if (_showDownloadsUC != value)
+                if (_downloadsPagePresented != value)
                 {
-                    _showDownloadsUC = value;
-                    RaisePropertyChanged(() => ShowDownloadsUC);
+                    _downloadsPagePresented = value;
+                    RaisePropertyChanged(() => DownloadsPagePresented);
                 }
             }
         }
 
-        private bool _showSettingsUC;
-        public bool ShowSettingsUC
+        private bool _settingsPagePresented;
+        public bool SettingsPagePresented
         {
             get
             {
-                return _showSettingsUC;
+                return _settingsPagePresented;
             }
             set
             {
-                if (_showSettingsUC != value)
+                if (_settingsPagePresented != value)
                 {
-                    _showSettingsUC = value;
-                    RaisePropertyChanged(() => ShowSettingsUC);
+                    _settingsPagePresented = value;
+                    RaisePropertyChanged(() => SettingsPagePresented);
                 }
             }
         }
 
-        private RelayCommand _showDownloadsCommand;
-        public RelayCommand ShowDownloadsCommand
+        private RelayCommand _presentDownloadsCommand;
+        public RelayCommand PresentDownloadsCommand
         {
             get
             {
-                if (_showDownloadsCommand != null) return _showDownloadsCommand;
-                return _showDownloadsCommand = new RelayCommand(() =>
+                if (_presentDownloadsCommand != null) return _presentDownloadsCommand;
+                return _presentDownloadsCommand = new RelayCommand(() =>
                   {
-                      ShowDownloadsUC = !ShowDownloadsUC;
+                      DownloadsPagePresented = !DownloadsPagePresented;
 
-                      if (ShowDownloadsUC)
+                      if (DownloadsPagePresented)
                       {
                           NavigationService.AddOperation(() =>
                           {
-                              if (ShowDownloadsUC)
+                              if (DownloadsPagePresented)
                               {
-                                  ShowDownloadsUC = false;
+                                  DownloadsPagePresented = false;
                                   return true;
                               }
                               return false;
@@ -416,45 +416,24 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _goToAboutCommand;
-        public RelayCommand GoToAboutCommand
+        private RelayCommand _presentAboutCommand;
+        public RelayCommand PresentAboutCommand
         {
             get
             {
-                if (_goToAboutCommand != null) return _goToAboutCommand;
-                return _goToAboutCommand = new RelayCommand(() =>
+                if (_presentAboutCommand != null) return _presentAboutCommand;
+                return _presentAboutCommand = new RelayCommand(() =>
                   {
-                      ShowAboutUC = true;
+                      AboutPagePresented = true;
                       NavigationService.AddOperation(() =>
                           {
-                              if (ShowAboutUC)
+                              if (AboutPagePresented)
                               {
-                                  ShowAboutUC = false;
+                                  AboutPagePresented = false;
                                   return true;
                               }
                               return false;
                           });
-                  });
-            }
-        }
-
-        private RelayCommand _toggleFullScreenCommand;
-        public RelayCommand ToggleFullScreenCommand
-        {
-            get
-            {
-                if (_toggleFullScreenCommand != null) return _toggleFullScreenCommand;
-                return _toggleFullScreenCommand = new RelayCommand(() =>
-                  {
-                      var isInFullScreen = ApplicationView.GetForCurrentView().IsFullScreenMode;
-                      if (!isInFullScreen)
-                      {
-                          ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
-                      }
-                      else
-                      {
-                          ApplicationView.GetForCurrentView().ExitFullScreenMode();
-                      }
                   });
             }
         }
@@ -522,7 +501,7 @@ namespace MyerSplash.ViewModel
             FooterReloadVisibility = Visibility.Collapsed;
             EndVisibility = Visibility.Collapsed;
             IsRefreshing = true;
-            ShowDownloadsUC = false;
+            DownloadsPagePresented = false;
 
             SelectedIndex = -1;
             Tabs = new ObservableCollection<string>();
@@ -632,7 +611,7 @@ namespace MyerSplash.ViewModel
             }
             else if (arg == Value.DOWNLOADS)
             {
-                ShowDownloadsUC = true;
+                DownloadsPagePresented = true;
             }
             else
             {
