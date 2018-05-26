@@ -142,12 +142,11 @@
                 </Grid>
             </DataTemplate>
         </control:AdaptiveGridView.ItemTemplate>
-        
         <control:AdaptiveGridView.Footer>
             <Grid Height="100">
                 <Grid Height="50" Visibility="{x:Bind MainVM.FooterLoadingVisibility, Mode=OneWay}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <ProgressRing Foreground="{StaticResource MyerSplashThemeDarkColorBrush}" IsActive="True" />
+                        <ProgressRing Foreground="White" IsActive="True" />
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
