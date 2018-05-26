@@ -39,7 +39,7 @@ namespace MyerSplash.View.Uc
         public int TargetOffsetY;
 
         private ScrollViewer _scrollViewer;
-        private FrameworkElement _tappedContainer;
+        private GridViewItem _tappedContainer;
 
         public double ScrollingPosition
         {
@@ -94,9 +94,9 @@ namespace MyerSplash.View.Uc
                 return;
             }
 
-            _tappedContainer = ImageGridView.ContainerFromItem(image) as FrameworkElement;
+            _tappedContainer = ImageGridView.ContainerFromItem(image) as GridViewItem;
 
-            var rootGrid = (_tappedContainer as GridViewItem).ContentTemplateRoot as Grid;
+            var rootGrid = _tappedContainer.ContentTemplateRoot as Grid;
 
             _tappedContainerVisual = ElementCompositionPreview.GetElementVisual(_tappedContainer);
 
@@ -105,7 +105,7 @@ namespace MyerSplash.View.Uc
 
             ToggleItemPointOverAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(image, rootGrid);
+            OnClickItemStarted?.Invoke(image, _tappedContainer);
         }
 
         public void ScrollToTop()

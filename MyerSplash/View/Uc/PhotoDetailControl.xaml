@@ -62,11 +62,10 @@
     <Grid
         x:Name="DetailGrid"
         Grid.RowSpan="5"
-        Margin="0,5,0,0"
         SizeChanged="DetailGrid_SizeChanged">
         <Border
             x:Name="MaskBorder"
-            Margin="0,-30,0,0"
+            Margin="-30"
             Background="Black"
             ManipulationDelta="DetailGrid_ManipulationDelta"
             ManipulationMode="TranslateY"
@@ -74,7 +73,7 @@
         <Grid
             x:Name="DetailContentGrid"
             MaxWidth="{StaticResource MaxWidthOfDetails}"
-            Margin="0,-5,0,0"
+            Margin="0,0,0,0"
             Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition />

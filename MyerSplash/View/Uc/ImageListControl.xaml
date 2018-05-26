@@ -21,7 +21,7 @@
     <control:AdaptiveGridView
         x:Name="ImageGridView"
         Margin="0,-40,0,0"
-        Padding="10,0,10,0"
+        Padding="8,0,8,0"
         attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
         IncrementalLoadingTrigger="Edge"
         IsItemClickEnabled="True"
@@ -42,7 +42,7 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Margin" Value="10" />
+                <Setter Property="Margin" Value="8" />
             </Style>
         </control:AdaptiveGridView.ItemContainerStyle>
         <control:AdaptiveGridView.Header>
@@ -97,8 +97,8 @@
                         </Button>
                     </Grid>
                     <Button
-                        Width="50"
-                        Height="50"
+                        Width="48"
+                        Height="48"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         Command="{x:Bind DownloadCommand}"
@@ -148,7 +148,7 @@
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <ProgressRing Foreground="White" IsActive="True" />
                         <TextBlock
-                            Margin="10,0,0,0"
+                            Margin="8,0,0,0"
                             VerticalAlignment="Center"
                             FontWeight="Bold"
                             Foreground="White"
