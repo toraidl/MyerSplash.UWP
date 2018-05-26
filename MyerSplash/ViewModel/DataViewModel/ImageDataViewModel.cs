@@ -129,6 +129,8 @@ namespace MyerSplash.ViewModel.DataViewModel
             {
                 await UpdateLiveTileAsync();
             }
+
+            _mainViewModel.FooterReloadVisibility = Visibility.Collapsed;
         }
 
         private async Task UpdateLiveTileAsync()
