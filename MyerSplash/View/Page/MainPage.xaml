@@ -1,4 +1,4 @@
-﻿<common:CustomizedTitleBarPage
+﻿<common:BindablePage
     x:Class="MyerSplash.View.Page.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -196,4 +196,4 @@
             OnShownChanged="OnShownChanged"
             Shown="{x:Bind MainVM.ShowSettingsUC, Mode=TwoWay}" />
     </Grid>
-</common:CustomizedTitleBarPage>
+</common:BindablePage>

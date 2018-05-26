@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Windows.UI.Composition;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,7 +17,7 @@ using Windows.UI.Xaml.Input;
 
 namespace MyerSplash.View.Page
 {
-    public sealed partial class MainPage : CustomizedTitleBarPage
+    public sealed partial class MainPage : BindablePage
     {
         private const float TITLE_GRID_HEIGHT = 70;
 
@@ -68,6 +69,11 @@ namespace MyerSplash.View.Page
         private void MainVM_DataUpdated(object sender, EventArgs e)
         {
             ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
+        }
+
+        protected override void SetupNavigationBackBtn()
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
         private void MainVM_AboutToUpdateSelectedIndex(object sender, int e)
@@ -162,22 +168,23 @@ namespace MyerSplash.View.Page
         }
         #endregion Scrolling
 
-        protected override void SetUpTitleBar()
-        {
-            TitleBarHelper.SetUpLightTitleBar();
-        }
-
         private void OnShownChanged(object sender, ShownArgs e)
         {
             if (!e.Shown)
             {
-                Window.Current.SetTitleBar(DummyTitleBar);
+                SetupTitleBar();
             }
         }
 
         private void MoreBtn_Click(object sender, RoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        protected override void SetupTitleBar()
+        {
+            TitleBarHelper.SetUpLightTitleBar();
+            Window.Current.SetTitleBar(DummyTitleBar);
         }
 
         private void TopNavigationControl_TitleClicked(object sender, TitleClickEventArg e)
