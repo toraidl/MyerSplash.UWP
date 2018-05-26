@@ -24,10 +24,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="RequestedTheme" Value="Dark"/>
     </fcu:Style>
-    <Style x:Key="MainButtonCompatStyle" TargetType="Button" BasedOn="{StaticResource ButtonCommonStyle}">
-        <Setter Property="BorderThickness" Value="{StaticResource RevealThinkness}"/>
-        <Setter Property="Background" Value="Transparent"/>
-    </Style>
+    <Style x:Key="MainButtonCompatStyle" TargetType="Button" BasedOn="{StaticResource ListButtonStyle}"/>
     <Style x:Key="MainFabStyle" TargetType="cc:EllipseShadowControl">
         <Setter Property="Width" Value="46"/>
         <Setter Property="Height" Value="46"/>
