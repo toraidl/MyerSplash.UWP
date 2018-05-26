@@ -12,7 +12,7 @@
         TintOpacity="0.8" />
     <backdrop:AcrylicHostBrush
         x:Key="CustomAcrylicWindowBrush"
-        BackdropFactor="1.0"
+        BackdropFactor="0.2"
         BlurAmount="10"
         TintColor="Black"
         TintColorFactor="2.0">

@@ -22,7 +22,7 @@
     </UserControl.Background>
     <Grid
         x:Name="RootGrid"
-        cu:Background="{StaticResource AppBackgroundBrush}"
+        cu:Background="{StaticResource AppBackgroundBrushDark}"
         fcu:Background="{StaticResource CustomAcrylicInAppBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />

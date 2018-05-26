@@ -15,7 +15,7 @@
             x:Name="MaskBorder"
             Grid.RowSpan="2"
             attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.HideSearchCommand, Mode=OneWay}"
-            cu:Background="{StaticResource AppBackgroundBrush}"
+            cu:Background="{StaticResource AppBackgroundBrushDark}"
             fcu:Background="{StaticResource CustomAcrylicInAppBrush}" />
         <Grid
             x:Name="ContentGrid"
