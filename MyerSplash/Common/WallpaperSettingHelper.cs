@@ -19,15 +19,9 @@ namespace MyerSplash.Common
             {
                 var result = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
 
-                //var task = file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-
-                if (result)
+                if (!result)
                 {
-                    ToastService.SendToast("Set as background and lock screen successfully.");
-                }
-                else
-                {
-                    ToastService.SendToast("Fail to set both. #API ERROR.");
+                    ToastService.SendToast("Fail to set as wallpaper. #API ERROR.");
                 }
             }
 
@@ -44,13 +38,7 @@ namespace MyerSplash.Common
             {
                 var result = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
 
-                //var task = file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-
-                if (result)
-                {
-                    ToastService.SendToast("Set as background and lock screen successfully.");
-                }
-                else
+                if (!result)
                 {
                     ToastService.SendToast("Fail to set both. #API ERROR.");
                 }
@@ -67,16 +55,10 @@ namespace MyerSplash.Common
             var file = await PrepareImageFileAsync(savedFile);
             if (file != null)
             {
-                var result1 = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
-                var result2 = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
+                var result0 = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                var result1 = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
 
-                //var task = file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-
-                if (result1 && result2)
-                {
-                    ToastService.SendToast("Set as background and lock screen successfully.");
-                }
-                else
+                if (!result0 || !result1)
                 {
                     ToastService.SendToast("Fail to set both. #API ERROR.");
                 }
@@ -98,8 +80,7 @@ namespace MyerSplash.Common
 
                 //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
                 var folder = ApplicationData.Current.LocalFolder;
-                var oldFile = await folder.TryGetItemAsync(resultFile.Name) as StorageFile;
-                if (oldFile != null)
+                if (await folder.TryGetItemAsync(resultFile.Name) is StorageFile oldFile)
                 {
                     await resultFile.CopyAndReplaceAsync(oldFile);
                     file = oldFile;
