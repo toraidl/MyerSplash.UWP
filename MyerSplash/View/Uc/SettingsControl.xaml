@@ -169,12 +169,6 @@
                             <ComboBoxItem Content="Desktop and lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
                         </ComboBox>
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Thumbnails quality" />
-                    <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=LoadQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
-                        <ComboBoxItem Content="Large (Recommended)" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
-                    </ComboBox>
                     <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Save quality" />
                     <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=SaveQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
                         <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />

@@ -124,12 +124,7 @@ namespace MyerSplash.Common
         {
             get
             {
-                return ReadSettings(nameof(LoadQuality), 0);
-            }
-            set
-            {
-                SaveSettings(nameof(LoadQuality), value);
-                RaisePropertyChanged(() => LoadQuality);
+                return 0;
             }
         }
 
