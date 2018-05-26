@@ -110,6 +110,7 @@
     <Compile Include="ContentPopupEx\ContentPopupEx.cs" />
     <Compile Include="ContentPopupEx\PopupService.cs" />
     <Compile Include="Control\AdaptiveGridView.cs" />
+    <Compile Include="Control\Adapter\IListViewAdapter.cs" />
     <Compile Include="Drawing\BaseGeoControl.cs" />
     <Compile Include="Drawing\CustomCanvasControl.cs" />
     <Compile Include="Drawing\EllipseShadowControl.cs" />

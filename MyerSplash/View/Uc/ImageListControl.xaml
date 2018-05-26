@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:control="using:MyerSplashCustomControl"
+    xmlns:adapter="using:MyerSplash.Adapter"
     xmlns:converter="using:MyerSplash.Converter"
     xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,18 +23,19 @@
         Margin="0,-40,0,0"
         Padding="10,0,10,0"
         attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
-        ContainerContentChanging="AdaptiveGridView_ContainerContentChanging"
         IncrementalLoadingTrigger="Edge"
         IsItemClickEnabled="True"
         ItemClick="ImageGridView_ItemClick"
         ItemContainerTransitions="{x:Null}"
         ItemsSource="{x:Bind MainVM.DataVM.DataList, Mode=OneWay}"
-        ChoosingItemContainer="ImageGridView_ChoosingItemContainer"
         Loaded="ImageGridView_Loaded"
         MinItemHeight="200"
         MinItemWidth="300"
         SelectionMode="None"
         ShowsScrollingPlaceholders="False">
+        <control:AdaptiveGridView.Adapter>
+            <adapter:UnsplashImageAdapter/>
+        </control:AdaptiveGridView.Adapter>
         <control:AdaptiveGridView.ItemContainerStyle>
             <Style TargetType="GridViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />

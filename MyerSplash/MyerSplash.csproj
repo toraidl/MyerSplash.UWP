@@ -105,6 +105,8 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\AnimatedAdapter.cs" />
+    <Compile Include="Adapter\DownloadItemAdatper.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -130,6 +132,7 @@
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\ToastHelper.cs" />
     <Compile Include="Common\NavigableUserControl.cs" />
+    <Compile Include="Adapter\UnsplashImageAdapter.cs" />
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="View\Uc\INavigableUserControl.cs" />
@@ -159,8 +162,8 @@
     <Compile Include="View\Uc\MainNavigationControl.xaml.cs">
       <DependentUpon>MainNavigationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\ManageDownloadControl.xaml.cs">
-      <DependentUpon>ManageDownloadControl.xaml</DependentUpon>
+    <Compile Include="View\Uc\DownloadsListControl.xaml.cs">
+      <DependentUpon>DownloadsListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\NoItemControl.xaml.cs">
       <DependentUpon>NoItemControl.xaml</DependentUpon>
@@ -331,7 +334,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\ManageDownloadControl.xaml">
+    <Page Include="View\Uc\DownloadsListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

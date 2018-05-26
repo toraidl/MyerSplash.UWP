@@ -1,16 +1,11 @@
 ﻿using JP.Utils.UI;
 using MyerSplash.Common;
-using MyerSplash.Common.Composition;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Numerics;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Foundation;
-using Windows.Storage;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,8 +41,6 @@ namespace MyerSplash.View.Uc
         private ScrollViewer _scrollViewer;
         private FrameworkElement _tappedContainer;
 
-        private ImplicitAnimationCollection _elementImplicitAnimation;
-
         public double ScrollingPosition
         {
             get
@@ -81,8 +74,6 @@ namespace MyerSplash.View.Uc
             this.InitializeComponent();
             this._compositor = this.GetVisual().Compositor;
             this._listVisual = ImageGridView.GetVisual();
-
-            _elementImplicitAnimation = ImplicitAnimationFactory.CreateListOffsetAnimationCollection(_compositor);
         }
 
         private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -131,64 +122,6 @@ namespace MyerSplash.View.Uc
         {
             ImageGridView.GetScrollViewer().ChangeView(null, y, null, false);
         }
-
-        #region List Animation
-
-        private void AdaptiveGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-        {
-            int index = args.ItemIndex;
-
-            if (!args.InRecycleQueue)
-            {
-                args.ItemContainer.Loaded -= ItemContainer_Loaded;
-                args.ItemContainer.Loaded += ItemContainer_Loaded;
-            }
-
-            var elementVisual = args.ItemContainer.GetVisual();
-            if (args.InRecycleQueue)
-            {
-                elementVisual.ImplicitAnimations = null;
-            }
-            else
-            {
-                elementVisual.ImplicitAnimations = _elementImplicitAnimation;
-            }
-        }
-
-        private void ItemContainer_Loaded(object sender, RoutedEventArgs e)
-        {
-            var itemsPanel = (ItemsWrapGrid)ImageGridView.ItemsPanelRoot;
-            var itemContainer = (GridViewItem)sender;
-            var itemIndex = ImageGridView.IndexFromContainer(itemContainer);
-
-            // Don't animate if we're not in the visible viewport
-            if (itemIndex >= itemsPanel.FirstVisibleIndex && itemIndex <= itemsPanel.LastVisibleIndex)
-            {
-                var itemVisual = itemContainer.GetVisual();
-                var delayIndex = itemIndex - itemsPanel.FirstVisibleIndex;
-
-                itemVisual.Opacity = 0f;
-                itemVisual.SetTranslation(new Vector3(50, 0, 0));
-
-                // Create KeyFrameAnimations
-                var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                offsetAnimation.InsertKeyFrame(1f, 0f);
-                offsetAnimation.Duration = TimeSpan.FromMilliseconds(700);
-                offsetAnimation.DelayTime = TimeSpan.FromMilliseconds((delayIndex * 30));
-
-                var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                fadeAnimation.InsertKeyFrame(1f, 1f);
-                fadeAnimation.Duration = TimeSpan.FromMilliseconds(700);
-                fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(delayIndex * 30);
-
-                // Start animations
-                itemVisual.StartAnimation(itemVisual.GetTranslationXPropertyName(), offsetAnimation);
-                itemVisual.StartAnimation("Opacity", fadeAnimation);
-            }
-            itemContainer.Loaded -= ItemContainer_Loaded;
-        }
-
-        #endregion List Animation
 
         private void ImageGridView_Loaded(object sender, RoutedEventArgs e)
         {
@@ -345,12 +278,6 @@ namespace MyerSplash.View.Uc
         private void DownloadBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private async void ImageGridView_ChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
-        {
-            if (!(args.Item is ImageItem imageItem)) return;
-            await imageItem.DownloadBitmapForListAsync();
         }
     }
 }
