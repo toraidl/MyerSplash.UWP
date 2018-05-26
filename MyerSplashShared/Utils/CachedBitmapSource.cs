@@ -99,6 +99,12 @@ namespace MyerSplashShared.Utils
             {
                 ExpectedFileName = GenerateRandomFileName();
             }
+
+            if (string.IsNullOrEmpty(RemoteUrl))
+            {
+                return;
+            }
+
             using (var stream = await FileDownloader.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, CTSFactory.MakeCTS().Token))
             {
                 var file = await SaveStreamIntoFileAsync(stream.AsStream(), ExpectedFileName, cachedFolder);

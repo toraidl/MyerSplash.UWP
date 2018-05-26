@@ -120,22 +120,12 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         protected async override void LoadMoreItemCompleted(IEnumerable<ImageItem> list, int pagingIndex)
         {
-            var tasks = new List<Task>();
             foreach (var item in list)
             {
                 item.Init();
-                tasks.Add(item.DownloadBitmapForListAsync());
             }
 
-            try
-            {
-                await Task.WhenAll(tasks);
-            }
-            catch (Exception)
-            {
-            }
-
-            if (pagingIndex == 1)
+            if (pagingIndex == 0)
             {
                 await UpdateLiveTileAsync();
             }

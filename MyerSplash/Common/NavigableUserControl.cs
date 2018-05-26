@@ -59,8 +59,6 @@ namespace MyerSplash.Common
         private Compositor _compositor;
         private Visual _rootVisual;
 
-        private Panel _parentPanel;
-
         public NavigableUserControl()
         {
             if (!DesignMode.DesignModeEnabled)
@@ -68,11 +66,6 @@ namespace MyerSplash.Common
                 InitComposition();
                 this.SizeChanged += UserControlBase_SizeChanged;
             }
-        }
-
-        private void RemoveThisFromVisualTree()
-        {
-            _parentPanel?.Children.Remove(this);
         }
 
         private void UserControlBase_SizeChanged(object sender, SizeChangedEventArgs e)
