@@ -20,7 +20,7 @@
     </UserControl.Resources>
     <control:AdaptiveGridView
         x:Name="ImageGridView"
-        Margin="0,-40,0,0"
+        Margin="0,-30,0,0"
         Padding="8,0,8,0"
         attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
         IncrementalLoadingTrigger="Edge"
