@@ -58,6 +58,9 @@ namespace MyerSplash.View.Uc
 
         private bool _showingExif;
         private bool _hideAfterHidingExif;
+        private bool _detailContentGirdSizeSpecified = false;
+
+        private float _listItemAspectRatio = 1.5f;
 
         private ImageItem _currentImage;
         public ImageItem CurrentImage
@@ -206,6 +209,9 @@ namespace MyerSplash.View.Uc
             _listItem = listItem;
             _listItemVisual = _listItem.GetVisual();
 
+            _listItemAspectRatio = (float)(_listItem.ActualWidth / _listItem.ActualHeight);
+            DetailGrid_SizeChanged(null, null);
+
             await ToggleListItemAnimationAsync(true);
 
             ToggleDetailGridAnimation(true);
@@ -227,12 +233,12 @@ namespace MyerSplash.View.Uc
             ToggleInfoGridAnimation(false);
             batch.Completed += async (s, ex) =>
             {
-                await DoHideListAsync();
+                await HideInternalAsync();
             };
             batch.End();
         }
 
-        private async Task DoHideListAsync()
+        private async Task HideInternalAsync()
         {
             var innerBatch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             await ToggleListItemAnimationAsync(false);
@@ -251,8 +257,6 @@ namespace MyerSplash.View.Uc
             innerBatch.End();
         }
 
-        private bool _detailContentGirdSizeSpecified = false;
-
         private async Task ToggleListItemAnimationAsync(bool show)
         {
             _listItemVisual.Opacity = 0f;
@@ -270,7 +274,7 @@ namespace MyerSplash.View.Uc
 
             var listItemSize = new Vector2((float)_listItem.ActualWidth, (float)_listItem.ActualHeight);
             var listItemCenterPosition = _listItem.TransformToVisual(Window.Current.Content)
-                                            .TransformPoint(new Point(_listItem.ActualWidth / 2, _listItem.ActualHeight / 2));
+                                            .TransformPoint(new Point(listItemSize.X / 2, listItemSize.Y / 2));
             var targetSize = GetTargetImageSize();
 
             var offsetXAbs = (float)listItemCenterPosition.X - (targetImagePosition.X + targetImageSize.X / 2);
@@ -305,7 +309,7 @@ namespace MyerSplash.View.Uc
         {
             IsShown = show;
 
-            TogglePreviewButtonAnimation(true);
+            TogglePreviewButtonAnimation(show);
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
             fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
@@ -376,7 +380,7 @@ namespace MyerSplash.View.Uc
 
         private void DetailGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this.DetailContentGrid.Height = this.DetailContentGrid.ActualWidth / 1.5 + 100;
+            this.DetailContentGrid.Height = this.DetailContentGrid.ActualWidth / _listItemAspectRatio + 100;
             this.DetailContentGrid.Clip = new RectangleGeometry()
             { Rect = new Rect(0, 0, DetailContentGrid.ActualWidth, DetailContentGrid.Height) };
         }
@@ -554,19 +558,19 @@ namespace MyerSplash.View.Uc
                         showingVisual = null;
                     }
                     break;
-
                 case 1:
                     {
                         fadingVisual = null;
                         showingVisual = _taskbarImageVisual;
                     }
                     break;
-
                 case 2:
                     {
                         fadingVisual = _taskbarImageVisual;
                         showingVisual = _lockScreenImageVisual;
                     }
+                    break;
+                default:
                     break;
             }
             if (fadingVisual != null)
@@ -742,14 +746,14 @@ namespace MyerSplash.View.Uc
             var windowWidth = Window.Current.Bounds.Width;
             var windowHeight = Window.Current.Bounds.Height;
 
-            var height = Math.Min(windowWidth * (2f / 3f), windowHeight - 200);
-            var width = 1.5f * height;
+            var height = Math.Min(windowWidth * (1 / _listItemAspectRatio), windowHeight - 200);
+            var width = _listItemAspectRatio * height;
 
             var maxWidth = ResourcesHelper.GetDimentionInPixel("MaxWidthOfDetails");
             if (width >= maxWidth)
             {
                 width = maxWidth;
-                height = width / 1.5f;
+                height = width / _listItemAspectRatio;
             }
 
             return new Vector2((float)width, (float)height + 100f);
@@ -760,14 +764,14 @@ namespace MyerSplash.View.Uc
             var windowWidth = Window.Current.Bounds.Width;
             var windowHeight = Window.Current.Bounds.Height;
 
-            var height = Math.Min(windowWidth * (2f / 3f), windowHeight - 200);
-            var width = 1.5f * height;
+            var height = Math.Min(windowWidth * (1 / _listItemAspectRatio), windowHeight - 200);
+            var width = _listItemAspectRatio * height;
 
             var maxWidth = ResourcesHelper.GetDimentionInPixel("MaxWidthOfDetails");
             if (width >= maxWidth)
             {
                 width = maxWidth;
-                height = width / 1.5f;
+                height = width / _listItemAspectRatio;
             }
 
             return new Vector2((float)width, (float)height);
@@ -805,7 +809,7 @@ namespace MyerSplash.View.Uc
         {
             ToggleExifInfo(false);
             PhotoSV.ChangeView(null, 0, null);
-            await DoHideListAsync();
+            await HideInternalAsync();
         }
     }
 }

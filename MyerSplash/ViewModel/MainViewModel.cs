@@ -1,46 +1,64 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using JP.Utils.Data;
 using JP.Utils.Framework;
 using JP.Utils.Helper;
 using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.Model;
-using MyerSplash.View.Uc;
 using MyerSplash.ViewModel.DataViewModel;
-using MyerSplashCustomControl;
 using MyerSplashShared.API;
 using MyerSplashShared.Service;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using System.Collections.ObjectModel;
+using Windows.UI.Core;
 
 namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
-        private const int RANDOM_INDEX = 0;
-        private const int FEATURED_INDEX = 2;
-        private const int NEW_INDEX = 1;
+        private const int NEW_INDEX = 0;
+        private const int FEATURED_INDEX = 1;
+        private const int RANDOM_INDEX = 2;
+
+        public const string NEW_NAME = "NEW";
+        public const string FEATURED_NAME = "FEATURED";
+        public const string RANDOM_NAME = "RANDOM";
+
+        public Dictionary<int, string> INDEX_TO_NAME = new Dictionary<int, string>()
+        {
+            { NEW_INDEX,NEW_NAME },
+            { FEATURED_INDEX,FEATURED_NAME },
+            { RANDOM_INDEX,RANDOM_NAME }
+        };
+
+        public event EventHandler<int> AboutToUpdateSelectedIndex;
+        public event EventHandler DataUpdated;
 
         private string DefaultTitleName
         {
             get
             {
-                switch (AppSettings.Instance.DefaultCategory)
+                var key = AppSettings.Instance.DefaultCategory;
+                if (INDEX_TO_NAME.ContainsKey(key))
                 {
-                    case 0: return "RANDOM";
-                    case 1: return "NEW";
-                    case 2: return "FEATURED";
-                    default: return "MyerSplash";
+                    return INDEX_TO_NAME[AppSettings.Instance.DefaultCategory];
+                }
+                else
+                {
+                    return "MyerSplash";
                 }
             }
         }
+
+        private Dictionary<int, ImageDataViewModel> _vms = new Dictionary<int, ImageDataViewModel>();
 
         private ImageDataViewModel _dataVM;
         public ImageDataViewModel DataVM
@@ -59,26 +77,24 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private ObservableCollection<UnsplashCategory> _categories;
-        public ObservableCollection<UnsplashCategory> Categories
+        public bool IsInView { get; set; }
+
+        private ObservableCollection<string> _tabs;
+        public ObservableCollection<string> Tabs
         {
             get
             {
-                return _categories;
+                return _tabs;
             }
             set
             {
-                if (_categories != value)
+                if (_tabs != value)
                 {
-                    _categories = value;
-                    RaisePropertyChanged(() => Categories);
+                    _tabs = value;
+                    RaisePropertyChanged(() => Tabs);
                 }
             }
         }
-
-        public bool IsInView { get; set; }
-
-        public bool IsFirstActived { get; set; } = true;
 
         #region Search
 
@@ -124,7 +140,6 @@ namespace MyerSplash.ViewModel
                 if (_searchCommand != null) return _searchCommand;
                 return _searchCommand = new RelayCommand(() =>
                   {
-                      DrawerOpened = false;
                       ShowSearchBar = true;
                       NavigationService.AddOperation(() =>
                           {
@@ -162,7 +177,6 @@ namespace MyerSplash.ViewModel
                   {
                       if (ShowSearchBar)
                       {
-                          SelectedIndex = -1;
                           ShowSearchBar = false;
                           await SearchByKeywordAsync();
                           SearchKeyword = "";
@@ -198,48 +212,6 @@ namespace MyerSplash.ViewModel
                       FooterReloadVisibility = Visibility.Collapsed;
                       await DataVM.RetryAsync();
                   });
-            }
-        }
-
-        private RelayCommand _openDrawerCommand;
-        public RelayCommand OpenDrawerCommand
-        {
-            get
-            {
-                if (_openDrawerCommand != null) return _openDrawerCommand;
-                return _openDrawerCommand = new RelayCommand(() =>
-                  {
-                      DrawerOpened = !DrawerOpened;
-                      if (DrawerOpened)
-                      {
-                          NavigationService.AddOperation(() =>
-                          {
-                              if (DrawerOpened)
-                              {
-                                  DrawerOpened = false;
-                                  return true;
-                              }
-                              else return false;
-                          });
-                      }
-                  });
-            }
-        }
-
-        private bool _drawerOpened;
-        public bool DrawerOpened
-        {
-            get
-            {
-                return _drawerOpened;
-            }
-            set
-            {
-                if (_drawerOpened != value)
-                {
-                    _drawerOpened = value;
-                    RaisePropertyChanged(() => DrawerOpened);
-                }
             }
         }
 
@@ -345,21 +317,20 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _goToSettingsCommand;
-        public RelayCommand GoToSettingsCommand
+        private RelayCommand _presentSettingsCommand;
+        public RelayCommand PresentSettingsCommand
         {
             get
             {
-                if (_goToSettingsCommand != null) return _goToSettingsCommand;
-                return _goToSettingsCommand = new RelayCommand(() =>
+                if (_presentSettingsCommand != null) return _presentSettingsCommand;
+                return _presentSettingsCommand = new RelayCommand(() =>
                   {
-                      DrawerOpened = false;
-                      ShowSettingsUC = true;
+                      SettingsPagePresented = true;
                       NavigationService.AddOperation(() =>
                           {
-                              if (ShowSettingsUC)
+                              if (SettingsPagePresented)
                               {
-                                  ShowSettingsUC = false;
+                                  SettingsPagePresented = false;
                                   return true;
                               }
                               return false;
@@ -368,75 +339,74 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private bool _showAboutUC;
-        public bool ShowAboutUC
+        private bool _aboutPagePresented;
+        public bool AboutPagePresented
         {
             get
             {
-                return _showAboutUC;
+                return _aboutPagePresented;
             }
             set
             {
-                if (_showAboutUC != value)
+                if (_aboutPagePresented != value)
                 {
-                    _showAboutUC = value;
-                    RaisePropertyChanged(() => ShowAboutUC);
+                    _aboutPagePresented = value;
+                    RaisePropertyChanged(() => AboutPagePresented);
                 }
             }
         }
 
-        private bool _showDownloadsUC;
-        public bool ShowDownloadsUC
+        private bool _downloadsPagePresented;
+        public bool DownloadsPagePresented
         {
             get
             {
-                return _showDownloadsUC;
+                return _downloadsPagePresented;
             }
             set
             {
-                if (_showDownloadsUC != value)
+                if (_downloadsPagePresented != value)
                 {
-                    _showDownloadsUC = value;
-                    RaisePropertyChanged(() => ShowDownloadsUC);
+                    _downloadsPagePresented = value;
+                    RaisePropertyChanged(() => DownloadsPagePresented);
                 }
             }
         }
 
-        private bool _showSettingsUC;
-        public bool ShowSettingsUC
+        private bool _settingsPagePresented;
+        public bool SettingsPagePresented
         {
             get
             {
-                return _showSettingsUC;
+                return _settingsPagePresented;
             }
             set
             {
-                if (_showSettingsUC != value)
+                if (_settingsPagePresented != value)
                 {
-                    _showSettingsUC = value;
-                    RaisePropertyChanged(() => ShowSettingsUC);
+                    _settingsPagePresented = value;
+                    RaisePropertyChanged(() => SettingsPagePresented);
                 }
             }
         }
 
-        private RelayCommand _showDownloadsCommand;
-        public RelayCommand ShowDownloadsCommand
+        private RelayCommand _presentDownloadsCommand;
+        public RelayCommand PresentDownloadsCommand
         {
             get
             {
-                if (_showDownloadsCommand != null) return _showDownloadsCommand;
-                return _showDownloadsCommand = new RelayCommand(() =>
+                if (_presentDownloadsCommand != null) return _presentDownloadsCommand;
+                return _presentDownloadsCommand = new RelayCommand(() =>
                   {
-                      ShowDownloadsUC = !ShowDownloadsUC;
-                      DrawerOpened = false;
+                      DownloadsPagePresented = !DownloadsPagePresented;
 
-                      if (ShowDownloadsUC)
+                      if (DownloadsPagePresented)
                       {
                           NavigationService.AddOperation(() =>
                           {
-                              if (ShowDownloadsUC)
+                              if (DownloadsPagePresented)
                               {
-                                  ShowDownloadsUC = false;
+                                  DownloadsPagePresented = false;
                                   return true;
                               }
                               return false;
@@ -446,47 +416,24 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _goToAboutCommand;
-        public RelayCommand GoToAboutCommand
+        private RelayCommand _presentAboutCommand;
+        public RelayCommand PresentAboutCommand
         {
             get
             {
-                if (_goToAboutCommand != null) return _goToAboutCommand;
-                return _goToAboutCommand = new RelayCommand(() =>
+                if (_presentAboutCommand != null) return _presentAboutCommand;
+                return _presentAboutCommand = new RelayCommand(() =>
                   {
-                      DrawerOpened = false;
-                      ShowAboutUC = true;
+                      AboutPagePresented = true;
                       NavigationService.AddOperation(() =>
                           {
-                              if (ShowAboutUC)
+                              if (AboutPagePresented)
                               {
-                                  ShowAboutUC = false;
+                                  AboutPagePresented = false;
                                   return true;
                               }
                               return false;
                           });
-                  });
-            }
-        }
-
-        private RelayCommand _toggleFullScreenCommand;
-        public RelayCommand ToggleFullScreenCommand
-        {
-            get
-            {
-                if (_toggleFullScreenCommand != null) return _toggleFullScreenCommand;
-                return _toggleFullScreenCommand = new RelayCommand(() =>
-                  {
-                      var isInFullScreen = ApplicationView.GetForCurrentView().IsFullScreenMode;
-                      if (!isInFullScreen)
-                      {
-                          ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
-                      }
-                      else
-                      {
-                          ApplicationView.GetForCurrentView().ExitFullScreenMode();
-                      }
-                      DrawerOpened = false;
                   });
             }
         }
@@ -505,65 +452,24 @@ namespace MyerSplash.ViewModel
                     var lastValue = value;
 
                     _selectedIndex = value;
+
+                    AboutToUpdateSelectedIndex?.Invoke(this, lastValue);
+
                     RaisePropertyChanged(() => SelectedIndex);
-                    RaisePropertyChanged(() => SelectedTitle);
-                    DrawerOpened = false;
-                    if (value == -1)
-                    {
-                        return;
-                    }
 
-                    // From search to category
-                    if (lastValue != -1)
+                    if (value >= 0)
                     {
-                        if (value == NEW_INDEX)
+                        if (lastValue != -1)
                         {
-                            DataVM = new ImageDataViewModel(this,
-                                new ImageService(Request.GetNewImages, NormalFactory));
-                        }
-                        else if (value == FEATURED_INDEX)
-                        {
-                            DataVM = new ImageDataViewModel(this,
-                                new ImageService(Request.GetFeaturedImages, FeaturedFactory));
-                        }
-                        else if (value == RANDOM_INDEX)
-                        {
-                            DataVM = new RandomImagesDataViewModel(this,
-                                new RandomImageService(NormalFactory));
-                        }
-                        else if (value > NEW_INDEX)
-                        {
-                            DataVM = new SearchResultViewModel(this,
-                                new SearchImageService(NormalFactory, Categories[value].Title));
-                        }
-                        if (DataVM != null)
-                        {
-                            var task = RefreshListAsync();
+                            DataVM = CreateOrCacheDataVm(value);
+                            if (DataVM != null && DataVM.DataList.Count == 0)
+                            {
+                                var task = RefreshListAsync();
+                            }
+                            DataUpdated?.Invoke(this, null);
                         }
                     }
                 }
-            }
-        }
-
-        public string SelectedTitle
-        {
-            get
-            {
-                var name = "";
-                if (SelectedIndex == -1)
-                {
-                    if (SearchKeyword == null)
-                    {
-                        name = DefaultTitleName;
-                    }
-                    else name = SearchKeyword.ToUpper();
-                }
-                else if (Categories?.Count > 0)
-                {
-                    name = Categories[SelectedIndex].Title.ToUpper();
-                }
-                else name = DefaultTitleName;
-                return $"{name}";
             }
         }
 
@@ -585,6 +491,8 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        public bool IsFirstActived { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public MainViewModel()
         {
             FooterLoadingVisibility = Visibility.Collapsed;
@@ -593,19 +501,62 @@ namespace MyerSplash.ViewModel
             FooterReloadVisibility = Visibility.Collapsed;
             EndVisibility = Visibility.Collapsed;
             IsRefreshing = true;
-            ShowDownloadsUC = false;
+            DownloadsPagePresented = false;
 
             SelectedIndex = -1;
+            Tabs = new ObservableCollection<string>();
 
             DataVM = new ImageDataViewModel(this,
                 new ImageService(Request.GetNewImages, NormalFactory));
         }
 
+        private ImageDataViewModel CreateOrCacheDataVm(int index)
+        {
+            ImageDataViewModel vm = null;
+            if (_vms.ContainsKey(index))
+            {
+                vm = _vms[index];
+            }
+
+            if (vm == null)
+            {
+                switch (index)
+                {
+                    case NEW_INDEX:
+                        vm = new ImageDataViewModel(this, new ImageService(Request.GetNewImages, NormalFactory));
+                        break;
+                    case FEATURED_INDEX:
+                        vm = new ImageDataViewModel(this, new ImageService(Request.GetFeaturedImages, FeaturedFactory));
+                        break;
+                    case RANDOM_INDEX:
+                        vm = new RandomImagesDataViewModel(this, new RandomImageService(NormalFactory));
+                        break;
+                }
+
+                if (vm != null)
+                {
+                    _vms[index] = vm;
+                }
+            }
+
+            return vm;
+        }
+
         private async Task SearchByKeywordAsync()
         {
             var searchService = new SearchImageService(NormalFactory, SearchKeyword);
+
+            if (Tabs.Count != INDEX_TO_NAME.Count && Tabs.Count > 0)
+            {
+                Tabs.RemoveAt(Tabs.Count - 1);
+            }
+            Tabs.Add(SearchKeyword.ToUpper());
+
+            SelectedIndex = Tabs.Count - 1;
             DataVM = new SearchResultViewModel(this, searchService);
-            RaisePropertyChanged(() => SelectedTitle);
+
+            _vms[SelectedIndex] = DataVM;
+
             await RefreshListAsync();
         }
 
@@ -619,8 +570,6 @@ namespace MyerSplash.ViewModel
                 await InsertTodayWallpaperAsync();
             }
 
-            // Don't hide the refreshing hint too fast
-            await Task.Delay(1000);
             IsRefreshing = false;
         }
 
@@ -636,13 +585,6 @@ namespace MyerSplash.ViewModel
                 imageItem.Init();
                 await imageItem.DownloadBitmapForListAsync();
             }
-        }
-
-        private async Task InitCategoriesAsync()
-        {
-            if (Categories?.Count > 0) return;
-            Categories = await UnsplashCategoryFactory.GetCategoriesAsync();
-            SelectedIndex = NEW_INDEX;
         }
 
         public void Activate(object param)
@@ -669,7 +611,7 @@ namespace MyerSplash.ViewModel
             }
             else if (arg == Value.DOWNLOADS)
             {
-                ShowDownloadsUC = true;
+                DownloadsPagePresented = true;
             }
             else
             {
@@ -687,7 +629,6 @@ namespace MyerSplash.ViewModel
                         case Value.SET_AS:
                             await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
                             break;
-
                         case Value.VIEW:
                             await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
                             break;
@@ -700,14 +641,13 @@ namespace MyerSplash.ViewModel
         {
         }
 
-        public async void OnLoaded()
+        public void OnLoaded()
         {
-            if (IsFirstActived)
+            SelectedIndex = NEW_INDEX;
+            INDEX_TO_NAME.Select(s => s.Value).ToList().ForEach(s =>
             {
-                IsFirstActived = false;
-                await InitCategoriesAsync();
-                await RefreshListAsync();
-            }
+                Tabs.Add(s);
+            });
         }
     }
 }

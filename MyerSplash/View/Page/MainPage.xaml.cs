@@ -1,41 +1,37 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
+using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Numerics;
-using Windows.Foundation;
 using Windows.UI.Composition;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
 {
-    public sealed partial class MainPage : CustomizedTitleBarPage
+    public sealed partial class MainPage : BindablePage
     {
         private const float TITLE_GRID_HEIGHT = 70;
-        private const float DRAWER_WIDTH = 285;
 
         private MainViewModel MainVM { get; set; }
 
         private Compositor _compositor;
-        private Visual _drawerVisual;
-        private Visual _drawerMaskVisual;
-        private Visual _titleGridVisual;
         private Visual _refreshBtnVisual;
-        private Visual _titleStackVisual;
 
         private double _lastVerticalOffset;
         private bool _isHideTitleGrid;
-        private bool _restoreTitleStackStatus;
 
         private ImageItem _clickedImg;
         private FrameworkElement _clickedContainer;
+
+        private Dictionary<int, double> _scrollingPositions = new Dictionary<int, double>();
 
         public bool IsLoading
         {
@@ -57,38 +53,31 @@ namespace MyerSplash.View.Page
             else page.ShowLoading();
         }
 
-        public bool DrawerOpended
-        {
-            get { return (bool)GetValue(DrawerOpendedProperty); }
-            set { SetValue(DrawerOpendedProperty, value); }
-        }
-
-        public static readonly DependencyProperty DrawerOpendedProperty =
-            DependencyProperty.Register("DrawerOpended", typeof(bool), typeof(MainPage),
-                new PropertyMetadata(false, OnDrawerOpenedPropertyChanged));
-
-        public static void OnDrawerOpenedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var page = d as MainPage;
-            page.ToggleDrawerAnimation((bool)e.NewValue);
-            page.ToggleDrawerMaskAnimation((bool)e.NewValue);
-        }
-
         public MainPage()
         {
             this.InitializeComponent();
             this.DataContext = MainVM = new MainViewModel();
-            this.Loaded += MainPage_Loaded;
             InitComposition();
             InitBinding();
+
+            // Ugly, I should come up with better solutions.
+            MainVM.AboutToUpdateSelectedIndex += MainVM_AboutToUpdateSelectedIndex;
+            MainVM.DataUpdated += MainVM_DataUpdated;
         }
 
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void MainVM_DataUpdated(object sender, EventArgs e)
         {
-            _drawerMaskVisual.Opacity = 0;
-            _drawerVisual.SetTranslation(new Vector3(-DRAWER_WIDTH, 0f, 0f));
+            ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
+        }
 
-            DrawerMaskBorder.Visibility = Visibility.Collapsed;
+        protected override void SetupNavigationBackBtn()
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void MainVM_AboutToUpdateSelectedIndex(object sender, int e)
+        {
+            RecordScrollingPosition(e);
         }
 
         private void InitBinding()
@@ -100,24 +89,17 @@ namespace MyerSplash.View.Page
                 Mode = BindingMode.TwoWay,
             };
             this.SetBinding(IsLoadingProperty, b);
-
-            var b2 = new Binding()
-            {
-                Source = MainVM,
-                Path = new PropertyPath("DrawerOpened"),
-                Mode = BindingMode.TwoWay,
-            };
-            this.SetBinding(DrawerOpendedProperty, b2);
         }
 
         private void InitComposition()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _drawerVisual = DrawerControl.GetVisual();
-            _drawerMaskVisual = DrawerMaskBorder.GetVisual();
-            _titleGridVisual = TitleGrid.GetVisual();
             _refreshBtnVisual = RefreshBtn.GetVisual();
-            _titleStackVisual = TitleStack.GetVisual();
+        }
+
+        private void RecordScrollingPosition(int oldValue)
+        {
+            _scrollingPositions[oldValue] = ListControl.ScrollingPosition;
         }
 
         #region Loading animation
@@ -134,41 +116,6 @@ namespace MyerSplash.View.Page
 
         #endregion Loading animation
 
-        #region Drawer animation
-
-        private void ToggleDrawerAnimation(bool show)
-        {
-            var offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnim.InsertKeyFrame(1f, show ? 0f : -DRAWER_WIDTH);
-            offsetAnim.Duration = TimeSpan.FromMilliseconds(300);
-
-            _drawerVisual.StartAnimation(_drawerVisual.GetTranslationXPropertyName(), offsetAnim);
-        }
-
-        private void ToggleDrawerMaskAnimation(bool show)
-        {
-            if (show) DrawerMaskBorder.Visibility = Visibility.Visible;
-
-            var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            fadeAnimation.InsertKeyFrame(1f, show ? 0.8f : 0f);
-            fadeAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            _drawerMaskVisual.StartAnimation("Opacity", fadeAnimation);
-            batch.Completed += (sender, e) =>
-              {
-                  if (!show) DrawerMaskBorder.Visibility = Visibility.Collapsed;
-              };
-            batch.End();
-        }
-
-        #endregion Drawer animation
-
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ListControl.ScrollToTop();
-        }
-
         private void ListControl_OnClickItemStarted(ImageItem img, FrameworkElement container)
         {
             _clickedContainer = container;
@@ -177,29 +124,8 @@ namespace MyerSplash.View.Page
             ToggleDetailControlAnimation();
         }
 
-        private void DetailControl_OnHidden(object sender, EventArgs args)
-        {
-            if (_restoreTitleStackStatus)
-            {
-                ToggleTitleStackAnimation(true);
-                _restoreTitleStackStatus = false;
-            }
-        }
-
         private void ToggleDetailControlAnimation()
         {
-            var position = DetailControl.GetTargetPosition();
-            var titleRect = TitleStack.TransformToVisual(Window.Current.Content)
-                .TransformBounds(new Rect(0, 0, TitleStack.ActualWidth, TitleStack.ActualHeight));
-            var clickedItemRect = _clickedContainer.TransformToVisual(Window.Current.Content)
-                .TransformBounds(new Rect(0, 0, _clickedContainer.ActualWidth, _clickedContainer.ActualHeight));
-            titleRect.Intersect(clickedItemRect);
-            if (!titleRect.IsEmpty)
-            {
-                _restoreTitleStackStatus = true;
-                ToggleTitleStackAnimation(false);
-            }
-
             DetailControl.CurrentImage = _clickedImg;
             DetailControl.Show(_clickedContainer);
 
@@ -212,15 +138,6 @@ namespace MyerSplash.View.Page
 
         #region Scrolling
 
-        private void ToggleTitleBarAnimation(bool show)
-        {
-            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            _titleGridVisual.StartAnimation(_titleGridVisual.GetTranslationYPropertyName(), offsetAnimation);
-        }
-
         private void ToggleRefreshBtnAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
@@ -232,15 +149,6 @@ namespace MyerSplash.View.Page
             _refreshBtnVisual.StartAnimation("Scale.Y", offsetAnimation);
         }
 
-        private void ToggleTitleStackAnimation(bool show)
-        {
-            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            _titleStackVisual.StartAnimation(_titleStackVisual.GetTranslationYPropertyName(), offsetAnimation);
-        }
-
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
         {
             if (DeviceUtil.IsXbox) return;
@@ -249,47 +157,41 @@ namespace MyerSplash.View.Page
             {
                 _isHideTitleGrid = true;
                 ToggleRefreshBtnAnimation(false);
-                ToggleTitleStackAnimation(false);
             }
             else if (scrollViewer.VerticalOffset < _lastVerticalOffset && _isHideTitleGrid)
             {
                 _isHideTitleGrid = false;
                 ToggleRefreshBtnAnimation(true);
-                ToggleTitleStackAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
-
-            Debug.WriteLine("offset:" + scrollViewer.VerticalOffset);
         }
-
         #endregion Scrolling
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void OnPresentedChanged(object sender, PresentedArgs e)
         {
-            base.OnNavigatedTo(e);
-            CustomTitleBar();
-        }
-
-        protected override void SetUpTitleBar()
-        {
-            TitleBarHelper.SetUpLightTitleBar();
-        }
-
-        private void OnShownChanged(object sender, ShownArgs e)
-        {
-            if (!e.Shown)
+            if (!e.Presented)
             {
-                Window.Current.SetTitleBar(TitleGrid);
+                SetupTitleBar();
             }
         }
 
-        private void TitleGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        private void MoreBtn_Click(object sender, RoutedEventArgs e)
         {
-            ToggleTitleStackAnimation(true);
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private void TitleGrid_PointerExited(object sender, PointerRoutedEventArgs e)
+        protected override void SetupTitleBar()
         {
+            TitleBarHelper.SetUpLightTitleBar();
+            Window.Current.SetTitleBar(DummyTitleBar);
+        }
+
+        private void TopNavigationControl_TitleClicked(object sender, TitleClickEventArg e)
+        {
+            if (e.NewIndex == e.OldIndex)
+            {
+                ListControl.ScrollToTop();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<common:CustomizedTitleBarPage
+﻿<common:BindablePage
     x:Class="MyerSplash.View.Page.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -21,9 +21,11 @@
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.SearchCommand}" PressedKey="F6" />
         </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
-    <Grid x:Name="RootGrid" Background="Black">
+    <Grid x:Name="RootGrid" 
+          cu:Background="{StaticResource CustomAcrylicWindowBrush}"
+          fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
+            <RowDefinition Height="90" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <uc:NoNetworkControl
@@ -48,129 +50,128 @@
                 x:Name="RefreshBtn"
                 Grid.RowSpan="2"
                 Command="{x:Bind MainVM.RefreshCommand, Mode=OneWay}"
+                ToolTipService.ToolTip="Refresh"
                 Style="{StaticResource FabStyle}">
                 <Grid Width="60" Height="60">
                     <cc:EllipseShadowControl
-                        Width="50"
-                        Height="50"
-                        ForeColor="{StaticResource MyerSplashThemeColor}"
-                        Radius="23" />
-                    <Grid>
-                        <SymbolIcon
-                            x:Name="RefreshIcon"
-                            Foreground="White"
-                            Symbol="Refresh" />
-                    </Grid>
+                        Style="{StaticResource MainFabStyle}" />
+                    <FontIcon FontFamily="Segoe MDL2 Assets" 
+                              Foreground="#FF333333"
+                              FontSize="{StaticResource MediumFontSize}"
+                              Glyph="&#xE8EE;" />
                 </Grid>
             </Button>
         </Grid>
-        <Grid x:Name="TitleGrid" Background="Transparent" />
-        <Grid
-            x:Name="TitleStack"
-            Margin="16"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="60" />
-                <ColumnDefinition x:Name="C3" Width="60" />
-            </Grid.ColumnDefinitions>
-            <Border
-                x:Name="BlurBorder"
-                Grid.ColumnSpan="5"
-                cu:Background="{StaticResource AppBackgroundBrushLittleDark}"
-                fcu:Background="{StaticResource CustomAcrylicInAppBrush}" />
-            <Border x:Name="HamBtnBorder" VerticalAlignment="Center">
-                <uc:HamburgerButton
-                    x:Name="HamBtn"
-                    Width="{StaticResource PosterHeight}"
-                    Height="{StaticResource PosterHeight}"
+        <Grid x:Name="DummyTitleBar"
+              cu:Background="{StaticResource CustomAcrylicWindowBrush}"
+              fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}"
+              VerticalAlignment="Stretch"/>
+        <Grid x:Name="TitleGridContent"
+              Padding="0,30,0,0">
+            <cc:TopNavigationControl 
+                Margin="12,0,0,0"
+                SliderBrush="White"
+                TitleClicked="TopNavigationControl_TitleClicked"
+                SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
+                ItemsSource="{x:Bind MainVM.Tabs, Mode=TwoWay}"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center">
+                <cc:TopNavigationControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock 
+                            Text="{Binding}"
+                            Padding="12,4,12,4"
+                            FontWeight="Bold"/>
+                    </DataTemplate>
+                </cc:TopNavigationControl.ItemTemplate>
+            </cc:TopNavigationControl>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                <Button
+                    x:Name="DownloadEntryBtn"
+                    Grid.Column="3"
+                    Width="{StaticResource MainButtonSize}"
+                    Height="{StaticResource MainButtonSize}"
+                    ToolTipService.ToolTip="Downloads"
                     Margin="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
-            </Border>
-            <Button
-                x:Name="TitleBtn"
-                Grid.Column="1"
-                Height="{StaticResource PosterHeight}"
-                Margin="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="0"
-                Style="{StaticResource ListButtonStyle}"
-                Tapped="StackPanel_Tapped">
-                <TextBlock
-                    x:Name="TitleTB"
-                    Margin="12,4"
+                    Padding="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    CacheMode="BitmapCache"
-                    FontSize="25"
-                    FontWeight="Bold"
-                    Foreground="White"
-                    Tapped="StackPanel_Tapped"
-                    Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=#NEW}"
-                    TextTrimming="CharacterEllipsis" />
-            </Button>
-            <Button
-                x:Name="SearchBtn"
-                Grid.Column="2"
-                Width="{StaticResource PosterHeight}"
-                Height="{StaticResource PosterHeight}"
-                Margin="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                BorderThickness="0"
-                Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
-                Style="{StaticResource ListButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="{StaticResource MainBarIconColorBrush}"
-                    Glyph="&#xE094;"
-                    RenderTransformOrigin="0.5,0.5">
-                    <FontIcon.RenderTransform>
-                        <CompositeTransform ScaleX="-1" />
-                    </FontIcon.RenderTransform>
-                </FontIcon>
-            </Button>
-            <Button
-                x:Name="DownloadEntryBtn"
-                Grid.Column="3"
-                Width="{StaticResource PosterHeight}"
-                Height="{StaticResource PosterHeight}"
-                Margin="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                BorderThickness="0"
-                Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
-                Style="{StaticResource ListButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="{StaticResource MainBarIconColorBrush}"
-                    Glyph="&#xE118;" />
-            </Button>
+                    fcu:Style="{StaticResource MainButtonStyle}"
+                    cu:Style="{StaticResource MainButtonCompatStyle}"
+                    Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}">
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Glyph="&#xE118;"
+                        FontSize="{StaticResource MediumFontSize}">
+                    </FontIcon>
+                </Button>
+                <Button
+                    x:Name="SearchBtn"
+                    Grid.Column="2"
+                    ToolTipService.ToolTip="Search"
+                    Width="{StaticResource MainButtonSize}"
+                    Height="{StaticResource MainButtonSize}"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    fcu:Style="{StaticResource MainButtonStyle}"
+                    cu:Style="{StaticResource MainButtonCompatStyle}"
+                    Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}">
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Glyph="&#xE094;"
+                        FontSize="{StaticResource MediumFontSize}"
+                        RenderTransformOrigin="0.5,0.5">
+                        <FontIcon.RenderTransform>
+                            <CompositeTransform ScaleX="-1" />
+                        </FontIcon.RenderTransform>
+                    </FontIcon>
+                </Button>
+                <Button
+                    x:Name="SettingBtn"
+                    Grid.Column="3"
+                    Width="{StaticResource MainButtonSize}"
+                    Height="{StaticResource MainButtonSize}"
+                    Margin="0"
+                    ToolTipService.ToolTip="Settings"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}"
+                    fcu:Style="{StaticResource MainButtonStyle}"
+                    cu:Style="{StaticResource MainButtonCompatStyle}">
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Glyph="&#xE713;" />
+                </Button>
+                <Button
+                    x:Name="MoreBtn"
+                    Grid.Column="3"
+                    ToolTipService.ToolTip="About"
+                    Width="{StaticResource MainButtonSize}"
+                    Height="{StaticResource MainButtonSize}"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Command="{x:Bind MainVM.PresentAboutCommand, Mode=OneWay}"
+                    fcu:Style="{StaticResource MainButtonStyle}"
+                    cu:Style="{StaticResource MainButtonCompatStyle}">
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Glyph="" />
+                </Button>
+            </StackPanel>
         </Grid>
         <uc:PhotoDetailControl
             x:Name="DetailControl"
             Grid.RowSpan="2"
             d:IsHidden="True"
-            OnHidden="DetailControl_OnHidden"
             Visibility="Collapsed" />
-        <Border
-            x:Name="DrawerMaskBorder"
-            Grid.RowSpan="2"
-            attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}"
-            d:IsHidden="True"
-            Background="Black" />
-        <uc:DrawerControl
-            x:Name="DrawerControl"
-            Grid.RowSpan="2"
-            Width="280"
-            HorizontalAlignment="Left"
-            d:IsHidden="True"
-            DataContext="{x:Bind MainVM, Mode=OneWay}" />
         <uc:SearchBarControl
             x:Name="SearchControl"
             Grid.RowSpan="2"
@@ -179,20 +180,20 @@
             x:Name="DownloadsControl"
             Grid.RowSpan="2"
             d:IsHidden="True"
-            CloseCommand="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
-            OnShownChanged="OnShownChanged"
-            Shown="{x:Bind MainVM.ShowDownloadsUC, Mode=OneWay}" />
+            OnPresentedChanged="OnPresentedChanged"
+            CloseCommand="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}"
+            Presented="{x:Bind MainVM.DownloadsPagePresented, Mode=OneWay}" />
         <uc:AboutControl
             x:Name="AboutUC"
             Grid.RowSpan="2"
+            OnPresentedChanged="OnPresentedChanged"
             d:IsHidden="True"
-            OnShownChanged="OnShownChanged"
-            Shown="{x:Bind MainVM.ShowAboutUC, Mode=TwoWay}" />
+            Presented="{x:Bind MainVM.AboutPagePresented, Mode=TwoWay}" />
         <uc:SettingsControl
             x:Name="SettingsUC"
             Grid.RowSpan="2"
+            OnPresentedChanged="OnPresentedChanged"
             d:IsHidden="True"
-            OnShownChanged="OnShownChanged"
-            Shown="{x:Bind MainVM.ShowSettingsUC, Mode=TwoWay}" />
+            Presented="{x:Bind MainVM.SettingsPagePresented, Mode=TwoWay}" />
     </Grid>
-</common:CustomizedTitleBarPage>
+</common:BindablePage>

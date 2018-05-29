@@ -14,15 +14,15 @@ namespace MyerSplash.View.Uc
             this.DataContext = AboutVM = new AboutViewModel();
         }
 
-        public override void OnShow()
+        public override void OnPresented()
         {
-            base.OnShow();
-            Window.Current.SetTitleBar(TitleBar);
+            base.OnPresented();
+            Window.Current.SetTitleBar(DummyTitleBar);
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Shown = false;
+            this.Presented = false;
         }
     }
 }

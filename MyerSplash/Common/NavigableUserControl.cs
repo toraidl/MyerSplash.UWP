@@ -8,14 +8,19 @@ using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.Common
 {
-    public class ShownArgs
+    public class PresentedArgs
     {
-        public bool Shown { get; set; }
+        public bool Presented { get; set; }
+
+        public PresentedArgs(bool presented)
+        {
+            Presented = presented;
+        }
     }
 
     public class NavigableUserControl : UserControl, INavigableUserControl
     {
-        private bool IsWide
+        private bool IsInWideWindow
         {
             get
             {
@@ -24,23 +29,30 @@ namespace MyerSplash.Common
             }
         }
 
-        public bool Shown
+        public bool Presented
         {
-            get { return (bool)GetValue(ShownProperty); }
-            set { SetValue(ShownProperty, value); }
+            get { return (bool)GetValue(PresentedProperty); }
+            set { SetValue(PresentedProperty, value); }
         }
 
-        public static readonly DependencyProperty ShownProperty =
-            DependencyProperty.Register("Shown", typeof(bool), typeof(NavigableUserControl),
-                new PropertyMetadata(false, OnShownPropertyChanged));
+        public static readonly DependencyProperty PresentedProperty =
+            DependencyProperty.Register("Presented", typeof(bool), typeof(NavigableUserControl),
+                new PropertyMetadata(false, OnPresentedPropertyChanged));
 
-        public event EventHandler<ShownArgs> OnShownChanged;
+        public event EventHandler<PresentedArgs> OnPresentedChanged;
 
-        private static void OnShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnPresentedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as INavigableUserControl;
-            if ((bool)e.NewValue) control.OnShow();
-            else control.OnHide();
+            if ((bool)e.NewValue)
+            {
+                control.OnPresented();
+            }
+            else
+            {
+                control.OnHide();
+            }
+
             control.ToggleAnimation();
         }
 
@@ -70,9 +82,9 @@ namespace MyerSplash.Common
 
         private void ResetOffset()
         {
-            if (!Shown)
+            if (!Presented)
             {
-                if (IsWide)
+                if (IsInWideWindow)
                 {
                     _rootVisual.SetTranslation(new Vector3(0f, (float)this.ActualHeight, 0f));
                 }
@@ -85,22 +97,22 @@ namespace MyerSplash.Common
 
         public virtual void OnHide()
         {
-            OnShownChanged?.Invoke(this, new ShownArgs() { Shown = false });
+            OnPresentedChanged?.Invoke(this, new PresentedArgs(false));
         }
 
-        public virtual void OnShow()
+        public virtual void OnPresented()
         {
-            OnShownChanged?.Invoke(this, new ShownArgs() { Shown = true });
+            OnPresentedChanged?.Invoke(this, new PresentedArgs(true));
         }
 
         public void ToggleAnimation()
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, Shown ? 0f :
-                (IsWide ? (float)this.ActualHeight : (float)this.ActualWidth));
+            offsetAnimation.InsertKeyFrame(1f, Presented ? 0f :
+                (IsInWideWindow ? (float)this.ActualHeight : (float)this.ActualWidth));
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(800);
-
-            _rootVisual.StartAnimation(IsWide ? _rootVisual.GetTranslationYPropertyName()
+           
+            _rootVisual.StartAnimation(IsInWideWindow ? _rootVisual.GetTranslationYPropertyName()
                 : _rootVisual.GetTranslationXPropertyName(), offsetAnimation);
         }
     }

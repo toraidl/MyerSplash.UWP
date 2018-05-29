@@ -40,6 +40,23 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private bool _clearCacheCommandEnabled;
+        public bool ClearCacheCommandEnabled
+        {
+            get
+            {
+                return _clearCacheCommandEnabled;
+            }
+            set
+            {
+                if (_clearCacheCommandEnabled != value)
+                {
+                    _clearCacheCommandEnabled = value;
+                    RaisePropertyChanged(() => ClearCacheCommandEnabled);
+                }
+            }
+        }
+
         private RelayCommand _clearTempCommand;
         public RelayCommand ClearTempCommand
         {
@@ -138,6 +155,8 @@ namespace MyerSplash.ViewModel
 
         public async Task CalculateCacheAsync()
         {
+            ClearCacheCommandEnabled = false;
+
             ulong size = 0;
             var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
             foreach (var file in tempFiles)
@@ -146,6 +165,8 @@ namespace MyerSplash.ViewModel
                 size += properties.Size;
                 CacheHint = $"Clean up cache ({(size / (1024 * 1024)).ToString("f0")} MB)";
             }
+
+            ClearCacheCommandEnabled = true;
         }
 
         private async Task ClearCacheAsync()

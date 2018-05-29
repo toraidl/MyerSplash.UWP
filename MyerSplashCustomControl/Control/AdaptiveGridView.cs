@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyerSplashCustomControl.Adapter;
+using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -55,6 +56,23 @@ namespace MyerSplashCustomControl
 
         #endregion DependencyProperties
 
+        private IListViewAdapter _adapter;
+        public IListViewAdapter Adapter
+        {
+            get
+            {
+                return _adapter;
+            }
+            set
+            {
+                if (_adapter != value)
+                {
+                    _adapter = value;
+                    _adapter.OnAttachToListView(this);
+                }
+            }
+        }
+
         public AdaptiveGridView()
         {
             if (this.ItemContainerStyle == null)
@@ -71,6 +89,19 @@ namespace MyerSplashCustomControl
                     this.InvalidateMeasure();
                 }
             };
+
+            this.ChoosingItemContainer += AdaptiveGridView_ChoosingItemContainer;
+            this.ContainerContentChanging += AdaptiveGridView_ContainerContentChanging;
+        }
+
+        private void AdaptiveGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            Adapter?.OnContainerContentChanging(sender, args);
+        }
+
+        private void AdaptiveGridView_ChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
+        {
+            Adapter?.OnChoosingItemContainer(sender, args);
         }
 
         protected override Size MeasureOverride(Size availableSize)
