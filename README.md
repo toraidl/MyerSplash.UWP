@@ -2,7 +2,7 @@
 
 You can search in Windows Store or visit [this](https://www.microsoft.com/en-us/store/p/myersplash/9nblggh4vcsn) to download.
 
-![](http://juniperphoton.net/myersplash/hero-image.jpg)
+![](https://github.com/JuniperPhoton/MyerSplash.UWP/blob/master/Design/3.0/01.png)
 
 ## Introduction
 An UWP app that allows you to browse and download high-quality wallpaper from Unsplash.com.
