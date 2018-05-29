@@ -10,7 +10,7 @@ namespace MyerSplashShared.Service
     {
         protected string RequestUrl { get; set; }
 
-        public int Count { get; set; } = 20;
+        public int Count { get; set; } = 30;
 
         public ImageService(string url, UnsplashImageFactory factory) : base(factory)
         {

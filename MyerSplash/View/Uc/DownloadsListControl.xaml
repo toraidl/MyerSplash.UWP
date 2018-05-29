@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:common="using:MyerSplash.Common"
+    xmlns:cc="using:MyerSplashCustomControl"
+    xmlns:adapter="using:MyerSplash.Adapter"
     xmlns:control="using:MyerSplashCustomControl"
     xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -20,31 +22,34 @@
     </UserControl.Background>
     <Grid
         x:Name="RootGrid"
-        cu:Background="{StaticResource AppBackgroundBrush}"
+        cu:Background="{StaticResource AppBackgroundBrushDark}"
         fcu:Background="{StaticResource CustomAcrylicInAppBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="Transparent">
-            <TextBlock
-                Margin="0,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="25"
-                FontWeight="Bold"
-                Foreground="White"
-                Text="DOWNLOADS" />
-        </Grid>
+        <Grid x:Name="DummyTitleBar" Background="Transparent"/>
         <Button
             x:Name="CloseBtn"
-            Width="70"
+            Width="{StaticResource MainButtonSize}"
+            Height="{StaticResource MainButtonSize}"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
-            Style="{StaticResource ListButtonStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" />
+            fcu:Style="{StaticResource MainButtonStyle}"
+            cu:Style="{StaticResource MainButtonCompatStyle}"
+            Margin="12,0,0,0">
+            <FontIcon Style="{StaticResource CloseIconStyle}"
+                      FontSize="{StaticResource SmallFontSize}" />
         </Button>
+        <TextBlock
+            Margin="12,0,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="{StaticResource MediumFontSize}"
+            FontWeight="Bold"
+            Foreground="White"
+            Text="DOWNLOADS" />
         <control:AdaptiveGridView
             x:Name="ImageGridView"
             Grid.Row="1"
@@ -52,8 +57,8 @@
             attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
             IncrementalLoadingTrigger="Edge"
             ItemsSource="{x:Bind DownloadsVM.DownloadingImages, Mode=OneWay}"
-            MinItemHeight="240"
-            MinItemWidth="240"
+            MinItemHeight="220"
+            MinItemWidth="220"
             SelectionMode="None"
             ShowsScrollingPlaceholders="False">
             <control:AdaptiveGridView.ItemTemplate>
@@ -61,6 +66,9 @@
                     <uc:DownloadItemTemplate />
                 </DataTemplate>
             </control:AdaptiveGridView.ItemTemplate>
+            <control:AdaptiveGridView.Adapter>
+                <adapter:DownloadItemAdatper/>
+            </control:AdaptiveGridView.Adapter>
             <control:AdaptiveGridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -90,18 +98,12 @@
             Command="{x:Bind DownloadsVM.DeleteFABCommand, Mode=OneWay}"
             Style="{StaticResource FabStyle}">
             <Grid Width="60" Height="60">
-                <uc:EllipseShadowControl Radius="25" />
-                <Ellipse
-                    Width="50"
-                    Height="50"
-                    Fill="{StaticResource MyerSplashThemeColorBrush}" />
+                <cc:EllipseShadowControl Style="{StaticResource MainFabStyle}" />
                 <Grid>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
-                    <Image
-                        x:Name="DiceIcon"
-                        Width="25"
-                        Source="ms-appx:///Assets/Icon/dice.png"
-                        Visibility="Collapsed" />
+                    <FontIcon FontFamily="Segoe MDL2 Assets" 
+                              Glyph="&#xE10C;"  
+                              Foreground="#FF333333"
+                              FontSize="{StaticResource MediumFontSize}"/>
                 </Grid>
             </Grid>
         </Button>

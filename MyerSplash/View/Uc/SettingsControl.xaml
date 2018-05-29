@@ -12,12 +12,20 @@
     d:DesignWidth="700"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <Style x:Key="SettingItemButtonContentStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="{StaticResource SettingsButtonMargin}" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style x:Key="SettingItemTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="12,12,0,0" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14"/>
         </Style>
         <Style x:Key="SettingItemComboBoxStyle" TargetType="ComboBox">
             <Setter Property="Margin" Value="12,12,12,0" />
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="RequestedTheme" Value="Dark" />
@@ -32,25 +40,28 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="Transparent">
-            <TextBlock
-                Margin="0,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="25"
-                FontWeight="Bold"
-                Foreground="White"
-                Text="SETTINGS" />
-        </Grid>
+        <Grid x:Name="DummyTitleBar" Background="Transparent"/>
         <Button
             x:Name="CloseBtn"
-            Width="70"
+            Width="{StaticResource MainButtonSize}"
+            Height="{StaticResource MainButtonSize}"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
-            Style="{StaticResource ListButtonStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" />
+            Margin="12,0,0,0"
+            fcu:Style="{StaticResource MainButtonStyle}"
+            cu:Style="{StaticResource MainButtonCompatStyle}">
+            <FontIcon Style="{StaticResource CloseIconStyle}" 
+                      FontSize="{StaticResource SmallFontSize}"/>
         </Button>
+        <TextBlock
+            Margin="12,0,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="{StaticResource MediumFontSize}"
+            FontWeight="Bold"
+            Foreground="White"
+            Text="SETTINGS" />
         <Grid Grid.Row="1" MaxWidth="600">
             <ScrollViewer
                 HorizontalScrollBarVisibility="Disabled"
@@ -72,8 +83,8 @@
                         <TextBlock
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Enable Live Tile" />
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Live Tile" />
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTile, Mode=TwoWay}"
@@ -90,8 +101,8 @@
                         <TextBlock
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Enable scale animation when pointer enters" />
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Scale animation on pointer entering" />
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableScaleAnimation, Mode=TwoWay}"
@@ -108,8 +119,8 @@
                         <TextBlock
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Enable today's recommendation" />
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Today highlight" />
                         <ToggleSwitch
                             Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTodayRecommendation, Mode=TwoWay}"
@@ -119,24 +130,24 @@
                         Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
-                            <TextBlock
-                                Margin="12"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                Text="Open folder that wallpapers are saved into" />
-                        </Border>
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        cu:Style="{StaticResource MainButtonCompatStyle}"
+                        VerticalAlignment="Center" 
+                        HorizontalContentAlignment="Left">
+                        <TextBlock
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Open the folder wallpapers are saved into" />
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" />
+                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change wallpaper in background every day" VerticalAlignment="Center" Margin="12,0,0,0" />
                             <Button
-                                Margin="12,0,0,0"
                                 HorizontalAlignment="Right"
+                                Margin="12,0,0,0"
                                 VerticalAlignment="Bottom"
-                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}"
-                                Style="{StaticResource ButtonCommonStyle}">
+                                Style="{StaticResource ButtonCommonStyle}"
+                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}">
                                 <Grid>
                                     <Ellipse
                                         Width="20"
@@ -158,13 +169,7 @@
                             <ComboBoxItem Content="Desktop and lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
                         </ComboBox>
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Loading quality in list" />
-                    <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=LoadQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
-                        <ComboBoxItem Content="Large (Recommended)" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
-                    </ComboBox>
-                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Image quality for downloading" />
+                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Save quality" />
                     <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=SaveQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
                         <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="High (Default)" Style="{StaticResource ComboBoxItemStyle}" />
@@ -179,14 +184,14 @@
                         Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
-                            <TextBlock
-                                Margin="12"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
-                        </Border>
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        HorizontalContentAlignment="Left"
+                        IsEnabled="{x:Bind SettingsVM.ClearCacheCommandEnabled, Mode=TwoWay}"
+                        cu:Style="{StaticResource MainButtonCompatStyle}">
+                        <TextBlock
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
                     </Button>
                     <TextBlock
                         Margin="12,12,12,0"
@@ -199,14 +204,13 @@
                         Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
-                            <TextBlock
-                                Margin="12"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                Text="Clean up temp files" />
-                        </Border>
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        HorizontalContentAlignment="Left"
+                        cu:Style="{StaticResource MainButtonCompatStyle}">
+                        <TextBlock
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Clean up temp files" />
                     </Button>
                 </StackPanel>
             </ScrollViewer>

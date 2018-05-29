@@ -2,9 +2,9 @@
 {
     public interface INavigableUserControl
     {
-        bool Shown { get; set; }
+        bool Presented { get; set; }
 
-        void OnShow();
+        void OnPresented();
 
         void OnHide();
 

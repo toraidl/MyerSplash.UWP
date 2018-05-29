@@ -3,12 +3,9 @@ using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Foundation;
-using Windows.Storage;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -42,7 +39,15 @@ namespace MyerSplash.View.Uc
         public int TargetOffsetY;
 
         private ScrollViewer _scrollViewer;
-        private FrameworkElement _tappedContainer;
+        private GridViewItem _tappedContainer;
+
+        public double ScrollingPosition
+        {
+            get
+            {
+                return ImageGridView.GetScrollViewer().VerticalOffset;
+            }
+        }
 
         public bool Refreshing
         {
@@ -67,7 +72,7 @@ namespace MyerSplash.View.Uc
         public ImageListControl()
         {
             this.InitializeComponent();
-            this._compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            this._compositor = this.GetVisual().Compositor;
             this._listVisual = ImageGridView.GetVisual();
         }
 
@@ -89,19 +94,18 @@ namespace MyerSplash.View.Uc
                 return;
             }
 
-            _tappedContainer = ImageGridView.ContainerFromItem(image) as FrameworkElement;
+            _tappedContainer = ImageGridView.ContainerFromItem(image) as GridViewItem;
 
-            var rootGrid = (_tappedContainer as GridViewItem).ContentTemplateRoot as Grid;
-            var contentGrid = rootGrid.Children[0] as Grid;
+            var rootGrid = _tappedContainer.ContentTemplateRoot as Grid;
 
             _tappedContainerVisual = ElementCompositionPreview.GetElementVisual(_tappedContainer);
 
-            var maskBorder = contentGrid.Children[2] as FrameworkElement;
-            var img = contentGrid.Children[1] as FrameworkElement;
+            var maskBorder = rootGrid.Children[2] as FrameworkElement;
+            var img = rootGrid.Children[1] as FrameworkElement;
 
             ToggleItemPointOverAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(image, contentGrid);
+            OnClickItemStarted?.Invoke(image, _tappedContainer);
         }
 
         public void ScrollToTop()
@@ -109,53 +113,15 @@ namespace MyerSplash.View.Uc
             ImageGridView.GetScrollViewer().ChangeView(null, 0, null);
         }
 
-        #region List Animation
-
-        private void AdaptiveGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        public void ScrollToPosition(double y)
         {
-            int index = args.ItemIndex;
-
-            if (!args.InRecycleQueue)
-            {
-                args.ItemContainer.Loaded -= ItemContainer_Loaded;
-                args.ItemContainer.Loaded += ItemContainer_Loaded;
-            }
+            ImageGridView.GetScrollViewer().ChangeView(null, y, null, true);
         }
 
-        private void ItemContainer_Loaded(object sender, RoutedEventArgs e)
+        public void SmoothScrollToPosition(double y)
         {
-            var itemsPanel = (ItemsWrapGrid)ImageGridView.ItemsPanelRoot;
-            var itemContainer = (GridViewItem)sender;
-            var itemIndex = ImageGridView.IndexFromContainer(itemContainer);
-
-            // Don't animate if we're not in the visible viewport
-            if (itemIndex >= itemsPanel.FirstVisibleIndex && itemIndex <= itemsPanel.LastVisibleIndex)
-            {
-                var itemVisual = itemContainer.GetVisual();
-                var delayIndex = itemIndex - itemsPanel.FirstVisibleIndex;
-
-                itemVisual.Opacity = 0f;
-                itemVisual.SetTranslation(new Vector3(50, 0, 0));
-
-                // Create KeyFrameAnimations
-                var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                offsetAnimation.InsertKeyFrame(1f, 0f);
-                offsetAnimation.Duration = TimeSpan.FromMilliseconds(700);
-                offsetAnimation.DelayTime = TimeSpan.FromMilliseconds((delayIndex * 30));
-
-                var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                fadeAnimation.InsertKeyFrame(1f, 1f);
-                fadeAnimation.Duration = TimeSpan.FromMilliseconds(700);
-                fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(delayIndex * 30);
-
-                // Start animations
-                itemVisual.StartAnimation(itemVisual.GetTranslationXPropertyName(), offsetAnimation);
-                itemVisual.StartAnimation("Opacity", fadeAnimation);
-            }
-            itemContainer.Loaded -= ItemContainer_Loaded;
+            ImageGridView.GetScrollViewer().ChangeView(null, y, null, false);
         }
-
-        #endregion List Animation
 
         private void ImageGridView_Loaded(object sender, RoutedEventArgs e)
         {
@@ -301,20 +267,6 @@ namespace MyerSplash.View.Uc
             _listVisual.StartAnimation(_listVisual.GetTranslationYPropertyName(), offsetAnimation);
             LoadingControl.Visibility = Visibility.Collapsed;
             LoadingControl.Stop();
-        }
-
-        private async void RootGrid_DragStarting(UIElement sender, DragStartingEventArgs args)
-        {
-            var image = (sender as FrameworkElement).DataContext as ImageItem;
-            var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
-            if (file == null)
-            {
-                args.Cancel = true;
-                return;
-            }
-            args.Data.SetStorageItems(new List<StorageFile>() { file });
-            args.Data.RequestedOperation = DataPackageOperation.Copy;
-            args.Data.SetText(image.ShareText);
         }
 
         private void RootGrid_Tapped(object sender, TappedRoutedEventArgs e)

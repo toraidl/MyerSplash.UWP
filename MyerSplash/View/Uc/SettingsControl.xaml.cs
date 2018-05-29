@@ -1,5 +1,6 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.ViewModel;
+using MyerSplashShared.Utils;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 
@@ -16,18 +17,23 @@ namespace MyerSplash.View.Uc
             {
                 this.DataContext = SettingsVM = new SettingsViewModel();
             }
+
+            if (DeviceUtil.IsXbox)
+            {
+                AutoChangeSP.Visibility = Visibility.Collapsed;
+            }
         }
 
-        public override async void OnShow()
+        public override async void OnPresented()
         {
-            base.OnShow();
-            Window.Current.SetTitleBar(TitleBar);
+            base.OnPresented();
+            Window.Current.SetTitleBar(DummyTitleBar);
             await SettingsVM.CalculateCacheAsync();
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Shown = false;
+            this.Presented = false;
         }
     }
 }

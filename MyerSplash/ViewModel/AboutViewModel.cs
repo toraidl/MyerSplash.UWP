@@ -67,19 +67,6 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _telegramCommand;
-        public RelayCommand TelegramCommand
-        {
-            get
-            {
-                if (_telegramCommand != null) return _telegramCommand;
-                return _telegramCommand = new RelayCommand(async () =>
-                  {
-                      await Launcher.LaunchUriAsync(new Uri("https://t.me/myersplashbot"));
-                  });
-            }
-        }
-
         private RelayCommand _feedbackCommand;
         public RelayCommand FeedbackCommand
         {

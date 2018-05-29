@@ -15,7 +15,7 @@
             x:Name="MaskBorder"
             Grid.RowSpan="2"
             attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.HideSearchCommand, Mode=OneWay}"
-            cu:Background="{StaticResource AppBackgroundBrush}"
+            cu:Background="{StaticResource AppBackgroundBrushDark}"
             fcu:Background="{StaticResource CustomAcrylicInAppBrush}" />
         <Grid
             x:Name="ContentGrid"
@@ -36,7 +36,7 @@
                     Text="SEARCH PHOTOS" />
                 <Grid VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="436" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <Border
@@ -70,13 +70,13 @@
                         BorderThickness="0"
                         Command="{x:Bind MainVM.BeginSearchCommand, Mode=OneWay}"
                         Style="{StaticResource ButtonCommonStyle}">
-                        <Grid Background="{StaticResource MyerSplashThemeLightColorBrush}">
+                        <Grid Background="White">
                             <FontIcon
                                 Margin="0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontFamily="Segoe MDL2 Assets"
-                                Foreground="White"
+                                Foreground="Black"
                                 Glyph="&#xE094;"
                                 RenderTransformOrigin="0.5,0.5">
                                 <FontIcon.RenderTransform>

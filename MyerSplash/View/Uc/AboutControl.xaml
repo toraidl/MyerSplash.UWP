@@ -18,15 +18,18 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="Transparent" />
+        <Grid x:Name="DummyTitleBar" Background="Transparent" />
         <Button
             x:Name="CloseBtn"
-            Width="68"
+            Width="{StaticResource MainButtonSize}"
+            Height="{StaticResource MainButtonSize}"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
-            Style="{StaticResource ListButtonStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" />
+            fcu:Style="{StaticResource MainButtonStyle}"
+            cu:Style="{StaticResource MainButtonCompatStyle}"
+            Margin="12,0,0,0">
+            <FontIcon Style="{StaticResource CloseIconStyle}" FontSize="12" />
         </Button>
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerCommonStyle}">
@@ -94,15 +97,7 @@
                     </Border>
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="CREDITS" />
                     <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos." />
-                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="TELEGRAM BOT" />
-                    <Button
-                        Margin="0,4,0,0"
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        Command="{x:Bind AboutVM.TelegramCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Launch telegram bot" />
-                    </Button>
+                   
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="FEEDBACK" />
                     <StackPanel
                         Margin="0,4,0,0"
@@ -112,28 +107,32 @@
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
                             Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
-                            Style="{StaticResource AboutImageButtonStyle}">
+                            fcu:Style="{StaticResource MainButtonStyle}"
+                            cu:Style="{StaticResource MainButtonCompatStyle}">
                             <Image Source="ms-appx:///Assets/Icon/mail.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
                             Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
-                            Style="{StaticResource AboutImageButtonStyle}">
+                            fcu:Style="{StaticResource MainButtonStyle}"
+                            cu:Style="{StaticResource MainButtonCompatStyle}">
                             <Image Source="ms-appx:///Assets/Icon/github.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
                             Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
-                            Style="{StaticResource AboutImageButtonStyle}">
+                            fcu:Style="{StaticResource MainButtonStyle}"
+                            cu:Style="{StaticResource MainButtonCompatStyle}">
                             <Image Source="ms-appx:///Assets/Icon/twitter.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
                             Command="{x:Bind AboutVM.VisitWeiboCommand, Mode=OneWay}"
-                            Style="{StaticResource AboutImageButtonStyle}">
+                            fcu:Style="{StaticResource MainButtonStyle}"
+                            cu:Style="{StaticResource MainButtonCompatStyle}">
                             <Image Source="ms-appx:///Assets/Icon/weibo.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                     </StackPanel>
@@ -143,7 +142,8 @@
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        cu:Style="{StaticResource MainButtonCompatStyle}">
                         <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Rate this app" />
                     </Button>
                 </StackPanel>

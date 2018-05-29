@@ -1,0 +1,40 @@
+﻿<UserControl
+    x:Class="MyerSplash.View.Uc.MainNavigationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyerSplash.View.Uc"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="30"
+    d:DesignWidth="200" >
+
+    <UserControl.Resources>
+        <Style x:Key="NavigationItemBlock" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Opacity" Value="0.5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="NEW" Opacity="1" Style="{StaticResource NavigationItemBlock}"/>
+            <TextBlock Text="FEATURED" Style="{StaticResource NavigationItemBlock}"/>
+            <TextBlock Text="RANDOM" Style="{StaticResource NavigationItemBlock}"/>
+        </StackPanel>
+        <Border Grid.Row="1" 
+                Margin="10,0,10,0" 
+                Width="35"
+                Background="White"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"/>
+    </Grid>
+</UserControl>
