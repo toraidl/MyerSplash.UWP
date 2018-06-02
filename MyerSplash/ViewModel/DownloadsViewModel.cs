@@ -152,7 +152,7 @@ namespace MyerSplash.ViewModel
                             item.IsMenuOn = false;
                             item.CheckDownloadStatusAsync(downloadTasks);
                             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
-                            item.ImageItem.DownloadBitmapForListAsync();
+                            item.ImageItem.TryLoadBitmapAsync();
                         }
                     }
                     else

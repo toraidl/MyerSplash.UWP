@@ -84,7 +84,7 @@ namespace MyerSplash.View.Uc
 
         private bool CheckListImageDownloaded(ImageItem image)
         {
-            return !string.IsNullOrEmpty(image.ListImageBitmap.LocalPath);
+            return !string.IsNullOrEmpty(image.BitmapSource.LocalPath);
         }
 
         private void TapItem(ImageItem image)

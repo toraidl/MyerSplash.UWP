@@ -583,7 +583,7 @@ namespace MyerSplash.ViewModel
                 var imageItem = new ImageItem(image);
                 DataVM.DataList.Insert(0, imageItem);
                 imageItem.Init();
-                await imageItem.DownloadBitmapForListAsync();
+                await imageItem.TryLoadBitmapAsync();
             }
         }
 
