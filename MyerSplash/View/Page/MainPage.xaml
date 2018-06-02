@@ -21,9 +21,7 @@
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.SearchCommand}" PressedKey="F6" />
         </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
-    <Grid x:Name="RootGrid" 
-          cu:Background="{StaticResource CustomAcrylicWindowBrush}"
-          fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}">
+    <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition />
@@ -39,6 +37,8 @@
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
+            cu:Background="{StaticResource CustomAcrylicWindowBrush}"
+            fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}"
             Grid.RowSpan="2">
             <uc:ImageListControl
                 x:Name="ListControl"
