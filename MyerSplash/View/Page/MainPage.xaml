@@ -37,8 +37,7 @@
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
-            cu:Background="{StaticResource CustomAcrylicWindowBrush}"
-            fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}"
+            Background="{Binding Source={StaticResource AppSettings}, Path=MainPageBackgroundBrush, Mode=OneWay}"
             Grid.RowSpan="2">
             <uc:ImageListControl
                 x:Name="ListControl"
@@ -63,8 +62,7 @@
             </Button>
         </Grid>
         <Grid x:Name="DummyTitleBar"
-              cu:Background="{StaticResource CustomAcrylicWindowBrush}"
-              fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}"
+              Background="{Binding Source={StaticResource AppSettings}, Path=MainTopNavigationBackgroundBrush, Mode=OneWay}"
               VerticalAlignment="Stretch"/>
         <Grid x:Name="TitleGridContent"
               Padding="0,30,0,0">

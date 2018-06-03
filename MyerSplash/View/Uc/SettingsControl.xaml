@@ -75,7 +75,7 @@
                         HorizontalAlignment="Left"
                         Style="{StaticResource SubTitleTextBlockStyle}"
                         Text="PERSONALIZATION" />
-                    <Grid Height="48" framework:UIElementTapCommand.ItemTapCommand="{x:Bind SettingsVM.ToggleLiveTileCommand, Mode=OneWay}">
+                    <Grid Height="{StaticResource SettingsSwitchItemHeight}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -90,10 +90,7 @@
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTile, Mode=TwoWay}"
                             Style="{StaticResource ToggleSwitchStyle}" />
                     </Grid>
-                    <Grid
-                        Height="48"
-                        Margin="0"
-                        framework:UIElementTapCommand.ItemTapCommand="{x:Bind SettingsVM.ToggleScaleAnimationCommand, Mode=OneWay}">
+                    <Grid Height="{StaticResource SettingsSwitchItemHeight}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -108,10 +105,22 @@
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableScaleAnimation, Mode=TwoWay}"
                             Style="{StaticResource ToggleSwitchStyle}" />
                     </Grid>
-                    <Grid
-                        Height="48"
-                        Margin="0"
-                        framework:UIElementTapCommand.ItemTapCommand="{x:Bind SettingsVM.ToggleScaleAnimationCommand, Mode=OneWay}">
+                    <Grid Height="{StaticResource SettingsSwitchItemHeight}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Compact mode" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableCompactMode, Mode=TwoWay}"
+                            Style="{StaticResource ToggleSwitchStyle}" />
+                    </Grid>
+                    <Grid Height="{StaticResource SettingsSwitchItemHeight}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />

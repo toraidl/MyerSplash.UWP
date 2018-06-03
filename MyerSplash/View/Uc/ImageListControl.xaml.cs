@@ -1,4 +1,5 @@
-﻿using JP.Utils.UI;
+﻿using GalaSoft.MvvmLight.Messaging;
+using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
@@ -105,7 +106,7 @@ namespace MyerSplash.View.Uc
 
             ToggleItemPointOverAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(image, _tappedContainer);
+            OnClickItemStarted?.Invoke(image, rootGrid);
         }
 
         public void ScrollToTop()

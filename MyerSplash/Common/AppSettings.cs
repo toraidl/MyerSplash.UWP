@@ -1,15 +1,124 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.Common
 {
     public class AppSettings : ViewModelBase
     {
         public ApplicationDataContainer LocalSettings { get; set; }
+
+        public Windows.UI.Xaml.Media.Brush MainPageBackgroundBrush
+        {
+            get
+            {
+                if (EnableCompactMode)
+                {
+                    return new SolidColorBrush(Colors.Black);
+                }
+                else
+                {
+                    if (IsFcuOrAbove())
+                    {
+                        return App.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                    }
+                    else
+                    {
+                        return App.Current.Resources["CustomAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                    }
+                }
+            }
+        }
+
+        public Windows.UI.Xaml.Media.Brush MainTopNavigationBackgroundBrush
+        {
+            get
+            {
+                if (EnableCompactMode)
+                {
+                    return App.Current.Resources["CustomAcrylicInAppBrush"] as Windows.UI.Xaml.Media.Brush;
+                }
+                else
+                {
+                    if (IsFcuOrAbove())
+                    {
+                        return App.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                    }
+                    else
+                    {
+                        return App.Current.Resources["AppBackgroundBrushDark"] as Windows.UI.Xaml.Media.Brush;
+                    }
+                }
+            }
+        }
+
+        private Thickness _imageMargin;
+        public Thickness ImageMargin
+        {
+            get
+            {
+                return _imageMargin;
+            }
+            set
+            {
+                if (value != _imageMargin)
+                {
+                    _imageMargin = value;
+                    RaisePropertyChanged(() => ImageMargin);
+                }
+            }
+        }
+
+        private Thickness _imageListPadding;
+        public Thickness ImageListPadding
+        {
+            get
+            {
+                return _imageListPadding;
+            }
+            set
+            {
+                if (value != _imageListPadding)
+                {
+                    _imageListPadding = value;
+                    RaisePropertyChanged(() => ImageListPadding);
+                }
+            }
+        }
+
+        public bool EnableCompactMode
+        {
+            get
+            {
+                return ReadSettings(nameof(EnableCompactMode), true);
+            }
+            set
+            {
+                SaveSettings(nameof(EnableCompactMode), value);
+                RaisePropertyChanged(() => EnableCompactMode);
+                RaisePropertyChanged(() => MainPageBackgroundBrush);
+                RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
+
+                if (value)
+                {
+                    ImageMargin = new Thickness(0);
+                    ImageListPadding = new Thickness(0);
+                }
+                else
+                {
+                    ImageMargin = new Thickness(8);
+                    ImageListPadding = new Thickness(8, 0, 8, 0);
+                }
+            }
+        }
 
         public bool EnableTile
         {
@@ -144,6 +253,12 @@ namespace MyerSplash.Common
         public AppSettings()
         {
             LocalSettings = ApplicationData.Current.LocalSettings;
+            EnableCompactMode = EnableCompactMode;
+        }
+
+        public static bool IsFcuOrAbove()
+        {
+            return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
         }
 
         public async Task<StorageFolder> GetSavingFolderAsync()
