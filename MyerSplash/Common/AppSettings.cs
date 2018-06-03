@@ -108,7 +108,7 @@ namespace MyerSplash.Common
         {
             get
             {
-                return ReadSettings(nameof(EnableCompactMode), true);
+                return ReadSettings(nameof(EnableCompactMode), false);
             }
             set
             {
