@@ -15,10 +15,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using Windows.Storage;
 using Windows.System;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using System.Collections.ObjectModel;
-using Windows.UI.Core;
 
 namespace MyerSplash.ViewModel
 {
@@ -567,23 +565,41 @@ namespace MyerSplash.ViewModel
 
             if (SelectedIndex == NEW_INDEX && AppSettings.Instance.EnableTodayRecommendation)
             {
-                await InsertTodayWallpaperAsync();
+                InsertTodayHighlight();
             }
 
             IsRefreshing = false;
         }
 
-        private async Task InsertTodayWallpaperAsync()
+        public void RemoveTodayHighlight()
         {
-            var date = DateTime.Now.ToString("yyyyMMdd");
-
-            if (DataVM.DataList.Count > 0 && DataVM.DataList[0].Image.ID != date)
+            var vm = _vms[NEW_INDEX];
+            if (vm != null)
             {
-                var image = UnsplashImageFactory.CreateTodayImage();
-                var imageItem = new ImageItem(image);
-                DataVM.DataList.Insert(0, imageItem);
-                imageItem.Init();
-                await imageItem.TryLoadBitmapAsync();
+                var first = vm.DataList.FirstOrDefault();
+                if (first != null && !first.Image.IsUnsplash)
+                {
+                    vm.DataList.Remove(first);
+                }
+            }
+        }
+
+        public void InsertTodayHighlight()
+        {
+            var vm = _vms[NEW_INDEX];
+            if (vm != null)
+            {
+                var date = DateTime.Now.ToString("yyyyMMdd");
+                var first = vm.DataList.FirstOrDefault();
+                if (first != null && first.Image.ID != date)
+                {
+                    RemoveTodayHighlight();
+
+                    var imageItem = new ImageItem(UnsplashImageFactory.CreateTodayImage());
+                    imageItem.Init();
+
+                    vm.DataList.Insert(0, imageItem);
+                }
             }
         }
 

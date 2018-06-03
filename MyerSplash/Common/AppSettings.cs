@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
@@ -15,6 +17,14 @@ namespace MyerSplash.Common
     public class AppSettings : ViewModelBase
     {
         public ApplicationDataContainer LocalSettings { get; set; }
+
+        private MainViewModel MainVM
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
+            }
+        }
 
         public Windows.UI.Xaml.Media.Brush MainPageBackgroundBrush
         {
@@ -147,7 +157,15 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(EnableTodayRecommendation), value);
                 RaisePropertyChanged(() => EnableTodayRecommendation);
-                ToastService.SendToast("Please refresh the list to apply this option.", 5000);
+
+                if (value)
+                {
+                    MainVM.InsertTodayHighlight();
+                }
+                else
+                {
+                    MainVM.RemoveTodayHighlight();
+                }
             }
         }
 
