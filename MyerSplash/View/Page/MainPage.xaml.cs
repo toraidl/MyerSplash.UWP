@@ -1,4 +1,5 @@
-﻿using MyerSplash.Common;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
@@ -20,7 +21,13 @@ namespace MyerSplash.View.Page
     {
         private const float TITLE_GRID_HEIGHT = 70;
 
-        private MainViewModel MainVM { get; set; }
+        private MainViewModel MainVM
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
+            }
+        }
 
         private Compositor _compositor;
         private Visual _refreshBtnVisual;
@@ -59,7 +66,6 @@ namespace MyerSplash.View.Page
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = MainVM = new MainViewModel();
             InitComposition();
             InitBinding();
 

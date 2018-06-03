@@ -22,7 +22,7 @@ namespace MyerSplash.ViewModel
 
         private DownloadItem _menuOpenedItem;
 
-        private object o = new object();
+        private readonly object o = new object();
 
         private ObservableCollection<DownloadItem> _downloadingImages;
         public ObservableCollection<DownloadItem> DownloadingImages
