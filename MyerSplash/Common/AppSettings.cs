@@ -54,7 +54,7 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return App.Current.Resources["CustomAcrylicInAppBrush"] as Windows.UI.Xaml.Media.Brush;
+                    return App.Current.Resources["CustomAcrylicInAppBrushTrans"] as Windows.UI.Xaml.Media.Brush;
                 }
                 else
                 {
