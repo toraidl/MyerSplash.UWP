@@ -36,7 +36,7 @@ namespace MyerSplash.View.Page
         private Compositor _compositor;
         private Visual _refreshBtnVisual;
 
-        private Visual _titleBarVisual;
+        private Visual _titleBarPlaceholderVisual;
         private Visual _titleContentVisual;
 
         private double _lastVerticalOffset;
@@ -123,7 +123,7 @@ namespace MyerSplash.View.Page
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _refreshBtnVisual = RefreshBtn.GetVisual();
             _titleContentVisual = TitleGridContent.GetVisual();
-            _titleBarVisual = DummyTitleBar.GetVisual();
+            _titleBarPlaceholderVisual = TitleBarBackgroundPlaceholder.GetVisual();
         }
 
         private void RecordScrollingPosition(int oldValue)
@@ -184,8 +184,8 @@ namespace MyerSplash.View.Page
             offsetAnimation.InsertKeyFrame(1f, show ? 0 : -(float)TitleGridContent.ActualHeight);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
 
-            _titleBarVisual.StartAnimation(
-                _titleBarVisual.GetTranslationYPropertyName(), offsetAnimation);
+            _titleBarPlaceholderVisual.StartAnimation(
+                _titleBarPlaceholderVisual.GetTranslationYPropertyName(), offsetAnimation);
             _titleContentVisual.StartAnimation(
                 _titleContentVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
