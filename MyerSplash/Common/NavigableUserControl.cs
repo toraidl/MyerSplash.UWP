@@ -20,15 +20,6 @@ namespace MyerSplash.Common
 
     public class NavigableUserControl : UserControl, INavigableUserControl
     {
-        private bool IsInWideWindow
-        {
-            get
-            {
-                var ratio = Window.Current.Bounds.Width / Window.Current.Bounds.Height;
-                return ratio > 1;
-            }
-        }
-
         public bool Presented
         {
             get { return (bool)GetValue(PresentedProperty); }
@@ -84,14 +75,7 @@ namespace MyerSplash.Common
         {
             if (!Presented)
             {
-                if (IsInWideWindow)
-                {
-                    _rootVisual.SetTranslation(new Vector3(0f, (float)this.ActualHeight, 0f));
-                }
-                else
-                {
-                    _rootVisual.SetTranslation(new Vector3((float)this.ActualWidth, 0f, 0f));
-                }
+                _rootVisual.SetTranslation(new Vector3(0f, (float)this.ActualHeight, 0f));
             }
         }
 
@@ -108,12 +92,10 @@ namespace MyerSplash.Common
         public void ToggleAnimation()
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, Presented ? 0f :
-                (IsInWideWindow ? (float)this.ActualHeight : (float)this.ActualWidth));
+            offsetAnimation.InsertKeyFrame(1f, Presented ? 0f : (float)this.ActualHeight);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(800);
-           
-            _rootVisual.StartAnimation(IsInWideWindow ? _rootVisual.GetTranslationYPropertyName()
-                : _rootVisual.GetTranslationXPropertyName(), offsetAnimation);
+
+            _rootVisual.StartAnimation(_rootVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
     }
 }
