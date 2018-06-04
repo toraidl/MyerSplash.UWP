@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Framework;
-using JP.Utils.Helper;
 using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.Data;
@@ -606,17 +605,6 @@ namespace MyerSplash.ViewModel
         public void Activate(object param)
         {
             var task = HandleLaunchArg(param as string);
-
-            if (DeviceHelper.IsDesktop)
-            {
-                //var key = (string)App.Current.Resources["CoachKey"];
-                //if (!LocalSettingHelper.HasValue(key))
-                //{
-                //    LocalSettingHelper.AddValue(key, true);
-                //    var uc = new TipsControl();
-                //    var task2 = PopupService.Instance.ShowAsync(uc);
-                //}
-            }
         }
 
         private async Task HandleLaunchArg(string arg)

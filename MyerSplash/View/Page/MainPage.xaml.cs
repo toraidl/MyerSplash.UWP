@@ -1,6 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using JP.Utils.Data;
+using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.Model;
+using MyerSplash.View.Uc;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
@@ -14,6 +17,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
 {
@@ -72,6 +76,20 @@ namespace MyerSplash.View.Page
             // Ugly, I should come up with better solutions.
             MainVM.AboutToUpdateSelectedIndex += MainVM_AboutToUpdateSelectedIndex;
             MainVM.DataUpdated += MainVM_DataUpdated;
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (DeviceHelper.IsDesktop)
+            {
+                var key = (string)App.Current.Resources["CoachKey"];
+                if (!LocalSettingHelper.HasValue(key))
+                {
+                    LocalSettingHelper.AddValue(key, true);
+                    await PopupService.Instance.ShowAsync(new TipsControl());
+                }
+            }
         }
 
         private void MainVM_DataUpdated(object sender, EventArgs e)

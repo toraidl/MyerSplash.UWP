@@ -121,7 +121,9 @@ namespace MyerSplashCustomControl
             _maskBorder.Visibility = Visibility.Visible;
             _isOpen = true;
             if (PlayPopupAnim)
+            {
                 _inStory.Begin();
+            }
         }
 
         public void Hide()
