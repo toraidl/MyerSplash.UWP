@@ -10,6 +10,7 @@ using MyerSplashShared.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -53,38 +54,20 @@ namespace MyerSplash.Model
             }
         }
 
-        private CachedBitmapSource _listImageBitmap;
+        private CachedBitmapSource _bitmapSource;
         [IgnoreDataMember]
-        public CachedBitmapSource ListImageBitmap
+        public CachedBitmapSource BitmapSource
         {
             get
             {
-                return _listImageBitmap;
+                return _bitmapSource;
             }
             set
             {
-                if (_listImageBitmap != value)
+                if (_bitmapSource != value)
                 {
-                    _listImageBitmap = value;
-                    RaisePropertyChanged(() => ListImageBitmap);
-                }
-            }
-        }
-
-        private CachedBitmapSource _largeBitmap;
-        [IgnoreDataMember]
-        public CachedBitmapSource LargeBitmap
-        {
-            get
-            {
-                return _largeBitmap;
-            }
-            set
-            {
-                if (_largeBitmap != value)
-                {
-                    _largeBitmap = value;
-                    RaisePropertyChanged(() => LargeBitmap);
+                    _bitmapSource = value;
+                    RaisePropertyChanged(() => BitmapSource);
                 }
             }
         }
@@ -341,15 +324,13 @@ namespace MyerSplash.Model
 
         public ImageItem()
         {
-            ListImageBitmap = new CachedBitmapSource();
-            LargeBitmap = new CachedBitmapSource();
+            BitmapSource = new CachedBitmapSource();
         }
 
         public ImageItem(UnsplashImage image)
         {
             Image = image;
-            ListImageBitmap = new CachedBitmapSource();
-            LargeBitmap = new CachedBitmapSource();
+            BitmapSource = new CachedBitmapSource();
         }
 
         public void Init()
@@ -381,7 +362,7 @@ namespace MyerSplash.Model
 
             requestData.SetText(ShareText);
 
-            var file = await StorageFile.GetFileFromPathAsync(ListImageBitmap.LocalPath);
+            var file = await StorageFile.GetFileFromPathAsync(BitmapSource.LocalPath);
             if (file != null)
             {
                 List<IStorageItem> imageItems = new List<IStorageItem>();
@@ -394,18 +375,24 @@ namespace MyerSplash.Model
             }
         }
 
-        public async Task DownloadBitmapForListAsync()
+        public async Task TryLoadBitmapAsync()
         {
-            if (ListImageBitmap.Bitmap != null) return;
-            var url = GetListImageUrlFromSettings();
+            if (BitmapSource.Bitmap != null) return;
+            var url = GetUrlFromSettings();
 
             if (string.IsNullOrEmpty(url)) return;
 
             var task = CheckAndGetDownloadedFileAsync();
 
-            ListImageBitmap.ExpectedFileName = Image.ID + ".jpg";
-            ListImageBitmap.RemoteUrl = url;
-            await ListImageBitmap.LoadBitmapAsync();
+            BitmapSource.ExpectedFileName = Image.ID + ".jpg";
+            BitmapSource.RemoteUrl = url;
+            await BitmapSource.LoadBitmapAsync();
+
+            if (Image?.IsUnsplash == false && App.AppSettings.EnableTile && BitmapSource.LocalPath != null)
+            {
+                Debug.WriteLine("About to update tile.");
+                await LiveTileUpdater.UpdateImagesTileAsync(new List<string>() { BitmapSource.LocalPath });
+            }
         }
 
         public async Task CheckAndGetDownloadedFileAsync()
@@ -426,7 +413,7 @@ namespace MyerSplash.Model
             }
         }
 
-        public string GetListImageUrlFromSettings()
+        public string GetUrlFromSettings()
         {
             var quality = App.AppSettings.LoadQuality;
             switch (quality)

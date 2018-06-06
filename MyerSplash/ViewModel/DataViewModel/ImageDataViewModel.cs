@@ -41,33 +41,28 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         protected void UpdateHintVisibility(IEnumerable<ImageItem> list)
         {
-            var task = RunOnUiThread(() =>
-              {
-                  // No items at all
-                  if (DataList.Count == 0)
-                  {
-                      if (list.Count() == 0)
-                      {
-                          _mainViewModel.NoItemHintVisibility = Visibility.Visible;
-                      }
-                  }
-                  else _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
+            _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
+            _mainViewModel.FooterReloadVisibility = Visibility.Collapsed;
+            _mainViewModel.NoNetworkHintVisibility = Visibility.Collapsed;
+            _mainViewModel.EndVisibility = Visibility.Collapsed;
 
-                  // Has loaded items but no more
-                  if (list.Count() == 0)
-                  {
-                      _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
-                      _mainViewModel.EndVisibility = Visibility.Visible;
-                  }
-                  //There are more items
-                  else
-                  {
-                      _mainViewModel.FooterLoadingVisibility = Visibility.Visible;
-                      _mainViewModel.EndVisibility = Visibility.Collapsed;
-                  }
+            // No items at all
+            if (DataList.Count == 0)
+            {
+                if (list.Count() == 0)
+                {
+                    _mainViewModel.NoItemHintVisibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
 
-                  return;
-              });
+                if (list.Count() == 0)
+                {
+                    _mainViewModel.EndVisibility = Visibility.Visible;
+                }
+            }
         }
 
         protected async override Task<IEnumerable<ImageItem>> GetList(int pageIndex)
@@ -76,15 +71,19 @@ namespace MyerSplash.ViewModel.DataViewModel
             {
                 if (pageIndex >= 2)
                 {
-                    _mainViewModel.FooterLoadingVisibility = Visibility.Visible;
+                    var task = RunOnUiThread(() =>
+                      {
+                          _mainViewModel.FooterLoadingVisibility = Visibility.Visible;
+                          _mainViewModel.EndVisibility = Visibility.Collapsed;
+                          _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
+                      });
                 }
 
                 var result = await RequestAsync(pageIndex);
 
                 await RunOnUiThread(() =>
                 {
-                    _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
-                    _mainViewModel.NoNetworkHintVisibility = Visibility.Collapsed;
+                    UpdateHintVisibility(result);
                 });
 
                 return result;
@@ -92,30 +91,32 @@ namespace MyerSplash.ViewModel.DataViewModel
             catch (Exception e2)
             {
                 var task = Logger.LogAsync(e2);
-                await HandleFailedAsync(e2);
+                HandleFailed(e2);
                 return new List<ImageItem>();
             }
         }
 
-        private async Task HandleFailedAsync(Exception e)
+        private void HandleFailed(Exception e)
         {
-            await RunOnUiThread(() =>
-            {
-                _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
-                _mainViewModel.IsRefreshing = false;
+            var task = RunOnUiThread(() =>
+             {
+                 _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
+                 _mainViewModel.FooterReloadVisibility = Visibility.Collapsed;
 
-                if (_mainViewModel.DataVM.DataList?.Count == 0)
-                {
-                    _mainViewModel.NoNetworkHintVisibility = Visibility.Visible;
-                }
-                else
-                {
-                    _mainViewModel.NoNetworkHintVisibility = Visibility.Collapsed;
-                    _mainViewModel.FooterReloadVisibility = Visibility.Visible;
-                }
+                 _mainViewModel.IsRefreshing = false;
 
-                ToastService.SendToast(e.Message);
-            });
+                 if (_mainViewModel.DataVM.DataList?.Count == 0)
+                 {
+                     _mainViewModel.NoNetworkHintVisibility = Visibility.Visible;
+                 }
+                 else
+                 {
+                     _mainViewModel.NoNetworkHintVisibility = Visibility.Collapsed;
+                     _mainViewModel.FooterReloadVisibility = Visibility.Visible;
+                 }
+
+                 ToastService.SendToast(e.Message);
+             });
         }
 
         protected async override void LoadMoreItemCompleted(IEnumerable<ImageItem> list, int pagingIndex)
@@ -129,8 +130,6 @@ namespace MyerSplash.ViewModel.DataViewModel
             {
                 await UpdateLiveTileAsync();
             }
-
-            _mainViewModel.FooterReloadVisibility = list.Count() == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private async Task UpdateLiveTileAsync()
@@ -141,7 +140,7 @@ namespace MyerSplash.ViewModel.DataViewModel
 
             foreach (var item in DataList)
             {
-                list.Add(item.ListImageBitmap.LocalPath);
+                list.Add(item.BitmapSource.LocalPath);
             }
             if (App.AppSettings.EnableTile && list.Count > 0)
             {
@@ -159,9 +158,7 @@ namespace MyerSplash.ViewModel.DataViewModel
                 var result = await _imageService.GetImagesAsync(cts.Token);
                 if (result != null)
                 {
-                    var list = CreateImageItems(result);
-                    UpdateHintVisibility(list);
-                    return list;
+                    return CreateImageItems(result);
                 }
                 else throw new APIException("Request failed");
             }

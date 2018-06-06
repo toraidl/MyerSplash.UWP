@@ -1,4 +1,6 @@
-﻿using JP.Utils.UI;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
@@ -27,7 +29,7 @@ namespace MyerSplash.View.Uc
         {
             get
             {
-                return this.DataContext as MainViewModel;
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
 
@@ -84,7 +86,7 @@ namespace MyerSplash.View.Uc
 
         private bool CheckListImageDownloaded(ImageItem image)
         {
-            return !string.IsNullOrEmpty(image.ListImageBitmap.LocalPath);
+            return !string.IsNullOrEmpty(image.BitmapSource.LocalPath);
         }
 
         private void TapItem(ImageItem image)
@@ -105,7 +107,7 @@ namespace MyerSplash.View.Uc
 
             ToggleItemPointOverAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(image, _tappedContainer);
+            OnClickItemStarted?.Invoke(image, rootGrid);
         }
 
         public void ScrollToTop()

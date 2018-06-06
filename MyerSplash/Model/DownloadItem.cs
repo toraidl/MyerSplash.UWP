@@ -336,7 +336,7 @@ namespace MyerSplash.Model
         public async Task CheckDownloadStatusAsync(IReadOnlyList<DownloadOperation> operations)
         {
             ImageItem.Init();
-            var task = ImageItem.DownloadBitmapForListAsync();
+            var task = ImageItem.TryLoadBitmapAsync();
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
             var item = await folder.TryGetItemAsync(ImageItem.GetFileNameForDownloading());

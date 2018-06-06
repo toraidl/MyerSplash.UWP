@@ -14,7 +14,7 @@ namespace MyerSplash.Adapter
         {
             if ((args.Item is DownloadItem item))
             {
-                await item.ImageItem.DownloadBitmapForListAsync();
+                await item.ImageItem.TryLoadBitmapAsync();
             }
         }
     }

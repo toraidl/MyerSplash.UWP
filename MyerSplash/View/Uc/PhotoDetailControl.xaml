@@ -95,7 +95,7 @@
                         ManipulationDelta="InfoPlaceHolderGrid_ManipulationDelta"
                         ManipulationMode="TranslateX,TranslateY"
                         ManipulationStarted="InfoPlaceHolderGrid_ManipulationStarted"
-                        Source="{x:Bind CurrentImage.ListImageBitmap.Bitmap, Mode=OneWay}"
+                        Source="{x:Bind CurrentImage.BitmapSource.Bitmap, Mode=OneWay}"
                         Stretch="UniformToFill" />
                 </ScrollViewer>
                 <Image

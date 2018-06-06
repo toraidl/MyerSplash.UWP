@@ -1,4 +1,5 @@
-﻿using MyerSplash.ViewModel;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MyerSplash.ViewModel;
 using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.View.Uc
@@ -9,7 +10,7 @@ namespace MyerSplash.View.Uc
         {
             get
             {
-                return this.DataContext as MainViewModel;
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
 

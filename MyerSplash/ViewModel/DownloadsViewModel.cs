@@ -22,7 +22,7 @@ namespace MyerSplash.ViewModel
 
         private DownloadItem _menuOpenedItem;
 
-        private object o = new object();
+        private readonly object o = new object();
 
         private ObservableCollection<DownloadItem> _downloadingImages;
         public ObservableCollection<DownloadItem> DownloadingImages
@@ -152,7 +152,7 @@ namespace MyerSplash.ViewModel
                             item.IsMenuOn = false;
                             item.CheckDownloadStatusAsync(downloadTasks);
                             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
-                            item.ImageItem.DownloadBitmapForListAsync();
+                            item.ImageItem.TryLoadBitmapAsync();
                         }
                     }
                     else

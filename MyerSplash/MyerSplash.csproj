@@ -110,7 +110,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Content Include="Assets\Image\coach.jpg" />
+    <Content Include="Assets\Image\CompactModeOff.png" />
+    <Content Include="Assets\Image\CompactModeOn.png" />
     <Content Include="Assets\Json\built_in_categories.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
