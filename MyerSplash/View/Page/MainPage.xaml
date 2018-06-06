@@ -12,6 +12,7 @@
     xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:MyerSplash.View.Uc"
+    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     Background="{StaticResource TitleBarDarkBrush}"
     mc:Ignorable="d">
     <Interactivity:Interaction.Behaviors>
@@ -21,9 +22,7 @@
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.SearchCommand}" PressedKey="F6" />
         </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
-    <Grid x:Name="RootGrid" 
-          cu:Background="{StaticResource CustomAcrylicWindowBrush}"
-          fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}">
+    <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition />
@@ -39,6 +38,7 @@
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
+            Background="{Binding Source={StaticResource AppSettings}, Path=MainPageBackgroundBrush, Mode=OneWay}"
             Grid.RowSpan="2">
             <uc:ImageListControl
                 x:Name="ListControl"
@@ -62,10 +62,13 @@
                 </Grid>
             </Button>
         </Grid>
-        <Grid x:Name="DummyTitleBar"
-              cu:Background="{StaticResource CustomAcrylicWindowBrush}"
-              fcu:Background="{StaticResource SystemControlChromeLowAcrylicWindowBrush}"
+        <Grid x:Name="TitleBarBackgroundPlaceholder"
+              Background="{Binding Source={StaticResource AppSettings}, Path=MainTopNavigationBackgroundBrush, Mode=OneWay}"
               VerticalAlignment="Stretch"/>
+        <Grid x:Name="DummyTitleBar"
+              Background="Transparent"
+              Height="30"
+              VerticalAlignment="Top"/>
         <Grid x:Name="TitleGridContent"
               Padding="0,30,0,0">
             <cc:TopNavigationControl 

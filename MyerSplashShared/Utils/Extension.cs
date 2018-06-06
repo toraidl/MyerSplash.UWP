@@ -45,13 +45,11 @@ namespace MyerSplashShared.Utils
             {
                 var tcs = new TaskCompletionSource<object>();
 
-                SizeChangedEventHandler handler = null;
-
-                handler = (sender, e) =>
+                void handler(object sender, SizeChangedEventArgs e)
                 {
                     frameworkElement.SizeChanged -= handler;
                     tcs.SetResult(null);
-                };
+                }
 
                 frameworkElement.SizeChanged += handler;
 

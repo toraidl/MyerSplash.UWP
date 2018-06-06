@@ -112,18 +112,28 @@ namespace MyerSplash.View.Uc
             }
         }
 
-        private void CoreWindow_SizeChanged(CoreWindow sender, WindowSizeChangedEventArgs args)
+        private async void CoreWindow_SizeChanged(CoreWindow sender, WindowSizeChangedEventArgs args)
         {
-            UpdateDetailContentGridSize();
+            await UpdateDetailContentGridSizeAsync(false);
         }
 
-        private void UpdateDetailContentGridSize()
+        private async Task UpdateDetailContentGridSizeAsync(bool awaitForSizeChanged)
         {
             var size = GetTargetSize();
             DetailContentGrid.Width = size.X;
             DetailContentGrid.Height = size.Y;
 
+            DetailContentGrid.Clip = new RectangleGeometry()
+            {
+                Rect = new Rect(0, 0, size.X, size.Y)
+            };
+
             _detailContentGirdSizeSpecified = true;
+
+            if (awaitForSizeChanged)
+            {
+                await DetailContentGrid.WaitForSizeChangedAsync();
+            }
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -210,8 +220,8 @@ namespace MyerSplash.View.Uc
             _listItemVisual = _listItem.GetVisual();
 
             _listItemAspectRatio = (float)(_listItem.ActualWidth / _listItem.ActualHeight);
-            DetailGrid_SizeChanged(null, null);
 
+            await UpdateDetailContentGridSizeAsync(false);
             await ToggleListItemAnimationAsync(true);
 
             ToggleDetailGridAnimation(true);
@@ -268,8 +278,7 @@ namespace MyerSplash.View.Uc
 
             if (show && !_detailContentGirdSizeSpecified)
             {
-                UpdateDetailContentGridSize();
-                await DetailContentGrid.WaitForSizeChangedAsync();
+                await UpdateDetailContentGridSizeAsync(true);
             }
 
             var listItemSize = new Vector2((float)_listItem.ActualWidth, (float)_listItem.ActualHeight);
@@ -378,11 +387,9 @@ namespace MyerSplash.View.Uc
             _infoGridVisual.StartAnimation(_infoGridVisual.GetTranslationPropertyName(), offsetAnimation);
         }
 
-        private void DetailGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        private async void DetailGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this.DetailContentGrid.Height = this.DetailContentGrid.ActualWidth / _listItemAspectRatio + 100;
-            this.DetailContentGrid.Clip = new RectangleGeometry()
-            { Rect = new Rect(0, 0, DetailContentGrid.ActualWidth, DetailContentGrid.Height) };
+            await UpdateDetailContentGridSizeAsync(false);
         }
 
         private async Task CheckImageDownloadStatusAsync()

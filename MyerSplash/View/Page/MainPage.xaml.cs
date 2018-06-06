@@ -1,5 +1,9 @@
-﻿using MyerSplash.Common;
+﻿using GalaSoft.MvvmLight.Ioc;
+using JP.Utils.Data;
+using JP.Utils.Helper;
+using MyerSplash.Common;
 using MyerSplash.Model;
+using MyerSplash.View.Uc;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
@@ -13,6 +17,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
 {
@@ -20,10 +25,19 @@ namespace MyerSplash.View.Page
     {
         private const float TITLE_GRID_HEIGHT = 70;
 
-        private MainViewModel MainVM { get; set; }
+        private MainViewModel MainVM
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
+            }
+        }
 
         private Compositor _compositor;
         private Visual _refreshBtnVisual;
+
+        private Visual _titleBarPlaceholderVisual;
+        private Visual _titleContentVisual;
 
         private double _lastVerticalOffset;
         private bool _isHideTitleGrid;
@@ -56,13 +70,26 @@ namespace MyerSplash.View.Page
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = MainVM = new MainViewModel();
             InitComposition();
             InitBinding();
 
             // Ugly, I should come up with better solutions.
             MainVM.AboutToUpdateSelectedIndex += MainVM_AboutToUpdateSelectedIndex;
             MainVM.DataUpdated += MainVM_DataUpdated;
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (DeviceHelper.IsDesktop)
+            {
+                var key = (string)App.Current.Resources["CoachKey"];
+                if (!LocalSettingHelper.HasValue(key))
+                {
+                    LocalSettingHelper.AddValue(key, true);
+                    await PopupService.Instance.ShowAsync(new TipsControl());
+                }
+            }
         }
 
         private void MainVM_DataUpdated(object sender, EventArgs e)
@@ -95,6 +122,8 @@ namespace MyerSplash.View.Page
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _refreshBtnVisual = RefreshBtn.GetVisual();
+            _titleContentVisual = TitleGridContent.GetVisual();
+            _titleBarPlaceholderVisual = TitleBarBackgroundPlaceholder.GetVisual();
         }
 
         private void RecordScrollingPosition(int oldValue)
@@ -140,13 +169,25 @@ namespace MyerSplash.View.Page
 
         private void ToggleRefreshBtnAnimation(bool show)
         {
-            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, show ? 1f : 0);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            scaleAnimation.InsertKeyFrame(1f, show ? 1f : 0);
+            scaleAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             _refreshBtnVisual.CenterPoint = new Vector3((float)RefreshBtn.ActualWidth / 2f, (float)RefreshBtn.ActualHeight / 2f, 0f);
-            _refreshBtnVisual.StartAnimation("Scale.X", offsetAnimation);
-            _refreshBtnVisual.StartAnimation("Scale.Y", offsetAnimation);
+            _refreshBtnVisual.StartAnimation("Scale.X", scaleAnimation);
+            _refreshBtnVisual.StartAnimation("Scale.Y", scaleAnimation);
+        }
+
+        private void ToggleTitleContentAnimation(bool show)
+        {
+            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(1f, show ? 0 : -(float)TitleGridContent.ActualHeight);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+            _titleBarPlaceholderVisual.StartAnimation(
+                _titleBarPlaceholderVisual.GetTranslationYPropertyName(), offsetAnimation);
+            _titleContentVisual.StartAnimation(
+                _titleContentVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
 
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
@@ -157,11 +198,21 @@ namespace MyerSplash.View.Page
             {
                 _isHideTitleGrid = true;
                 ToggleRefreshBtnAnimation(false);
+
+                if (AppSettings.Instance.EnableCompactMode)
+                {
+                    ToggleTitleContentAnimation(false);
+                }
             }
             else if (scrollViewer.VerticalOffset < _lastVerticalOffset && _isHideTitleGrid)
             {
                 _isHideTitleGrid = false;
                 ToggleRefreshBtnAnimation(true);
+
+                if (AppSettings.Instance.EnableCompactMode)
+                {
+                    ToggleTitleContentAnimation(true);
+                }
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
         }

@@ -140,7 +140,7 @@ namespace MyerSplash.ViewModel.DataViewModel
 
             foreach (var item in DataList)
             {
-                list.Add(item.ListImageBitmap.LocalPath);
+                list.Add(item.BitmapSource.LocalPath);
             }
             if (App.AppSettings.EnableTile && list.Count > 0)
             {

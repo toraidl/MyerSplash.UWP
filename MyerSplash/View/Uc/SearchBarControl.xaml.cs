@@ -1,4 +1,5 @@
-﻿using MyerSplash.Common;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MyerSplash.Common;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Utils;
 using System;
@@ -17,7 +18,7 @@ namespace MyerSplash.View.Uc
         {
             get
             {
-                return this.DataContext as MainViewModel;
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
 

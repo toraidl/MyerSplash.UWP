@@ -1,1 +1,0 @@
-D:\Dev\MyerSplashUWP\MyerSplash\bin\ARM\Release\Upload\MyerSplash_3.0.0.0\MyerSplash_3.0.0.0_x86_x64_arm.appxbundle
