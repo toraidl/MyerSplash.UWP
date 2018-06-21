@@ -6,6 +6,7 @@
     xmlns:control="using:MyerSplashCustomControl"
     xmlns:adapter="using:MyerSplash.Adapter"
     xmlns:converter="using:MyerSplash.Converter"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
@@ -116,7 +117,7 @@
                         Stretch="UniformToFill" />
                     <Grid x:Name="MaskBorder" Background="#53000000">
                         <StackPanel
-                            Margin="16,0,0,16"
+                            Margin="16"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Orientation="Horizontal"
@@ -163,30 +164,31 @@
                             Glyph="&#xE118;" />
                     </Button>
                     <Grid
-                        Margin="12,0,0,12"
+                        Margin="16"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Visibility="{x:Bind RecommendationVisibility, Mode=OneWay}">
-                        <Rectangle
-                            Fill="#B8000000"
-                            RadiusX="4"
-                            RadiusY="4" />
                         <StackPanel
-                            Margin="8"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
                             <FontIcon
-                                FontFamily="Segoe MDL2 Assets"
-                                FontSize="12"
-                                Foreground="#FFFFF024"
-                                Glyph="&#xE00A;" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="TODAY" />
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="12"
+                                    Foreground="#FFFFF024"
+                                    Glyph="&#xE00A;" />
+                            <controls:DropShadowPanel 
+                                Margin="8,0,0,0" 
+                                BlurRadius="4.0" 
+                                OffsetX="1"
+                                OffsetY="1"
+                                ShadowOpacity="0.30">
+                                <TextBlock
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="TODAY" />
+                            </controls:DropShadowPanel>
                         </StackPanel>
                     </Grid>
                 </Grid>
