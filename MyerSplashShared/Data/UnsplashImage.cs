@@ -197,9 +197,27 @@ namespace MyerSplash.Data
             }
         }
 
+        private bool _isInHighlightList;
+        public bool IsInHighlightList
+        {
+            get
+            {
+                return _isInHighlightList;
+            }
+            set
+            {
+                if (_isInHighlightList != value)
+                {
+                    _isInHighlightList = value;
+                    RaisePropertyChanged(() => IsInHighlightList);
+                }
+            }
+        }
+
         public UnsplashImage()
         {
             IsUnsplash = true;
+            IsInHighlightList = false;
         }
     }
 }

@@ -126,7 +126,19 @@
                                 FontWeight="Bold"
                                 FontSize="12"
                                 Foreground="White"
-                                Text="{x:Bind LikesString, Mode=OneWay}" />
+                                Text="{x:Bind OwnerString, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel
+                            Margin="16"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal"
+                            Visibility="{x:Bind DateTimeVisibility, Mode=OneWay}">
+                            <TextBlock
+                                FontWeight="Bold"
+                                FontSize="12"
+                                Foreground="White"
+                                Text="{x:Bind Image.CreateTimeString, Mode=OneWay}" />
                         </StackPanel>
                         <Button
                             x:Name="DownloadBtn"
