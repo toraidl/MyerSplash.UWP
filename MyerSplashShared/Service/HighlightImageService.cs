@@ -9,7 +9,7 @@ namespace MyerSplashShared.Service
 {
     public class HighlightImageService : ImageServiceBase
     {
-        private static DateTime END_TIME => DateTime.Parse("2017/03/18");
+        private static DateTime END_TIME => DateTime.Parse("2017/03/20");
         private static int COUNT => 20;
 
         public HighlightImageService(UnsplashImageFactory factory) : base(factory)
