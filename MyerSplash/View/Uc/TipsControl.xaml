@@ -48,23 +48,7 @@
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="12,0,12,0">
-            <TextBlock Margin="8,0,0,0"
-                       VerticalAlignment="Center"
-                       Style="{StaticResource SettingItemButtonContentStyle}"
-                       Text="Select your favorite layout in settings." />
-            <Grid Margin="0,12,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image Margin="8"
-                       x:Name="CompactModeOffHintImage"
-                       Source="ms-appx:///Assets/Image/CompactModeOff.png"/>
-                <Image Margin="8"
-                       Grid.Column="1"
-                       x:Name="CompactModeOnHintImage"
-                       Source="ms-appx:///Assets/Image/CompactModeOn.png" />
-            </Grid>
+            
         </StackPanel>
     </Grid>
 </UserControl>
