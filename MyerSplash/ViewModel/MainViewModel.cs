@@ -24,16 +24,19 @@ namespace MyerSplash.ViewModel
         private const int NEW_INDEX = 0;
         private const int FEATURED_INDEX = 1;
         private const int RANDOM_INDEX = 2;
+        private const int HIGHLIGHTS_INDEX = 3;
 
         public const string NEW_NAME = "NEW";
         public const string FEATURED_NAME = "FEATURED";
         public const string RANDOM_NAME = "RANDOM";
+        public const string HIGHLIGHTS_NAME = "HIGHLIGHTS";
 
         public Dictionary<int, string> INDEX_TO_NAME = new Dictionary<int, string>()
         {
             { NEW_INDEX,NEW_NAME },
             { FEATURED_INDEX,FEATURED_NAME },
-            { RANDOM_INDEX,RANDOM_NAME }
+            { RANDOM_INDEX,RANDOM_NAME },
+            { HIGHLIGHTS_INDEX,HIGHLIGHTS_NAME }
         };
 
         public event EventHandler<int> AboutToUpdateSelectedIndex;
@@ -528,6 +531,9 @@ namespace MyerSplash.ViewModel
                     case RANDOM_INDEX:
                         vm = new RandomImagesDataViewModel(this, new RandomImageService(NormalFactory));
                         break;
+                    case HIGHLIGHTS_INDEX:
+                        vm = new ImageDataViewModel(this, new HighlightImageService(NormalFactory));
+                        break;
                 }
 
                 if (vm != null)
@@ -594,7 +600,7 @@ namespace MyerSplash.ViewModel
                 {
                     RemoveTodayHighlight();
 
-                    var imageItem = new ImageItem(UnsplashImageFactory.CreateTodayImage());
+                    var imageItem = new ImageItem(UnsplashImageFactory.CreateTodayHighlightImage());
                     imageItem.Init();
 
                     vm.DataList.Insert(0, imageItem);

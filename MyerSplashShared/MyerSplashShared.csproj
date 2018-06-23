@@ -112,6 +112,7 @@
     <Compile Include="Service\CloudService.cs" />
     <Compile Include="API\CTSFactory.cs" />
     <Compile Include="API\Request.cs" />
+    <Compile Include="Service\HighlightImageService.cs" />
     <Compile Include="Utils\CachedBitmapSource.cs" />
     <Compile Include="Utils\CacheUtil.cs" />
     <Compile Include="Data\ImageExif.cs" />
