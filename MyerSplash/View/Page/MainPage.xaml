@@ -73,6 +73,7 @@
               Padding="0,30,0,0">
             <cc:TopNavigationControl 
                 Margin="12,0,0,0"
+                x:Name="TopNavigation"
                 SliderBrush="White"
                 TitleClicked="TopNavigationControl_TitleClicked"
                 SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
@@ -88,7 +89,7 @@
                     </DataTemplate>
                 </cc:TopNavigationControl.ItemTemplate>
             </cc:TopNavigationControl>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+            <StackPanel x:Name="CommandsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
                 <Button
                     x:Name="DownloadEntryBtn"
                     Grid.Column="3"
@@ -158,10 +159,18 @@
                     Height="{StaticResource MainButtonSize}"
                     Margin="0"
                     HorizontalAlignment="Left"
+                    Click="MoreBtn_Click"
                     VerticalAlignment="Center"
-                    Command="{x:Bind MainVM.PresentAboutCommand, Mode=OneWay}"
                     fcu:Style="{StaticResource MainButtonStyle}"
                     cu:Style="{StaticResource MainButtonCompatStyle}">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Downloads" Command="{x:Bind MainVM.PresentDownloadsCommand,Mode=OneWay}"/>
+                            <MenuFlyoutItem Text="Search" Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}"/>
+                            <MenuFlyoutItem Text="Settings" Command="{x:Bind MainVM.PresentSettingsCommand,Mode=OneWay}"/>
+                            <MenuFlyoutItem Text="About" Command="{x:Bind MainVM.PresentAboutCommand,Mode=OneWay}"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"

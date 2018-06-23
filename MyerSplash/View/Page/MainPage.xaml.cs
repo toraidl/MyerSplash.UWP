@@ -76,6 +76,31 @@ namespace MyerSplash.View.Page
             // Ugly, I should come up with better solutions.
             MainVM.AboutToUpdateSelectedIndex += MainVM_AboutToUpdateSelectedIndex;
             MainVM.DataUpdated += MainVM_DataUpdated;
+
+            this.SizeChanged += MainPage_SizeChanged;
+        }
+
+        private bool _showMoreFlyout = false;
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _showMoreFlyout = e.NewSize.Width < 800;
+
+            DownloadEntryBtn.Visibility = _showMoreFlyout ? Visibility.Collapsed : Visibility.Visible;
+            SearchBtn.Visibility = _showMoreFlyout ? Visibility.Collapsed : Visibility.Visible;
+            SettingBtn.Visibility = _showMoreFlyout ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void MoreBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_showMoreFlyout)
+            {
+                FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+            }
+            else
+            {
+                MainVM.PresentAboutCommand.Execute(null);
+            }
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -224,11 +249,6 @@ namespace MyerSplash.View.Page
             {
                 SetupTitleBar();
             }
-        }
-
-        private void MoreBtn_Click(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
         protected override void SetupTitleBar()
