@@ -68,12 +68,12 @@ namespace MyerSplash
 
         private Frame CreateFrameAndNavigate(string arg)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
-                rootFrame = new Frame();
-                rootFrame.Background = App.Current.Resources["MyerSplashDarkColorBrush"] as SolidColorBrush;
+                rootFrame = new Frame
+                {
+                    Background = App.Current.Resources["MyerSplashDarkColorBrush"] as SolidColorBrush
+                };
                 Window.Current.Content = rootFrame;
             }
 

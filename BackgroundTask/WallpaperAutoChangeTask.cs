@@ -13,7 +13,7 @@ namespace BackgroundTask
         {
             Debug.WriteLine("===========background task run==============");
             var defer = taskInstance.GetDeferral();
-            var url = UnsplashImageFactory.CreateTodayImage().Urls.Full;
+            var url = UnsplashImageFactory.CreateTodayHighlightImage().Urls.Full;
             var result = await SimpleWallpaperSetter.DownloadAndSetAsync(url);
             Debug.WriteLine($"===========result {result}==============");
             defer.Complete();

@@ -151,21 +151,7 @@ namespace MyerSplash.Common
         {
             get
             {
-                return ReadSettings(nameof(EnableTodayRecommendation), true);
-            }
-            set
-            {
-                SaveSettings(nameof(EnableTodayRecommendation), value);
-                RaisePropertyChanged(() => EnableTodayRecommendation);
-
-                if (value)
-                {
-                    MainVM.InsertTodayHighlight();
-                }
-                else
-                {
-                    MainVM.RemoveTodayHighlight();
-                }
+                return true;
             }
         }
 

@@ -53,9 +53,14 @@ namespace MyerSplash.Data
             return list;
         }
 
-        public static UnsplashImage CreateTodayImage()
+        public static UnsplashImage CreateTodayHighlightImage()
         {
-            var date = DateTime.Now.ToString("yyyyMMdd");
+            return CreateHighlightImage(DateTime.Now, false);
+        }
+
+        public static UnsplashImage CreateHighlightImage(DateTime dateTime, bool inHighlightList)
+        {
+            var date = dateTime.ToString("yyyyMMdd");
             var thumbUrl = $"{Request.GetTodayThumbWallpaper}/{date}.jpg";
             var largeUrl = $"{Request.GetTodayWallpaper}/{date}.jpg";
 
@@ -73,8 +78,9 @@ namespace MyerSplash.Data
 
                 ColorValue = "#ffffff",
                 ID = date,
-                CreateTimeString = DateTime.Now.ToString("yyyy-MM-dd 00:00:00"),
+                CreateTimeString = dateTime.ToString("yyyy-MM-dd"),
                 IsUnsplash = false,
+                IsInHighlightList = inHighlightList,
                 Owner = new UnsplashUser()
                 {
                     Name = "JuniperPhoton",

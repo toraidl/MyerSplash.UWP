@@ -249,11 +249,19 @@ namespace MyerSplash.Model
             }
         }
 
+        public Visibility DateTimeVisibility
+        {
+            get
+            {
+                return Image.IsInHighlightList ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
         public Visibility RecommendationVisibility
         {
             get
             {
-                if (Image.IsUnsplash)
+                if (Image.IsUnsplash || Image.IsInHighlightList)
                 {
                     return Visibility.Collapsed;
                 }
@@ -292,7 +300,7 @@ namespace MyerSplash.Model
 
         public string ShareText => $"Share {Image.Owner.Name}'s amazing photo from MyerSplash app. {Image.Urls.Full}";
 
-        public string LikesString
+        public string OwnerString
         {
             get
             {
