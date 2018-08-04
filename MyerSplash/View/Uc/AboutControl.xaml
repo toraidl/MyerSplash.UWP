@@ -106,6 +106,7 @@
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
+                            Margin="{StaticResource ButtonsStackMargin}"
                             Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
                             fcu:Style="{StaticResource MainButtonStyle}"
                             cu:Style="{StaticResource MainButtonCompatStyle}">
@@ -114,6 +115,7 @@
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
+                            Margin="{StaticResource ButtonsStackMargin}"
                             Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
                             fcu:Style="{StaticResource MainButtonStyle}"
                             cu:Style="{StaticResource MainButtonCompatStyle}">
@@ -122,6 +124,7 @@
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
+                            Margin="{StaticResource ButtonsStackMargin}"
                             Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
                             fcu:Style="{StaticResource MainButtonStyle}"
                             cu:Style="{StaticResource MainButtonCompatStyle}">
@@ -130,6 +133,7 @@
                         <Button
                             HorizontalAlignment="Center"
                             Background="{x:Null}"
+                            Margin="{StaticResource ButtonsStackMargin}"
                             Command="{x:Bind AboutVM.VisitWeiboCommand, Mode=OneWay}"
                             fcu:Style="{StaticResource MainButtonStyle}"
                             cu:Style="{StaticResource MainButtonCompatStyle}">
