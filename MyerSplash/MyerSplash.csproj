@@ -164,6 +164,9 @@
     <Compile Include="View\Uc\DownloadsListControl.xaml.cs">
       <DependentUpon>DownloadsListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Uc\NetworkDiagnosisDialog.xaml.cs">
+      <DependentUpon>NetworkDiagnosisDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Uc\NoItemControl.xaml.cs">
       <DependentUpon>NoItemControl.xaml</DependentUpon>
     </Compile>
@@ -338,6 +341,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Uc\MainNavigationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Uc\NetworkDiagnosisDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

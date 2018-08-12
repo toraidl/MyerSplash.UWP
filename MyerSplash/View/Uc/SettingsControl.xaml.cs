@@ -2,7 +2,6 @@
 using MyerSplash.Common.Composition;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Utils;
-using System;
 using Windows.ApplicationModel;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
