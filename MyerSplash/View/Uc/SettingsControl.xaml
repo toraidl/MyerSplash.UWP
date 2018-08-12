@@ -172,7 +172,7 @@
                         Margin="12,24,0,0"
                         HorizontalAlignment="Left"
                         Style="{StaticResource SubTitleTextBlockStyle}"
-                        Text="HELP" />
+                        Text="DIAGNOSE ISSUES" />
                     <Button
                         Margin="12"
                         HorizontalAlignment="Stretch"
