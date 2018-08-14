@@ -27,6 +27,20 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _diagnoseCommand;
+        public RelayCommand DiagnoseCommand
+        {
+            get
+            {
+                if (_diagnoseCommand != null) return _diagnoseCommand;
+                return _diagnoseCommand = new RelayCommand(async () =>
+                {
+                    var uc = new NetworkDiagnosisDialog();
+                    await PopupService.Instance.ShowAsync(uc);
+                });
+            }
+        }
+
         private RelayCommand _clearCacheCommand;
         public RelayCommand ClearCacheCommand
         {

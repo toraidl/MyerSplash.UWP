@@ -151,7 +151,7 @@ namespace MyerSplash.View.Uc
 
         private void RootGrid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType != PointerDeviceType.Mouse)
+            if (e.Pointer.PointerDeviceType == PointerDeviceType.Touch)
             {
                 return;
             }
@@ -164,7 +164,7 @@ namespace MyerSplash.View.Uc
 
         private void RootGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType != PointerDeviceType.Mouse)
+            if (e.Pointer.PointerDeviceType == PointerDeviceType.Touch)
             {
                 return;
             }

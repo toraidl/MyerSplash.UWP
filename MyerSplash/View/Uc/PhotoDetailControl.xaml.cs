@@ -58,7 +58,8 @@ namespace MyerSplash.View.Uc
 
         private bool _showingExif;
         private bool _hideAfterHidingExif;
-        private bool _detailContentGirdSizeSpecified = false;
+        private bool _detailContentGirdSizeSpecified;
+        private bool _animating;
 
         private float _listItemAspectRatio = 1.5f;
 
@@ -211,11 +212,16 @@ namespace MyerSplash.View.Uc
         private Visual _listItemVisual;
 
         /// <summary>
-        /// Toggle the enter animation by passing a list item. This control will take care of the rest part.
+        /// Toggle the enter animation by passing a list item. 
+        /// This control will take care of the rest part.
         /// </summary>
         /// <param name="listItem"></param>
         public async void Show(FrameworkElement listItem)
         {
+            if (_animating) return;
+
+            _animating = true;
+
             _listItem = listItem;
             _listItemVisual = _listItem.GetVisual();
 
@@ -229,6 +235,8 @@ namespace MyerSplash.View.Uc
 
         public void Hide()
         {
+            _animating = true;
+
             PhotoSV.ChangeView(null, 0, null);
 
             ToggleSetAsSP(false);
@@ -250,6 +258,8 @@ namespace MyerSplash.View.Uc
 
         private async Task HideInternalAsync()
         {
+            if (_listItem == null) return;
+
             var innerBatch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             await ToggleListItemAnimationAsync(false);
             innerBatch.Completed += (ss, exx) =>
@@ -263,6 +273,8 @@ namespace MyerSplash.View.Uc
                 OnHidden?.Invoke(this, new EventArgs());
                 ToggleDetailGridAnimation(false);
                 FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
+
+                _animating = false;
             };
             innerBatch.End();
         }
@@ -353,6 +365,8 @@ namespace MyerSplash.View.Uc
 
                     ToggleElementsOpacity(true);
                 }
+
+                _animating = false;
             };
             batch.End();
         }

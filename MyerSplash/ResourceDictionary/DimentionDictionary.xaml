@@ -18,4 +18,5 @@
     <Thickness x:Key="SettingsButtonMargin">8</Thickness>
     <x:Double x:Key="DialogWidth">400</x:Double>
     <x:Double x:Key="SettingsSwitchItemHeight">48</x:Double>
+    <Thickness x:Key="ButtonsStackMargin">2</Thickness>
 </ResourceDictionary>

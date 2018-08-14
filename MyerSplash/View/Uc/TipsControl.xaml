@@ -6,10 +6,10 @@
     xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="440"
-    Height="260"
+    Width="400"
+    Height="320"
     d:DesignHeight="320"
-    d:DesignWidth="600"
+    d:DesignWidth="400"
     mc:Ignorable="d">
     <Grid 
         cu:Background="{StaticResource AppBackgroundBrushDark}"
@@ -44,11 +44,29 @@
                     FontWeight="Bold"
                     Foreground="{StaticResource MyerSplashThemeColorBrush}"
                     Style="{StaticResource SubTitleTextBlockStyle}"
-                    Text="⚡ INTRODUCING COMPACT MODE" />
+                    Text="⚡ IMPORTANT NOTE" />
             </StackPanel>
         </Grid>
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="12,0,12,0">
-            
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="12,0,12,0">
+            <TextBlock TextWrapping="Wrap"
+                       LineHeight="2.1"
+                       Text="For Chinese users and other who can't view the hightlights and change their wallpapers in background: since my server has been blocked from China, you can only visit those features outside. &#x0a;&#x0a;Sorry about that :(&#x0a;&#x0a;Additionally, this version adds a network diagnosis tool in Settings.">
+            </TextBlock>
+            <Button
+            Margin="0,12"
+            VerticalAlignment="Bottom"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            Click="DiagnoseButton_Click"
+            x:Name="DiagnoseButton"
+            fcu:Style="{StaticResource MainButtonStyle}"
+            Background="{StaticResource SettingsButtonBackgroundBrush}"
+            HorizontalContentAlignment="Left"
+            cu:Style="{StaticResource MainButtonCompatStyle}">
+                <TextBlock
+                   Style="{StaticResource SettingItemButtonContentStyle}"
+                   Text="Diagnose Network" />
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
