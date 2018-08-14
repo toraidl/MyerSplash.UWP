@@ -15,5 +15,11 @@ namespace MyerSplash.View.Uc
         {
             PopupService.Instance.TryHide();
         }
+
+        private async void DiagnoseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var uc = new NetworkDiagnosisDialog();
+            await PopupService.Instance.ShowAsync(uc);
+        }
     }
 }

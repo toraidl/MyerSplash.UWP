@@ -27,14 +27,6 @@
             <RowDefinition Height="90" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <uc:NoNetworkControl
-            x:Name="NoNetworkControl"
-            Grid.RowSpan="2"
-            Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
-        <uc:NoItemControl
-            x:Name="NoItemControl"
-            Grid.RowSpan="2"
-            Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
@@ -46,6 +38,14 @@
                 DataContext="{x:Bind MainVM, Mode=OneWay}"
                 OnClickItemStarted="ListControl_OnClickItemStarted"
                 OnScrollViewerViewChanged="ListControl_OnScrollViewerViewChanged" />
+            <uc:NoNetworkControl
+                x:Name="NoNetworkControl"
+                Grid.RowSpan="2"
+                Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
+            <uc:NoItemControl
+                x:Name="NoItemControl"
+                Grid.RowSpan="2"
+                Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
             <Button
                 x:Name="RefreshBtn"
                 Grid.RowSpan="2"
@@ -96,7 +96,7 @@
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
                     ToolTipService.ToolTip="Downloads"
-                    Margin="0"
+                    Margin="{StaticResource ButtonsStackMargin}"
                     Padding="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -116,7 +116,7 @@
                     ToolTipService.ToolTip="Search"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
-                    Margin="0"
+                    Margin="{StaticResource ButtonsStackMargin}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     fcu:Style="{StaticResource MainButtonStyle}"
@@ -138,7 +138,7 @@
                     Grid.Column="3"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
-                    Margin="0"
+                    Margin="{StaticResource ButtonsStackMargin}"
                     ToolTipService.ToolTip="Settings"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -157,7 +157,7 @@
                     ToolTipService.ToolTip="About"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
-                    Margin="0"
+                    Margin="{StaticResource ButtonsStackMargin}"
                     HorizontalAlignment="Left"
                     Click="MoreBtn_Click"
                     VerticalAlignment="Center"

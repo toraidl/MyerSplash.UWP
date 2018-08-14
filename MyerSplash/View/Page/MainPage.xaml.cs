@@ -106,15 +106,15 @@ namespace MyerSplash.View.Page
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //if (DeviceHelper.IsDesktop)
-            //{
-            //    var key = (string)App.Current.Resources["CoachKey"];
-            //    if (!LocalSettingHelper.HasValue(key))
-            //    {
-            //        LocalSettingHelper.AddValue(key, true);
-            //        await PopupService.Instance.ShowAsync(new TipsControl());
-            //    }
-            //}
+            if (DeviceHelper.IsDesktop)
+            {
+                var key = (string)App.Current.Resources["CoachKey"];
+                if (!LocalSettingHelper.HasValue(key))
+                {
+                    LocalSettingHelper.AddValue(key, true);
+                    await PopupService.Instance.ShowAsync(new TipsControl());
+                }
+            }
         }
 
         private void MainVM_DataUpdated(object sender, EventArgs e)

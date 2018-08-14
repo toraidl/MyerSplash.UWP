@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using MyerSplashCustomControl;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.View.Uc
 {
@@ -7,6 +9,12 @@ namespace MyerSplash.View.Uc
         public NoNetworkControl()
         {
             this.InitializeComponent();
+        }
+
+        private async void DiagnoseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var uc = new NetworkDiagnosisDialog();
+            await PopupService.Instance.ShowAsync(uc);
         }
     }
 }

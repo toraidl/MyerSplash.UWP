@@ -172,6 +172,24 @@
                         Margin="12,24,0,0"
                         HorizontalAlignment="Left"
                         Style="{StaticResource SubTitleTextBlockStyle}"
+                        Text="DIAGNOSE ISSUES" />
+                    <Button
+                        Margin="12"
+                        HorizontalAlignment="Stretch"
+                        x:Name="DiagnoseButton"
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{StaticResource SettingsButtonBackgroundBrush}"
+                        HorizontalContentAlignment="Left"
+                        Command="{x:Bind SettingsVM.DiagnoseCommand, Mode=OneWay}"
+                        cu:Style="{StaticResource MainButtonCompatStyle}">
+                        <TextBlock
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Diagnose Network" />
+                    </Button>
+                    <TextBlock
+                        Margin="12,24,0,0"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource SubTitleTextBlockStyle}"
                         Text="CLEAN UP" />
                     <Button
                         Margin="12"
