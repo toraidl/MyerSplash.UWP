@@ -104,6 +104,15 @@ namespace MyerSplash.View.Uc
                    }
                });
 
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_FAILURE, msg =>
+            {
+                var id = msg.Content;
+                if (id == CurrentImage?.Image.ID)
+                {
+                    FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
+                }
+            });
+
             Window.Current.CoreWindow.SizeChanged += CoreWindow_SizeChanged;
 
             if (DeviceUtil.IsXbox)
