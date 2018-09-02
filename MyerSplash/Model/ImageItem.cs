@@ -362,10 +362,11 @@ namespace MyerSplash.Model
             return fileName;
         }
 
-        public async Task SetDataRequestData(DataRequest request)
+        public async Task SetDataRequestDataAsync(DataRequest request)
         {
-            DataPackage requestData = request.Data;
-            requestData.Properties.Title = "Share photo";
+            var requestData = request.Data;
+            requestData.SetWebLink(new Uri(Image.Urls.Full));
+            requestData.Properties.Title = $"Share a photo by {Image.Owner?.Name ?? "Unknown"}";
             requestData.Properties.ContentSourceWebLink = new Uri(Image.Urls.Full);
             requestData.Properties.ContentSourceApplicationLink = new Uri(Image.Urls.Full);
 
@@ -374,11 +375,13 @@ namespace MyerSplash.Model
             var file = await StorageFile.GetFileFromPathAsync(BitmapSource.LocalPath);
             if (file != null)
             {
-                List<IStorageItem> imageItems = new List<IStorageItem>();
-                imageItems.Add(file);
+                List<IStorageItem> imageItems = new List<IStorageItem>
+                {
+                    file
+                };
                 requestData.SetStorageItems(imageItems);
 
-                RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
+                var imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
                 requestData.SetBitmap(imageStreamRef);
                 requestData.Properties.Thumbnail = imageStreamRef;
             }

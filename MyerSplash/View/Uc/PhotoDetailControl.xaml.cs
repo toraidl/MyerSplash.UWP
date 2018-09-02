@@ -153,7 +153,7 @@ namespace MyerSplash.View.Uc
               {
                   deferral.Complete();
               };
-            await CurrentImage.SetDataRequestData(args.Request);
+            await CurrentImage.SetDataRequestDataAsync(args.Request);
             deferral.Complete();
         }
 
