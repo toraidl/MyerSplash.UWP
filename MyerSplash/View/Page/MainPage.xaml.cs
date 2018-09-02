@@ -113,12 +113,12 @@ namespace MyerSplash.View.Page
             base.OnNavigatedTo(e);
             if (DeviceHelper.IsDesktop)
             {
-                var key = (string)App.Current.Resources["CoachKey"];
-                if (!LocalSettingHelper.HasValue(key))
-                {
-                    LocalSettingHelper.AddValue(key, true);
-                    await PopupService.Instance.ShowAsync(new TipsControl());
-                }
+                //var key = (string)App.Current.Resources["CoachKey"];
+                //if (!LocalSettingHelper.HasValue(key))
+                //{
+                //    LocalSettingHelper.AddValue(key, true);
+                //    await PopupService.Instance.ShowAsync(new TipsControl());
+                //}
             }
         }
 
