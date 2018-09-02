@@ -188,22 +188,6 @@ namespace MyerSplash.Model
             }
         }
 
-        private RelayCommand _copyUrlCommand;
-        [IgnoreDataMember]
-        public RelayCommand CopyUrlCommand
-        {
-            get
-            {
-                if (_copyUrlCommand != null) return _copyUrlCommand;
-                return _copyUrlCommand = new RelayCommand(() =>
-                {
-                    DataPackage dataPackage = new DataPackage();
-                    dataPackage.SetText(GetSaveImageUrlFromSettings());
-                    Clipboard.SetContent(dataPackage);
-                });
-            }
-        }
-
         private RelayCommand _navigateHomeCommand;
         [IgnoreDataMember]
         public RelayCommand NavigateHomeCommand

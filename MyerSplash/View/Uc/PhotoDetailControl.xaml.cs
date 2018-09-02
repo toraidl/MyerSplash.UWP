@@ -697,14 +697,6 @@ namespace MyerSplash.View.Uc
                   };
         }
 
-        private async void CopyUlrBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleSetAsSP(false);
-            CopyFlipperControl.DisplayIndex = 1;
-            await Task.Delay(2000);
-            CopyFlipperControl.DisplayIndex = 0;
-        }
-
         private void OKBtn_Click(object sender, RoutedEventArgs e)
         {
             if (_setAsSPVisual.Opacity == 0)
