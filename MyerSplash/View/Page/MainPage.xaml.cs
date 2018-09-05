@@ -78,6 +78,11 @@ namespace MyerSplash.View.Page
             MainVM.DataUpdated += MainVM_DataUpdated;
 
             this.SizeChanged += MainPage_SizeChanged;
+
+            if (DeviceHelper.IsXbox)
+            {
+                TitleGridContent.Padding = new Thickness(0);
+            }
         }
 
         private bool _showMoreFlyout = false;
@@ -108,18 +113,21 @@ namespace MyerSplash.View.Page
             base.OnNavigatedTo(e);
             if (DeviceHelper.IsDesktop)
             {
-                var key = (string)App.Current.Resources["CoachKey"];
-                if (!LocalSettingHelper.HasValue(key))
-                {
-                    LocalSettingHelper.AddValue(key, true);
-                    await PopupService.Instance.ShowAsync(new TipsControl());
-                }
+                //var key = (string)App.Current.Resources["CoachKey"];
+                //if (!LocalSettingHelper.HasValue(key))
+                //{
+                //    LocalSettingHelper.AddValue(key, true);
+                //    await PopupService.Instance.ShowAsync(new TipsControl());
+                //}
             }
         }
 
         private void MainVM_DataUpdated(object sender, EventArgs e)
         {
-            ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
+            if (_scrollingPositions.ContainsKey(MainVM.SelectedIndex))
+            {
+                ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
+            }
         }
 
         protected override void SetupNavigationBackBtn()

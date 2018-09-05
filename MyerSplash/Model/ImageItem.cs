@@ -5,12 +5,12 @@ using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.ViewModel;
+using MyerSplashShared.Data;
 using MyerSplashShared.Service;
 using MyerSplashShared.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -183,23 +183,7 @@ namespace MyerSplash.Model
                 if (_shareCommand != null) return _shareCommand;
                 return _shareCommand = new RelayCommand(() =>
                 {
-                    DataTransferManager.ShowShareUI();
-                });
-            }
-        }
-
-        private RelayCommand _copyUrlCommand;
-        [IgnoreDataMember]
-        public RelayCommand CopyUrlCommand
-        {
-            get
-            {
-                if (_copyUrlCommand != null) return _copyUrlCommand;
-                return _copyUrlCommand = new RelayCommand(() =>
-                {
-                    DataPackage dataPackage = new DataPackage();
-                    dataPackage.SetText(GetSaveImageUrlFromSettings());
-                    Clipboard.SetContent(dataPackage);
+                    ToggleShare();
                 });
             }
         }
@@ -328,7 +312,8 @@ namespace MyerSplash.Model
             }
         }
 
-        private ImageService _service = new ImageService(null, new UnsplashImageFactory(false));
+        private ImageService _service = new ImageService(null, new UnsplashImageFactory(false),
+            CancellationTokenSourceFactory.CreateDefault());
 
         public ImageItem()
         {
@@ -361,10 +346,11 @@ namespace MyerSplash.Model
             return fileName;
         }
 
-        public async Task SetDataRequestData(DataRequest request)
+        public async Task SetDataRequestDataAsync(DataRequest request)
         {
-            DataPackage requestData = request.Data;
-            requestData.Properties.Title = "Share photo";
+            var requestData = request.Data;
+            requestData.SetWebLink(new Uri(Image.Urls.Full));
+            requestData.Properties.Title = $"Share a photo by {Image.Owner?.Name ?? "Unknown"}";
             requestData.Properties.ContentSourceWebLink = new Uri(Image.Urls.Full);
             requestData.Properties.ContentSourceApplicationLink = new Uri(Image.Urls.Full);
 
@@ -373,11 +359,13 @@ namespace MyerSplash.Model
             var file = await StorageFile.GetFileFromPathAsync(BitmapSource.LocalPath);
             if (file != null)
             {
-                List<IStorageItem> imageItems = new List<IStorageItem>();
-                imageItems.Add(file);
+                List<IStorageItem> imageItems = new List<IStorageItem>
+                {
+                    file
+                };
                 requestData.SetStorageItems(imageItems);
 
-                RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
+                var imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
                 requestData.SetBitmap(imageStreamRef);
                 requestData.Properties.Thumbnail = imageStreamRef;
             }
@@ -395,12 +383,6 @@ namespace MyerSplash.Model
             BitmapSource.ExpectedFileName = Image.ID + ".jpg";
             BitmapSource.RemoteUrl = url;
             await BitmapSource.LoadBitmapAsync();
-
-            if (Image?.IsUnsplash == false && App.AppSettings.EnableTile && BitmapSource.LocalPath != null)
-            {
-                Debug.WriteLine("About to update tile.");
-                await LiveTileUpdater.UpdateImagesTileAsync(new List<string>() { BitmapSource.LocalPath });
-            }
         }
 
         public async Task CheckAndGetDownloadedFileAsync()
@@ -452,7 +434,7 @@ namespace MyerSplash.Model
 
         public async Task GetExifInfoAsync()
         {
-            var result = await _service.GetImageDetailAsync(Image.ID, JP.Utils.Network.CTSFactory.MakeCTS().Token);
+            var result = await _service.GetImageDetailAsync(Image.ID);
             if (result.IsRequestSuccessful)
             {
                 JsonObject.TryParse(result.JsonSrc, out JsonObject json);
@@ -473,6 +455,24 @@ namespace MyerSplash.Model
                     }
                 }
             }
+        }
+
+        public void ToggleShare()
+        {
+            DataTransferManager.GetForCurrentView().DataRequested += DownloadItemTemplate_DataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private async void DownloadItemTemplate_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var deferral = args.Request.GetDeferral();
+            sender.TargetApplicationChosen += (s, e) =>
+            {
+                deferral.Complete();
+            };
+            await SetDataRequestDataAsync(args.Request);
+            deferral.Complete();
+            DataTransferManager.GetForCurrentView().DataRequested -= DownloadItemTemplate_DataRequested;
         }
     }
 }

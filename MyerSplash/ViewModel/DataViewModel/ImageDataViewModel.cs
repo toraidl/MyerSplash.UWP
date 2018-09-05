@@ -4,10 +4,8 @@ using MyerSplash.Model;
 using MyerSplashCustomControl;
 using MyerSplashShared.API;
 using MyerSplashShared.Service;
-using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -23,6 +21,11 @@ namespace MyerSplash.ViewModel.DataViewModel
         {
             _mainViewModel = viewModel;
             _imageService = service;
+        }
+
+        public void Cancel()
+        {
+            _imageService?.Cancel();
         }
 
         protected override void ClickItem(ImageItem item)
@@ -119,43 +122,20 @@ namespace MyerSplash.ViewModel.DataViewModel
              });
         }
 
-        protected async override void LoadMoreItemCompleted(IEnumerable<ImageItem> list, int pagingIndex)
+        protected override void LoadMoreItemCompleted(IEnumerable<ImageItem> list, int pagingIndex)
         {
             foreach (var item in list)
             {
                 item.Init();
             }
-
-            if (pagingIndex == 0)
-            {
-                await UpdateLiveTileAsync();
-            }
-        }
-
-        private async Task UpdateLiveTileAsync()
-        {
-            var list = new List<string>();
-
-            if (DataList == null) return;
-
-            foreach (var item in DataList)
-            {
-                list.Add(item.BitmapSource.LocalPath);
-            }
-            if (App.AppSettings.EnableTile && list.Count > 0)
-            {
-                Debug.WriteLine("About to update tile.");
-                await LiveTileUpdater.UpdateImagesTileAsync(list);
-            }
         }
 
         protected async virtual Task<IEnumerable<ImageItem>> RequestAsync(int pageIndex)
         {
-            var cts = CTSFactory.MakeCTS(15000);
             try
             {
                 _imageService.Page = pageIndex;
-                var result = await _imageService.GetImagesAsync(cts.Token);
+                var result = await _imageService.GetImagesAsync();
                 if (result != null)
                 {
                     return CreateImageItems(result);

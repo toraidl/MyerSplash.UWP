@@ -12,7 +12,6 @@ using System.ComponentModel;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -92,8 +91,6 @@ namespace MyerSplash.View.Uc
             InitializeComponent();
             InitComposition();
             this.DataContext = this;
-            var manager = DataTransferManager.GetForCurrentView();
-            manager.DataRequested += _dataTransferManager_DataRequested;
 
             Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
                {
@@ -103,6 +100,15 @@ namespace MyerSplash.View.Uc
                        FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
                    }
                });
+
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_FAILURE, msg =>
+            {
+                var id = msg.Content;
+                if (id == CurrentImage?.Image.ID)
+                {
+                    FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
+                }
+            });
 
             Window.Current.CoreWindow.SizeChanged += CoreWindow_SizeChanged;
 
@@ -135,17 +141,6 @@ namespace MyerSplash.View.Uc
             {
                 await DetailContentGrid.WaitForSizeChangedAsync();
             }
-        }
-
-        private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
-        {
-            DataRequestDeferral deferral = args.Request.GetDeferral();
-            sender.TargetApplicationChosen += (s, e) =>
-              {
-                  deferral.Complete();
-              };
-            await CurrentImage.SetDataRequestData(args.Request);
-            deferral.Complete();
         }
 
         private void InitComposition()
@@ -686,14 +681,6 @@ namespace MyerSplash.View.Uc
                   {
                       LockImage.Visibility = Visibility.Collapsed;
                   };
-        }
-
-        private async void CopyUlrBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleSetAsSP(false);
-            CopyFlipperControl.DisplayIndex = 1;
-            await Task.Delay(2000);
-            CopyFlipperControl.DisplayIndex = 0;
         }
 
         private void OKBtn_Click(object sender, RoutedEventArgs e)

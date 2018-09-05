@@ -224,7 +224,7 @@ namespace MyerSplash.Model
             get
             {
                 if (_setAsCommand != null) return _setAsCommand;
-                return _setAsCommand = new RelayCommand(async() =>
+                return _setAsCommand = new RelayCommand(async () =>
                   {
                       await SetAsAsync();
                   });
@@ -441,17 +441,13 @@ namespace MyerSplash.Model
             {
                 await downloadOperation.ResultFile.DeleteAsync();
                 ToastService.SendToast("Download has been cancelled.");
-                DownloadStatus = "";
-                DisplayIndex = (int)DisplayMenu.Retry;
-                ImageItem.DownloadStatus = Common.DownloadStatus.Pending;
                 throw;
             }
             catch (Exception e)
             {
-                ImageItem.DownloadStatus = Common.DownloadStatus.Pending;
+                ReportFailure();
                 await Logger.LogAsync(e);
                 ToastService.SendToast("ERROR: " + e.Message, 3000);
-
                 return false;
             }
         }
@@ -461,8 +457,21 @@ namespace MyerSplash.Model
             await _service.ReportPhotoDownload(url, CTSFactory.MakeCTS(5000).Token);
         }
 
+        private void ReportFailure()
+        {
+            DownloadStatus = "";
+            DisplayIndex = (int)DisplayMenu.Retry;
+            ImageItem.DownloadStatus = Common.DownloadStatus.Pending;
+            Messenger.Default.Send(new GenericMessage<string>(ImageItem.Image.ID), MessengerTokens.REPORT_FAILURE);
+        }
+
         private void Progress_ProgressChanged(object sender, DownloadOperation e)
         {
+            if (e.CurrentWebErrorStatus != null)
+            {
+                ReportFailure();
+                return;
+            }
             Progress = ((double)e.Progress.BytesReceived / e.Progress.TotalBytesToReceive) * 100;
             Debug.WriteLine(Progress);
             if (Progress >= 100)
