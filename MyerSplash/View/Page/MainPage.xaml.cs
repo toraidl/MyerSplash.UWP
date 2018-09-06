@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using JP.Utils.Data;
 using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.Model;
@@ -108,7 +107,7 @@ namespace MyerSplash.View.Page
             }
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (DeviceHelper.IsDesktop)
@@ -271,6 +270,11 @@ namespace MyerSplash.View.Page
             {
                 ListControl.ScrollToTop();
             }
+        }
+
+        private async void DetailControl_BeginSearchByKeyword(object sender, SearchEventArg e)
+        {
+            await MainVM.SearchByKeywordAsync(e.Keyword);
         }
     }
 }

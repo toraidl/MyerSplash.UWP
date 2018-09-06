@@ -273,6 +273,7 @@
                             FontSize="12"
                             Foreground="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                             Text="{x:Bind CurrentImage.PhotoByText, Mode=OneWay}" />
+
                         <StackPanel Orientation="Horizontal">
                             <Button
                                 x:Name="AutherNameBtn"
@@ -311,6 +312,23 @@
                             </Button>
                         </StackPanel>
                     </StackPanel>
+
+                    <Button Style="{StaticResource ButtonCommonStyle}" x:Name="DetectionResultButton" 
+                            Click="DetectionResultButton_Click" HorizontalAlignment="Right" Margin="0,20,12,0">
+                        <Border
+                                Margin="4"
+                                Background="#B2000000"
+                                CornerRadius="16">
+                            <StackPanel Orientation="Horizontal" Margin="12,0,12,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <FontIcon FontSize="12" FontFamily="Segoe MDL2 Assets" RenderTransformOrigin="0.5,0.5" Foreground="White" Glyph="&#xE1A3;">
+                                    <FontIcon.RenderTransform>
+                                        <ScaleTransform ScaleX="-1"/>
+                                    </FontIcon.RenderTransform>
+                                </FontIcon>
+                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="{x:Bind CurrentImage.DetectionResult, Mode=OneWay}" FontWeight="Bold" />
+                            </StackPanel>
+                        </Border>
+                    </Button>
                 </Grid>
             </Grid>
             <StackPanel
@@ -486,6 +504,7 @@
                             </Button>
                         </flipper:FlipperControl.Views>
                     </flipper:FlipperControl>
+
                 </Grid>
             </StackPanel>
         </Grid>

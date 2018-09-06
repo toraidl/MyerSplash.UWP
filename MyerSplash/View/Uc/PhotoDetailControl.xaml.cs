@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -23,6 +24,16 @@ using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.View.Uc
 {
+    public class SearchEventArg : EventArgs
+    {
+        public string Keyword { set; get; }
+
+        public SearchEventArg(string keyword)
+        {
+            Keyword = keyword;
+        }
+    }
+
     public sealed partial class PhotoDetailControl : UserControl, INotifyPropertyChanged
     {
         public DownloadsViewModel DownloadsVM
@@ -34,6 +45,7 @@ namespace MyerSplash.View.Uc
         }
 
         public event EventHandler<EventArgs> OnHidden;
+        public event EventHandler<SearchEventArg> BeginSearchByKeyword;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -75,6 +87,7 @@ namespace MyerSplash.View.Uc
                 {
                     _currentImage = value;
                     RaisePropertyChanged(nameof(CurrentImage));
+                    var beginTask = value.BeginDetectAsync();
                 }
             }
         }
@@ -818,6 +831,12 @@ namespace MyerSplash.View.Uc
             ToggleExifInfo(false);
             PhotoSV.ChangeView(null, 0, null);
             await HideInternalAsync();
+        }
+
+        private void DetectionResultButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            BeginSearchByKeyword?.Invoke(this, new SearchEventArg(CurrentImage.DetectionResult));
         }
     }
 }

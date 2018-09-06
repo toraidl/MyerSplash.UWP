@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using MyerSplashShared.Utils;
 using MyerSplashShared.Data;
+using MyerSplashShared.MachineLeanrning;
 
 namespace MyerSplash.ViewModel
 {
@@ -559,6 +560,11 @@ namespace MyerSplash.ViewModel
 
             return vm;
         }
+        public async Task SearchByKeywordAsync(string keyword)
+        {
+            this.SearchKeyword = keyword;
+            await SearchByKeywordAsync();
+        }
 
         private async Task SearchByKeywordAsync()
         {
@@ -629,6 +635,7 @@ namespace MyerSplash.ViewModel
         {
             var task = HandleLaunchArg(param as string);
             var task2 = UpdateLiveTileAsync();
+            var task3 = DetectionResults.InitAsync();
         }
 
         private async Task UpdateLiveTileAsync()

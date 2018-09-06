@@ -6,6 +6,7 @@ using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Data;
+using MyerSplashShared.MachineLeanrning;
 using MyerSplashShared.Service;
 using MyerSplashShared.Utils;
 using Newtonsoft.Json;
@@ -51,6 +52,20 @@ namespace MyerSplash.Model
                     _image = value;
                     RaisePropertyChanged(() => Image);
                 }
+            }
+        }
+
+        private string _detectionResult;
+        public string DetectionResult
+        {
+            get
+            {
+                return _detectionResult;
+            }
+            set
+            {
+                _detectionResult = value;
+                RaisePropertyChanged(() => DetectionResult);
             }
         }
 
@@ -330,6 +345,15 @@ namespace MyerSplash.Model
         {
             BackColorBrush = new SolidColorBrush(Image.ColorValue.ToColor());
             MajorColor = new SolidColorBrush(Image.ColorValue.ToColor());
+        }
+
+        private readonly MlModelWrapper _mlModelWrapper = new MlModelWrapper();
+
+        public async Task BeginDetectAsync()
+        {
+            var file = BitmapSource.File;
+            if (file == null) return;
+            DetectionResult = await _mlModelWrapper.BeginDetectAsync(file);
         }
 
         public string GetFileNameForDownloading()
