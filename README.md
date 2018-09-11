@@ -12,6 +12,19 @@ AND MyerSplash for Android is open-source too. Visit it [here](https://github.co
 ## Building
 Make sure you are using Visual Studio 2017 and install the Build 15063 & 16299 SDK to build project. Any pull requrests are welcomed.
 
+## Contribution
+
+This project normally has two branches: 
+
+- develop
+- master
+
+If it's in the release stage, it should also has a release branch named 'release/v3.x.x'. Also, a branch named 'hotfix/v3.x.x' is posibile of it's in hotfix stage.
+
+When submitting PRs, you should first consider submitting to the `develop` branch. If you have seen a release branch, you are also welcome to submit to this branch make your contribution deliver to user as soon as posible.
+
+The `master` branch typically merges branches.
+
 ## License 
 The project is released under MIT License.
 
