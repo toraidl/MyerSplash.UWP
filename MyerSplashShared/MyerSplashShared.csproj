@@ -105,14 +105,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="API\APIException.cs" />
+    <Compile Include="Splasher\DiskCache.cs" />
+    <Compile Include="Splasher\ICache.cs" />
+    <Compile Include="Splasher\ICacheKey.cs" />
+    <Compile Include="Splasher\ICacheKeyFactory.cs" />
+    <Compile Include="Splasher\DefaultCacheKeyFactory.cs" />
+    <Compile Include="Splasher\ImagePipeline.cs" />
+    <Compile Include="Splasher\ImageRequest.cs" />
+    <Compile Include="Splasher\MemoryCache.cs" />
+    <Compile Include="Splasher\NonResizeOption.cs" />
+    <Compile Include="Splasher\SimpleCacheKey.cs" />
     <Compile Include="Data\CancellationTokeSourceFactory.cs" />
     <Compile Include="Data\DiagnosisItem.cs" />
     <Compile Include="Data\UnsplashLinks.cs" />
     <Compile Include="Service\CloudService.cs" />
     <Compile Include="API\Request.cs" />
     <Compile Include="Service\HighlightImageService.cs" />
-    <Compile Include="Utils\CachedBitmapSource.cs" />
-    <Compile Include="Utils\CacheUtil.cs" />
+    <Compile Include="Splasher\Splasher.cs" />
+    <Compile Include="Splasher\SplasherBitmapSource.cs" />
+    <Compile Include="Splasher\CacheUtil.cs" />
     <Compile Include="Data\ImageExif.cs" />
     <Compile Include="Data\ImageLocation.cs" />
     <Compile Include="Data\Links.cs" />
@@ -129,8 +140,11 @@
     <Compile Include="Service\IService.cs" />
     <Compile Include="Service\RandomImageService.cs" />
     <Compile Include="Service\SearchImageService.cs" />
+    <Compile Include="Splasher\SplasherConfiguration.cs" />
+    <Compile Include="Splasher\SplasherController.cs" />
     <Compile Include="Utils\Extension.cs" />
-    <Compile Include="Utils\FileDownloader.cs" />
+    <Compile Include="Splasher\FileDownloader.cs" />
+    <Compile Include="Splasher\IImageResizeRequest.cs" />
     <Compile Include="Utils\LiveTileUpdater.cs" />
     <Compile Include="Utils\DeviceUtil.cs" />
     <Compile Include="Utils\SimpleWallpaperSetter.cs" />

@@ -7,7 +7,7 @@ using MyerSplash.Data;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Data;
 using MyerSplashShared.Service;
-using MyerSplashShared.Utils;
+using MyerSplashShared.Splasher;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -54,9 +54,9 @@ namespace MyerSplash.Model
             }
         }
 
-        private CachedBitmapSource _bitmapSource;
+        private SplasherBitmapSource _bitmapSource;
         [IgnoreDataMember]
-        public CachedBitmapSource BitmapSource
+        public SplasherBitmapSource BitmapSource
         {
             get
             {
@@ -317,13 +317,13 @@ namespace MyerSplash.Model
 
         public ImageItem()
         {
-            BitmapSource = new CachedBitmapSource();
+            BitmapSource = new SplasherBitmapSource();
         }
 
         public ImageItem(UnsplashImage image)
         {
             Image = image;
-            BitmapSource = new CachedBitmapSource();
+            BitmapSource = new SplasherBitmapSource();
         }
 
         public void Init()
@@ -356,19 +356,23 @@ namespace MyerSplash.Model
 
             requestData.SetText(ShareText);
 
-            var file = await StorageFile.GetFileFromPathAsync(BitmapSource.LocalPath);
-            if (file != null)
-            {
-                List<IStorageItem> imageItems = new List<IStorageItem>
-                {
-                    file
-                };
-                requestData.SetStorageItems(imageItems);
+            await Splasher.ImagePipeline.ConsumesCacheAsync<StorageFile>(async (cache) =>
+              {
+                  var key = Splasher.ImagePipeline.CacheKeyFactory.CreateCacheKey(new ImageRequest(Image.Urls.Regular));
+                  var file = await cache.GetAsync(key);
+                  if (file != null)
+                  {
+                      List<IStorageItem> imageItems = new List<IStorageItem>
+                      {
+                         file
+                      };
+                      requestData.SetStorageItems(imageItems);
 
-                var imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
-                requestData.SetBitmap(imageStreamRef);
-                requestData.Properties.Thumbnail = imageStreamRef;
-            }
+                      var imageStreamRef = RandomAccessStreamReference.CreateFromFile(file);
+                      requestData.SetBitmap(imageStreamRef);
+                      requestData.Properties.Thumbnail = imageStreamRef;
+                  }
+              });
         }
 
         public async Task TryLoadBitmapAsync()
@@ -380,9 +384,7 @@ namespace MyerSplash.Model
 
             var task = CheckAndGetDownloadedFileAsync();
 
-            BitmapSource.ExpectedFileName = Image.ID + ".jpg";
-            BitmapSource.RemoteUrl = url;
-            await BitmapSource.LoadBitmapAsync();
+            await BitmapSource.SetImageUriAsync(url);
         }
 
         public async Task CheckAndGetDownloadedFileAsync()

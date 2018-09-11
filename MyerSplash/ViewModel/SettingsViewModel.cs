@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using MyerSplash.Common;
 using MyerSplash.View.Uc;
 using MyerSplashCustomControl;
+using MyerSplashShared.Splasher;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;

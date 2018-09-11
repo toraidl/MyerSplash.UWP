@@ -1,6 +1,7 @@
 ﻿using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.View.Page;
+using MyerSplashShared.Splasher;
 using MyerSplashShared.Utils;
 using System;
 using Windows.ApplicationModel;
@@ -62,6 +63,8 @@ namespace MyerSplash
 
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
+
+            Splasher.Initialize();
         }
 
 #pragma warning restore

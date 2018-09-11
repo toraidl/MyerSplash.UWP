@@ -1,5 +1,4 @@
-﻿using MyerSplashShared.API;
-using MyerSplashShared.Data;
+﻿using MyerSplashShared.Data;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-namespace MyerSplashShared.Utils
+namespace MyerSplashShared.Splasher
 {
     public static class FileDownloader
     {

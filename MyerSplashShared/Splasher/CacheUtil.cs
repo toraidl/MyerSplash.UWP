@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace MyerSplashShared.Utils
+namespace MyerSplashShared.Splasher
 {
     public static class CacheUtil
     {
