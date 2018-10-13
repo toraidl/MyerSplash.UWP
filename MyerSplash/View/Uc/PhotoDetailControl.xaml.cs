@@ -217,6 +217,8 @@ namespace MyerSplash.View.Uc
 
             _animating = true;
 
+            MaskBorder.IsHitTestVisible = true;
+
             _listItem = listItem;
             _listItemVisual = _listItem.GetVisual();
 
@@ -230,7 +232,11 @@ namespace MyerSplash.View.Uc
 
         public void Hide()
         {
+            if (_animating) return;
+
             _animating = true;
+
+            MaskBorder.IsHitTestVisible = false;
 
             PhotoSV.ChangeView(null, 0, null);
 
