@@ -202,6 +202,11 @@ namespace MyerSplash.View.Page
 
         private void ToggleRefreshBtnAnimation(bool show)
         {
+            if (!AppSettings.Instance.EnableCompactMode)
+            {
+                return;
+            }
+
             var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
             scaleAnimation.InsertKeyFrame(1f, show ? 1f : 0);
             scaleAnimation.Duration = TimeSpan.FromMilliseconds(500);
