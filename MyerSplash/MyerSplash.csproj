@@ -201,9 +201,6 @@
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="Common\TitleBarHelper.cs" />
-    <Compile Include="View\Uc\HamburgerButton.xaml.cs">
-      <DependentUpon>HamburgerButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\DataViewModel\ImageDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\RandomImagesDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\SearchResultViewModel.cs" />
@@ -372,10 +369,6 @@
     <Page Include="View\Uc\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\HamburgerButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Uc\ImageListControl.xaml">
       <SubType>Designer</SubType>

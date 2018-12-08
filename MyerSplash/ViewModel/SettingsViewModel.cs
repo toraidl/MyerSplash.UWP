@@ -143,6 +143,12 @@ namespace MyerSplash.ViewModel
 
         public async Task CalculateCacheAsync()
         {
+            if (true)
+            {
+                await Task.CompletedTask;
+                return;
+            }
+
             ClearCacheCommandEnabled = false;
 
             ulong size = 0;

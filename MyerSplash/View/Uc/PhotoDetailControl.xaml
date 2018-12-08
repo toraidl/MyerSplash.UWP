@@ -66,7 +66,7 @@
         <Border
             x:Name="MaskBorder"
             Margin="-30"
-            Background="Black"
+            Background="{ThemeResource SystemAltMediumColor}"
             ManipulationDelta="DetailGrid_ManipulationDelta"
             ManipulationMode="TranslateY"
             Tapped="MaskBorder_Tapped" />
@@ -139,7 +139,7 @@
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="12"
-                            Foreground="{StaticResource MainBarIconColorBrush}"
+                            Foreground="White"
                             Glyph="&#xEB9F;" />
                     </Grid>
                 </Button>

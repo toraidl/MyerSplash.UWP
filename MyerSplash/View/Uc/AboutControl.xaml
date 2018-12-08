@@ -10,10 +10,7 @@
     d:DesignHeight="700"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid
-        x:Name="RootGrid"
-        cu:Background="{StaticResource AppBackgroundBrushDark}"
-        fcu:Background="{StaticResource CustomAcrylicInAppBrush}">
+    <Grid x:Name="RootGrid" Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -23,13 +20,14 @@
             x:Name="CloseBtn"
             Width="{StaticResource MainButtonSize}"
             Height="{StaticResource MainButtonSize}"
+            Margin="12,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
-            Click="CloseBtn_Click"
-            fcu:Style="{StaticResource MainButtonStyle}"
             cu:Style="{StaticResource MainButtonCompatStyle}"
-            Margin="12,0,0,0">
-            <FontIcon Style="{StaticResource CloseIconStyle}" FontSize="12" />
+            fcu:Style="{StaticResource MainButtonStyle}"
+            Background="Transparent"
+            Click="CloseBtn_Click">
+            <FontIcon FontSize="12" Style="{StaticResource CloseIconStyle}" />
         </Button>
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerCommonStyle}">
@@ -52,12 +50,12 @@
                             FontFamily="Segoe UI Light"
                             FontSize="35"
                             FontWeight="ExtraLight"
-                            Foreground="White"
+                            Foreground="{ThemeResource SystemBaseHighColor}"
                             Text="Myer" />
                         <TextBlock
                             FontSize="35"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{ThemeResource SystemBaseHighColor}"
                             Text="Splash" />
                     </StackPanel>
                     <TextBlock
@@ -66,7 +64,8 @@
                         VerticalAlignment="Center"
                         FontSize="16"
                         FontWeight="Light"
-                        Foreground="#99FFFFFF"
+                        Foreground="{ThemeResource SystemBaseHighColor}"
+                        Opacity="0.7"
                         Text="for Windows &amp; Android" />
                     <Border
                         Margin="0,12,0,0"
@@ -97,46 +96,46 @@
                     </Border>
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="CREDITS" />
                     <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos." />
-                   
+
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="FEEDBACK" />
                     <StackPanel
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                         <Button
-                            HorizontalAlignment="Center"
-                            Background="{x:Null}"
                             Margin="{StaticResource ButtonsStackMargin}"
-                            Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
+                            HorizontalAlignment="Center"
+                            cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            cu:Style="{StaticResource MainButtonCompatStyle}">
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/mail.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                         <Button
-                            HorizontalAlignment="Center"
-                            Background="{x:Null}"
                             Margin="{StaticResource ButtonsStackMargin}"
-                            Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
+                            HorizontalAlignment="Center"
+                            cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            cu:Style="{StaticResource MainButtonCompatStyle}">
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/github.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                         <Button
-                            HorizontalAlignment="Center"
-                            Background="{x:Null}"
                             Margin="{StaticResource ButtonsStackMargin}"
-                            Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
+                            HorizontalAlignment="Center"
+                            cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            cu:Style="{StaticResource MainButtonCompatStyle}">
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/twitter.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                         <Button
-                            HorizontalAlignment="Center"
-                            Background="{x:Null}"
                             Margin="{StaticResource ButtonsStackMargin}"
-                            Command="{x:Bind AboutVM.VisitWeiboCommand, Mode=OneWay}"
+                            HorizontalAlignment="Center"
+                            cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            cu:Style="{StaticResource MainButtonCompatStyle}">
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.VisitWeiboCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/weibo.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
                     </StackPanel>
@@ -144,10 +143,10 @@
                     <Button
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
+                        cu:Style="{StaticResource MainButtonCompatStyle}"
                         fcu:Style="{StaticResource MainButtonStyle}"
-                        cu:Style="{StaticResource MainButtonCompatStyle}">
+                        Background="{x:Null}"
+                        Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}">
                         <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Rate this app" />
                     </Button>
                 </StackPanel>

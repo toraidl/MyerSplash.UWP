@@ -14,11 +14,11 @@
     <UserControl.Resources>
         <Style x:Key="OptionTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="12" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
             <Setter Property="FontWeight" Value="Normal" />
         </Style>
     </UserControl.Resources>
-    <Grid Background="{StaticResource MyerSplashDarkColorBrush}" CornerRadius="2">
+    <Grid Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}" CornerRadius="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -36,33 +36,36 @@
                 x:Name="DeleteDownloadingBtn"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
-                Click="DeleteDownloadingBtn_Click"
+                cu:Style="{StaticResource MainButtonCompatStyle}"
                 fcu:Style="{StaticResource MainButtonStyle}"
-                cu:Style="{StaticResource MainButtonCompatStyle}">
-                <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete downloading items" HorizontalAlignment="Left" />
+                Click="DeleteDownloadingBtn_Click">
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource OptionTextBlockStyle}"
+                    Text="Delete downloading items" />
             </Button>
             <Button
                 x:Name="DeleteDownloadedBtn"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
-                Click="DeleteDownloadedBtn_Click"
+                cu:Style="{StaticResource MainButtonCompatStyle}"
                 fcu:Style="{StaticResource MainButtonStyle}"
-                cu:Style="{StaticResource MainButtonCompatStyle}">
+                Click="DeleteDownloadedBtn_Click">
                 <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete downloaded items" />
             </Button>
             <Button
                 x:Name="DeleteAllBtn"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
-                Click="DeleteAllBtn_Click"
+                cu:Style="{StaticResource MainButtonCompatStyle}"
                 fcu:Style="{StaticResource MainButtonStyle}"
-                cu:Style="{StaticResource MainButtonCompatStyle}">
+                Click="DeleteAllBtn_Click">
                 <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete failed items" />
             </Button>
             <TextBlock
                 Margin="12"
                 FontSize="12"
-                Foreground="{StaticResource HintColorBrush}"
+                Foreground="{ThemeResource SystemBaseHighColor}"
                 Text="Note that the delete operation will not cancel download tasks. This will only clear the list."
                 TextWrapping="Wrap" />
         </StackPanel>
@@ -72,9 +75,9 @@
             Margin="0,8,8,8"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Click="CancelBtn_Click"
+            cu:Style="{StaticResource MainButtonCompatStyle}"
             fcu:Style="{StaticResource MainButtonStyle}"
-            cu:Style="{StaticResource MainButtonCompatStyle}">
+            Click="CancelBtn_Click">
             <Border>
                 <TextBlock
                     FontWeight="Bold"

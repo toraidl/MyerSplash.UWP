@@ -26,13 +26,29 @@ namespace MyerSplash.Common
             }
         }
 
+        public Windows.UI.Xaml.Media.Brush InAppBackgroundBrush
+        {
+            get
+            {
+                return App.Current.Resources["LightInAppBrush"] as Windows.UI.Xaml.Media.Brush;
+            }
+        }
+
+        public Windows.UI.Xaml.Media.Brush InAppForegroundBrush
+        {
+            get
+            {
+                return App.Current.Resources["SystemBaseHighColor"] as Windows.UI.Xaml.Media.Brush;
+            }
+        }
+
         public Windows.UI.Xaml.Media.Brush MainPageBackgroundBrush
         {
             get
             {
                 if (EnableCompactMode)
                 {
-                    return new SolidColorBrush(Colors.Black);
+                    return App.Current.Resources["SystemChromeLowColor"] as Windows.UI.Xaml.Media.Brush;
                 }
                 else
                 {
@@ -54,7 +70,7 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return App.Current.Resources["CustomAcrylicInAppBrushTrans"] as Windows.UI.Xaml.Media.Brush;
+                    return App.Current.Resources["SystemControlChromeLowAcrylicElementBrush"] as Windows.UI.Xaml.Media.Brush;
                 }
                 else
                 {
@@ -256,10 +272,24 @@ namespace MyerSplash.Common
             }
         }
 
+        public SolidColorBrush ContentForeground
+        {
+            get
+            {
+                return new SolidColorBrush(Colors.Black);
+            }
+        }
+
         public AppSettings()
         {
             LocalSettings = ApplicationData.Current.LocalSettings;
             EnableCompactMode = EnableCompactMode;
+        }
+
+        public void NotifyThemeChanged(bool isLight)
+        {
+            RaisePropertyChanged(() => MainPageBackgroundBrush);
+            RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
         }
 
         public static bool IsFcuOrAbove()

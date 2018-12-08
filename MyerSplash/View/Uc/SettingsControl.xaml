@@ -11,27 +11,24 @@
     d:DesignHeight="700"
     d:DesignWidth="700"
     mc:Ignorable="d">
-    <Grid
-        cu:Background="{StaticResource AppBackgroundBrushDark}"
-        fcu:Background="{StaticResource CustomAcrylicInAppBrush}"
-        RequestedTheme="Dark">
+    <Grid Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="DummyTitleBar" Background="Transparent"/>
+        <Grid x:Name="DummyTitleBar" Background="Transparent" />
         <Button
             x:Name="CloseBtn"
             Width="{StaticResource MainButtonSize}"
             Height="{StaticResource MainButtonSize}"
+            Margin="12,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
-            Click="CloseBtn_Click"
-            Margin="12,0,0,0"
+            cu:Style="{StaticResource MainButtonCompatStyle}"
             fcu:Style="{StaticResource MainButtonStyle}"
-            cu:Style="{StaticResource MainButtonCompatStyle}">
-            <FontIcon Style="{StaticResource CloseIconStyle}" 
-                      FontSize="{StaticResource SmallFontSize}"/>
+            Background="Transparent"
+            Click="CloseBtn_Click">
+            <FontIcon FontSize="{StaticResource SmallFontSize}" Style="{StaticResource CloseIconStyle}" />
         </Button>
         <TextBlock
             Margin="12,0,0,0"
@@ -39,7 +36,7 @@
             VerticalAlignment="Center"
             FontSize="{StaticResource MediumFontSize}"
             FontWeight="Bold"
-            Foreground="White"
+            Foreground="{ThemeResource SystemBaseHighColor}"
             Text="SETTINGS" />
         <Grid Grid.Row="1" MaxWidth="600">
             <ScrollViewer
@@ -95,52 +92,56 @@
                             Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Compact mode" />
                         <ToggleSwitch
-                            Grid.Column="1"
-                            Toggled="ToggleSwitch_Toggled"
                             x:Name="CompactModeSwitch"
+                            Grid.Column="1"
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableCompactMode, Mode=TwoWay}"
-                            Style="{StaticResource ToggleSwitchStyle}" />
+                            Style="{StaticResource ToggleSwitchStyle}"
+                            Toggled="ToggleSwitch_Toggled" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid Margin="8" Background="Black">
                             <Image
-                                Tapped="CompactModeOffHintImage_Tapped"
                                 x:Name="CompactModeOffHintImage"
-                                Source="ms-appx:///Assets/Image/CompactModeOff.png"/>
+                                Source="ms-appx:///Assets/Image/CompactModeOff.png"
+                                Tapped="CompactModeOffHintImage_Tapped" />
                         </Grid>
-                        <Grid Margin="8" Grid.Column="1" Background="Black">
+                        <Grid
+                            Grid.Column="1"
+                            Margin="8"
+                            Background="Black">
                             <Image
-                                Tapped="CompactModeOnHintImage_Tapped"
                                 x:Name="CompactModeOnHintImage"
-                                Source="ms-appx:///Assets/Image/CompactModeOn.png" />
+                                Source="ms-appx:///Assets/Image/CompactModeOn.png"
+                                Tapped="CompactModeOnHintImage_Tapped" />
                         </Grid>
                     </Grid>
                     <Button
                         Margin="12"
                         HorizontalAlignment="Stretch"
-                        Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
-                        Background="{StaticResource SettingsButtonBackgroundBrush}"
-                        fcu:Style="{StaticResource MainButtonStyle}"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}"
-                        VerticalAlignment="Center" 
-                        HorizontalContentAlignment="Left">
-                        <TextBlock
-                            Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Open the folder wallpapers are saved into" />
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}">
+                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Open the folder wallpapers are saved into" />
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
-                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change wallpaper in background every day" VerticalAlignment="Center" Margin="12,0,0,0" />
-                            <Button
-                                HorizontalAlignment="Right"
+                        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+                            <TextBlock
                                 Margin="12,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource SettingItemTextBlockStyle}"
+                                Text="Auto-change wallpaper in background every day" />
+                            <Button
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
-                                Style="{StaticResource ButtonCommonStyle}"
-                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}">
+                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}"
+                                Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
                                     <Ellipse
                                         Width="20"
@@ -174,17 +175,14 @@
                         Style="{StaticResource SubTitleTextBlockStyle}"
                         Text="DIAGNOSE ISSUES" />
                     <Button
+                        x:Name="DiagnoseButton"
                         Margin="12"
                         HorizontalAlignment="Stretch"
-                        x:Name="DiagnoseButton"
-                        fcu:Style="{StaticResource MainButtonStyle}"
-                        Background="{StaticResource SettingsButtonBackgroundBrush}"
                         HorizontalContentAlignment="Left"
-                        Command="{x:Bind SettingsVM.DiagnoseCommand, Mode=OneWay}"
-                        cu:Style="{StaticResource MainButtonCompatStyle}">
-                        <TextBlock
-                            Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Diagnose Network" />
+                        cu:Style="{StaticResource MainButtonCompatStyle}"
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Command="{x:Bind SettingsVM.DiagnoseCommand, Mode=OneWay}">
+                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Diagnose Network" />
                     </Button>
                     <TextBlock
                         Margin="12,24,0,0"
@@ -194,34 +192,28 @@
                     <Button
                         Margin="12"
                         HorizontalAlignment="Stretch"
-                        Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
-                        fcu:Style="{StaticResource MainButtonStyle}"
-                        Background="{StaticResource SettingsButtonBackgroundBrush}"
                         HorizontalContentAlignment="Left"
-                        IsEnabled="{x:Bind SettingsVM.ClearCacheCommandEnabled, Mode=TwoWay}"
-                        cu:Style="{StaticResource MainButtonCompatStyle}">
-                        <TextBlock
-                            Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
+                        cu:Style="{StaticResource MainButtonCompatStyle}"
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
+                        IsEnabled="{x:Bind SettingsVM.ClearCacheCommandEnabled, Mode=TwoWay}">
+                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
                     </Button>
                     <TextBlock
                         Margin="12,12,12,0"
                         HorizontalAlignment="Left"
                         FontSize="12"
-                        Foreground="#99FFFFFF"
+                        Foreground="{ThemeResource SystemBaseHighColor}"
                         Text="{StaticResource TempFilesHint}"
                         TextWrapping="Wrap" />
                     <Button
                         Margin="12"
                         HorizontalAlignment="Stretch"
-                        Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
-                        fcu:Style="{StaticResource MainButtonStyle}"
-                        Background="{StaticResource SettingsButtonBackgroundBrush}"
                         HorizontalContentAlignment="Left"
-                        cu:Style="{StaticResource MainButtonCompatStyle}">
-                        <TextBlock
-                            Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Clean up temp files" />
+                        cu:Style="{StaticResource MainButtonCompatStyle}"
+                        fcu:Style="{StaticResource MainButtonStyle}"
+                        Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}">
+                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Clean up temp files" />
                     </Button>
                 </StackPanel>
             </ScrollViewer>

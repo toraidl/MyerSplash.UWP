@@ -79,13 +79,14 @@
                 VerticalAlignment="Center"
                 ItemsSource="{x:Bind MainVM.Tabs, Mode=TwoWay}"
                 SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
-                SliderBrush="White"
+                SliderBrush="{ThemeResource SystemBaseHighColor}"
                 TitleClicked="TopNavigationControl_TitleClicked">
                 <cc:TopNavigationControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock
                             Padding="12,4,12,4"
                             FontWeight="Bold"
+                            Foreground="{ThemeResource SystemBaseHighColor}"
                             Text="{Binding}" />
                     </DataTemplate>
                 </cc:TopNavigationControl.ItemTemplate>
@@ -106,12 +107,14 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
+                    Background="Transparent"
                     Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}"
+                    FontFamily="Segoe UI"
                     ToolTipService.ToolTip="Downloads">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
-                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Foreground="{ThemeResource SystemBaseHighColor}"
                         Glyph="&#xE118;" />
                 </Button>
                 <Button
@@ -124,12 +127,13 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
+                    Background="Transparent"
                     Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
                     ToolTipService.ToolTip="Search">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
-                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Foreground="{ThemeResource SystemBaseHighColor}"
                         Glyph="&#xE094;"
                         RenderTransformOrigin="0.5,0.5">
                         <FontIcon.RenderTransform>
@@ -147,12 +151,13 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
+                    Background="Transparent"
                     Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}"
                     ToolTipService.ToolTip="Settings">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
-                        Foreground="{StaticResource MainBarIconColorBrush}"
+                        Foreground="{ThemeResource SystemBaseHighColor}"
                         Glyph="&#xE713;" />
                 </Button>
                 <Button
@@ -165,7 +170,9 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
+                    Background="Transparent"
                     Click="MoreBtn_Click"
+                    FontFamily="Segoe MDL2 Assets"
                     ToolTipService.ToolTip="About">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout Placement="Bottom">
@@ -178,8 +185,8 @@
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
-                        Foreground="{StaticResource MainBarIconColorBrush}"
-                        Glyph="" />
+                        Foreground="{ThemeResource SystemBaseHighColor}"
+                        Glyph="&#xE10C;" />
                 </Button>
             </StackPanel>
         </Grid>

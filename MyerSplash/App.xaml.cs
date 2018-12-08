@@ -6,6 +6,7 @@ using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -16,6 +17,9 @@ namespace MyerSplash
 {
     sealed partial class App : Application
     {
+        private UISettings _uiSettings;
+        private bool _isLight;
+
         public static AppSettings AppSettings
         {
             get
@@ -62,6 +66,31 @@ namespace MyerSplash
 
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
+
+            TitleBarHelper.SetUpDarkTitleBar();
+
+            _uiSettings = new UISettings();
+            _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
+            UpdateThemeAndNotify();
+        }
+
+        private async void Settings_ColorValuesChanged(UISettings sender, object args)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+             {
+                 UpdateThemeAndNotify();
+             });
+        }
+
+        private void UpdateThemeAndNotify()
+        {
+            var isLight = _uiSettings.GetColorValue(UIColorType.Background) == Colors.Black;
+            if (isLight != _isLight)
+            {
+                _isLight = isLight;
+                AppSettings.NotifyThemeChanged(_isLight);
+                TitleBarHelper.SetupTitleBarColor(_isLight);
+            }
         }
 
 #pragma warning restore
@@ -96,7 +125,7 @@ namespace MyerSplash
                 ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
             }
 
-            TitleBarHelper.SetUpLightTitleBar();
+            TitleBarHelper.SetUpDarkTitleBar();
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;

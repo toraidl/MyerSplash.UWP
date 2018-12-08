@@ -10,6 +10,16 @@
         FallbackColor="Black"
         TintColor="Black"
         TintOpacity="0.8" />
+    <fcu:AcrylicBrush x:Key="LightWindowBrush"
+                      BackgroundSource="HostBackdrop"
+                      FallbackColor="White"
+                      TintColor="White"
+                      TintOpacity="0.8"/>
+    <fcu:AcrylicBrush x:Key="LightInAppBrush"
+                      BackgroundSource="Backdrop"
+                      FallbackColor="White"
+                      TintColor="White"
+                      TintOpacity="0.8"/>
     <fcu:AcrylicBrush
         x:Key="CustomAcrylicInAppBrushTrans"
         BackgroundSource="Backdrop"
