@@ -191,6 +191,12 @@ namespace MyerSplash.View.Page
             DetailControl.CurrentImage = _clickedImg;
             DetailControl.Show(_clickedContainer);
 
+            var key = (string)App.Current.Resources["GestureKey"];
+            if (!LocalSettingHelper.HasValue(key))
+            {
+                ToggleGestureTipsControlAnimation(true, 500);
+            }
+
             NavigationService.AddOperation(() =>
             {
                 DetailControl.Hide();
@@ -276,6 +282,42 @@ namespace MyerSplash.View.Page
             {
                 ListControl.ScrollToTop();
             }
+        }
+
+        private void GestureControl_OnClickToDismiss(object sender, EventArgs e)
+        {
+            ToggleGestureTipsControlAnimation(false);
+
+            var key = (string)App.Current.Resources["GestureKey"];
+            LocalSettingHelper.AddValue(key, true);
+        }
+
+        private void ToggleGestureTipsControlAnimation(bool show, int delayMillis = 0)
+        {
+            var visual = GestureControl.GetVisual();
+            visual.Opacity = show ? 0f : 1f;
+
+            GestureControl.Visibility = Visibility.Visible;
+
+            var anim = _compositor.CreateScalarKeyFrameAnimation();
+            anim.Duration = TimeSpan.FromMilliseconds(500);
+            anim.InsertKeyFrame(1f, show ? 1f : 0f);
+            anim.DelayTime = TimeSpan.FromMilliseconds(delayMillis);
+            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            batch.Completed += (s, e) =>
+            {
+                if (!show)
+                {
+                    GestureControl.StopAnimation();
+                    GestureControl.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    GestureControl.StartAnimation();
+                }
+            };
+            visual.StartAnimation("Opacity", anim);
+            batch.End();
         }
     }
 }
