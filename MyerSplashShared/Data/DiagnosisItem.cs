@@ -27,10 +27,10 @@ namespace MyerSplashShared.Data
 
         public override string ToString()
         {
-            return $"------Resolving {(string.IsNullOrEmpty(_desc) ? _uri:_desc)}------";
+            return $"------Resolving {(string.IsNullOrEmpty(_desc) ? _uri : _desc)}------";
         }
 
-        public virtual async Task<string> RunAsync()
+        public virtual async Task<DiagnosisResult> RunAsync()
         {
             try
             {
@@ -41,15 +41,15 @@ namespace MyerSplashShared.Data
                 var result = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cts.Token);
                 watch.Stop();
                 IsStatusCodeSuccessful = result.IsSuccessStatusCode;
-                return $"Result: {result.StatusCode}, elapsed time: {watch.ElapsedMilliseconds}millis";
+                return new DiagnosisResult($"Result: {result.StatusCode}, elapsed time: {watch.ElapsedMilliseconds}millis", result);
             }
             catch (TaskCanceledException)
             {
-                return $"The task is cancelled after {_timeoutMillis}millis";
+                return new DiagnosisResult($"The task is cancelled after {_timeoutMillis}millis", null);
             }
             catch (Exception e)
             {
-                return e.Message;
+                return new DiagnosisResult(e.Message, null);
             }
         }
     }
