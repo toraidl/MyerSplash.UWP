@@ -12,8 +12,8 @@
     xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:MyerSplash.View.Uc"
-    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     Background="{StaticResource TitleBarDarkBrush}"
+    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <Interactivity:Interaction.Behaviors>
         <Core:EventTriggerBehavior EventName="GlobalPageKeyDown">
@@ -30,8 +30,8 @@
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
-            Background="{Binding Source={StaticResource AppSettings}, Path=MainPageBackgroundBrush, Mode=OneWay}"
-            Grid.RowSpan="2">
+            Grid.RowSpan="2"
+            Background="{Binding Source={StaticResource AppSettings}, Path=MainPageBackgroundBrush, Mode=OneWay}">
             <uc:ImageListControl
                 x:Name="ListControl"
                 d:IsHidden="True"
@@ -50,83 +50,87 @@
                 x:Name="RefreshBtn"
                 Grid.RowSpan="2"
                 Command="{x:Bind MainVM.RefreshCommand, Mode=OneWay}"
-                ToolTipService.ToolTip="Refresh"
-                Style="{StaticResource FabStyle}">
+                Style="{StaticResource FabStyle}"
+                ToolTipService.ToolTip="Refresh">
                 <Grid Width="60" Height="60">
-                    <cc:EllipseShadowControl
-                        Style="{StaticResource MainFabStyle}" />
-                    <FontIcon FontFamily="Segoe MDL2 Assets" 
-                              Foreground="#FF333333"
-                              FontSize="{StaticResource MediumFontSize}"
-                              Glyph="&#xE8EE;" />
+                    <cc:EllipseShadowControl Style="{StaticResource MainFabStyle}" />
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Foreground="#FF333333"
+                        Glyph="&#xE8EE;" />
                 </Grid>
             </Button>
         </Grid>
-        <Grid x:Name="TitleBarBackgroundPlaceholder"
-              Background="{Binding Source={StaticResource AppSettings}, Path=MainTopNavigationBackgroundBrush, Mode=OneWay}"
-              VerticalAlignment="Stretch"/>
-        <Grid x:Name="DummyTitleBar"
-              Background="Transparent"
-              Height="30"
-              VerticalAlignment="Top"/>
-        <Grid x:Name="TitleGridContent"
-              Padding="0,30,0,0">
-            <cc:TopNavigationControl 
-                Margin="12,0,0,0"
+        <Grid
+            x:Name="TitleBarBackgroundPlaceholder"
+            VerticalAlignment="Stretch"
+            Background="{Binding Source={StaticResource AppSettings}, Path=MainTopNavigationBackgroundBrush, Mode=OneWay}" />
+        <Grid
+            x:Name="DummyTitleBar"
+            Height="30"
+            VerticalAlignment="Top"
+            Background="Transparent" />
+        <Grid x:Name="TitleGridContent" Padding="0,30,0,0">
+            <cc:TopNavigationControl
                 x:Name="TopNavigation"
-                SliderBrush="White"
-                TitleClicked="TopNavigationControl_TitleClicked"
-                SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
+                Margin="12,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
                 ItemsSource="{x:Bind MainVM.Tabs, Mode=TwoWay}"
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Center">
+                SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}"
+                SliderBrush="White"
+                TitleClicked="TopNavigationControl_TitleClicked">
                 <cc:TopNavigationControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock 
-                            Text="{Binding}"
+                        <TextBlock
                             Padding="12,4,12,4"
-                            FontWeight="Bold"/>
+                            FontWeight="Bold"
+                            Text="{Binding}" />
                     </DataTemplate>
                 </cc:TopNavigationControl.ItemTemplate>
             </cc:TopNavigationControl>
-            <StackPanel x:Name="CommandsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+            <StackPanel
+                x:Name="CommandsPanel"
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
                 <Button
                     x:Name="DownloadEntryBtn"
                     Grid.Column="3"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
-                    ToolTipService.ToolTip="Downloads"
                     Margin="{StaticResource ButtonsStackMargin}"
                     Padding="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    fcu:Style="{StaticResource MainButtonStyle}"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
-                    Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}">
+                    fcu:Style="{StaticResource MainButtonStyle}"
+                    Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}"
+                    ToolTipService.ToolTip="Downloads">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
+                        FontSize="{StaticResource MediumFontSize}"
                         Foreground="{StaticResource MainBarIconColorBrush}"
-                        Glyph="&#xE118;"
-                        FontSize="{StaticResource MediumFontSize}">
-                    </FontIcon>
+                        Glyph="&#xE118;" />
                 </Button>
                 <Button
                     x:Name="SearchBtn"
                     Grid.Column="2"
-                    ToolTipService.ToolTip="Search"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
                     Margin="{StaticResource ButtonsStackMargin}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    fcu:Style="{StaticResource MainButtonStyle}"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
-                    Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}">
+                    fcu:Style="{StaticResource MainButtonStyle}"
+                    Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
+                    ToolTipService.ToolTip="Search">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
+                        FontSize="{StaticResource MediumFontSize}"
                         Foreground="{StaticResource MainBarIconColorBrush}"
                         Glyph="&#xE094;"
-                        FontSize="{StaticResource MediumFontSize}"
                         RenderTransformOrigin="0.5,0.5">
                         <FontIcon.RenderTransform>
                             <CompositeTransform ScaleX="-1" />
@@ -139,12 +143,12 @@
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
                     Margin="{StaticResource ButtonsStackMargin}"
-                    ToolTipService.ToolTip="Settings"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}"
+                    cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    cu:Style="{StaticResource MainButtonCompatStyle}">
+                    Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}"
+                    ToolTipService.ToolTip="Settings">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
@@ -154,21 +158,21 @@
                 <Button
                     x:Name="MoreBtn"
                     Grid.Column="3"
-                    ToolTipService.ToolTip="About"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
                     Margin="{StaticResource ButtonsStackMargin}"
                     HorizontalAlignment="Left"
-                    Click="MoreBtn_Click"
                     VerticalAlignment="Center"
+                    cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    cu:Style="{StaticResource MainButtonCompatStyle}">
+                    Click="MoreBtn_Click"
+                    ToolTipService.ToolTip="About">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout Placement="Bottom">
-                            <MenuFlyoutItem Text="Downloads" Command="{x:Bind MainVM.PresentDownloadsCommand,Mode=OneWay}"/>
-                            <MenuFlyoutItem Text="Search" Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}"/>
-                            <MenuFlyoutItem Text="Settings" Command="{x:Bind MainVM.PresentSettingsCommand,Mode=OneWay}"/>
-                            <MenuFlyoutItem Text="About" Command="{x:Bind MainVM.PresentAboutCommand,Mode=OneWay}"/>
+                            <MenuFlyoutItem Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}" Text="Downloads" />
+                            <MenuFlyoutItem Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}" Text="Search" />
+                            <MenuFlyoutItem Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}" Text="Settings" />
+                            <MenuFlyoutItem Command="{x:Bind MainVM.PresentAboutCommand, Mode=OneWay}" Text="About" />
                         </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                     <FontIcon
@@ -192,20 +196,25 @@
             x:Name="DownloadsControl"
             Grid.RowSpan="2"
             d:IsHidden="True"
-            OnPresentedChanged="OnPresentedChanged"
             CloseCommand="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}"
+            OnPresentedChanged="OnPresentedChanged"
             Presented="{x:Bind MainVM.DownloadsPagePresented, Mode=OneWay}" />
         <uc:AboutControl
             x:Name="AboutUC"
             Grid.RowSpan="2"
-            OnPresentedChanged="OnPresentedChanged"
             d:IsHidden="True"
+            OnPresentedChanged="OnPresentedChanged"
             Presented="{x:Bind MainVM.AboutPagePresented, Mode=TwoWay}" />
         <uc:SettingsControl
             x:Name="SettingsUC"
             Grid.RowSpan="2"
-            OnPresentedChanged="OnPresentedChanged"
             d:IsHidden="True"
+            OnPresentedChanged="OnPresentedChanged"
             Presented="{x:Bind MainVM.SettingsPagePresented, Mode=TwoWay}" />
+        <uc:GestureHintControl
+            x:Name="GestureControl"
+            Grid.RowSpan="2"
+            OnClickToDismiss="GestureControl_OnClickToDismiss"
+            Visibility="Collapsed" />
     </Grid>
 </common:BindablePage>

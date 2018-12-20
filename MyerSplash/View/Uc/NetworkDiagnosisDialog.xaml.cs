@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using MyerSplashShared.API;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace MyerSplash.View.Uc
 {
@@ -31,7 +33,8 @@ namespace MyerSplash.View.Uc
             var tokenSource = new CancellationTokenSource();
 
             _diagosisItems.Add(new DiagnosisItem(_client, "https://juniperphoton.net/myersplash/wallpapers/thumbs/20180401.jpg", "auto-change wallpaper server"));
-            _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/photos?client_id={Request.AppKey}&page=1&per_page=30", "unsplash server"));
+            _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/photos?client_id={Request.AppKey}&page=1&per_page=30", "unsplash server api"));
+            _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/", "unsplash home page"));
             _diagosisItems.Add(new DiagnosisItem(_client, "https://www.bing.com"));
             _diagosisItems.Add(new DiagnosisItem(_client, "https://www.google.com"));
 
@@ -56,7 +59,8 @@ namespace MyerSplash.View.Uc
                 {
                     await AppendInfoAsync(item.ToString());
                     var result = await item.RunAsync();
-                    await AppendInfoAsync(result, item.IsStatusCodeSuccessful ? Colors.Green : Colors.Red);
+                    await AppendInfoAsync(result.BriefMesasge, item.IsStatusCodeSuccessful ? Colors.Green : Colors.Red);
+                    await AppendInfoAsync(result.Response?.ToString());
                     await AppendInfoAsync(string.Empty);
                 }
 
@@ -130,8 +134,15 @@ namespace MyerSplash.View.Uc
                 }
             }
 
-            mes.Body = result;
-            mes.Subject = $"MyerSplash for Windows 10, {App.GetAppVersion()} feedback, {DeviceHelper.OSVersion}";
+            var cachedFolder = ApplicationData.Current.TemporaryFolder;
+            var file = await cachedFolder.CreateFileAsync("network_diagnosis.txt", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, result);
+
+            var stream = RandomAccessStreamReference.CreateFromFile(file);
+            var attachment = new EmailAttachment(file.Name, stream);
+
+            mes.Attachments.Add(attachment);
+            mes.Subject = $"【Network】MyerSplash for Windows 10, {App.GetAppVersion()} feedback, {DeviceHelper.OSVersion}";
             await EmailManager.ShowComposeNewEmailAsync(mes);
         }
     }

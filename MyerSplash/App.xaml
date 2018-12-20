@@ -18,6 +18,7 @@
             <vm:ViewModelLocator x:Key="Locator" />
             <common:AppSettings x:Key="AppSettings" />
             <x:String x:Key="CoachKey">TIPS_NETWORK</x:String>
+            <x:String x:Key="GestureKey">TIPS_GESTURE</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -111,6 +111,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\Icon\touch.png" />
     <Content Include="Assets\Json\built_in_categories.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -135,6 +136,9 @@
     <Compile Include="Adapter\UnsplashImageAdapter.cs" />
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="View\Uc\GestureHintControl.xaml.cs">
+      <DependentUpon>GestureHintControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Uc\INavigableUserControl.cs" />
     <Compile Include="Model\DownloadItem.cs" />
     <Compile Include="Model\ImageItem.cs" />
@@ -330,6 +334,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Uc\ExifInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Uc\GestureHintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
