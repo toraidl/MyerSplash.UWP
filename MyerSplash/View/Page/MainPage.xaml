@@ -107,7 +107,6 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    Background="Transparent"
                     Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}"
                     FontFamily="Segoe UI"
                     ToolTipService.ToolTip="Downloads">
@@ -127,7 +126,6 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    Background="Transparent"
                     Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
                     ToolTipService.ToolTip="Search">
                     <FontIcon
@@ -151,7 +149,6 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    Background="Transparent"
                     Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}"
                     ToolTipService.ToolTip="Settings">
                     <FontIcon
@@ -170,7 +167,6 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    Background="Transparent"
                     Click="MoreBtn_Click"
                     FontFamily="Segoe MDL2 Assets"
                     ToolTipService.ToolTip="About">

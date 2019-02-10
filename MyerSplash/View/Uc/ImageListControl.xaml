@@ -224,12 +224,12 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="{x:Bind MainVM.FooterReloadVisibility, Mode=OneWay}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="10"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource SystemBaseHighColor}"
-                            Text="Oops, try to retry." />
+                            Text="Oops, something happened." />
                         <Button
                             Width="100"
                             Margin="5"

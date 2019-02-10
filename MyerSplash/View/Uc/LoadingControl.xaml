@@ -50,11 +50,11 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0.5" />
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.3" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.5" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.3" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.5" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0.3" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>

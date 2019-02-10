@@ -43,7 +43,7 @@
         BasedOn="{StaticResource ButtonRevealStyle}"
         TargetType="Button">
         <Setter Property="BorderThickness" Value="{StaticResource RevealThinkness}" />
-        <Setter Property="Background" Value="{ThemeResource SystemListLowColor}" />
+        <Setter Property="Background" Value="Transparent" />
     </fcu:Style>
     <Style
         x:Key="MainButtonCompatStyle"

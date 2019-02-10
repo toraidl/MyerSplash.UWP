@@ -126,6 +126,7 @@
                         HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}"
                         fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}">
                         <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Open the folder wallpapers are saved into" />
                     </Button>
@@ -181,6 +182,7 @@
                         HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}"
                         fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.DiagnoseCommand, Mode=OneWay}">
                         <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Diagnose Network" />
                     </Button>
@@ -195,6 +197,7 @@
                         HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}"
                         fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
                         IsEnabled="{x:Bind SettingsVM.ClearCacheCommandEnabled, Mode=TwoWay}">
                         <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
@@ -212,6 +215,7 @@
                         HorizontalContentAlignment="Left"
                         cu:Style="{StaticResource MainButtonCompatStyle}"
                         fcu:Style="{StaticResource MainButtonStyle}"
+                        Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}">
                         <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Clean up temp files" />
                     </Button>

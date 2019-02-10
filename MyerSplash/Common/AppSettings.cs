@@ -48,7 +48,7 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return App.Current.Resources["SystemChromeLowColor"] as Windows.UI.Xaml.Media.Brush;
+                    return new SolidColorBrush((Color)App.Current.Resources["SystemChromeMediumLowColor"]);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return App.Current.Resources["SystemControlChromeLowAcrylicElementBrush"] as Windows.UI.Xaml.Media.Brush;
+                    return App.Current.Resources["SystemControlChromeMediumLowAcrylicElementMediumBrush"] as Windows.UI.Xaml.Media.Brush;
                 }
                 else
                 {

@@ -25,7 +25,6 @@
             VerticalAlignment="Stretch"
             cu:Style="{StaticResource MainButtonCompatStyle}"
             fcu:Style="{StaticResource MainButtonStyle}"
-            Background="Transparent"
             Click="CloseBtn_Click">
             <FontIcon FontSize="12" Style="{StaticResource CloseIconStyle}" />
         </Button>
@@ -107,7 +106,6 @@
                             HorizontalAlignment="Center"
                             cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            Background="{x:Null}"
                             Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/mail.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
@@ -125,7 +123,6 @@
                             HorizontalAlignment="Center"
                             cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            Background="{x:Null}"
                             Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/twitter.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
@@ -134,7 +131,6 @@
                             HorizontalAlignment="Center"
                             cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
-                            Background="{x:Null}"
                             Command="{x:Bind AboutVM.VisitWeiboCommand, Mode=OneWay}">
                             <Image Source="ms-appx:///Assets/Icon/weibo.png" Style="{StaticResource AboutImageStyle}" />
                         </Button>
@@ -145,7 +141,6 @@
                         HorizontalAlignment="Center"
                         cu:Style="{StaticResource MainButtonCompatStyle}"
                         fcu:Style="{StaticResource MainButtonStyle}"
-                        Background="{x:Null}"
                         Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}">
                         <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Rate this app" />
                     </Button>
