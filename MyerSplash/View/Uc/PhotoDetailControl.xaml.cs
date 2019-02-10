@@ -259,7 +259,11 @@ namespace MyerSplash.View.Uc
 
         private async Task HideInternalAsync()
         {
-            if (_listItem == null) return;
+            if (_listItem == null)
+            {
+                _animating = false;
+                return;
+            }
 
             var innerBatch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             await ToggleListItemAnimationAsync(false);
