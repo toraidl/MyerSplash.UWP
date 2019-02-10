@@ -38,7 +38,7 @@
             FontWeight="Bold"
             Foreground="{ThemeResource SystemBaseHighColor}"
             Text="SETTINGS" />
-        <Grid Grid.Row="1" MaxWidth="600">
+        <Grid Grid.Row="1" MaxWidth="900">
             <ScrollViewer
                 HorizontalScrollBarVisibility="Disabled"
                 HorizontalScrollMode="Disabled"
@@ -169,6 +169,18 @@
                         <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="High (Default)" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Medium" Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock
+                        Style="{StaticResource SettingItemTextBlockStyle}"
+                        Text="Theme mode"
+                        Visibility="Collapsed" />
+                    <ComboBox
+                        SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=ThemeMode, Mode=TwoWay}"
+                        Style="{StaticResource SettingItemComboBoxStyle}"
+                        Visibility="Collapsed">
+                        <ComboBoxItem Content="Light" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Dark" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Use my Windows mode" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
                         Margin="12,24,0,0"

@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using MyerSplash.ViewModel;
-using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
@@ -26,39 +24,23 @@ namespace MyerSplash.Common
             }
         }
 
-        public Windows.UI.Xaml.Media.Brush InAppBackgroundBrush
-        {
-            get
-            {
-                return App.Current.Resources["LightInAppBrush"] as Windows.UI.Xaml.Media.Brush;
-            }
-        }
-
-        public Windows.UI.Xaml.Media.Brush InAppForegroundBrush
-        {
-            get
-            {
-                return App.Current.Resources["SystemBaseHighColor"] as Windows.UI.Xaml.Media.Brush;
-            }
-        }
-
         public Windows.UI.Xaml.Media.Brush MainPageBackgroundBrush
         {
             get
             {
                 if (EnableCompactMode)
                 {
-                    return new SolidColorBrush((Color)App.Current.Resources["SystemChromeMediumLowColor"]);
+                    return new SolidColorBrush((Color)Application.Current.Resources["SystemChromeMediumLowColor"]);
                 }
                 else
                 {
                     if (IsFcuOrAbove())
                     {
-                        return App.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
                     }
                     else
                     {
-                        return App.Current.Resources["CustomAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["CustomAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
                     }
                 }
             }
@@ -70,17 +52,17 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return App.Current.Resources["SystemControlChromeMediumLowAcrylicElementMediumBrush"] as Windows.UI.Xaml.Media.Brush;
+                    return Application.Current.Resources["SystemControlChromeMediumLowAcrylicElementMediumBrush"] as Windows.UI.Xaml.Media.Brush;
                 }
                 else
                 {
                     if (IsFcuOrAbove())
                     {
-                        return App.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
                     }
                     else
                     {
-                        return App.Current.Resources["AppBackgroundBrushDark"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["AppBackgroundBrushDark"] as Windows.UI.Xaml.Media.Brush;
                     }
                 }
             }
@@ -272,11 +254,37 @@ namespace MyerSplash.Common
             }
         }
 
-        public SolidColorBrush ContentForeground
+        public int ThemeMode
         {
             get
             {
-                return new SolidColorBrush(Colors.Black);
+                return ReadSettings(nameof(ThemeMode), 2);
+            }
+            set
+            {
+                SaveSettings(nameof(ThemeMode), value);
+                RaisePropertyChanged(() => ThemeMode);
+
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    ElementTheme theme;
+                    switch (value)
+                    {
+                        case 0:
+                            theme = ElementTheme.Light;
+                            break;
+                        case 1:
+                            theme = ElementTheme.Dark;
+                            break;
+                        default:
+                            theme = ElementTheme.Default;
+                            break;
+                    }
+                    //rootElement.RequestedTheme = theme;
+
+                    // TODO FINISH 
+                    //NotifyThemeChanged();
+                }
             }
         }
 
@@ -286,7 +294,7 @@ namespace MyerSplash.Common
             EnableCompactMode = EnableCompactMode;
         }
 
-        public void NotifyThemeChanged(bool isLight)
+        public void NotifyThemeChanged()
         {
             RaisePropertyChanged(() => MainPageBackgroundBrush);
             RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);

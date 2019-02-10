@@ -88,7 +88,7 @@ namespace MyerSplash
             if (isLight != _isLight)
             {
                 _isLight = isLight;
-                AppSettings.NotifyThemeChanged(_isLight);
+                AppSettings.NotifyThemeChanged();
                 TitleBarHelper.SetupTitleBarColor(_isLight);
             }
         }
