@@ -18,20 +18,18 @@
             <Setter Property="FontWeight" Value="Normal" />
         </Style>
     </UserControl.Resources>
-    <Grid Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}" CornerRadius="2">
+    <Grid
+        Padding="8"
+        Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"
+        CornerRadius="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid>
-            <TextBlock
-                Margin="20,0,0,0"
-                HorizontalAlignment="Left"
-                Foreground="{StaticResource MyerSplashThemeColorBrush}"
-                Style="{StaticResource SubTitleTextBlockStyle}"
-                Text="DELETE OPTIONS" />
+            <TextBlock Style="{StaticResource DialogTitleStyle}" Text="CLEAN UP LIST" />
         </Grid>
-        <StackPanel Grid.Row="1" Margin="8">
+        <StackPanel Grid.Row="1">
             <Button
                 x:Name="DeleteDownloadingBtn"
                 HorizontalAlignment="Stretch"

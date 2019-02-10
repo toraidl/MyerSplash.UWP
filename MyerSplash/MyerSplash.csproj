@@ -136,7 +136,7 @@
     <Compile Include="Adapter\UnsplashImageAdapter.cs" />
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
-    <Compile Include="View\Uc\GestureHintControl.xaml.cs">
+    <Compile Include="View\Uc\Dialog\GestureHintControl.xaml.cs">
       <DependentUpon>GestureHintControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\INavigableUserControl.cs" />
@@ -145,10 +145,10 @@
     <Compile Include="View\Uc\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\BackgroundHintDialog.xaml.cs">
+    <Compile Include="View\Uc\Dialog\BackgroundHintDialog.xaml.cs">
       <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\DeleteDialogControl.xaml.cs">
+    <Compile Include="View\Uc\Dialog\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\DownloadItemTemplate.xaml.cs">
@@ -163,13 +163,10 @@
     <Compile Include="View\Uc\LoadingTextControl.xaml.cs">
       <DependentUpon>LoadingTextControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\MainNavigationControl.xaml.cs">
-      <DependentUpon>MainNavigationControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Uc\DownloadsListControl.xaml.cs">
       <DependentUpon>DownloadsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\NetworkDiagnosisDialog.xaml.cs">
+    <Compile Include="View\Uc\Dialog\NetworkDiagnosisDialog.xaml.cs">
       <DependentUpon>NetworkDiagnosisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\NoItemControl.xaml.cs">
@@ -193,7 +190,7 @@
     <Compile Include="View\Uc\PhotoDetailControl.xaml.cs">
       <DependentUpon>PhotoDetailControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\TipsControl.xaml.cs">
+    <Compile Include="View\Uc\Dialog\TipsControl.xaml.cs">
       <DependentUpon>TipsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
@@ -310,11 +307,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\BackgroundHintDialog.xaml">
+    <Page Include="View\Uc\Dialog\BackgroundHintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\DeleteDialogControl.xaml">
+    <Page Include="View\Uc\Dialog\DeleteDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -330,7 +327,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\GestureHintControl.xaml">
+    <Page Include="View\Uc\Dialog\GestureHintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,11 +339,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\MainNavigationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\NetworkDiagnosisDialog.xaml">
+    <Page Include="View\Uc\Dialog\NetworkDiagnosisDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -378,7 +371,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\TipsControl.xaml">
+    <Page Include="View\Uc\Dialog\TipsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
