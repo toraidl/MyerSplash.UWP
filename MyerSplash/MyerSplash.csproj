@@ -219,7 +219,6 @@
     <None Include="MyerSplash_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icon\ic_done_white_48dp.png" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\Noise.jpg" />
@@ -303,6 +302,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="ResourceDictionary\DarkColorDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionary\LightColorDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Uc\AboutControl.xaml">
       <SubType>Designer</SubType>
