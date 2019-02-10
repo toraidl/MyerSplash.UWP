@@ -5,8 +5,6 @@
     <Color x:Key="ListButtonPressed">#14FFFFFF</Color>
     <Color x:Key="ListButtonPointOver">#22FFFFFF</Color>
     <Color x:Key="ShadowColor">#5C000000</Color>
-    <Color x:Key="MyerSplashThemeColor">#18c3d8</Color>
-    <SolidColorBrush x:Key="MyerSplashThemeColorBrush">#18c3d8</SolidColorBrush>
     <SolidColorBrush x:Key="MyerSplashThemeLightColorBrush">#3ADBEF</SolidColorBrush>
     <SolidColorBrush x:Key="MyerSplashThemeDarkColorBrush">#16ACBE</SolidColorBrush>
     <Color x:Key="MyerSplashUnLikedHeartColor">#FFECECEC</Color>
