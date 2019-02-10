@@ -212,7 +212,7 @@
             <Grid Height="100">
                 <Grid Height="50" Visibility="{x:Bind MainVM.FooterLoadingVisibility, Mode=OneWay}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <ProgressRing Foreground="White" IsActive="True" />
+                        <ProgressRing Foreground="{ThemeResource SystemBaseHighColor}" IsActive="True" />
                         <TextBlock
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
