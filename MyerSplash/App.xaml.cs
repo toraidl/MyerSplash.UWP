@@ -69,11 +69,10 @@ namespace MyerSplash
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
 
-            TitleBarHelper.SetUpDarkTitleBar();
-
             _uiSettings = new UISettings();
             _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
             UpdateThemeAndNotify();
+            TitleBarHelper.SetupTitleBarColor(IsLight ?? false);
         }
 
         private async void Settings_ColorValuesChanged(UISettings sender, object args)
