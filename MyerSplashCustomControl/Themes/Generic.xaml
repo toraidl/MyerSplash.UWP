@@ -527,7 +527,7 @@
                             </Border.RenderTransform>
                             <Grid>
                                 <Border
-                                    Background="{StaticResource MyerSplashThemeColorBrush}"
+                                    Background="White"
                                     CornerRadius="2"
                                     Opacity="1" />
                                 <TextBlock
