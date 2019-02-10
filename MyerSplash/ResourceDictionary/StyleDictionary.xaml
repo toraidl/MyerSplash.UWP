@@ -1393,7 +1393,7 @@
                             Margin="0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Fill="{StaticResource SystemAltMediumColor}"
+                            Fill="{StaticResource SystemAltLowColor}"
                             RadiusX="10"
                             RadiusY="10"
                             Stroke="{StaticResource MyerSplashThemeColorBrush}"
@@ -1405,7 +1405,7 @@
                             Height="20"
                             Margin="0"
                             HorizontalAlignment="Center"
-                            Fill="Transparent"
+                            Fill="{StaticResource MyerSplashThemeColorBrush}"
                             Opacity="0"
                             RadiusX="10"
                             RadiusY="10"
@@ -1455,10 +1455,10 @@
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemAltHighColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Stroke">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemAltHighColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
