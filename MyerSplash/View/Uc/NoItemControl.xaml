@@ -13,14 +13,15 @@
             VerticalAlignment="Center"
             FontSize="40"
             FontWeight="Light"
-            Foreground="{StaticResource HintColorBrush}"
+            Foreground="{ThemeResource SystemBaseHighColor}"
             Text="Oops :(" />
         <TextBlock
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="30"
             FontWeight="Light"
-            Foreground="{StaticResource HintColorBrush}"
+            Opacity="0.7"
+            Foreground="{ThemeResource SystemBaseHighColor}"
             Text="No items" />
     </StackPanel>
 </UserControl>

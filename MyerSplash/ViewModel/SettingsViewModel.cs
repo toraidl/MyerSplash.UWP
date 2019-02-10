@@ -84,7 +84,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private string _cacheHint = "Clean up cache";
+        private string _cacheHint;
         public string CacheHint
         {
             get
@@ -122,6 +122,15 @@ namespace MyerSplash.ViewModel
         {
         }
 
+        public async Task UpdateCacheSizeUIAsync()
+        {
+            CacheHint = "Calculating cache size...";
+            ClearCacheCommandEnabled = false;
+            var size = await CalculateCacheAsync();
+            CacheHint = $"Clean up cache ({(size / (1024 * 1024)).ToString("f0")} MB)";
+            ClearCacheCommandEnabled = true;
+        }
+
         private async Task ClearTempFileAsync()
         {
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
@@ -141,38 +150,46 @@ namespace MyerSplash.ViewModel
             ToastService.SendToast("Temp files have been cleaned up.");
         }
 
-        public async Task CalculateCacheAsync()
+        private Task<ulong> CalculateCacheAsync()
         {
-            ClearCacheCommandEnabled = false;
-
-            ulong size = 0;
-            var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
-            foreach (var file in tempFiles)
+            return Task.Run(async () =>
             {
-                var properties = await file.GetBasicPropertiesAsync();
-                size += properties.Size;
-                CacheHint = $"Clean up cache ({(size / (1024 * 1024)).ToString("f0")} MB)";
-            }
-
-            ClearCacheCommandEnabled = true;
+                ulong size = 0;
+                var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
+                foreach (var file in tempFiles)
+                {
+                    var properties = await file.GetBasicPropertiesAsync();
+                    size += properties.Size;
+                }
+                return size;
+            });
         }
 
         private async Task ClearCacheAsync()
         {
-            CacheHint = $"Clean up cache (0 MB)";
+            ClearCacheCommandEnabled = false;
+            CacheHint = "Cleaning...";
+            await DoCleanUpAsync();
             ToastService.SendToast("All clear.", TimeSpan.FromMilliseconds(1000));
+            await UpdateCacheSizeUIAsync();
+        }
 
-            var localFiles = await CacheUtil.GetCachedFileFolder().GetItemsAsync();
-            foreach (var file in localFiles)
+        private Task DoCleanUpAsync()
+        {
+            return Task.Run(async () =>
             {
-                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-            }
+                var localFiles = await CacheUtil.GetCachedFileFolder().GetItemsAsync();
+                foreach (var file in localFiles)
+                {
+                    await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                }
 
-            var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
-            foreach (var file in tempFiles)
-            {
-                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-            }
+                var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
+                foreach (var file in tempFiles)
+                {
+                    await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                }
+            });
         }
     }
 }

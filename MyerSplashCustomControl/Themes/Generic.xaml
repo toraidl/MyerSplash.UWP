@@ -384,7 +384,7 @@
                         </Grid.Resources>
                         <Border
                             x:Name="MaskBorder"
-                            Background="Black"
+                            Background="{ThemeResource SystemAltMediumColor}"
                             Opacity="0"
                             Visibility="Collapsed" />
                         <StackPanel

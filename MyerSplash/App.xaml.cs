@@ -1,4 +1,5 @@
-﻿using Microsoft.QueryStringDotNET;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.View.Page;
 using MyerSplashShared.Utils;
@@ -6,6 +7,7 @@ using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -16,6 +18,10 @@ namespace MyerSplash
 {
     sealed partial class App : Application
     {
+        private UISettings _uiSettings;
+
+        public static Boolean? IsLight { get; private set; } = null;
+
         public static AppSettings AppSettings
         {
             get
@@ -41,7 +47,7 @@ namespace MyerSplash
             this.UnhandledException += App_UnhandledException;
         }
 
-        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
         }
@@ -62,6 +68,31 @@ namespace MyerSplash
 
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
+
+            _uiSettings = new UISettings();
+            _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
+            UpdateThemeAndNotify();
+            TitleBarHelper.SetupTitleBarColor(IsLight ?? false);
+        }
+
+        private async void Settings_ColorValuesChanged(UISettings sender, object args)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+             {
+                 UpdateThemeAndNotify();
+             });
+        }
+
+        private void UpdateThemeAndNotify()
+        {
+            var isLight = _uiSettings.GetColorValue(UIColorType.Background) == Colors.Black;
+            if (isLight != IsLight)
+            {
+                IsLight = isLight;
+                AppSettings.NotifyThemeChanged();
+                TitleBarHelper.SetupTitleBarColor(IsLight ?? false);
+                Messenger.Default.Send(new GenericMessage<bool>(IsLight ?? false), MessengerTokens.THEME_CHANGED);
+            }
         }
 
 #pragma warning restore
@@ -96,7 +127,7 @@ namespace MyerSplash
                 ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
             }
 
-            TitleBarHelper.SetUpLightTitleBar();
+            TitleBarHelper.SetUpDarkTitleBar();
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;

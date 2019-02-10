@@ -11,6 +11,18 @@
         TintColor="Black"
         TintOpacity="0.8" />
     <fcu:AcrylicBrush
+        x:Key="LightWindowBrush"
+        BackgroundSource="HostBackdrop"
+        FallbackColor="White"
+        TintColor="White"
+        TintOpacity="0.8" />
+    <fcu:AcrylicBrush
+        x:Key="LightInAppBrush"
+        BackgroundSource="Backdrop"
+        FallbackColor="White"
+        TintColor="White"
+        TintOpacity="0.8" />
+    <fcu:AcrylicBrush
         x:Key="CustomAcrylicInAppBrushTrans"
         BackgroundSource="Backdrop"
         FallbackColor="Black"
@@ -21,8 +33,7 @@
         BackdropFactor="0.2"
         BlurAmount="10"
         TintColor="Black"
-        TintColorFactor="2.0">
-    </backdrop:AcrylicHostBrush>
+        TintColorFactor="2.0" />
     <backdrop:AcrylicBrush
         x:Key="AppBackgroundBrush"
         BackdropFactor="0.5"

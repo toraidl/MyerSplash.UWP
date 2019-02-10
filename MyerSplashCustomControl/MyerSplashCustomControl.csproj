@@ -116,6 +116,7 @@
     <Compile Include="DialogService\DialogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToastControl\ToastService.cs" />
+    <Compile Include="TopNavigationControl\ColorToBrushConverter.cs" />
     <Compile Include="TopNavigationControl\TopNavigationControl.cs" />
     <EmbeddedResource Include="Properties\MyerSplashCustomControl.rd.xml" />
   </ItemGroup>

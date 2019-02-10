@@ -43,7 +43,7 @@ namespace MyerSplash.View.Uc
             base.OnPresented();
             Window.Current.SetTitleBar(DummyTitleBar);
             UpdateHintImageVisualState();
-            await SettingsVM.CalculateCacheAsync();
+            await SettingsVM.UpdateCacheSizeUIAsync();
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

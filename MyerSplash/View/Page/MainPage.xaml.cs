@@ -10,13 +10,16 @@ using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
@@ -78,7 +81,7 @@ namespace MyerSplash.View.Page
             MainVM.DataUpdated += MainVM_DataUpdated;
 
             this.SizeChanged += MainPage_SizeChanged;
-
+            
             if (DeviceHelper.IsXbox)
             {
                 TitleGridContent.Padding = new Thickness(0);
@@ -108,7 +111,7 @@ namespace MyerSplash.View.Page
             }
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (DeviceHelper.IsDesktop)
@@ -120,6 +123,8 @@ namespace MyerSplash.View.Page
                 //    await PopupService.Instance.ShowAsync(new TipsControl());
                 //}
             }
+
+            TitleBarHelper.SetUpDarkTitleBar();
         }
 
         private void MainVM_DataUpdated(object sender, EventArgs e)
@@ -272,7 +277,6 @@ namespace MyerSplash.View.Page
 
         protected override void SetupTitleBar()
         {
-            TitleBarHelper.SetUpLightTitleBar();
             Window.Current.SetTitleBar(DummyTitleBar);
         }
 

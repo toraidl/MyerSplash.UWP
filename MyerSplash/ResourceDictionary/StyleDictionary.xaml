@@ -6,23 +6,29 @@
     <FontFamily x:Key="PhoneFontFamilyNormal">Segoe WP</FontFamily>
     <FontWeight x:Key="PhoneButtonFontWeight">Semibold</FontWeight>
     <SolidColorBrush x:Key="ButtonDisabledBackgroundThemeBrush" Color="Transparent" />
+    <Style x:Key="DialogTitleStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="12,12,0,0" />
+        <Setter Property="Foreground" Value="{StaticResource MyerSplashThemeColorBrush}" />
+        <Setter Property="FontSize" Value="{StaticResource DialogTitleFontSize}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
     <Style x:Key="SettingItemButtonContentStyle" TargetType="TextBlock">
         <Setter Property="Margin" Value="{StaticResource SettingsButtonMargin}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
     <Style x:Key="SettingItemTextBlockStyle" TargetType="TextBlock">
         <Setter Property="Margin" Value="12,12,0,0" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
     <Style x:Key="SettingItemComboBoxStyle" TargetType="ComboBox">
         <Setter Property="Margin" Value="12,12,12,0" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="RequestedTheme" Value="Dark" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
     <Style x:Key="MainPageTitleStyle" TargetType="TextBlock">
@@ -30,11 +36,11 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="25" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
     </Style>
     <Style x:Key="CloseIconStyle" TargetType="FontIcon">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="Glyph" Value="&#xE0A6;" />
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
         <Setter Property="FontWeight" Value="Black" />
@@ -45,7 +51,6 @@
         TargetType="Button">
         <Setter Property="BorderThickness" Value="{StaticResource RevealThinkness}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="RequestedTheme" Value="Dark" />
     </fcu:Style>
     <Style
         x:Key="MainButtonCompatStyle"
@@ -1323,15 +1328,13 @@
         </Setter>
     </Style>
     <Style x:Key="ToggleSwitchStyle" TargetType="ToggleSwitch">
-        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
         <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
         <Setter Property="MinWidth" Value="154" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="RequestedTheme" Value="Dark" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="OnContent" Value="On" />
         <Setter Property="OffContent" Value="Off" />
@@ -1356,7 +1359,7 @@
                             VerticalAlignment="Center"
                             x:DeferLoadStrategy="Lazy"
                             AutomationProperties.AccessibilityView="Raw"
-                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Foreground="{ThemeResource SystemBaseHighColor}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Header}"
                             TextTrimming="CharacterEllipsis"
@@ -1397,7 +1400,7 @@
                             Margin="0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Fill="{StaticResource MyerSplashDarkColorBrush}"
+                            Fill="{StaticResource SystemAltLowColor}"
                             RadiusX="10"
                             RadiusY="10"
                             Stroke="{StaticResource MyerSplashThemeColorBrush}"
@@ -1434,7 +1437,7 @@
                                 x:Name="SwitchKnobOff"
                                 Width="10"
                                 Height="10"
-                                Fill="White" />
+                                Fill="{StaticResource MyerSplashThemeColorBrush}" />
                         </Grid>
                         <Thumb
                             x:Name="SwitchThumb"
@@ -1459,10 +1462,10 @@
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemAltHighColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Stroke">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemAltHighColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -1634,7 +1637,7 @@
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             ContentTransitions="{TemplateBinding ContentTransitions}"
-                            Foreground="White" />
+                            Foreground="{ThemeResource SystemBaseHighColor}" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
@@ -1719,7 +1722,7 @@
         <Setter Property="Margin" Value="8" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>

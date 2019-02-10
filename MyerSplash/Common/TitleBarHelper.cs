@@ -7,6 +7,18 @@ namespace MyerSplash.Common
 {
     public static class TitleBarHelper
     {
+        public static void SetupTitleBarColor(bool isLightTheme)
+        {
+            if (isLightTheme)
+            {
+                SetUpLightTitleBar();
+            }
+            else
+            {
+                SetUpDarkTitleBar();
+            }
+        }
+
         public static void SetUpDarkTitleBar()
         {
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
@@ -30,9 +42,9 @@ namespace MyerSplash.Common
             titleBar.ButtonForegroundColor = Colors.White;
             titleBar.ButtonInactiveBackgroundColor = "#00000000".ToColor();
             titleBar.ButtonInactiveForegroundColor = Colors.White;
-            titleBar.ButtonHoverBackgroundColor = "#20FFFFFF".ToColor();
+            titleBar.ButtonHoverBackgroundColor = "#10FFFFFF".ToColor();
             titleBar.ButtonHoverForegroundColor = Colors.White;
-            titleBar.ButtonPressedBackgroundColor = "#10FFFFFF".ToColor();
+            titleBar.ButtonPressedBackgroundColor = "#06FFFFFF".ToColor();
             titleBar.ButtonPressedForegroundColor = Colors.White;
         }
     }

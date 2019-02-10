@@ -66,7 +66,7 @@
         <Border
             x:Name="MaskBorder"
             Margin="-30"
-            Background="Black"
+            Background="{ThemeResource SystemAltHighColor}"
             ManipulationDelta="DetailGrid_ManipulationDelta"
             ManipulationMode="TranslateY"
             Tapped="MaskBorder_Tapped" />
@@ -107,12 +107,12 @@
                     Source="ms-appx:///Assets/Image/lock.png"
                     Visibility="Collapsed" />
                 <Grid
-                    x:Name="TaskBarImage"
+                    x:Name="TaskBarImageRoot"
                     Height="20"
                     VerticalAlignment="Bottom"
-                    Background="#FF101010"
                     Visibility="Collapsed">
                     <Image
+                        x:Name="TaskBarImage"
                         Width="180"
                         HorizontalAlignment="Left"
                         Source="ms-appx:///Assets/Image/pc_taskbar_l.png"
@@ -139,7 +139,7 @@
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="12"
-                            Foreground="{StaticResource MainBarIconColorBrush}"
+                            Foreground="White"
                             Glyph="&#xEB9F;" />
                     </Grid>
                 </Button>

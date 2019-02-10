@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using MyerSplash.ViewModel;
-using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
@@ -32,17 +30,17 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return new SolidColorBrush(Colors.Black);
+                    return new SolidColorBrush((Color)Application.Current.Resources["SystemChromeMediumLowColor"]);
                 }
                 else
                 {
                     if (IsFcuOrAbove())
                     {
-                        return App.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
                     }
                     else
                     {
-                        return App.Current.Resources["CustomAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["CustomAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
                     }
                 }
             }
@@ -54,17 +52,17 @@ namespace MyerSplash.Common
             {
                 if (EnableCompactMode)
                 {
-                    return App.Current.Resources["CustomAcrylicInAppBrushTrans"] as Windows.UI.Xaml.Media.Brush;
+                    return Application.Current.Resources["SystemControlChromeMediumLowAcrylicElementMediumBrush"] as Windows.UI.Xaml.Media.Brush;
                 }
                 else
                 {
                     if (IsFcuOrAbove())
                     {
-                        return App.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
                     }
                     else
                     {
-                        return App.Current.Resources["AppBackgroundBrushDark"] as Windows.UI.Xaml.Media.Brush;
+                        return Application.Current.Resources["AppBackgroundBrushDark"] as Windows.UI.Xaml.Media.Brush;
                     }
                 }
             }
@@ -256,10 +254,50 @@ namespace MyerSplash.Common
             }
         }
 
+        public int ThemeMode
+        {
+            get
+            {
+                return ReadSettings(nameof(ThemeMode), 2);
+            }
+            set
+            {
+                SaveSettings(nameof(ThemeMode), value);
+                RaisePropertyChanged(() => ThemeMode);
+
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    ElementTheme theme;
+                    switch (value)
+                    {
+                        case 0:
+                            theme = ElementTheme.Light;
+                            break;
+                        case 1:
+                            theme = ElementTheme.Dark;
+                            break;
+                        default:
+                            theme = ElementTheme.Default;
+                            break;
+                    }
+                    //rootElement.RequestedTheme = theme;
+
+                    // TODO FINISH 
+                    //NotifyThemeChanged();
+                }
+            }
+        }
+
         public AppSettings()
         {
             LocalSettings = ApplicationData.Current.LocalSettings;
             EnableCompactMode = EnableCompactMode;
+        }
+
+        public void NotifyThemeChanged()
+        {
+            RaisePropertyChanged(() => MainPageBackgroundBrush);
+            RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
         }
 
         public static bool IsFcuOrAbove()
