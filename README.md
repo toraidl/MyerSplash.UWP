@@ -1,16 +1,16 @@
 # MyerSplash for Windows 10
 
-You can search in Windows Store or visit [this](https://www.microsoft.com/en-us/store/p/myersplash/9nblggh4vcsn) to download.
+You can search in Windows Store or visit [this](https://www.microsoft.com/en-us/store/p/myersplash/9nblggh4vcsn) to download the MyerSplash app.
 
-![](https://github.com/JuniperPhoton/MyerSplash.UWP/blob/master/Design/3.0/01.png)
+![](./Design/Hero/Hero2.png)
 
 ## Introduction
 An UWP app that allows you to browse and download high-quality wallpaper from Unsplash.com.
 
-AND MyerSplash for Android is open-source too. Visit it [here](https://github.com/JuniperPhoton/MyerSplashAndroid).
+MyerSplash for Android is open-source too. Visit it [here](https://github.com/JuniperPhoton/MyerSplashAndroid).
 
 ## Building
-Make sure you are using Visual Studio 2017 and install the Build 15063 & 16299 SDK to build project. Any pull requrests are welcomed.
+Make sure you are using Visual Studio 2017 and install the Build 16299 & 17343 SDK to build project. Any pull requests are welcomed.
 
 ## Contribution
 
@@ -19,9 +19,9 @@ This project normally has two branches:
 - develop
 - master
 
-If it's in the release stage, it should also has a release branch named 'release/v3.x.x'. Also, a branch named 'hotfix/v3.x.x' is posibile of it's in hotfix stage.
+If it's in the release stage, it should also has a release branch named 'release/v3.x.x'. Also, a branch named 'hotfix/v3.x.x' is possible of it's in hotfix stage.
 
-When submitting PRs, you should first consider submitting to the `develop` branch. If you have seen a release branch, you are also welcome to submit to this branch make your contribution deliver to user as soon as posible.
+When submitting PRs, you should first consider submitting to the `develop` branch. If you have seen a release branch, you are also welcome to submit to this branch make your contribution deliver to user as soon as possible.
 
 The `master` branch typically merges branches.
 
