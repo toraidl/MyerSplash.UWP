@@ -11,17 +11,16 @@
     <AssemblyName>MyerSplash</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>MyerSplash_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>971CEB5C56F7B2AC68197FA19D4A1C7F54AAC909</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>70AF9121641F26482EBAC7EE1251EE2A04A61756</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
@@ -112,6 +111,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Content Include="Assets\Icon\touch.png" />
+    <Content Include="Assets\Image\pc_taskbar_l_l.png" />
     <Content Include="Assets\Json\built_in_categories.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -136,7 +136,8 @@
     <Compile Include="Adapter\UnsplashImageAdapter.cs" />
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
-    <Compile Include="View\Uc\GestureHintControl.xaml.cs">
+    <Compile Include="Converter\BoolToVisibilityRevertConverter.cs" />
+    <Compile Include="View\Uc\Dialog\GestureHintControl.xaml.cs">
       <DependentUpon>GestureHintControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\INavigableUserControl.cs" />
@@ -145,10 +146,10 @@
     <Compile Include="View\Uc\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\BackgroundHintDialog.xaml.cs">
+    <Compile Include="View\Uc\Dialog\BackgroundHintDialog.xaml.cs">
       <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\DeleteDialogControl.xaml.cs">
+    <Compile Include="View\Uc\Dialog\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\DownloadItemTemplate.xaml.cs">
@@ -163,13 +164,10 @@
     <Compile Include="View\Uc\LoadingTextControl.xaml.cs">
       <DependentUpon>LoadingTextControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\MainNavigationControl.xaml.cs">
-      <DependentUpon>MainNavigationControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Uc\DownloadsListControl.xaml.cs">
       <DependentUpon>DownloadsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\NetworkDiagnosisDialog.xaml.cs">
+    <Compile Include="View\Uc\Dialog\NetworkDiagnosisDialog.xaml.cs">
       <DependentUpon>NetworkDiagnosisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\NoItemControl.xaml.cs">
@@ -193,7 +191,7 @@
     <Compile Include="View\Uc\PhotoDetailControl.xaml.cs">
       <DependentUpon>PhotoDetailControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\TipsControl.xaml.cs">
+    <Compile Include="View\Uc\Dialog\TipsControl.xaml.cs">
       <DependentUpon>TipsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
@@ -201,9 +199,6 @@
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="Common\TitleBarHelper.cs" />
-    <Compile Include="View\Uc\HamburgerButton.xaml.cs">
-      <DependentUpon>HamburgerButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\DataViewModel\ImageDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\RandomImagesDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\SearchResultViewModel.cs" />
@@ -220,19 +215,15 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="MyerSplash_StoreKey.pfx" />
     <None Include="MyerSplash_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icon\github.png" />
     <Content Include="Assets\Icon\ic_done_white_48dp.png" />
-    <Content Include="Assets\Icon\mail.png" />
-    <Content Include="Assets\Icon\twitter.png" />
-    <Content Include="Assets\Icon\weibo.png" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\Noise.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
-    <Content Include="Assets\Image\pc_taskbar_r.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
@@ -317,11 +308,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\BackgroundHintDialog.xaml">
+    <Page Include="View\Uc\Dialog\BackgroundHintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\DeleteDialogControl.xaml">
+    <Page Include="View\Uc\Dialog\DeleteDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -337,7 +328,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\GestureHintControl.xaml">
+    <Page Include="View\Uc\Dialog\GestureHintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,11 +340,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\MainNavigationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\NetworkDiagnosisDialog.xaml">
+    <Page Include="View\Uc\Dialog\NetworkDiagnosisDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -373,10 +360,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\HamburgerButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\Uc\ImageListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -389,7 +372,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Uc\TipsControl.xaml">
+    <Page Include="View\Uc\Dialog\TipsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

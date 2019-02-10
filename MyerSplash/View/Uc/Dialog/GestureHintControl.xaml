@@ -19,12 +19,15 @@
                 Margin="0,0,0,120"
                 Source="/Assets/Icon/touch.png"
                 Stretch="Uniform" />
-            <TextBlock HorizontalAlignment="Center" Text="Drag the image to dismiss quickly" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Foreground="White"
+                Text="Drag the image to dismiss quickly" />
             <Button
                 x:Name="GotIt"
                 Margin="0,12,0,12"
                 Padding="100,4,100,4"
-                Background="#FFFFFF"
+                Background="White"
                 Click="GotIt_Click"
                 Style="{StaticResource ButtonCommonStyle}">
                 <TextBlock

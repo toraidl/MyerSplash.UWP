@@ -101,15 +101,15 @@ namespace MyerSplashCustomControl
                     target?.UpdateViews();
                 }));
 
-        public Brush SliderBrush
+        public object SliderBrush
         {
-            get { return (Brush)GetValue(SliderBrushProperty); }
+            get { return (object)GetValue(SliderBrushProperty); }
             set { SetValue(SliderBrushProperty, value); }
         }
 
         public static readonly DependencyProperty SliderBrushProperty =
-            DependencyProperty.Register("SliderBrush", typeof(Brush),
-                typeof(TopNavigationControl), new PropertyMetadata(null));
+            DependencyProperty.Register("SliderBrush", typeof(object),
+                typeof(TopNavigationControl), new PropertyMetadata(new SolidColorBrush(Colors.White)));
 
         protected virtual void OnItemTemplateChanged(DataTemplate oldValue, DataTemplate newValue)
         {
