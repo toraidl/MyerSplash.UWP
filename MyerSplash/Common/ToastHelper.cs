@@ -28,12 +28,6 @@ namespace MyerSplash.Common
                             },
                         },
 
-                        AppLogoOverride = new ToastGenericAppLogo()
-                        {
-                            Source = "ms-appx:///Assets/Icon/ic_done_white_48dp.png",
-                            HintCrop = ToastGenericAppLogoCrop.Default
-                        },
-
                         HeroImage = new ToastGenericHeroImage()
                         {
                             Source = filePath,
