@@ -1,4 +1,5 @@
-﻿using Microsoft.QueryStringDotNET;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.View.Page;
 using MyerSplashShared.Utils;
@@ -18,7 +19,8 @@ namespace MyerSplash
     sealed partial class App : Application
     {
         private UISettings _uiSettings;
-        private bool _isLight;
+
+        public static Boolean? IsLight { get; private set; } = null;
 
         public static AppSettings AppSettings
         {
@@ -85,11 +87,12 @@ namespace MyerSplash
         private void UpdateThemeAndNotify()
         {
             var isLight = _uiSettings.GetColorValue(UIColorType.Background) == Colors.Black;
-            if (isLight != _isLight)
+            if (isLight != IsLight)
             {
-                _isLight = isLight;
+                IsLight = isLight;
                 AppSettings.NotifyThemeChanged();
-                TitleBarHelper.SetupTitleBarColor(_isLight);
+                TitleBarHelper.SetupTitleBarColor(IsLight ?? false);
+                Messenger.Default.Send(new GenericMessage<bool>(IsLight ?? false), MessengerTokens.THEME_CHANGED);
             }
         }
 

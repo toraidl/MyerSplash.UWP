@@ -24,4 +24,6 @@
     <SolidColorBrush x:Key="MaskColorBrush">#E5000000</SolidColorBrush>
     <SolidColorBrush x:Key="HintColorBrush">#FFBFBFBF</SolidColorBrush>
     <SolidColorBrush x:Key="SettingsButtonBackgroundBrush">#991D1D1D</SolidColorBrush>
+    <SolidColorBrush x:Key="TaskBarBackgroundDark">#FF101010</SolidColorBrush>
+    <SolidColorBrush x:Key="TaskBarBackgroundLight">#FFEEEEEE</SolidColorBrush>
 </ResourceDictionary>

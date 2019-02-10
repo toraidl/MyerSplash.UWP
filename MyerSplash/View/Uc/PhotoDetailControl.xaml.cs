@@ -20,6 +20,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace MyerSplash.View.Uc
 {
@@ -117,6 +118,15 @@ namespace MyerSplash.View.Uc
                 SetAsBothBtn.Visibility = Visibility.Collapsed;
                 SetAsLockScreenBtn.Visibility = Visibility.Collapsed;
             }
+
+            UpdateTaskBarImage(false);
+        }
+
+        private void UpdateTaskBarImage(bool isLight)
+        {
+            var uri = isLight ? "ms-appx:///Assets/Image/pc_taskbar_l_l.png" : "ms-appx:///Assets/Image/pc_taskbar_l.png";
+            TaskBarImage.Source = new BitmapImage(new Uri(uri));
+            TaskBarImageRoot.Background = isLight ? (Brush)Application.Current.Resources["TaskBarBackgroundLight"] : (Brush)Application.Current.Resources["TaskBarBackgroundDark"];
         }
 
         private async void CoreWindow_SizeChanged(CoreWindow sender, WindowSizeChangedEventArgs args)
@@ -152,7 +162,7 @@ namespace MyerSplash.View.Uc
             _loadingPath = LoadingPath.GetVisual();
             _shareBtnVisual = ShareBtn.GetVisual();
             _flipperVisual = FlipperControl.GetVisual();
-            _taskbarImageVisual = TaskBarImage.GetVisual();
+            _taskbarImageVisual = TaskBarImageRoot.GetVisual();
             _lockScreenImageVisual = LockImage.GetVisual();
             _previewBtnVisual = PreviewBtn.GetVisual();
             _setAsSPVisual = SetAsSP.GetVisual();
@@ -610,7 +620,7 @@ namespace MyerSplash.View.Uc
                       {
                           if (_showingPreview == 2)
                           {
-                              TaskBarImage.Visibility = Visibility.Collapsed;
+                              TaskBarImageRoot.Visibility = Visibility.Collapsed;
                           }
                           else if (_showingPreview == 0)
                           {
@@ -622,7 +632,7 @@ namespace MyerSplash.View.Uc
             {
                 if (_showingPreview == 1)
                 {
-                    TaskBarImage.Visibility = Visibility.Visible;
+                    TaskBarImageRoot.Visibility = Visibility.Visible;
                 }
                 else if (_showingPreview == 2)
                 {
@@ -680,7 +690,7 @@ namespace MyerSplash.View.Uc
                    .Start()
                    .OnCompleted += (sender, e) =>
                    {
-                       TaskBarImage.Visibility = Visibility.Collapsed;
+                       TaskBarImageRoot.Visibility = Visibility.Collapsed;
                    };
             _lockScreenImageVisual.StartBuildAnimation()
                   .Animate(AnimateProperties.Opacity)

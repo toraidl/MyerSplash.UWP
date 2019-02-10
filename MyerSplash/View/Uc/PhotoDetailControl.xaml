@@ -107,12 +107,12 @@
                     Source="ms-appx:///Assets/Image/lock.png"
                     Visibility="Collapsed" />
                 <Grid
-                    x:Name="TaskBarImage"
+                    x:Name="TaskBarImageRoot"
                     Height="20"
                     VerticalAlignment="Bottom"
-                    Background="#FF101010"
                     Visibility="Collapsed">
                     <Image
+                        x:Name="TaskBarImage"
                         Width="180"
                         HorizontalAlignment="Left"
                         Source="ms-appx:///Assets/Image/pc_taskbar_l.png"

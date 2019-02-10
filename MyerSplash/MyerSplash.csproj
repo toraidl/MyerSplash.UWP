@@ -112,6 +112,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Content Include="Assets\Icon\touch.png" />
+    <Content Include="Assets\Image\pc_taskbar_l_l.png" />
     <Content Include="Assets\Json\built_in_categories.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -222,7 +223,6 @@
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\Noise.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
-    <Content Include="Assets\Image\pc_taskbar_r.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />

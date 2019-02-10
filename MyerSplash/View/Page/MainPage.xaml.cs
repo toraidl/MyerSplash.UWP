@@ -82,22 +82,10 @@ namespace MyerSplash.View.Page
 
             this.SizeChanged += MainPage_SizeChanged;
             
-
             if (DeviceHelper.IsXbox)
             {
                 TitleGridContent.Padding = new Thickness(0);
             }
-        }
-
-        private async void Settings_ColorValuesChanged(UISettings sender, object args)
-        {
-            Color bg, fg;
-            bg = sender.GetColorValue(UIColorType.Accent);
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    ContentGrid.Background = new SolidColorBrush(bg);
-                });
         }
 
         private bool _showMoreFlyout = false;
@@ -123,7 +111,7 @@ namespace MyerSplash.View.Page
             }
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (DeviceHelper.IsDesktop)
