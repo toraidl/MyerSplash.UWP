@@ -150,6 +150,7 @@
                             cu:Style="{StaticResource MainButtonCompatStyle}"
                             fcu:Style="{StaticResource MainButtonStyle}"
                             Command="{x:Bind DownloadCommand}"
+                            RequestedTheme="Dark"
                             Tapped="DownloadBtn_Tapped"
                             ToolTipService.ToolTip="Download">
                             <FontIcon

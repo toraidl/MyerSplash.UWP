@@ -92,7 +92,7 @@
                         </Grid.Resources>
                         <Border
                             x:Name="MaskBorder"
-                            Background="{ThemeResource SystemAltMediumColor}"
+                            Background="{ThemeResource SystemAltHighColor}"
                             Opacity="0"
                             Visibility="Collapsed" />
                         <Grid
