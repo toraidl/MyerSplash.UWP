@@ -80,7 +80,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="13"
                                 FontWeight="Bold"
-                                Foreground="Black"
+                                Foreground="{ThemeResource SystemAltHighColor}"
                                 Text="Version" />
                             <TextBlock
                                 x:Name="VersionTB"
@@ -89,7 +89,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="13"
                                 FontWeight="Bold"
-                                Foreground="Black"
+                                Foreground="{ThemeResource SystemAltHighColor}"
                                 Text="{x:Bind AboutVM.Version, Mode=OneWay}" />
                         </StackPanel>
                     </Border>
