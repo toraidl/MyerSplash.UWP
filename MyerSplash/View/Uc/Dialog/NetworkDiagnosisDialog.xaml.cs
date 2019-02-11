@@ -80,8 +80,8 @@ namespace MyerSplash.View.Uc
             {
                 var r = new Run
                 {
-                    Text = $"{Environment.NewLine}{str}",
-                    Foreground = new SolidColorBrush((Color)App.Current.Resources["SystemBaseHighColor"])
+                    Text = $"{str}{Environment.NewLine}",
+                    Foreground = new SolidColorBrush((Color)Application.Current.Resources["SystemBaseHighColor"])
                 };
 
                 _paragraph.Inlines.Add(r);
