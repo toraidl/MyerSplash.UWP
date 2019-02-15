@@ -10,6 +10,7 @@ using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Core;
@@ -127,12 +128,9 @@ namespace MyerSplash.View.Page
             TitleBarHelper.SetUpDarkTitleBar();
         }
 
-        private void MainVM_DataUpdated(object sender, EventArgs e)
+        private async void MainVM_DataUpdated(object sender, EventArgs e)
         {
-            if (_scrollingPositions.ContainsKey(MainVM.SelectedIndex))
-            {
-                ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
-            }
+            await PostScrollToCachedPosition();
         }
 
         protected override void SetupNavigationBackBtn()
@@ -140,9 +138,19 @@ namespace MyerSplash.View.Page
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
-        private void MainVM_AboutToUpdateSelectedIndex(object sender, int e)
+        private async void MainVM_AboutToUpdateSelectedIndex(object sender, int e)
         {
             RecordScrollingPosition(e);
+            await PostScrollToCachedPosition();
+        }
+
+        private async Task PostScrollToCachedPosition()
+        {
+            if (_scrollingPositions.ContainsKey(MainVM.SelectedIndex))
+            {
+                await Task.Yield();
+                ListControl.ScrollToPosition(_scrollingPositions[MainVM.SelectedIndex]);
+            }
         }
 
         private void InitBinding()
