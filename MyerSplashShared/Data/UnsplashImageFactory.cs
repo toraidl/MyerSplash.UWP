@@ -9,7 +9,9 @@ namespace MyerSplash.Data
 {
     public class UnsplashImageFactory
     {
-        private bool _isFeatured = false;
+        private const string DEFAULT_COLOR = "#9f9f9f";
+
+        private readonly bool _isFeatured = false;
 
         public UnsplashImageFactory(bool isFeatured)
         {
@@ -76,7 +78,7 @@ namespace MyerSplash.Data
                     Raw = largeUrl,
                 },
 
-                ColorValue = "#ffffff",
+                ColorValue = DEFAULT_COLOR,
                 ID = date,
                 CreateTimeString = dateTime.ToString("yyyy-MM-dd"),
                 IsUnsplash = false,

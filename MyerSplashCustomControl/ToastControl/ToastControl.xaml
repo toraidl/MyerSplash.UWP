@@ -1,0 +1,61 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:local="using:MyerSplashCustomControl">
+    <Style TargetType="local:ToastService">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ToastService">
+                    <Grid x:Name="RootGrid">
+                        <Grid.Resources>
+                            <Storyboard x:Name="ShowStory">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="120" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
+                                        <EasingDoubleKeyFrame.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </EasingDoubleKeyFrame.EasingFunction>
+                                    </EasingDoubleKeyFrame>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Name="HideStory">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </Grid.Resources>
+                        <controls:DropShadowPanel
+                            x:Name="border"
+                            Margin="0,0,0,60"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            BlurRadius="8"
+                            OffsetX="2"
+                            OffsetY="2"
+                            ShadowOpacity="0.3"
+                            Color="Black">
+                            <controls:DropShadowPanel.RenderTransform>
+                                <CompositeTransform />
+                            </controls:DropShadowPanel.RenderTransform>
+                            <Grid>
+                                <Border
+                                    Background="White"
+                                    CornerRadius="2"
+                                    Opacity="1" />
+                                <TextBlock
+                                    x:Name="ContentTB"
+                                    Margin="20,10"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{TemplateBinding ContentText}" />
+                            </Grid>
+                        </controls:DropShadowPanel>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
