@@ -120,4 +120,7 @@
   <data name="AppName" xml:space="preserve">
     <value>MyerSplash Wallpaper</value>
   </data>
+  <data name="EmailBody" xml:space="preserve">
+    <value />
+  </data>
 </root>
