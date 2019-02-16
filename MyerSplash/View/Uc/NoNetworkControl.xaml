@@ -33,12 +33,9 @@
             HorizontalContentAlignment="Center"
             cu:Style="{StaticResource MainButtonCompatStyle}"
             fcu:Style="{StaticResource MainButtonStyle}"
-            Background="{StaticResource SettingsButtonBackgroundBrush}"
+            Background="{ThemeResource SystemListLowColor}"
             Click="DiagnoseButton_Click">
-            <TextBlock
-                Foreground="White"
-                Style="{StaticResource SettingItemButtonContentStyle}"
-                Text="Diagnose Network" />
+            <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Diagnose Network" />
         </Button>
     </StackPanel>
 </UserControl>

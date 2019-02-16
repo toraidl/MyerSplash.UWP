@@ -14,6 +14,10 @@
                 <ResourceDictionary Source="/ResourceDictionary/DimentionDictionary.xaml" />
                 <ResourceDictionary Source="/ResourceDictionary/BrushDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light" Source="/ResourceDictionary/LightColorDictionary.xaml" />
+                <ResourceDictionary x:Key="Dark" Source="/ResourceDictionary/DarkColorDictionary.xaml" />
+            </ResourceDictionary.ThemeDictionaries>
             <vm:ViewModelLocator x:Key="Locator" />
             <common:AppSettings x:Key="AppSettings" />
             <x:String x:Key="CoachKey">TIPS_NETWORK</x:String>

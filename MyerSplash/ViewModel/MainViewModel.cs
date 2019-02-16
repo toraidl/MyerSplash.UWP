@@ -441,7 +441,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private int _selectedIndex;
+        private int _selectedIndex = -1;
         public int SelectedIndex
         {
             get
@@ -452,7 +452,7 @@ namespace MyerSplash.ViewModel
             {
                 if (_selectedIndex != value)
                 {
-                    var lastValue = value;
+                    var lastValue = _selectedIndex;
 
                     _selectedIndex = value;
 
