@@ -16,6 +16,8 @@ using Windows.UI;
 using MyerSplashShared.API;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using MyerSplash.Common;
+using Windows.ApplicationModel.Resources;
 
 namespace MyerSplash.View.Uc
 {
@@ -143,6 +145,7 @@ namespace MyerSplash.View.Uc
 
             mes.Attachments.Add(attachment);
             mes.Subject = $"【Network】MyerSplash for Windows 10, {App.GetAppVersion()} feedback, {DeviceHelper.OSVersion}";
+            mes.Body = ResourceLoader.GetForCurrentView().GetString("EmailBody");
             await EmailManager.ShowComposeNewEmailAsync(mes);
         }
     }

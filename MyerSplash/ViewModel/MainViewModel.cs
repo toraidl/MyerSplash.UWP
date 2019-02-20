@@ -441,7 +441,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private int _selectedIndex = -1;
+        private int _selectedIndex;
         public int SelectedIndex
         {
             get
@@ -462,13 +462,10 @@ namespace MyerSplash.ViewModel
 
                     if (value >= 0)
                     {
-                        if (lastValue != -1)
+                        DataVM = CreateOrCacheDataVm(value);
+                        if (DataVM != null && DataVM.DataList.Count == 0)
                         {
-                            DataVM = CreateOrCacheDataVm(value);
-                            if (DataVM != null && DataVM.DataList.Count == 0)
-                            {
-                                var task = RefreshListAsync();
-                            }
+                            var task = RefreshListAsync();
                         }
                     }
                 }
