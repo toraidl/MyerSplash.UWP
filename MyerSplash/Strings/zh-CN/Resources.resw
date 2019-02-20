@@ -120,4 +120,7 @@
   <data name="AppName" xml:space="preserve">
     <value>MyerSplash 壁纸</value>
   </data>
+  <data name="EmailBody" xml:space="preserve">
+    <value>&#13;&#13;在部分地区使用时，可能存在连接到 Unsplash 服务器不通畅的问题，请尝试改善网络环境。由于 Windows 系统限制，如果要使用代理工具，请考虑借助 Fiddler 等工具中的 "WinConfig" 功能为 MyerSplash 解除 Loopback 限制。&#13;&#13;</value>
+  </data>
 </root>

@@ -2,9 +2,11 @@
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Debug;
 using JP.Utils.Helper;
+using MyerSplash.Common;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
+using Windows.ApplicationModel.Resources;
 using Windows.System;
 
 namespace MyerSplash.ViewModel
@@ -86,6 +88,8 @@ namespace MyerSplash.ViewModel
                       var platform = DeviceHelper.IsDesktop ? "PC" : "Mobile";
 
                       mes.Subject = $"MyerSplash for Windows 10 {platform}, {Version} feedback, {DeviceHelper.OSVersion}";
+                      mes.Body = ResourceLoader.GetForCurrentView().GetString("EmailBody");
+
                       await EmailManager.ShowComposeNewEmailAsync(mes);
                   });
             }
