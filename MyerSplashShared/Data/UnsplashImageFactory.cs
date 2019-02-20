@@ -9,7 +9,7 @@ namespace MyerSplash.Data
 {
     public class UnsplashImageFactory
     {
-        private const string DEFAULT_COLOR = "#9f9f9f";
+        private const string DEFAULT_COLOR = "#cfcfcf";
 
         private readonly bool _isFeatured = false;
 
