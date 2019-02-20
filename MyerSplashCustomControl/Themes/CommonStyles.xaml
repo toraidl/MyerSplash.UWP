@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:local="using:MyerSplashCustomControl.Themes">
+    <Style x:Key="DropShadowStyle" TargetType="controls:DropShadowPanel">
+        <Setter Property="BlurRadius" Value="10" />
+        <Setter Property="Color" Value="Black" />
+        <Setter Property="OffsetX" Value="2" />
+        <Setter Property="OffsetY" Value="2" />
+        <Setter Property="ShadowOpacity" Value="0.2" />
+    </Style>
+</ResourceDictionary>

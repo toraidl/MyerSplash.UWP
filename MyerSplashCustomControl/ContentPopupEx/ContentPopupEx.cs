@@ -83,7 +83,7 @@ namespace MyerSplashCustomControl
                 _contentGrid.VerticalAlignment = VerticalAlignment.Bottom;
             }
             _contentGrid.Children.Add(_rootFramework);
-            _contentGrid.Margin = new Thickness(0, 10, 0, 10);
+            //_contentGrid.Margin = new Thickness(0, 10, 0, 10);
             _inStory = _rootGrid.Resources["InStory"] as Storyboard;
             _outStory = _rootGrid.Resources["OutStory"] as Storyboard;
             _maskBorder = GetTemplateChild("MaskBorder") as Border;
