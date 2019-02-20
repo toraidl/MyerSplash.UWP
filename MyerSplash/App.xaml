@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/ResourceDictionary/StringDictionary.xaml" />
                 <ResourceDictionary Source="/ResourceDictionary/DimentionDictionary.xaml" />
                 <ResourceDictionary Source="/ResourceDictionary/BrushDictionary.xaml" />
+                <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/Themes/CommonStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="/ResourceDictionary/LightColorDictionary.xaml" />

@@ -6,7 +6,7 @@
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:cc="using:MyerSplashCustomControl"
     xmlns:common="using:MyerSplash.Common"
-    xmlns:control="using:MyerSplashCustomControl"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
@@ -47,7 +47,7 @@
             FontWeight="Bold"
             Foreground="{ThemeResource SystemBaseHighColor}"
             Text="DOWNLOADS" />
-        <control:AdaptiveGridView
+        <cc:AdaptiveGridView
             x:Name="ImageGridView"
             Grid.Row="1"
             Margin="2"
@@ -58,15 +58,15 @@
             MinItemWidth="220"
             SelectionMode="None"
             ShowsScrollingPlaceholders="False">
-            <control:AdaptiveGridView.ItemTemplate>
+            <cc:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DownloadItem">
                     <uc:DownloadItemTemplate />
                 </DataTemplate>
-            </control:AdaptiveGridView.ItemTemplate>
-            <control:AdaptiveGridView.Adapter>
+            </cc:AdaptiveGridView.ItemTemplate>
+            <cc:AdaptiveGridView.Adapter>
                 <adapter:DownloadItemAdatper />
-            </control:AdaptiveGridView.Adapter>
-            <control:AdaptiveGridView.ItemContainerStyle>
+            </cc:AdaptiveGridView.Adapter>
+            <cc:AdaptiveGridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -74,8 +74,8 @@
                     <Setter Property="VerticalAlignment" Value="Stretch" />
                     <Setter Property="Margin" Value="0" />
                 </Style>
-            </control:AdaptiveGridView.ItemContainerStyle>
-        </control:AdaptiveGridView>
+            </cc:AdaptiveGridView.ItemContainerStyle>
+        </cc:AdaptiveGridView>
         <StackPanel
             Grid.Row="1"
             HorizontalAlignment="Center"
@@ -94,8 +94,18 @@
             Grid.RowSpan="2"
             Command="{x:Bind DownloadsVM.DeleteFABCommand, Mode=OneWay}"
             Style="{StaticResource FabStyle}">
-            <Grid Width="60" Height="60">
-                <control:EllipseShadowControl Style="{StaticResource MainFabStyle}" />
+            <Grid>
+                <controls:DropShadowPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource DropShadowStyle}">
+                    <Ellipse
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Fill="White" />
+                </controls:DropShadowPanel>
                 <Grid>
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"

@@ -4,7 +4,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:MyerSplashCustomControl.Themes">
     <Style x:Key="DropShadowStyle" TargetType="controls:DropShadowPanel">
-        <Setter Property="BlurRadius" Value="10" />
+        <Setter Property="BlurRadius" Value="4" />
         <Setter Property="Color" Value="Black" />
         <Setter Property="OffsetX" Value="2" />
         <Setter Property="OffsetY" Value="2" />
