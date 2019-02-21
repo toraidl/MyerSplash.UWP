@@ -12,7 +12,7 @@ namespace MyerSplash.Common
         public static async Task SetAsBackgroundAsync(StorageFile savedFile)
         {
             var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
-            await PopupService.Instance.ShowAsync(uc);
+            await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
             var file = await PrepareImageFileAsync(savedFile);
             if (file != null)
@@ -31,7 +31,7 @@ namespace MyerSplash.Common
         public static async Task SetAsLockscreenAsync(StorageFile savedFile)
         {
             var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
-            await PopupService.Instance.ShowAsync(uc);
+            await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
             var file = await PrepareImageFileAsync(savedFile);
             if (file != null)
@@ -50,7 +50,7 @@ namespace MyerSplash.Common
         public static async Task SetBothAsync(StorageFile savedFile)
         {
             var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
-            await PopupService.Instance.ShowAsync(uc);
+            await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
             var file = await PrepareImageFileAsync(savedFile);
             if (file != null)
