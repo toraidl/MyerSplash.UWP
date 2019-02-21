@@ -27,7 +27,7 @@ namespace MyerSplash.Common
         {
             var status = await BackgroundExecutionManager.RequestAccessAsync();
             if (status != BackgroundAccessStatus.AlwaysAllowed
-                || status != BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
+                && status != BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
             {
                 return;
             }
@@ -49,7 +49,7 @@ namespace MyerSplash.Common
         {
             var status = await BackgroundExecutionManager.RequestAccessAsync();
             if (status != BackgroundAccessStatus.AlwaysAllowed
-                || status != BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
+                && status != BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
             {
                 return null;
             }
