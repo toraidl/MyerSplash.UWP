@@ -155,9 +155,6 @@
     <Compile Include="View\Uc\DownloadItemTemplate.xaml.cs">
       <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\EllipseShadowControl.xaml.cs">
-      <DependentUpon>EllipseShadowControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Uc\ExifInfoControl.xaml.cs">
       <DependentUpon>ExifInfoControl.xaml</DependentUpon>
     </Compile>
@@ -324,10 +321,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Uc\DownloadItemTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\EllipseShadowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

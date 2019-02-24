@@ -123,4 +123,280 @@
   <data name="EmailBody" xml:space="preserve">
     <value />
   </data>
+  <data name="Featured" xml:space="preserve">
+    <value>FEATURED</value>
+  </data>
+  <data name="Highlights" xml:space="preserve">
+    <value>HIGHLIGHTS</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>NEW</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>RANDOM</value>
+  </data>
+  <data name="Downloads.Text" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="Search.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="About.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="RefreshBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="DownloadEntryBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="SearchBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SettingBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MoreBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="GestureHintTextBlock.Text" xml:space="preserve">
+    <value>Drag the image to dismiss quickly</value>
+  </data>
+  <data name="GotChaTextBlock.Text" xml:space="preserve">
+    <value>GOTCHA</value>
+  </data>
+  <data name="NetworkDiagnosisTitle.Text" xml:space="preserve">
+    <value>NETWORK DIAGNOSIS</value>
+  </data>
+  <data name="CloseButton.Text" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
+  <data name="CleanupTitle.Text" xml:space="preserve">
+    <value>CLEAN UP LIST</value>
+  </data>
+  <data name="CleanUpDownloadingTextBlock.Text" xml:space="preserve">
+    <value>Delete downloading items</value>
+  </data>
+  <data name="CleanUpDownloadedTextBlock.Text" xml:space="preserve">
+    <value>Delete downloaded items</value>
+  </data>
+  <data name="CleanUpFailedTextBlock.Text" xml:space="preserve">
+    <value>Delete failed items</value>
+  </data>
+  <data name="CleanupHintTextBlock.Text" xml:space="preserve">
+    <value>Note that the delete operation will not cancel download tasks. This will only clear the list.</value>
+  </data>
+  <data name="VersionTextBlock.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="CreditTextBlock.Text" xml:space="preserve">
+    <value>CREDITS</value>
+  </data>
+  <data name="CreditContentTextBlock.Text" xml:space="preserve">
+    <value>Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos.</value>
+  </data>
+  <data name="FeedBackTitle.Text" xml:space="preserve">
+    <value>FEEDBACK</value>
+  </data>
+  <data name="MotivationTitle.Text" xml:space="preserve">
+    <value>MOTIVATION</value>
+  </data>
+  <data name="RateTextBlock.Text" xml:space="preserve">
+    <value>Rate this app</value>
+  </data>
+  <data name="DownloadsTitle.Text" xml:space="preserve">
+    <value>DOWNLOADS</value>
+  </data>
+  <data name="NoDownloadsContentTextBlock.Text" xml:space="preserve">
+    <value>NO DOWNLOADS</value>
+  </data>
+  <data name="LoadingTextBlock.Text" xml:space="preserve">
+    <value>LOADING...</value>
+  </data>
+  <data name="ErrorTitle.Text" xml:space="preserve">
+    <value>Oops, something happened.</value>
+  </data>
+  <data name="RetryTextBlock.Text" xml:space="preserve">
+    <value>RETRY</value>
+  </data>
+  <data name="EndTextBlock.Text" xml:space="preserve">
+    <value>——— YOU ARE REACHING THE END ———</value>
+  </data>
+  <data name="OopsTextBlock.Text" xml:space="preserve">
+    <value>Oops</value>
+  </data>
+  <data name="NoItemsTextBlock.Text" xml:space="preserve">
+    <value>No items</value>
+  </data>
+  <data name="OopsErrorText.Text" xml:space="preserve">
+    <value>Oops :(</value>
+  </data>
+  <data name="DiagnoseNetworkTextBlock.Text" xml:space="preserve">
+    <value>Diagnose Network</value>
+  </data>
+  <data name="SearchBarTitle.Text" xml:space="preserve">
+    <value>SEARCH PHOTOS</value>
+  </data>
+  <data name="InputEditText.PlaceholderText" xml:space="preserve">
+    <value>Search in English</value>
+  </data>
+  <data name="SetAsBackgroundTextBlock.Text" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="SetAsLockscreenTextBlock.Text" xml:space="preserve">
+    <value>Lock screen</value>
+  </data>
+  <data name="SetAsBothTextBlock.Text" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="SetAsTB.Text" xml:space="preserve">
+    <value>SET AS</value>
+  </data>
+  <data name="OpenExplorerTextBlock.Text" xml:space="preserve">
+    <value>OPEN EXPLORER</value>
+  </data>
+  <data name="RetryTB.Text" xml:space="preserve">
+    <value>RETRY</value>
+  </data>
+  <data name="DownloadingHint" xml:space="preserve">
+    <value>Downloading in background...</value>
+  </data>
+  <data name="DownloadBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="SettingsTitle.Text" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
+  <data name="PersonalizationTitle.Text" xml:space="preserve">
+    <value>PERSONALIZATION</value>
+  </data>
+  <data name="LiveTitleTextBlock.Text" xml:space="preserve">
+    <value>Live Tile</value>
+  </data>
+  <data name="ScaleAnimatioinTextBlock.Text" xml:space="preserve">
+    <value>Scale animation on pointer entering</value>
+  </data>
+  <data name="CompactModeTextBlock.Text" xml:space="preserve">
+    <value>Compact mode</value>
+  </data>
+  <data name="OpenFolderTextBlock.Text" xml:space="preserve">
+    <value>Open the folder wallpapers are saved into</value>
+  </data>
+  <data name="AutoChangeTitle.Text" xml:space="preserve">
+    <value>Auto-change wallpaper in background every day</value>
+  </data>
+  <data name="AutoChangeComboBoxDisable.Content" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="AutoChangeComboBoxDesktop.Content" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="AutoChangeComboBoxLockscreen.Content" xml:space="preserve">
+    <value>Lockscreen</value>
+  </data>
+  <data name="AutoChangeComboBoxBoth.Content" xml:space="preserve">
+    <value>Desktop and lockscreen</value>
+  </data>
+  <data name="SaveQualityTitle.Text" xml:space="preserve">
+    <value>Save quality</value>
+  </data>
+  <data name="DiagnoseTitle.Text" xml:space="preserve">
+    <value>DIAGNOSE ISSUES</value>
+  </data>
+  <data name="CleanUpTitleBlock.Text" xml:space="preserve">
+    <value>CLEAN UP</value>
+  </data>
+  <data name="TempFilesTextBlock.Text" xml:space="preserve">
+    <value>If you find that there are files end with ".tmp" or have zero size in saved folder, please execute this.</value>
+  </data>
+  <data name="TempFilesContentTextBlock.Text" xml:space="preserve">
+    <value>Clean up temp files</value>
+  </data>
+  <data name="SaveQualityComboBoxRaw.Content" xml:space="preserve">
+    <value>Raw</value>
+  </data>
+  <data name="SaveQualityComboBoxHigh.Content" xml:space="preserve">
+    <value>High (Default)</value>
+  </data>
+  <data name="SaveQualityComboBoxMedium.Content" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="BackgroundHintTitle.Text" xml:space="preserve">
+    <value>HOW DOES IT WORKS ?</value>
+  </data>
+  <data name="BackgroundHintContent.Text" xml:space="preserve">
+    <value>Change your wallpaper automatically in background every day. Most wallpapers are from Unsplash and some of them are taken by myself :P</value>
+  </data>
+  <data name="ReportByEmailTextBlock.Text" xml:space="preserve">
+    <value>REPORT BY EMAIL</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>DOWNLOADING</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Saved:D</value>
+  </data>
+  <data name="PermissonError" xml:space="preserve">
+    <value>No permission to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.</value>
+  </data>
+  <data name="CancelStatus" xml:space="preserve">
+    <value>The download has been cancelled.</value>
+  </data>
+  <data name="ErrorStatus" xml:space="preserve">
+    <value>ERROR: </value>
+  </data>
+  <data name="TempFilesCleaned" xml:space="preserve">
+    <value>Cleaned!</value>
+  </data>
+  <data name="Cleaning" xml:space="preserve">
+    <value>Cleaning...</value>
+  </data>
+  <data name="CalculatingCache" xml:space="preserve">
+    <value>Calculating cache size...</value>
+  </data>
+  <data name="CleanUpContent" xml:space="preserve">
+    <value>Clean up cache ({0}MB)</value>
+  </data>
+  <data name="ModelExif.Title" xml:space="preserve">
+    <value>MODEL</value>
+  </data>
+  <data name="ApertureExif.Title" xml:space="preserve">
+    <value>APERTURE</value>
+  </data>
+  <data name="IsoExif.Title" xml:space="preserve">
+    <value>ISO</value>
+  </data>
+  <data name="SpeedExif.Title" xml:space="preserve">
+    <value>SHUTTER SPEED</value>
+  </data>
+  <data name="LocationExif.Title" xml:space="preserve">
+    <value>LOCATION</value>
+  </data>
+  <data name="DimensionExif.Title" xml:space="preserve">
+    <value>DIMENSION</value>
+  </data>
+  <data name="PhotoBy" xml:space="preserve">
+    <value>photo by</value>
+  </data>
+  <data name="RecommendBy" xml:space="preserve">
+    <value>recommended by</value>
+  </data>
+  <data name="ShareText" xml:space="preserve">
+    <value>Share {0}'s amazing photo from MyerSplash app. {1}</value>
+  </data>
+  <data name="TodayTextBlock.Text" xml:space="preserve">
+    <value>TODAY</value>
+  </data>
+  <data name="SearchContent" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>Sharing a good photo</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>UNKNOWN</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@ using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.System;
 
@@ -124,10 +125,12 @@ namespace MyerSplash.ViewModel
 
         public async Task UpdateCacheSizeUIAsync()
         {
-            CacheHint = "Calculating cache size...";
+            CacheHint = ResourcesHelper.GetResString("CalculatingCache");
             ClearCacheCommandEnabled = false;
             var size = await CalculateCacheAsync();
-            CacheHint = $"Clean up cache ({(size / (1024 * 1024)).ToString("f0")} MB)";
+
+            var sizeFormatted = (size / (1024 * 1024)).ToString("f0");
+            CacheHint = ResourcesHelper.GetFormattedResString("CleanUpContent", sizeFormatted);
             ClearCacheCommandEnabled = true;
         }
 
@@ -147,7 +150,7 @@ namespace MyerSplash.ViewModel
                 }
             }
 
-            ToastService.SendToast("Temp files have been cleaned up.");
+            ToastService.SendToast(ResourcesHelper.GetResString("TempFilesCleaned"));
         }
 
         private Task<ulong> CalculateCacheAsync()
@@ -168,9 +171,9 @@ namespace MyerSplash.ViewModel
         private async Task ClearCacheAsync()
         {
             ClearCacheCommandEnabled = false;
-            CacheHint = "Cleaning...";
+            CacheHint = ResourceLoader.GetForCurrentView().GetString("Cleaning");
             await DoCleanUpAsync();
-            ToastService.SendToast("All clear.", TimeSpan.FromMilliseconds(1000));
+            ToastService.SendToast(ResourcesHelper.GetResString("TempFilesCleaned"), TimeSpan.FromMilliseconds(1000));
             await UpdateCacheSizeUIAsync();
         }
 

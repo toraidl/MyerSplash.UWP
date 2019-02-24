@@ -30,6 +30,7 @@
                 Margin="12,0"
                 VerticalAlignment="Top">
                 <TextBlock
+                    x:Uid="SearchBarTitle"
                     Margin="0,0,0,24"
                     Style="{StaticResource MainPageTitleStyle}"
                     Text="SEARCH PHOTOS" />
@@ -45,6 +46,7 @@
                         BorderThickness="0">
                         <TextBox
                             x:Name="InputTB"
+                            x:Uid="InputEditText"
                             Height="40"
                             MinHeight="10"
                             Margin="0"

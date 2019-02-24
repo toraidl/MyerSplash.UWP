@@ -143,6 +143,7 @@
                         </StackPanel>
                         <Button
                             x:Name="DownloadBtn"
+                            x:Uid="DownloadBtn"
                             Width="50"
                             Height="50"
                             HorizontalAlignment="Right"
@@ -198,6 +199,7 @@
                                 OffsetY="1"
                                 ShadowOpacity="0.30">
                                 <TextBlock
+                                    x:Uid="TodayTextBlock"
                                     FontSize="12"
                                     FontWeight="Bold"
                                     Foreground="White"
@@ -214,6 +216,7 @@
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <ProgressRing Foreground="{ThemeResource SystemBaseHighColor}" IsActive="True" />
                         <TextBlock
+                            x:Uid="LoadingTextBlock"
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
                             FontWeight="Bold"
@@ -227,6 +230,7 @@
                     Visibility="{x:Bind MainVM.FooterReloadVisibility, Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
+                            x:Uid="ErrorTitle"
                             Margin="10"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource SystemBaseHighColor}"
@@ -239,6 +243,7 @@
                             Command="{x:Bind MainVM.RetryCommand, Mode=OneWay}"
                             Style="{StaticResource ButtonCommonStyle}">
                             <TextBlock
+                                x:Uid="RetryTextBlock"
                                 Margin="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -249,6 +254,7 @@
                     </StackPanel>
                 </Grid>
                 <TextBlock
+                    x:Uid="EndTextBlock"
                     Height="50"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

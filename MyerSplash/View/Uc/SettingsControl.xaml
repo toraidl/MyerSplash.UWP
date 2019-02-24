@@ -34,6 +34,7 @@
             <FontIcon FontSize="{StaticResource SmallFontSize}" Style="{StaticResource CloseIconStyle}" />
         </Button>
         <TextBlock
+            x:Uid="SettingsTitle"
             Margin="12,0,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -50,6 +51,7 @@
                 VerticalScrollMode="Auto">
                 <StackPanel Margin="0,20,0,0">
                     <TextBlock
+                        x:Uid="PersonalizationTitle"
                         Margin="12,12,0,0"
                         HorizontalAlignment="Left"
                         Style="{StaticResource SubTitleTextBlockStyle}"
@@ -60,6 +62,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
+                            x:Uid="LiveTitleTextBlock"
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SettingItemButtonContentStyle}"
@@ -75,6 +78,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
+                            x:Uid="ScaleAnimatioinTextBlock"
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SettingItemButtonContentStyle}"
@@ -90,6 +94,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
+                            x:Uid="CompactModeTextBlock"
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource SettingItemButtonContentStyle}"
@@ -131,11 +136,15 @@
                         fcu:Style="{StaticResource MainButtonStyle}"
                         Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}">
-                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Open the folder wallpapers are saved into" />
+                        <TextBlock
+                            x:Uid="OpenFolderTextBlock"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Open the folder wallpapers are saved into" />
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
                         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
                             <TextBlock
+                                x:Uid="AutoChangeTitle"
                                 Margin="12,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource SettingItemTextBlockStyle}"
@@ -161,17 +170,41 @@
                             </Button>
                         </StackPanel>
                         <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=BackgroundWallpaperSource, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
-                            <ComboBoxItem Content="Disable" Style="{StaticResource ComboBoxItemStyle}" />
-                            <ComboBoxItem Content="Desktop" Style="{StaticResource ComboBoxItemStyle}" />
-                            <ComboBoxItem Content="Lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
-                            <ComboBoxItem Content="Desktop and lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem
+                                x:Uid="AutoChangeComboBoxDisable"
+                                Content="Disable"
+                                Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem
+                                x:Uid="AutoChangeComboBoxDesktop"
+                                Content="Desktop"
+                                Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem
+                                x:Uid="AutoChangeComboBoxLockscreen"
+                                Content="Lockscreen"
+                                Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem
+                                x:Uid="AutoChangeComboBoxBoth"
+                                Content="Desktop and lockscreen"
+                                Style="{StaticResource ComboBoxItemStyle}" />
                         </ComboBox>
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Save quality" />
+                    <TextBlock
+                        x:Uid="SaveQualityTitle"
+                        Style="{StaticResource SettingItemTextBlockStyle}"
+                        Text="Save quality" />
                     <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=SaveQuality, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
-                        <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="High (Default)" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Medium" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="SaveQualityComboBoxRaw"
+                            Content="Raw"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="SaveQualityComboBoxHigh"
+                            Content="High (Default)"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="SaveQualityComboBoxMedium"
+                            Content="Medium"
+                            Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
                         Style="{StaticResource SettingItemTextBlockStyle}"
@@ -186,6 +219,7 @@
                         <ComboBoxItem Content="Use my Windows mode" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
+                        x:Uid="DiagnoseTitle"
                         Margin="12,24,0,0"
                         HorizontalAlignment="Left"
                         Style="{StaticResource SubTitleTextBlockStyle}"
@@ -199,9 +233,13 @@
                         fcu:Style="{StaticResource MainButtonStyle}"
                         Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.DiagnoseCommand, Mode=OneWay}">
-                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Diagnose Network" />
+                        <TextBlock
+                            x:Uid="DiagnoseNetworkTextBlock"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Diagnose Network" />
                     </Button>
                     <TextBlock
+                        x:Uid="CleanUpTitleBlock"
                         Margin="12,24,0,0"
                         HorizontalAlignment="Left"
                         Style="{StaticResource SubTitleTextBlockStyle}"
@@ -225,6 +263,7 @@
                         </StackPanel>
                     </Button>
                     <TextBlock
+                        x:Uid="TempFilesTextBlock"
                         Margin="12,12,12,0"
                         HorizontalAlignment="Left"
                         FontSize="12"
@@ -239,7 +278,10 @@
                         fcu:Style="{StaticResource MainButtonStyle}"
                         Background="{ThemeResource SystemListLowColor}"
                         Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}">
-                        <TextBlock Style="{StaticResource SettingItemButtonContentStyle}" Text="Clean up temp files" />
+                        <TextBlock
+                            x:Uid="TempFilesContentTextBlock"
+                            Style="{StaticResource SettingItemButtonContentStyle}"
+                            Text="Clean up temp files" />
                     </Button>
                 </StackPanel>
             </ScrollViewer>

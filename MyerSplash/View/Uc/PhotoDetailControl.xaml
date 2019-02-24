@@ -156,6 +156,7 @@
                         Orientation="Vertical"
                         Visibility="Visible">
                         <TextBlock
+                            x:Uid="SetAsTB"
                             Margin="12,4"
                             HorizontalAlignment="Right"
                             FontSize="12"
@@ -171,7 +172,10 @@
                                 Margin="4"
                                 Background="#B2000000"
                                 CornerRadius="4">
-                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="WALLPAPER" />
+                                <TextBlock
+                                    x:Uid="SetAsBackgroundTextBlock"
+                                    Style="{StaticResource SetAsTextBlockStyle}"
+                                    Text="WALLPAPER" />
                             </Border>
                         </Button>
                         <Button
@@ -183,7 +187,10 @@
                                 Margin="4"
                                 Background="#B2000000"
                                 CornerRadius="4">
-                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="LOCKSCREEN" />
+                                <TextBlock
+                                    x:Uid="SetAsLockscreenTextBlock"
+                                    Style="{StaticResource SetAsTextBlockStyle}"
+                                    Text="LOCKSCREEN" />
                             </Border>
                         </Button>
                         <Button
@@ -195,7 +202,10 @@
                                 Margin="4"
                                 Background="#B2000000"
                                 CornerRadius="4">
-                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="BOTH" />
+                                <TextBlock
+                                    x:Uid="SetAsBothTextBlock"
+                                    Style="{StaticResource SetAsTextBlockStyle}"
+                                    Text="BOTH" />
                             </Border>
                         </Button>
                     </StackPanel>
@@ -216,6 +226,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <uc:ExifInfoControl
+                        x:Uid="ModelExif"
                         Title="MODEL"
                         Grid.Row="0"
                         Grid.Column="0"
@@ -224,6 +235,7 @@
                         Symbol="&#xE114;"
                         Text="{x:Bind CurrentImage.Image.Exif.Model, Mode=OneWay}" />
                     <uc:ExifInfoControl
+                        x:Uid="ApertureExif"
                         Title="APERTURE"
                         Grid.Row="0"
                         Grid.Column="1"
@@ -232,6 +244,7 @@
                         Symbol="&#xF093;"
                         Text="{x:Bind CurrentImage.Image.Exif.Aperture, Mode=OneWay}" />
                     <uc:ExifInfoControl
+                        x:Uid="IsoExif"
                         Title="ISO"
                         Grid.Row="0"
                         Grid.Column="2"
@@ -240,6 +253,7 @@
                         Symbol="&#xF08C;"
                         Text="{x:Bind CurrentImage.Image.Exif.IsoString, Mode=OneWay}" />
                     <uc:ExifInfoControl
+                        x:Uid="SpeedExif"
                         Title="SHUTTER SPEED"
                         Grid.Row="1"
                         Grid.Column="0"
@@ -248,6 +262,7 @@
                         Symbol="&#xE945;"
                         Text="{x:Bind CurrentImage.Image.Exif.ExposureTime, Mode=OneWay}" />
                     <uc:ExifInfoControl
+                        x:Uid="LocationExif"
                         Title="LOCATION"
                         Grid.Row="1"
                         Grid.Column="1"
@@ -256,6 +271,7 @@
                         Symbol="&#xE707;"
                         Text="{x:Bind CurrentImage.LocationString, Mode=OneWay}" />
                     <uc:ExifInfoControl
+                        x:Uid="DimensionExif"
                         Title="DIMENSION"
                         Grid.Row="1"
                         Grid.Column="2"
@@ -495,7 +511,10 @@
                                 Click="DownloadBtn_Click"
                                 Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
-                                    <controls:DropShadowPanel Style="{StaticResource DropShadowStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <controls:DropShadowPanel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource DropShadowStyle}">
                                         <Ellipse
                                             Width="50"
                                             Height="50"
