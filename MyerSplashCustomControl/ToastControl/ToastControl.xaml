@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:MyerSplashCustomControl">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/Themes/CommonStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     <Style TargetType="local:ToastService">
         <Setter Property="Template">
             <Setter.Value>
@@ -31,11 +34,7 @@
                             Margin="0,0,0,60"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
-                            BlurRadius="8"
-                            OffsetX="2"
-                            OffsetY="2"
-                            ShadowOpacity="0.3"
-                            Color="Black">
+                            Style="{StaticResource DropShadowStyle}">
                             <controls:DropShadowPanel.RenderTransform>
                                 <CompositeTransform />
                             </controls:DropShadowPanel.RenderTransform>

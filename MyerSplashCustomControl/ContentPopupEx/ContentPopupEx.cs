@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace MyerSplashCustomControl
@@ -20,6 +23,7 @@ namespace MyerSplashCustomControl
         private Grid _rootGrid;
         private Grid _contentGrid;
         private FrameworkElement _rootFramework;
+        private bool _solidBackground;
         private Border _maskBorder;
 
         private Popup _currentPopup;
@@ -61,10 +65,12 @@ namespace MyerSplashCustomControl
             CurrentPage.SizeChanged += Page_SizeChanged;
         }
 
-        public ContentPopupEx(FrameworkElement element, LayoutStretch layout = LayoutStretch.Center) : this()
+        public ContentPopupEx(FrameworkElement element, bool solidBackground = true,
+            LayoutStretch layout = LayoutStretch.Center) : this()
         {
-            this._rootFramework = element;
-            this._layoutStretch = layout;
+            _rootFramework = element;
+            _layoutStretch = layout;
+            _solidBackground = solidBackground;
         }
 
         protected override void OnApplyTemplate()
@@ -83,7 +89,13 @@ namespace MyerSplashCustomControl
                 _contentGrid.VerticalAlignment = VerticalAlignment.Bottom;
             }
             _contentGrid.Children.Add(_rootFramework);
-            _contentGrid.Margin = new Thickness(0, 10, 0, 10);
+
+            if (!_solidBackground)
+            {
+                var shadowControl = GetTemplateChild("RootPanel") as DropShadowPanel;
+                shadowControl.ShadowOpacity = 0f;
+            }
+
             _inStory = _rootGrid.Resources["InStory"] as Storyboard;
             _outStory = _rootGrid.Resources["OutStory"] as Storyboard;
             _maskBorder = GetTemplateChild("MaskBorder") as Border;

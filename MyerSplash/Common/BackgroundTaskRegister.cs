@@ -13,6 +13,11 @@ namespace MyerSplash.Common
 
         public static async Task RegisterAsync()
         {
+            if (IsBackgroundTaskRegistered())
+            {
+                Debug.WriteLine("IsBackgroundTaskRegistered: true");
+                return;
+            }
             await RegisterBackgroundTask(typeof(WallpaperAutoChangeTask),
                                                     new TimeTrigger(PERIOD_MINS, false),
                                                     null);
@@ -21,7 +26,8 @@ namespace MyerSplash.Common
         public static async Task UnregisterAsync()
         {
             var status = await BackgroundExecutionManager.RequestAccessAsync();
-            if (status == BackgroundAccessStatus.Unspecified || status == BackgroundAccessStatus.Denied)
+            if (status != BackgroundAccessStatus.AlwaysAllowed
+                && status != BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
             {
                 return;
             }
@@ -37,12 +43,13 @@ namespace MyerSplash.Common
             Debug.WriteLine($"===================unregistered===================");
         }
 
-        public static async Task<BackgroundTaskRegistration> RegisterBackgroundTask(Type taskEntryPoint,
+        private static async Task<BackgroundTaskRegistration> RegisterBackgroundTask(Type taskEntryPoint,
                                                                 IBackgroundTrigger trigger,
                                                                 IBackgroundCondition condition)
         {
             var status = await BackgroundExecutionManager.RequestAccessAsync();
-            if (status == BackgroundAccessStatus.Unspecified || status == BackgroundAccessStatus.Denied)
+            if (status != BackgroundAccessStatus.AlwaysAllowed
+                && status != BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
             {
                 return null;
             }
@@ -73,6 +80,19 @@ namespace MyerSplash.Common
             Debug.WriteLine($"===================Task {NAME} registered successfully===================");
 
             return task;
+        }
+
+        private static bool IsBackgroundTaskRegistered()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == NAME)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -18,10 +18,13 @@ namespace MyerSplashCustomControl
             }
         }
 
-        public async Task ShowAsync(FrameworkElement element, LayoutStretch layout = LayoutStretch.Center, bool allowTapToHide = true)
+        public async Task ShowAsync(FrameworkElement element,
+            LayoutStretch layout = LayoutStretch.Center,
+            bool allowTapToHide = true,
+            bool solidBackground = true)
         {
             TryHide();
-            _shownCPEX = new ContentPopupEx(element, layout)
+            _shownCPEX = new ContentPopupEx(element, solidBackground, layout)
             {
                 AllowTapMaskToHide = allowTapToHide
             };
