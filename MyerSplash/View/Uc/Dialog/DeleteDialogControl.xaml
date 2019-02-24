@@ -19,7 +19,7 @@
         </Style>
     </UserControl.Resources>
     <Grid
-        Margin="8"
+        Padding="8"
         Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"
         CornerRadius="2">
         <Grid.RowDefinitions>

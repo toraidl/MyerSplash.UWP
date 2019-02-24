@@ -399,4 +399,25 @@
   <data name="Unknown" xml:space="preserve">
     <value>UNKNOWN</value>
   </data>
+  <data name="FailedToSetHint" xml:space="preserve">
+    <value>Failed to set wallpaper :( (API ERROR)</value>
+  </data>
+  <data name="SettingDesktopAndLockHint" xml:space="preserve">
+    <value>Setting background and lockscreen...</value>
+  </data>
+  <data name="SettingDesktopHint" xml:space="preserve">
+    <value>Setting background...</value>
+  </data>
+  <data name="SettingLockHint" xml:space="preserve">
+    <value>Setting lockscreen...</value>
+  </data>
+  <data name="SettingWallpaperNotSupported" xml:space="preserve">
+    <value>Your device can't set wallpaper.</value>
+  </data>
+  <data name="RequestFailed" xml:space="preserve">
+    <value>Request failed</value>
+  </data>
+  <data name="RequestTimeout" xml:space="preserve">
+    <value>Request timeout</value>
+  </data>
 </root>
