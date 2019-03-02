@@ -4,21 +4,24 @@ namespace MyerSplash.Common
 {
     public class ResourcesHelper
     {
-        private static ResourceLoader _loader = new ResourceLoader();
-
         public static string GetResString(string key)
         {
-            return _loader.GetString(key);
+            return ResourceLoader.GetForCurrentView().GetString(key);
+        }
+
+        public static string GetFormattedResString(string key, params object[] args)
+        {
+            return string.Format(ResourceLoader.GetForCurrentView().GetString(key), args);
         }
 
         public static string GetDicString(string key)
         {
-            return App.Current.Resources[key] as string;
+            return Windows.UI.Xaml.Application.Current.Resources[key] as string;
         }
 
         public static double GetDimentionInPixel(string key)
         {
-            return (double)App.Current.Resources[key];
+            return (double)Windows.UI.Xaml.Application.Current.Resources[key];
         }
     }
 }

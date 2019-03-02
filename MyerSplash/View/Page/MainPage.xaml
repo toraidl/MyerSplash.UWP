@@ -49,10 +49,10 @@
                 Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
             <Button
                 x:Name="RefreshBtn"
+                x:Uid="RefreshBtn"
                 Grid.RowSpan="2"
                 Command="{x:Bind MainVM.RefreshCommand, Mode=OneWay}"
-                Style="{StaticResource FabStyle}"
-                ToolTipService.ToolTip="Refresh">
+                Style="{StaticResource FabStyle}">
                 <Grid>
                     <controls:DropShadowPanel
                         HorizontalAlignment="Center"
@@ -109,6 +109,7 @@
                 Orientation="Horizontal">
                 <Button
                     x:Name="DownloadEntryBtn"
+                    x:Uid="DownloadEntryBtn"
                     Grid.Column="3"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
@@ -119,8 +120,7 @@
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
                     Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}"
-                    FontFamily="Segoe UI"
-                    ToolTipService.ToolTip="Downloads">
+                    FontFamily="Segoe UI">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
@@ -129,6 +129,7 @@
                 </Button>
                 <Button
                     x:Name="SearchBtn"
+                    x:Uid="SearchBtn"
                     Grid.Column="2"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
@@ -137,8 +138,7 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
-                    ToolTipService.ToolTip="Search">
+                    Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
@@ -152,6 +152,7 @@
                 </Button>
                 <Button
                     x:Name="SettingBtn"
+                    x:Uid="SettingBtn"
                     Grid.Column="3"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
@@ -160,8 +161,7 @@
                     VerticalAlignment="Center"
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
-                    Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}"
-                    ToolTipService.ToolTip="Settings">
+                    Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}">
                     <FontIcon
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
@@ -170,6 +170,7 @@
                 </Button>
                 <Button
                     x:Name="MoreBtn"
+                    x:Uid="MoreBtn"
                     Grid.Column="3"
                     Width="{StaticResource MainButtonSize}"
                     Height="{StaticResource MainButtonSize}"
@@ -179,14 +180,13 @@
                     cu:Style="{StaticResource MainButtonCompatStyle}"
                     fcu:Style="{StaticResource MainButtonStyle}"
                     Click="MoreBtn_Click"
-                    FontFamily="Segoe MDL2 Assets"
-                    ToolTipService.ToolTip="About">
+                    FontFamily="Segoe MDL2 Assets">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout Placement="Bottom">
-                            <MenuFlyoutItem Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}" Text="Downloads" />
-                            <MenuFlyoutItem Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}" Text="Search" />
-                            <MenuFlyoutItem Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}" Text="Settings" />
-                            <MenuFlyoutItem Command="{x:Bind MainVM.PresentAboutCommand, Mode=OneWay}" Text="About" />
+                            <MenuFlyoutItem x:Uid="Downloads" Command="{x:Bind MainVM.PresentDownloadsCommand, Mode=OneWay}" />
+                            <MenuFlyoutItem x:Uid="Search" Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}" />
+                            <MenuFlyoutItem x:Uid="Settings" Command="{x:Bind MainVM.PresentSettingsCommand, Mode=OneWay}" />
+                            <MenuFlyoutItem x:Uid="About" Command="{x:Bind MainVM.PresentAboutCommand, Mode=OneWay}" />
                         </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                     <FontIcon

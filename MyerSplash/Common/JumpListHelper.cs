@@ -11,7 +11,7 @@ namespace MyerSplash.Common
             var jumpList = await JumpList.LoadCurrentAsync();
             jumpList.Items.Clear();
 
-            var searchItem = JumpListItem.CreateWithArguments(Value.SEARCH, Value.SEARCH);
+            var searchItem = JumpListItem.CreateWithArguments(Value.SEARCH, ResourcesHelper.GetResString("SearchContent"));
             searchItem.Logo = new Uri("ms-appx:///Assets/Icon/search.png");
             jumpList.Items.Add(searchItem);
 

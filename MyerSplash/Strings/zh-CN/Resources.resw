@@ -121,6 +121,307 @@
     <value>MyerSplash 壁纸</value>
   </data>
   <data name="EmailBody" xml:space="preserve">
-    <value>&#13;&#13;在部分地区使用时，可能存在连接到 Unsplash 服务器不通畅的问题，请尝试改善网络环境。由于 Windows 系统限制，如果要使用代理工具，请考虑借助 Fiddler 等工具中的 "WinConfig" 功能为 MyerSplash 解除 Loopback 限制。&#13;&#13;</value>
+    <value>
+
+在部分地区使用时，可能存在连接到 Unsplash 服务器不通畅的问题，请尝试改善网络环境。由于 Windows 系统限制，如果要使用代理工具，请考虑借助 Fiddler 等工具中的 "WinConfig" 功能为 MyerSplash 解除 Loopback 限制。
+
+</value>
+  </data>
+  <data name="Featured" xml:space="preserve">
+    <value>精选</value>
+  </data>
+  <data name="Highlights" xml:space="preserve">
+    <value>每日推荐</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>最新</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="Downloads.Text" xml:space="preserve">
+    <value>下载列表</value>
+  </data>
+  <data name="Search.Text" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="About.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="RefreshBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="DownloadEntryBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>下载列表</value>
+  </data>
+  <data name="SearchBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SettingBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="MoreBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="GestureHintTextBlock.Text" xml:space="preserve">
+    <value>拖拽图片可以快速关闭</value>
+  </data>
+  <data name="GotChaTextBlock.Text" xml:space="preserve">
+    <value>知道了</value>
+  </data>
+  <data name="NetworkDiagnosisTitle.Text" xml:space="preserve">
+    <value>网络诊断</value>
+  </data>
+  <data name="CloseButton.Text" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CleanupTitle.Text" xml:space="preserve">
+    <value>清理列表</value>
+  </data>
+  <data name="CleanUpDownloadingTextBlock.Text" xml:space="preserve">
+    <value>清理正在下载的项目</value>
+  </data>
+  <data name="CleanUpDownloadedTextBlock.Text" xml:space="preserve">
+    <value>清理下载完成的项目</value>
+  </data>
+  <data name="CleanUpFailedTextBlock.Text" xml:space="preserve">
+    <value>清理下载失败的项目</value>
+  </data>
+  <data name="CleanupHintTextBlock.Text" xml:space="preserve">
+    <value>注意，这只会清理列表项目，不会取消正在下载的项目。</value>
+  </data>
+  <data name="VersionTextBlock.Text" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="CreditTextBlock.Text" xml:space="preserve">
+    <value>鸣谢</value>
+  </data>
+  <data name="CreditContentTextBlock.Text" xml:space="preserve">
+    <value>图片来自 Unsplash，一个无版权可免费商用的网站。“每日推荐” 里，有部分照片来自我自己的摄影作品 :P</value>
+  </data>
+  <data name="FeedBackTitle.Text" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="MotivationTitle.Text" xml:space="preserve">
+    <value>好评一下</value>
+  </data>
+  <data name="RateTextBlock.Text" xml:space="preserve">
+    <value>到商店评价</value>
+  </data>
+  <data name="DownloadsTitle.Text" xml:space="preserve">
+    <value>下载列表</value>
+  </data>
+  <data name="NoDownloadsContentTextBlock.Text" xml:space="preserve">
+    <value>没有内容呢</value>
+  </data>
+  <data name="LoadingTextBlock.Text" xml:space="preserve">
+    <value>加载中...</value>
+  </data>
+  <data name="ErrorTitle.Text" xml:space="preserve">
+    <value>意想不到的事情发生了</value>
+  </data>
+  <data name="RetryTextBlock.Text" xml:space="preserve">
+    <value>重试一下</value>
+  </data>
+  <data name="EndTextBlock.Text" xml:space="preserve">
+    <value>——— 你已经到了世界的尽头了 ———</value>
+  </data>
+  <data name="OopsTextBlock.Text" xml:space="preserve">
+    <value>咦</value>
+  </data>
+  <data name="NoItemsTextBlock.Text" xml:space="preserve">
+    <value>没有图片呢</value>
+  </data>
+  <data name="OopsErrorText.Text" xml:space="preserve">
+    <value>糟糕了 :(</value>
+  </data>
+  <data name="DiagnoseNetworkTextBlock.Text" xml:space="preserve">
+    <value>网络诊断</value>
+  </data>
+  <data name="SearchBarTitle.Text" xml:space="preserve">
+    <value>搜索图片</value>
+  </data>
+  <data name="InputEditText.PlaceholderText" xml:space="preserve">
+    <value>请用英文搜索</value>
+  </data>
+  <data name="SetAsBackgroundTextBlock.Text" xml:space="preserve">
+    <value>桌面背景</value>
+  </data>
+  <data name="SetAsLockscreenTextBlock.Text" xml:space="preserve">
+    <value>锁屏</value>
+  </data>
+  <data name="SetAsBothTextBlock.Text" xml:space="preserve">
+    <value>桌面背景和锁屏</value>
+  </data>
+  <data name="SetAsTB.Text" xml:space="preserve">
+    <value>设置为</value>
+  </data>
+  <data name="OpenExplorerTextBlock.Text" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="RetryTB.Text" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="DownloadingHint" xml:space="preserve">
+    <value>后台下载中</value>
+  </data>
+  <data name="DownloadBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="SettingsTitle.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="PersonalizationTitle.Text" xml:space="preserve">
+    <value>个性化</value>
+  </data>
+  <data name="LiveTitleTextBlock.Text" xml:space="preserve">
+    <value>动态磁贴</value>
+  </data>
+  <data name="ScaleAnimatioinTextBlock.Text" xml:space="preserve">
+    <value>列表的鼠标指针悬停效果</value>
+  </data>
+  <data name="CompactModeTextBlock.Text" xml:space="preserve">
+    <value>紧凑的视觉效果</value>
+  </data>
+  <data name="OpenFolderTextBlock.Text" xml:space="preserve">
+    <value>打开保存的文件夹</value>
+  </data>
+  <data name="AutoChangeTitle.Text" xml:space="preserve">
+    <value>每日自动换壁纸</value>
+  </data>
+  <data name="AutoChangeComboBoxDisable.Content" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="AutoChangeComboBoxDesktop.Content" xml:space="preserve">
+    <value>桌面</value>
+  </data>
+  <data name="AutoChangeComboBoxLockscreen.Content" xml:space="preserve">
+    <value>锁屏</value>
+  </data>
+  <data name="AutoChangeComboBoxBoth.Content" xml:space="preserve">
+    <value>桌面和锁屏</value>
+  </data>
+  <data name="SaveQualityTitle.Text" xml:space="preserve">
+    <value>保存质量</value>
+  </data>
+  <data name="DiagnoseTitle.Text" xml:space="preserve">
+    <value>诊断问题</value>
+  </data>
+  <data name="CleanUpTitleBlock.Text" xml:space="preserve">
+    <value>清理</value>
+  </data>
+  <data name="TempFilesTextBlock.Text" xml:space="preserve">
+    <value>如果你发现保存的文件夹有很多以 tmp 结尾的文件，那么可以执行此操作。</value>
+  </data>
+  <data name="TempFilesContentTextBlock.Text" xml:space="preserve">
+    <value>清理临时文件</value>
+  </data>
+  <data name="SaveQualityComboBoxRaw.Content" xml:space="preserve">
+    <value>原图</value>
+  </data>
+  <data name="SaveQualityComboBoxHigh.Content" xml:space="preserve">
+    <value>高（默认）</value>
+  </data>
+  <data name="SaveQualityComboBoxMedium.Content" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="BackgroundHintTitle.Text" xml:space="preserve">
+    <value>这是如何工作的？</value>
+  </data>
+  <data name="BackgroundHintContent.Text" xml:space="preserve">
+    <value>每隔 4 个小时会触发一次后台任务，然后会更换“每日推荐”里的壁纸。大多时候“每日推荐”的壁纸都是 Unsplash 的壁纸，但是有时候会是我自己的摄影作品 :P</value>
+  </data>
+  <data name="ReportByEmailTextBlock.Text" xml:space="preserve">
+    <value>发送邮件</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>下载中</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>下载完成</value>
+  </data>
+  <data name="PermissonError" xml:space="preserve">
+    <value>没有权限写入文件，请检查图片文件夹下的 MyerSplash 目录的权限设置。</value>
+  </data>
+  <data name="CancelStatus" xml:space="preserve">
+    <value>下载取消了</value>
+  </data>
+  <data name="ErrorStatus" xml:space="preserve">
+    <value>出错了：</value>
+  </data>
+  <data name="TempFilesCleaned" xml:space="preserve">
+    <value>清理完成</value>
+  </data>
+  <data name="Cleaning" xml:space="preserve">
+    <value>清理中...</value>
+  </data>
+  <data name="CalculatingCache" xml:space="preserve">
+    <value>计算中...</value>
+  </data>
+  <data name="CleanUpContent" xml:space="preserve">
+    <value>清理缓存 ({0}MB)</value>
+  </data>
+  <data name="ModelExif.Title" xml:space="preserve">
+    <value>模型</value>
+  </data>
+  <data name="ApertureExif.Title" xml:space="preserve">
+    <value>光圈</value>
+  </data>
+  <data name="IsoExif.Title" xml:space="preserve">
+    <value>ISO</value>
+  </data>
+  <data name="SpeedExif.Title" xml:space="preserve">
+    <value>快门速度</value>
+  </data>
+  <data name="LocationExif.Title" xml:space="preserve">
+    <value>地点</value>
+  </data>
+  <data name="DimensionExif.Title" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
+  <data name="PhotoBy" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="RecommendBy" xml:space="preserve">
+    <value>推荐者</value>
+  </data>
+  <data name="ShareText" xml:space="preserve">
+    <value>分享 {0} 的好照片，自 MyerSplash 应用。 {1}</value>
+  </data>
+  <data name="TodayTextBlock.Text" xml:space="preserve">
+    <value>今日推荐</value>
+  </data>
+  <data name="SearchContent" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>分享一张好照片</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="FailedToSetHint" xml:space="preserve">
+    <value>设置壁纸失败了 :( (API 异常)</value>
+  </data>
+  <data name="SettingDesktopAndLockHint" xml:space="preserve">
+    <value>正在设置桌面背景和锁屏壁纸</value>
+  </data>
+  <data name="SettingDesktopHint" xml:space="preserve">
+    <value>正在设置桌面背景</value>
+  </data>
+  <data name="SettingLockHint" xml:space="preserve">
+    <value>正在设置锁屏壁纸</value>
+  </data>
+  <data name="SettingWallpaperNotSupported" xml:space="preserve">
+    <value>你的设备设置不支持设置壁纸</value>
+  </data>
+  <data name="RequestFailed" xml:space="preserve">
+    <value>请求失败</value>
+  </data>
+  <data name="RequestTimeout" xml:space="preserve">
+    <value>请求超时</value>
   </data>
 </root>

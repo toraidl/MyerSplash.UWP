@@ -13,8 +13,12 @@
     mc:Ignorable="d">
     <Grid Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}" CornerRadius="2">
         <StackPanel Margin="8">
-            <TextBlock Style="{StaticResource DialogTitleStyle}" Text="HOW DOES IT WORKS ?" />
             <TextBlock
+                x:Uid="BackgroundHintTitle"
+                Style="{StaticResource DialogTitleStyle}"
+                Text="HOW DOES IT WORKS ?" />
+            <TextBlock
+                x:Uid="BackgroundHintContent"
                 Margin="12"
                 FontFamily="Segoe UI"
                 FontSize="15"
@@ -32,6 +36,7 @@
             Click="OKBtn_Click">
             <Border>
                 <TextBlock
+                    x:Uid="GotChaTextBlock"
                     Margin="12"
                     FontWeight="Bold"
                     Foreground="{ThemeResource SystemBaseHighColor}"

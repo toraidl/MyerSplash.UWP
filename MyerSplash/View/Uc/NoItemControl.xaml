@@ -9,6 +9,7 @@
     mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock
+            x:Uid="OopsTextBlock"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="40"
@@ -16,12 +17,13 @@
             Foreground="{ThemeResource SystemBaseHighColor}"
             Text="Oops :(" />
         <TextBlock
+            x:Uid="NoItemsTextBlock"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="30"
             FontWeight="Light"
-            Opacity="0.7"
             Foreground="{ThemeResource SystemBaseHighColor}"
+            Opacity="0.7"
             Text="No items" />
     </StackPanel>
 </UserControl>

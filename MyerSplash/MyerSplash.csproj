@@ -19,7 +19,7 @@
     <PackageCertificateKeyFile>MyerSplash_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>70AF9121641F26482EBAC7EE1251EE2A04A61756</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
@@ -154,9 +154,6 @@
     </Compile>
     <Compile Include="View\Uc\DownloadItemTemplate.xaml.cs">
       <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Uc\EllipseShadowControl.xaml.cs">
-      <DependentUpon>EllipseShadowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\ExifInfoControl.xaml.cs">
       <DependentUpon>ExifInfoControl.xaml</DependentUpon>
@@ -324,10 +321,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Uc\DownloadItemTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\EllipseShadowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

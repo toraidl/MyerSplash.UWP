@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using MyerSplashShared.Utils;
 using MyerSplashShared.Data;
+using Windows.ApplicationModel.Resources;
 
 namespace MyerSplash.ViewModel
 {
@@ -29,17 +30,17 @@ namespace MyerSplash.ViewModel
         private const int RANDOM_INDEX = 2;
         private const int HIGHLIGHTS_INDEX = 3;
 
-        public const string NEW_NAME = "NEW";
-        public const string FEATURED_NAME = "FEATURED";
-        public const string RANDOM_NAME = "RANDOM";
-        public const string HIGHLIGHTS_NAME = "HIGHLIGHTS";
+        public static string NewName = ResourceLoader.GetForCurrentView().GetString("New");
+        public static string FeaturedName = ResourceLoader.GetForCurrentView().GetString("Featured");
+        public static string RandomName = ResourceLoader.GetForCurrentView().GetString("Random");
+        public static string HighlightsName = ResourceLoader.GetForCurrentView().GetString("Highlights");
 
         public Dictionary<int, string> INDEX_TO_NAME = new Dictionary<int, string>()
         {
-            { NEW_INDEX,NEW_NAME },
-            { FEATURED_INDEX,FEATURED_NAME },
-            { RANDOM_INDEX,RANDOM_NAME },
-            { HIGHLIGHTS_INDEX,HIGHLIGHTS_NAME }
+            { NEW_INDEX,NewName },
+            { FEATURED_INDEX,FeaturedName },
+            { RANDOM_INDEX,RandomName },
+            { HIGHLIGHTS_INDEX,HighlightsName }
         };
 
         public event EventHandler<int> AboutToUpdateSelectedIndex;

@@ -1330,8 +1330,8 @@
         <Setter Property="MinWidth" Value="154" />
         <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="OnContent" Value="On" />
-        <Setter Property="OffContent" Value="Off" />
+        <Setter Property="OnContent" Value=" " />
+        <Setter Property="OffContent" Value=" " />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="ManipulationMode" Value="System,TranslateX" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />

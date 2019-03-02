@@ -11,7 +11,7 @@ namespace MyerSplash.Common
     {
         public static async Task SetAsBackgroundAsync(StorageFile savedFile)
         {
-            var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
+            var uc = new LoadingTextControl() { LoadingText = ResourcesHelper.GetResString("SettingDesktopHint") };
             await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
             var file = await PrepareImageFileAsync(savedFile);
@@ -21,7 +21,7 @@ namespace MyerSplash.Common
 
                 if (!result)
                 {
-                    ToastService.SendToast("Fail to set as wallpaper. #API ERROR.");
+                    ShowFailedToast();
                 }
             }
 
@@ -30,7 +30,7 @@ namespace MyerSplash.Common
 
         public static async Task SetAsLockscreenAsync(StorageFile savedFile)
         {
-            var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
+            var uc = new LoadingTextControl() { LoadingText = ResourcesHelper.GetResString("SettingLockHint") };
             await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
             var file = await PrepareImageFileAsync(savedFile);
@@ -40,7 +40,7 @@ namespace MyerSplash.Common
 
                 if (!result)
                 {
-                    ToastService.SendToast("Fail to set both. #API ERROR.");
+                    ShowFailedToast();
                 }
             }
 
@@ -49,7 +49,7 @@ namespace MyerSplash.Common
 
         public static async Task SetBothAsync(StorageFile savedFile)
         {
-            var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
+            var uc = new LoadingTextControl() { LoadingText = ResourcesHelper.GetResString("SettingDesktopAndLockHint") };
             await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
             var file = await PrepareImageFileAsync(savedFile);
@@ -60,7 +60,7 @@ namespace MyerSplash.Common
 
                 if (!result0 || !result1)
                 {
-                    ToastService.SendToast("Fail to set both. #API ERROR.");
+                    ShowFailedToast();
                 }
             }
 
@@ -71,7 +71,7 @@ namespace MyerSplash.Common
         {
             if (!UserProfilePersonalizationSettings.IsSupported())
             {
-                ToastService.SendToast("Your device can't set wallpaper.");
+                ToastService.SendToast(ResourcesHelper.GetResString("SettingWallpaperNotSupported"));
                 return null;
             }
             if (resultFile != null)
@@ -92,6 +92,11 @@ namespace MyerSplash.Common
                 return file;
             }
             return null;
+        }
+
+        private static void ShowFailedToast()
+        {
+            ToastService.SendToast(ResourcesHelper.GetResString("FailedToSetHint"));
         }
     }
 }

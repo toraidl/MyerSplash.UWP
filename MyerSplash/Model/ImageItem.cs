@@ -271,9 +271,9 @@ namespace MyerSplash.Model
             {
                 if (Image.IsUnsplash)
                 {
-                    return "photo by";
+                    return ResourcesHelper.GetResString("PhotoBy");
                 }
-                else return "recommended by";
+                else return ResourcesHelper.GetResString("RecommendBy");
             }
         }
 
@@ -282,7 +282,7 @@ namespace MyerSplash.Model
 
         public DownloadStatus DownloadStatus { get; set; } = DownloadStatus.Pending;
 
-        public string ShareText => $"Share {Image.Owner.Name}'s amazing photo from MyerSplash app. {Image.Urls.Full}";
+        public string ShareText => ResourcesHelper.GetFormattedResString("ShareText", Image.Owner.Name, Image.Urls.Full);
 
         public string OwnerString
         {
@@ -298,7 +298,7 @@ namespace MyerSplash.Model
             {
                 if (Image.Location == null || Image.Location.City == null || Image.Location.Country == null)
                 {
-                    return "Unknown";
+                    return ResourcesHelper.GetResString("Unknown");
                 }
                 return $"{Image.Location.City}, {Image.Location.Country}";
             }
@@ -350,7 +350,7 @@ namespace MyerSplash.Model
         {
             var requestData = request.Data;
             requestData.SetWebLink(new Uri(Image.Urls.Full));
-            requestData.Properties.Title = $"Share a photo by {Image.Owner?.Name ?? "Unknown"}";
+            requestData.Properties.Title = ResourcesHelper.GetResString("ShareTitle");
             requestData.Properties.ContentSourceWebLink = new Uri(Image.Urls.Full);
             requestData.Properties.ContentSourceApplicationLink = new Uri(Image.Urls.Full);
 

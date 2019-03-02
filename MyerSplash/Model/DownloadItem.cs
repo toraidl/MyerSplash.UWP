@@ -16,6 +16,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.System;
@@ -402,7 +403,7 @@ namespace MyerSplash.Model
             catch (Exception e)
             {
                 await Logger.LogAsync(e);
-                ToastService.SendToast("No permission to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.", 5000);
+                ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("PermissonError"), 5000);
                 return false;
             }
 
@@ -414,8 +415,9 @@ namespace MyerSplash.Model
 
             var backgroundDownloader = new BackgroundDownloader()
             {
-                SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                                $"Find it in {savedFolder.Path}.", savedFile.Path)
+                SuccessToastNotification = ToastHelper.CreateToastNotification(
+                    ResourceLoader.GetForCurrentView().GetString("SavedTitle"),
+                                savedFolder.Path, savedFile.Path)
             };
             var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), savedFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
@@ -423,11 +425,11 @@ namespace MyerSplash.Model
             DownloadOperationGUID = downloadOperation.Guid;
             _tcs.TrySetResult(0);
 
-            ToastService.SendToast("Downloading in background...", 2000);
+            ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("DownloadingHint"), 2000);
 
             try
             {
-                DownloadStatus = "DOWNLOADING";
+                DownloadStatus = ResourceLoader.GetForCurrentView().GetString("DownloadingStatus");
                 Progress = 0;
 
                 var progress = new Progress<DownloadOperation>();
@@ -440,14 +442,14 @@ namespace MyerSplash.Model
             catch (TaskCanceledException)
             {
                 await downloadOperation.ResultFile.DeleteAsync();
-                ToastService.SendToast("Download has been cancelled.");
+                ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("CancelStatus"));
                 throw;
             }
             catch (Exception e)
             {
                 ReportFailure();
                 await Logger.LogAsync(e);
-                ToastService.SendToast("ERROR: " + e.Message, 3000);
+                ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("ErrorStatus") + e.Message, 3000);
                 return false;
             }
         }

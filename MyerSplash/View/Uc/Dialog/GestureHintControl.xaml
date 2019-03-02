@@ -20,6 +20,7 @@
                 Source="/Assets/Icon/touch.png"
                 Stretch="Uniform" />
             <TextBlock
+                x:Uid="GestureHintTextBlock"
                 HorizontalAlignment="Center"
                 Foreground="White"
                 Text="Drag the image to dismiss quickly" />
@@ -31,6 +32,7 @@
                 Click="GotIt_Click"
                 Style="{StaticResource ButtonCommonStyle}">
                 <TextBlock
+                    x:Uid="GotChaTextBlock"
                     HorizontalAlignment="Center"
                     FontWeight="Bold"
                     Foreground="Black"

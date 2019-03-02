@@ -453,7 +453,7 @@ namespace MyerSplash.View.Uc
                 {
                     CurrentImage.DownloadStatus = DownloadStatus.Ok;
                     FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
-                    ToastService.SendToast("Saved :D", 1000);
+                    ToastService.SendToast(ResourcesHelper.GetResString("SavedTitle"), 1000);
                 }
             }
             catch (OperationCanceledException)
@@ -464,7 +464,7 @@ namespace MyerSplash.View.Uc
             {
                 var task = Logger.LogAsync(ex);
                 FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
-                ToastService.SendToast($"Exception throws.{ex.Message}", 3000);
+                ToastService.SendToast(ResourcesHelper.GetResString("ErrorStatus") + ex.Message, 3000);
             }
         }
 

@@ -40,6 +40,7 @@
             <FontIcon FontSize="{StaticResource SmallFontSize}" Style="{StaticResource CloseIconStyle}" />
         </Button>
         <TextBlock
+            x:Uid="DownloadsTitle"
             Margin="12,0,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -82,6 +83,7 @@
             VerticalAlignment="Center"
             Visibility="{x:Bind DownloadsVM.NoItemVisibility, Mode=OneWay}">
             <TextBlock
+                x:Uid="NoDownloadsContentTextBlock"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="20"
@@ -111,7 +113,7 @@
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="{StaticResource MediumFontSize}"
                         Foreground="#FF333333"
-                        Glyph="&#xE10C;" />
+                        Glyph="&#xE74D;" />
                 </Grid>
             </Grid>
         </Button>

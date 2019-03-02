@@ -19,6 +19,7 @@
         </Style>
     </UserControl.Resources>
     <Grid
+        Padding="8"
         Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"
         CornerRadius="2">
         <Grid.RowDefinitions>
@@ -26,7 +27,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid>
-            <TextBlock Style="{StaticResource DialogTitleStyle}" Text="CLEAN UP LIST" />
+            <TextBlock
+                x:Uid="CleanupTitle"
+                Style="{StaticResource DialogTitleStyle}"
+                Text="CLEAN UP LIST" />
         </Grid>
         <StackPanel Grid.Row="1">
             <Button
@@ -37,6 +41,7 @@
                 fcu:Style="{StaticResource MainButtonStyle}"
                 Click="DeleteDownloadingBtn_Click">
                 <TextBlock
+                    x:Uid="CleanUpDownloadingTextBlock"
                     HorizontalAlignment="Left"
                     Style="{StaticResource OptionTextBlockStyle}"
                     Text="Delete downloading items" />
@@ -48,7 +53,10 @@
                 cu:Style="{StaticResource MainButtonCompatStyle}"
                 fcu:Style="{StaticResource MainButtonStyle}"
                 Click="DeleteDownloadedBtn_Click">
-                <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete downloaded items" />
+                <TextBlock
+                    x:Uid="CleanUpDownloadedTextBlock"
+                    Style="{StaticResource OptionTextBlockStyle}"
+                    Text="Delete downloaded items" />
             </Button>
             <Button
                 x:Name="DeleteAllBtn"
@@ -57,12 +65,17 @@
                 cu:Style="{StaticResource MainButtonCompatStyle}"
                 fcu:Style="{StaticResource MainButtonStyle}"
                 Click="DeleteAllBtn_Click">
-                <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete failed items" />
+                <TextBlock
+                    x:Uid="CleanUpFailedTextBlock"
+                    Style="{StaticResource OptionTextBlockStyle}"
+                    Text="Delete failed items" />
             </Button>
             <TextBlock
-                Margin="12"
+                x:Uid="CleanupHintTextBlock"
+                Margin="20,12,20,12"
                 FontSize="12"
                 Foreground="{ThemeResource SystemBaseHighColor}"
+                Opacity="0.5"
                 Text="Note that the delete operation will not cancel download tasks. This will only clear the list."
                 TextWrapping="Wrap" />
         </StackPanel>
@@ -77,6 +90,7 @@
             Click="CancelBtn_Click">
             <Border>
                 <TextBlock
+                    x:Uid="CancelButton"
                     FontWeight="Bold"
                     Style="{StaticResource OptionTextBlockStyle}"
                     Text="CANCEL" />
