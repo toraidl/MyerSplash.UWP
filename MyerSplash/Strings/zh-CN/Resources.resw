@@ -284,7 +284,7 @@
     <value>列表的鼠标指针悬停效果</value>
   </data>
   <data name="CompactModeTextBlock.Text" xml:space="preserve">
-    <value>紧凑的视觉效果</value>
+    <value>更紧凑更沉浸的布局</value>
   </data>
   <data name="OpenFolderTextBlock.Text" xml:space="preserve">
     <value>打开保存的文件夹</value>
