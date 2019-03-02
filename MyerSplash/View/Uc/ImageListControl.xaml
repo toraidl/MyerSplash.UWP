@@ -195,8 +195,8 @@
                             <controls:DropShadowPanel
                                 Margin="8,0,0,0"
                                 BlurRadius="4.0"
-                                OffsetX="1"
-                                OffsetY="1"
+                                OffsetX="0"
+                                OffsetY="0"
                                 ShadowOpacity="0.30">
                                 <TextBlock
                                     x:Uid="TodayTextBlock"

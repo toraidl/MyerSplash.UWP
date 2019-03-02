@@ -1,4 +1,5 @@
 ﻿using JP.Utils.Debug;
+using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
@@ -140,11 +141,11 @@ namespace MyerSplash.ViewModel.DataViewModel
                 {
                     return CreateImageItems(result);
                 }
-                else throw new APIException("Request failed");
+                else throw new APIException(ResourcesHelper.GetResString("RequestFailed"));
             }
             catch (TaskCanceledException)
             {
-                throw new APIException("Request timeout");
+                throw new APIException(ResourcesHelper.GetResString("RequestTimeout"));
             }
         }
     }

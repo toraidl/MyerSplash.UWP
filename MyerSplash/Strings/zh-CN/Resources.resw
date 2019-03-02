@@ -341,7 +341,7 @@
     <value>下载中</value>
   </data>
   <data name="SavedTitle" xml:space="preserve">
-    <value>完成了</value>
+    <value>下载完成</value>
   </data>
   <data name="PermissonError" xml:space="preserve">
     <value>没有权限写入文件，请检查图片文件夹下的 MyerSplash 目录的权限设置。</value>
@@ -402,5 +402,26 @@
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>未知</value>
+  </data>
+  <data name="FailedToSetHint" xml:space="preserve">
+    <value>设置壁纸失败了 :( (API 异常)</value>
+  </data>
+  <data name="SettingDesktopAndLockHint" xml:space="preserve">
+    <value>正在设置桌面背景和锁屏壁纸</value>
+  </data>
+  <data name="SettingDesktopHint" xml:space="preserve">
+    <value>正在设置桌面背景</value>
+  </data>
+  <data name="SettingLockHint" xml:space="preserve">
+    <value>正在设置锁屏壁纸</value>
+  </data>
+  <data name="SettingWallpaperNotSupported" xml:space="preserve">
+    <value>你的设备设置不支持设置壁纸</value>
+  </data>
+  <data name="RequestFailed" xml:space="preserve">
+    <value>请求失败</value>
+  </data>
+  <data name="RequestTimeout" xml:space="preserve">
+    <value>请求超时</value>
   </data>
 </root>
