@@ -45,7 +45,7 @@ namespace MyerSplash.ViewModel
             { HIGHLIGHTS_INDEX,HighlightsName }
         };
 
-        private TaskCompletionSource<bool> _tcs;
+        private Task _initTask;
 
         public event EventHandler<int> AboutToUpdateSelectedIndex;
         public event EventHandler DataUpdated;
@@ -522,12 +522,7 @@ namespace MyerSplash.ViewModel
             DataVM = new ImageDataViewModel(this,
                 new ImageService(Request.GetNewImages, NormalFactory, CtsFactory));
 
-            _tcs = new TaskCompletionSource<bool>();
-            Keys.Instance.InitializeAsync().ContinueWith((e) =>
-            {
-                AppCenter.Start(Keys.Instance.AppCenterKey, typeof(Analytics));
-                _tcs.TrySetResult(true);
-            });
+            _initTask = InitAsync();
         }
 
         private ImageDataViewModel CreateOrCacheDataVm(int index)
@@ -692,9 +687,15 @@ namespace MyerSplash.ViewModel
             var initTask = InitOnLoadedAsync();
         }
 
+        private async Task InitAsync()
+        {
+            await Keys.Instance.InitializeAsync();
+            AppCenter.Start(Keys.Instance.AppCenterKey, typeof(Analytics));
+        }
+
         private async Task InitOnLoadedAsync()
         {
-            await _tcs.Task;
+            await _initTask;
 
             SelectedIndex = NEW_INDEX;
             INDEX_TO_NAME.Select(s => s.Value).ToList().ForEach(s =>
