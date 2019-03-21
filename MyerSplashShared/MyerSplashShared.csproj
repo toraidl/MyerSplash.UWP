@@ -132,6 +132,7 @@
     <Compile Include="Service\SearchImageService.cs" />
     <Compile Include="Utils\Extension.cs" />
     <Compile Include="Utils\FileDownloader.cs" />
+    <Compile Include="Utils\Keys.cs" />
     <Compile Include="Utils\LiveTileUpdater.cs" />
     <Compile Include="Utils\DeviceUtil.cs" />
     <Compile Include="Utils\SimpleWallpaperSetter.cs" />
@@ -145,7 +146,7 @@
       <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
+      <Version>12.0.1</Version>
     </PackageReference>
     <PackageReference Include="NotificationsExtensions.Win10">
       <Version>14332.0.2</Version>

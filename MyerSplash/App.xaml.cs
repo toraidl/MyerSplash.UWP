@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.View.Page;
@@ -42,9 +44,12 @@ namespace MyerSplash
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
-            this.UnhandledException += App_UnhandledException;
+            InitializeComponent();
+            Suspending += OnSuspending;
+
+            #if !DEBUG
+            UnhandledException += App_UnhandledException;
+            #endif
         }
 
         private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -59,7 +64,7 @@ namespace MyerSplash
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
             if (e.PrelaunchActivated) return;

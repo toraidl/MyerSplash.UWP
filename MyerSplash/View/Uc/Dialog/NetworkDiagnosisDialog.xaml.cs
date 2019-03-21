@@ -18,6 +18,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using MyerSplash.Common;
 using Windows.ApplicationModel.Resources;
+using MyerSplashShared.Utils;
 
 namespace MyerSplash.View.Uc
 {
@@ -35,7 +36,7 @@ namespace MyerSplash.View.Uc
             var tokenSource = new CancellationTokenSource();
 
             _diagosisItems.Add(new DiagnosisItem(_client, "https://juniperphoton.net/myersplash/wallpapers/thumbs/20180401.jpg", "auto-change wallpaper server"));
-            _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/photos?client_id={Request.AppKey}&page=1&per_page=30", "unsplash server api"));
+            _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/photos?client_id={Keys.Instance.ClientKey}&page=1&per_page=30", "unsplash server api"));
             _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/", "unsplash home page"));
             _diagosisItems.Add(new DiagnosisItem(_client, "https://www.bing.com"));
             _diagosisItems.Add(new DiagnosisItem(_client, "https://www.google.com"));
