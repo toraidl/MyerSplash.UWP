@@ -20,6 +20,8 @@ using System.Diagnostics;
 using MyerSplashShared.Utils;
 using MyerSplashShared.Data;
 using Windows.ApplicationModel.Resources;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter;
 
 namespace MyerSplash.ViewModel
 {
@@ -30,18 +32,20 @@ namespace MyerSplash.ViewModel
         private const int RANDOM_INDEX = 2;
         private const int HIGHLIGHTS_INDEX = 3;
 
-        public static string NewName = ResourceLoader.GetForCurrentView().GetString("New");
-        public static string FeaturedName = ResourceLoader.GetForCurrentView().GetString("Featured");
-        public static string RandomName = ResourceLoader.GetForCurrentView().GetString("Random");
-        public static string HighlightsName = ResourceLoader.GetForCurrentView().GetString("Highlights");
+        public static readonly string NewName = ResourceLoader.GetForCurrentView().GetString("New");
+        public static readonly string FeaturedName = ResourceLoader.GetForCurrentView().GetString("Featured");
+        public static readonly string RandomName = ResourceLoader.GetForCurrentView().GetString("Random");
+        public static readonly string HighlightsName = ResourceLoader.GetForCurrentView().GetString("Highlights");
 
-        public Dictionary<int, string> INDEX_TO_NAME = new Dictionary<int, string>()
+        public static readonly Dictionary<int, string> INDEX_TO_NAME = new Dictionary<int, string>()
         {
             { NEW_INDEX,NewName },
             { FEATURED_INDEX,FeaturedName },
             { RANDOM_INDEX,RandomName },
             { HIGHLIGHTS_INDEX,HighlightsName }
         };
+
+        private TaskCompletionSource<bool> _tcs;
 
         public event EventHandler<int> AboutToUpdateSelectedIndex;
         public event EventHandler DataUpdated;
@@ -517,6 +521,13 @@ namespace MyerSplash.ViewModel
 
             DataVM = new ImageDataViewModel(this,
                 new ImageService(Request.GetNewImages, NormalFactory, CtsFactory));
+
+            _tcs = new TaskCompletionSource<bool>();
+            Keys.Instance.InitializeAsync().ContinueWith((e) =>
+            {
+                AppCenter.Start(Keys.Instance.AppCenterKey, typeof(Analytics));
+                _tcs.TrySetResult(true);
+            });
         }
 
         private ImageDataViewModel CreateOrCacheDataVm(int index)
@@ -591,7 +602,7 @@ namespace MyerSplash.ViewModel
             DataUpdated?.Invoke(this, null);
         }
 
-        public void RemoveTodayHighlight()
+        private void RemoveTodayHighlight()
         {
             var vm = _vms[NEW_INDEX];
             if (vm != null)
@@ -604,7 +615,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        public void InsertTodayHighlight()
+        private void InsertTodayHighlight()
         {
             var vm = _vms[NEW_INDEX];
             if (vm != null)
@@ -678,6 +689,13 @@ namespace MyerSplash.ViewModel
 
         public void OnLoaded()
         {
+            var initTask = InitOnLoadedAsync();
+        }
+
+        private async Task InitOnLoadedAsync()
+        {
+            await _tcs.Task;
+
             SelectedIndex = NEW_INDEX;
             INDEX_TO_NAME.Select(s => s.Value).ToList().ForEach(s =>
             {
