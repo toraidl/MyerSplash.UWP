@@ -6,12 +6,12 @@ namespace MyerSplash.Common
     {
         public static string GetResString(string key)
         {
-            return ResourceLoader.GetForCurrentView().GetString(key);
+            return ResourceLoader.GetForViewIndependentUse().GetString(key);
         }
 
         public static string GetFormattedResString(string key, params object[] args)
         {
-            return string.Format(ResourceLoader.GetForCurrentView().GetString(key), args);
+            return string.Format(ResourceLoader.GetForViewIndependentUse().GetString(key), args);
         }
 
         public static string GetDicString(string key)
