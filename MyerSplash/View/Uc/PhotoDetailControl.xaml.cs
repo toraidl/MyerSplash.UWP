@@ -223,6 +223,8 @@ namespace MyerSplash.View.Uc
         /// <param name="listItem"></param>
         public async void Show(FrameworkElement listItem)
         {
+            Events.LogToggleImageDetails();
+
             if (_animating) return;
 
             _animating = true;
@@ -436,6 +438,8 @@ namespace MyerSplash.View.Uc
 
             FlipperControl.DisplayIndex = (int)DownloadStatus.Downloading;
 
+            Events.LogDownloadButtonOnList();
+
             try
             {
                 _cts = new CancellationTokenSource();
@@ -485,6 +489,7 @@ namespace MyerSplash.View.Uc
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             _cts?.Cancel();
+            Events.LogCancelInDetails();
         }
 
         private void DetailGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
@@ -705,6 +710,8 @@ namespace MyerSplash.View.Uc
 
         private void OKBtn_Click(object sender, RoutedEventArgs e)
         {
+            Events.LogSetAsInDetails();
+
             if (_setAsSPVisual.Opacity == 0)
             {
                 FlipperControl.DisplayIndex = 3;
@@ -742,11 +749,13 @@ namespace MyerSplash.View.Uc
 
         private void PreviewBtn_Click(object sender, RoutedEventArgs e)
         {
+            Events.LogSetAsPreview();
             TogglePreview();
         }
 
         private void InfoBtn_Click(object sender, RoutedEventArgs e)
         {
+            Events.LogPhotoInfoDetails();
             _showingExif = !_showingExif;
             ToggleExifInfo(_showingExif);
         }
@@ -835,6 +844,7 @@ namespace MyerSplash.View.Uc
 
         private async void InfoPlaceHolderGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
+            Events.LogDragToDismiss();
             ToggleExifInfo(false);
             PhotoSV.ChangeView(null, 0, null);
             await HideInternalAsync();

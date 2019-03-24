@@ -45,7 +45,7 @@ namespace MyerSplash.ViewModel
             { HIGHLIGHTS_INDEX,HighlightsName }
         };
 
-        private Task _initTask;
+        private readonly Task _initTask;
 
         public event EventHandler<int> AboutToUpdateSelectedIndex;
         public event EventHandler DataUpdated;
@@ -149,6 +149,9 @@ namespace MyerSplash.ViewModel
                 return _searchCommand = new RelayCommand(() =>
                   {
                       ShowSearchBar = true;
+
+                      Events.LogEnterSearch();
+
                       NavigationService.AddOperation(() =>
                           {
                               if (ShowSearchBar)
@@ -334,6 +337,9 @@ namespace MyerSplash.ViewModel
                 return _presentSettingsCommand = new RelayCommand(() =>
                   {
                       SettingsPagePresented = true;
+
+                      Events.LogEnterSettings();
+
                       NavigationService.AddOperation(() =>
                           {
                               if (SettingsPagePresented)
@@ -408,6 +414,8 @@ namespace MyerSplash.ViewModel
                   {
                       DownloadsPagePresented = !DownloadsPagePresented;
 
+                      Events.LogEnterDownloads();
+
                       if (DownloadsPagePresented)
                       {
                           NavigationService.AddOperation(() =>
@@ -433,6 +441,9 @@ namespace MyerSplash.ViewModel
                 return _presentAboutCommand = new RelayCommand(() =>
                   {
                       AboutPagePresented = true;
+
+                      Events.LogEnterAbout();
+
                       NavigationService.AddOperation(() =>
                           {
                               if (AboutPagePresented)
@@ -464,6 +475,11 @@ namespace MyerSplash.ViewModel
                     AboutToUpdateSelectedIndex?.Invoke(this, lastValue);
 
                     RaisePropertyChanged(() => SelectedIndex);
+
+                    if (INDEX_TO_NAME.ContainsKey(SelectedIndex))
+                    {
+                        Events.LogSelected(INDEX_TO_NAME[SelectedIndex]);
+                    }
 
                     if (value >= 0)
                     {
@@ -586,6 +602,8 @@ namespace MyerSplash.ViewModel
         {
             IsRefreshing = true;
             await DataVM.RefreshAsync();
+
+            Events.LogRefreshList(SelectedIndex);
 
             if (SelectedIndex == NEW_INDEX && AppSettings.Instance.EnableTodayRecommendation)
             {

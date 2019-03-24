@@ -17,10 +17,6 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         private int PageIndex { get; set; } = DEFAULT_PAGE_INDEX;
 
-        public event Action<IEnumerable<T>, int> OnLoadIncrementalDataCompleted;
-
-        public event Action<bool> OnHasMoreItemChanged;
-
         private IncrementalLoadingCollection<T> _dataList;
         public IncrementalLoadingCollection<T> DataList
         {
