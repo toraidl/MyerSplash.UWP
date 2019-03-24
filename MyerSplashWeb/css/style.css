@@ -1,7 +1,7 @@
 .t1{
     font-weight: 200;
     color: white;
-    font-size: 40px;
+    font-size: 60px;
     margin-left: 10px;
 }
 
@@ -9,7 +9,7 @@
     font-weight: 700;
     color: white;
     margin-left: -10;
-    font-size: 40px;
+    font-size: 60px;
 }
 
 .div2{
@@ -35,7 +35,6 @@ body{
     padding: 0;
     margin: auto;
     background: white;
-    font-family: Microsoft YaHei;
 }
 .bodyDiv {
     height: auto;
@@ -99,7 +98,6 @@ body{
     margin: 0 auto;
     height: auto;
     font-size: 20px;
-    font-family: Microsoft YaHei;
 }
 
 .contentDiv {
@@ -117,7 +115,6 @@ body{
 .content1 {
     font-size: 25px;
     color: #436998;
-    font-family: Microsoft YaHei;
     width: 500px;
     margin-top: 20px;
     text-align: left;
@@ -153,7 +150,6 @@ body{
 .title {
     font-weight: 700;
     color: #436998;
-    font-family: Microsoft YaHei;
     margin-left: -5;
     margin-top: 30px;
     font-size: 30px;
@@ -190,13 +186,13 @@ body{
         font-size: 16px;
     }
     div.secondDiv{
-     top:-300;   
+     top:-500;   
     }
 } 
 
 @media screen and (max-height:500px){
     div.secondDiv{
-        top:-300;
+        top:-500;
     }
     div.rootDiv{
       height: 600px;
@@ -263,11 +259,12 @@ body{
 .subTitle {
     font-weight: 100;
     color: white;
-    font-family: Microsoft YaHei;
     margin-top: -15;
-    font-size: 18px;
-    opacity: 0.6;
-    
+    font-size: 18px;    
+    max-width: 400;
+    margin-left: auto;
+    font-weight: 100;
+    margin-right: auto;
 }
 
 .a2 {
@@ -293,7 +290,7 @@ body{
     position:absolute;
     height:130px;
     margin:auto;
-    top:-300;
+    top:-500;
     left:0;
     right:0;
     bottom:0;

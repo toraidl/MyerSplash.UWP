@@ -117,6 +117,8 @@ namespace MyerSplash.Common
                 RaisePropertyChanged(() => MainPageBackgroundBrush);
                 RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
 
+                Events.LogCompatMode(value);
+
                 if (value)
                 {
                     ImageMargin = new Thickness(0);
@@ -140,6 +142,9 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(EnableTile), value);
                 RaisePropertyChanged(() => EnableTile);
+
+                Events.LogTile(value);
+
                 if (!value)
                 {
                     LiveTileUpdater.CleanUpTile();
@@ -178,6 +183,8 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(EnableScaleAnimation), value);
                 RaisePropertyChanged(() => EnableScaleAnimation);
+
+                Events.LogScaleAnimation(value);
             }
         }
 
@@ -217,6 +224,9 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(BackgroundWallpaperSource), value);
                 RaisePropertyChanged(() => BackgroundWallpaperSource);
+
+                Events.LogBackgroundWallpapersSource(value);
+
                 switch (value)
                 {
                     case 0:

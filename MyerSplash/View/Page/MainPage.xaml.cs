@@ -3,7 +3,6 @@ using JP.Utils.Data;
 using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.Model;
-using MyerSplash.View.Uc;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
@@ -11,16 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
@@ -115,16 +111,6 @@ namespace MyerSplash.View.Page
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (DeviceHelper.IsDesktop)
-            {
-                //var key = (string)App.Current.Resources["CoachKey"];
-                //if (!LocalSettingHelper.HasValue(key))
-                //{
-                //    LocalSettingHelper.AddValue(key, true);
-                //    await PopupService.Instance.ShowAsync(new TipsControl());
-                //}
-            }
-
             TitleBarHelper.SetUpDarkTitleBar();
         }
 

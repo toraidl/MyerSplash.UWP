@@ -1,6 +1,7 @@
 ﻿using JP.API;
 using JP.Utils.Network;
 using MyerSplashShared.API;
+using MyerSplashShared.Utils;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace MyerSplashShared.Service
         private List<KeyValuePair<string, string>> GetDefaultParam()
         {
             var param = new List<KeyValuePair<string, string>>();
-            param.Add(new KeyValuePair<string, string>("client_id", Request.AppKey));
+            param.Add(new KeyValuePair<string, string>("client_id", Keys.Instance.ClientKey));
             return param;
         }
 

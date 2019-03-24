@@ -8,8 +8,6 @@ namespace MyerSplashShared.API
     {
         public static string HOST => "api.unsplash.com";
 
-        public static string AppKey => "403d9934ce4bb8dbef44765692144e8c6fac6d2698950cb40b07397d6c6635fe";
-
         public static string GetNewImages => $"https://{HOST}/photos?";
 
         public static string SearchImages => $"https://{HOST}/search/photos?";
