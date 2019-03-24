@@ -117,7 +117,10 @@ namespace MyerSplash.Common
                 RaisePropertyChanged(() => MainPageBackgroundBrush);
                 RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
 
-                Events.LogCompatMode(value);
+                if (!_constructing)
+                {
+                    Events.LogCompatMode(value);
+                }
 
                 if (value)
                 {
@@ -277,10 +280,13 @@ namespace MyerSplash.Common
             }
         }
 
+        private bool _constructing = true;
+
         public AppSettings()
         {
             LocalSettings = ApplicationData.Current.LocalSettings;
             EnableCompactMode = EnableCompactMode;
+            _constructing = false;
         }
 
         public void NotifyThemeChanged()
