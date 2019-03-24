@@ -197,7 +197,7 @@ namespace MyerSplash.Model
                 if (_navigateHomeCommand != null) return _navigateHomeCommand;
                 return _navigateHomeCommand = new RelayCommand(async () =>
                 {
-                    if (!string.IsNullOrEmpty(Image.Owner.Links.HomePageUrl))
+                    if (!string.IsNullOrEmpty(Image?.Owner?.Links?.HomePageUrl))
                     {
                         await Launcher.LaunchUriAsync(new Uri(Image.Owner.Links.HomePageUrl));
                     }
@@ -270,7 +270,7 @@ namespace MyerSplash.Model
         {
             get
             {
-                if (Image.IsUnsplash)
+                if (Image.IsUnsplash || Image.Owner.AuthorChanged)
                 {
                     return ResourcesHelper.GetResString("PhotoBy");
                 }
@@ -383,7 +383,46 @@ namespace MyerSplash.Model
 
             BitmapSource.ExpectedFileName = Image.ID + ".jpg";
             BitmapSource.RemoteUrl = url;
-            await BitmapSource.LoadBitmapAsync();
+
+            try
+            {
+                await BitmapSource.LoadBitmapAsync();
+            }
+            catch (Exception e)
+            {
+                Events.LogDownloadError(e, url);
+            }
+        }
+
+        public async Task LoadAuthorInfoAsync()
+        {
+            if (Image.Owner.AuthorChanged)
+            {
+                return;
+            }
+
+            var path = BitmapSource.LocalPath;
+            if (path == null)
+            {
+                return;
+            }
+
+            try
+            {
+                var file = await StorageFile.GetFileFromPathAsync(path);
+                var props = await file.Properties.GetDocumentPropertiesAsync();
+                var author = props.Author.First();
+
+                if (author != null)
+                {
+                    Image.Owner.Name = author;
+                    Image.Owner.AuthorChanged = true;
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
 
         public async Task CheckAndGetDownloadedFileAsync()

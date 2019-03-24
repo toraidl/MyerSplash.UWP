@@ -130,9 +130,9 @@ namespace MyerSplashShared.Utils
             BitmapRef = new WeakReference<BitmapImage>(bitmap);
         }
 
-        public async Task SetImageSourceAsync(StorageFile source)
+        public async Task SetImageSourceAsync(StorageFile file)
         {
-            using (var fs = await source.OpenAsync(FileAccessMode.Read))
+            using (var fs = await file.OpenAsync(FileAccessMode.Read))
             {
                 await SetImageSourceAsync(fs);
             }

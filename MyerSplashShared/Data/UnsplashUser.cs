@@ -4,6 +4,8 @@ namespace MyerSplash.Data
 {
     public class UnsplashUser : ModelBase
     {
+        public bool AuthorChanged { get; set; } = false;
+
         private string _name;
         [JsonProperty("name")]
         public string Name

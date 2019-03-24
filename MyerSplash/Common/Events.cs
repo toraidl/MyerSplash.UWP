@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using System;
 using System.Collections.Generic;
 
 namespace MyerSplash.Common
@@ -92,6 +93,14 @@ namespace MyerSplash.Common
         public static void LogBackgroundWallpapersSource(int source)
         {
             Analytics.TrackEvent("Change background wallpapers source", new Dictionary<string, string> { { "Source", source.ToString() } });
+        }
+
+        public static void LogDownloadError(Exception e, string url)
+        {
+            Analytics.TrackEvent("Download exception", new Dictionary<string, string> {
+                { "Error", e.ToString() },
+                { "Url", url }
+            });
         }
 
         private static void LogSwitch(string name, bool on)

@@ -10,6 +10,10 @@ namespace MyerSplash.Adapter
             if ((args.Item is ImageItem imageItem))
             {
                 await imageItem.TryLoadBitmapAsync();
+                if (imageItem.Image.IsInHighlightList)
+                {
+                    await imageItem.LoadAuthorInfoAsync();
+                }
             }
         }
     }
