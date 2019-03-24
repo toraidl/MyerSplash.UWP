@@ -1,5 +1,7 @@
 # MyerSplash for Windows 10
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/ec18addc-08eb-4bfc-bac9-7f1007b7d0c6/branches/develop/badge)](https://appcenter.ms)
+
 You can search in Windows Store or visit [this](https://www.microsoft.com/en-us/store/p/myersplash/9nblggh4vcsn) to download the MyerSplash app.
 
 ![](./Design/Hero/Hero2.png)
