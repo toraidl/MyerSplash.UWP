@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyerSplash.Common;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -64,14 +65,17 @@ namespace MyerSplashShared.Utils
                                     break;
                                 case 1:
                                     setResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                                    Events.LogSetAsDesktop();
                                     break;
                                 case 2:
                                     setResult = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
+                                    Events.LogSetAsLockscreen();
                                     break;
                                 case 3:
                                     var setDesktopResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
                                     var setLockscreenResult = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
                                     setResult = setDesktopResult && setLockscreenResult;
+                                    Events.LogSetAsBoth();
                                     break;
                             }
                             Debug.WriteLine($"===========TrySetWallpaperImageAsync result{setResult}=============");

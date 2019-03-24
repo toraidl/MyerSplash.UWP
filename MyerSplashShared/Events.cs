@@ -103,6 +103,33 @@ namespace MyerSplash.Common
             });
         }
 
+        public static void LogSetAsBoth()
+        {
+            LogSetAsTarget(0);
+        }
+
+        public static void LogSetAsDesktop()
+        {
+            LogSetAsTarget(1);
+        }
+
+        public static void LogSetAsLockscreen()
+        {
+            LogSetAsTarget(2);
+        }
+
+        private static void LogSetAsTarget(int target)
+        {
+            var targetName = "";
+            switch (target)
+            {
+                case 0: targetName = "Both"; break;
+                case 1: targetName = "Desktop"; break;
+                default: targetName = "Lockscreen"; break;
+            }
+            Analytics.TrackEvent("Set as", new Dictionary<string, string> { { "Target", targetName } });
+        }
+
         private static void LogSwitch(string name, bool on)
         {
             Analytics.TrackEvent(name, new Dictionary<string, string> { { "IsOn", on.ToString() } });

@@ -11,6 +11,8 @@ namespace MyerSplash.Common
     {
         public static async Task SetAsBackgroundAsync(StorageFile savedFile)
         {
+            Events.LogSetAsDesktop();
+
             var uc = new LoadingTextControl() { LoadingText = ResourcesHelper.GetResString("SettingDesktopHint") };
             await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
@@ -30,6 +32,8 @@ namespace MyerSplash.Common
 
         public static async Task SetAsLockscreenAsync(StorageFile savedFile)
         {
+            Events.LogSetAsLockscreen();
+
             var uc = new LoadingTextControl() { LoadingText = ResourcesHelper.GetResString("SettingLockHint") };
             await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
@@ -49,6 +53,8 @@ namespace MyerSplash.Common
 
         public static async Task SetBothAsync(StorageFile savedFile)
         {
+            Events.LogSetAsBoth();
+
             var uc = new LoadingTextControl() { LoadingText = ResourcesHelper.GetResString("SettingDesktopAndLockHint") };
             await PopupService.Instance.ShowAsync(uc, solidBackground: false);
 
