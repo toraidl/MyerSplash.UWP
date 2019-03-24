@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using JP.Utils.Data;
 using JP.Utils.Helper;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
@@ -110,13 +108,10 @@ namespace MyerSplash.View.Page
             }
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             TitleBarHelper.SetUpDarkTitleBar();
-
-            await Keys.Instance.InitializeAsync();
-            AppCenter.Start(Keys.Instance.AppCenterKey, typeof(Analytics));
         }
 
         private async void MainVM_DataUpdated(object sender, EventArgs e)

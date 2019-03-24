@@ -214,6 +214,7 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(() =>
                 {
+                    Events.LogDownloadButtonOnList();
                     var downloaditem = new DownloadItem(this);
                     var task = downloaditem.DownloadFullImageAsync(JP.Utils.Network.CTSFactory.MakeCTS());
                     var task2 = DownloadsVM.AddDownloadingImageAsync(downloaditem);
