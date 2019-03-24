@@ -274,27 +274,6 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(ThemeMode), value);
                 RaisePropertyChanged(() => ThemeMode);
-
-                if (Window.Current.Content is FrameworkElement rootElement)
-                {
-                    ElementTheme theme;
-                    switch (value)
-                    {
-                        case 0:
-                            theme = ElementTheme.Light;
-                            break;
-                        case 1:
-                            theme = ElementTheme.Dark;
-                            break;
-                        default:
-                            theme = ElementTheme.Default;
-                            break;
-                    }
-                    //rootElement.RequestedTheme = theme;
-
-                    // TODO FINISH 
-                    //NotifyThemeChanged();
-                }
             }
         }
 
