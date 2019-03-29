@@ -1,11 +1,9 @@
 ﻿using JP.Utils.Data;
 using JP.Utils.Debug;
-using MyerSplashShared.API;
 using MyerSplashShared.Data;
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -55,10 +53,6 @@ namespace MyerSplashShared.Utils
         [IgnoreDataMember]
         public StorageFile File { get; set; }
 
-        public CachedBitmapSource()
-        {
-        }
-
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -106,18 +100,18 @@ namespace MyerSplashShared.Utils
                 return;
             }
 
-            using (var stream = await FileDownloader.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, 
+            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(this.RemoteUrl,
                 CancellationTokenSourceFactory.CreateDefault().Create().Token))
             {
-                var file = await SaveStreamIntoFileAsync(stream.AsStream(), ExpectedFileName, cachedFolder);
+                var file = await SaveEncodedImageToFileAsync(stream.AsStreamForRead(), ExpectedFileName, cachedFolder);
                 if (file != null)
                 {
                     LocalPath = file.Path;
                     File = file;
                 }
-                stream.Seek(0);
                 if (stream != null && setBitmap)
                 {
+                    stream.Seek(0);
                     await SetImageSourceAsync(stream);
                 }
             }
@@ -138,25 +132,21 @@ namespace MyerSplashShared.Utils
             }
         }
 
-        public void SetBitmap(BitmapImage targetBitmap)
-        {
-            BitmapRef = new WeakReference<BitmapImage>(targetBitmap);
-        }
-
         private string GenerateRandomFileName()
         {
             return DateTime.Now.ToFileTime().ToString() + ".jpg";
         }
 
-        private async Task<StorageFile> SaveStreamIntoFileAsync(Stream stream, string expectedFileName,
+        private async Task<StorageFile> SaveEncodedImageToFileAsync(Stream stream, string expectedFileName,
             StorageFolder destinationFolder)
         {
             try
             {
                 var file = await destinationFolder.CreateFileAsync(expectedFileName, CreationCollisionOption.ReplaceExisting);
-                var bytes = new byte[stream.Length];
-                await stream.ReadAsync(bytes, 0, (int)stream.Length);
-                await FileIO.WriteBytesAsync(file, bytes);
+                using (var fileStream = await file.OpenStreamForWriteAsync())
+                {
+                    await stream.AsInputStream().AsStreamForRead().CopyToAsync(fileStream);
+                }
                 return file;
             }
             catch (Exception e)

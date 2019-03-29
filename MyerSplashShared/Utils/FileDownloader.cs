@@ -1,42 +1,16 @@
-﻿using MyerSplashShared.API;
-using MyerSplashShared.Data;
+﻿using MyerSplashShared.Data;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.Storage.Streams;
 
 namespace MyerSplashShared.Utils
 {
-    public static class FileDownloader
+    public static class ImageDownloader
     {
-        public static async Task<bool> GetStreamFromUrlAsync(string url,
-              CancellationToken? token, StorageFile file)
-        {
-            if (string.IsNullOrEmpty(url)) throw new UriFormatException("The url is null or empty.");
-
-            using (var client = new HttpClient())
-            {
-                if (token == null) token = CancellationTokenSourceFactory.CreateDefault().Create().Token;
-
-                using (var fs = await file.OpenStreamForWriteAsync())
-                {
-                    var resp = await client.GetAsync(new Uri(url), HttpCompletionOption.ResponseHeadersRead, token.Value);
-                    var stream = await resp.Content.ReadAsStreamAsync();
-
-                    await stream.CopyToAsync(fs);
-
-                    stream.Dispose();
-                }
-
-                return true;
-            }
-        }
-
-        public static async Task<IRandomAccessStream> GetIRandomAccessStreamFromUrlAsync(string url,
-            CancellationToken? token)
+        public static async Task<IRandomAccessStream> GetEncodedImageFromUrlAsync(string url, CancellationToken? token)
         {
             if (string.IsNullOrEmpty(url)) throw new UriFormatException("The url is null or empty.");
 
@@ -63,7 +37,7 @@ namespace MyerSplashShared.Utils
 
         public static async Task<IRandomAccessStream> GetIRandomAccessStreamFromUrlAsync(string url)
         {
-            return await GetIRandomAccessStreamFromUrlAsync(url, null);
+            return await GetEncodedImageFromUrlAsync(url, null);
         }
     }
 }
