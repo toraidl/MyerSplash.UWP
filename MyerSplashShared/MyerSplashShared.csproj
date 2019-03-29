@@ -110,11 +110,13 @@
     <Compile Include="Data\DiagnosisResult.cs" />
     <Compile Include="Data\UnsplashLinks.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Image\CacheKeyFactory.cs" />
+    <Compile Include="Image\ICacheKeyFactory.cs" />
     <Compile Include="Service\CloudService.cs" />
     <Compile Include="API\Request.cs" />
     <Compile Include="Service\HighlightImageService.cs" />
-    <Compile Include="Utils\CachedBitmapSource.cs" />
-    <Compile Include="Utils\CacheUtil.cs" />
+    <Compile Include="Image\CachedBitmapSource.cs" />
+    <Compile Include="Image\DefaultCacheKeyFactory.cs" />
     <Compile Include="Data\ImageExif.cs" />
     <Compile Include="Data\ImageLocation.cs" />
     <Compile Include="Data\Links.cs" />
@@ -131,8 +133,10 @@
     <Compile Include="Service\IService.cs" />
     <Compile Include="Service\RandomImageService.cs" />
     <Compile Include="Service\SearchImageService.cs" />
+    <Compile Include="Image\DiskCacheSupplier.cs" />
     <Compile Include="Utils\Extension.cs" />
-    <Compile Include="Utils\FileDownloader.cs" />
+    <Compile Include="Image\ICacheSupplier.cs" />
+    <Compile Include="Image\ImageDownloader.cs" />
     <Compile Include="Utils\Keys.cs" />
     <Compile Include="Utils\LiveTileUpdater.cs" />
     <Compile Include="Utils\DeviceUtil.cs" />

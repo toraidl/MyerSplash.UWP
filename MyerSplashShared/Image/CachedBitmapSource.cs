@@ -1,8 +1,8 @@
-﻿using JP.Utils.Data;
-using JP.Utils.Debug;
+﻿using JP.Utils.Debug;
 using MyerSplashShared.Data;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace MyerSplashShared.Utils
+namespace MyerSplashShared.Image
 {
     public class CachedBitmapSource : INotifyPropertyChanged
     {
@@ -46,12 +46,8 @@ namespace MyerSplashShared.Utils
 
         public string RemoteUrl { get; set; }
 
-        public string LocalPath { get; set; }
-
-        public string ExpectedFileName { get; set; }
-
-        [IgnoreDataMember]
-        public StorageFile File { get; set; }
+        private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
+        private readonly ICacheKeyFactory _cacheKeyFactory = CacheKeyFactory.GetDefault();
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -60,55 +56,26 @@ namespace MyerSplashShared.Utils
 
         public async Task LoadBitmapAsync(bool setBitmap = true)
         {
-            if (!string.IsNullOrEmpty(LocalPath))
-            {
-                try
-                {
-                    var file = await StorageFile.GetFileFromPathAsync(LocalPath);
-                    await SetImageSourceAsync(file as StorageFile);
-                    return;
-                }
-                catch (FileNotFoundException)
-                {
-                }
-            }
-            await DownloadFromRemoteUrlAsync(setBitmap);
-        }
-
-        private async Task DownloadFromRemoteUrlAsync(bool setBitmap = true)
-        {
-            var cachedFolder = ApplicationData.Current.TemporaryFolder;
-
-            if (!string.IsNullOrEmpty(ExpectedFileName))
-            {
-                var file = await cachedFolder.TryGetFileAsync(ExpectedFileName);
-                if (file != null)
-                {
-                    LocalPath = file.Path;
-                    File = file;
-                    await SetImageSourceAsync(file);
-                    return;
-                }
-            }
-            else
-            {
-                ExpectedFileName = GenerateRandomFileName();
-            }
-
             if (string.IsNullOrEmpty(RemoteUrl))
             {
                 return;
             }
 
-            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(this.RemoteUrl,
+            var cacheKey = _cacheKeyFactory.ProvideKey(RemoteUrl);
+            var file = await _cacheSupplier.TryGetCacheAsync(cacheKey);
+            if (file != null)
+            {
+                Debug.WriteLine($"====Find cache file: {cacheKey}");
+                await SetImageSourceAsync(file);
+                return;
+            }
+
+            Debug.WriteLine($"====Download file for: {cacheKey}");
+
+            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(RemoteUrl,
                 CancellationTokenSourceFactory.CreateDefault().Create().Token))
             {
-                var file = await SaveEncodedImageToFileAsync(stream.AsStreamForRead(), ExpectedFileName, cachedFolder);
-                if (file != null)
-                {
-                    LocalPath = file.Path;
-                    File = file;
-                }
+                var savedFile = await SaveEncodedImageToFileAsync(stream.AsStreamForRead());
                 if (stream != null && setBitmap)
                 {
                     stream.Seek(0);
@@ -117,14 +84,14 @@ namespace MyerSplashShared.Utils
             }
         }
 
-        public async Task SetImageSourceAsync(IRandomAccessStream source)
+        private async Task SetImageSourceAsync(IRandomAccessStream source)
         {
             var bitmap = new BitmapImage();
             await bitmap.SetSourceAsync(source);
             BitmapRef = new WeakReference<BitmapImage>(bitmap);
         }
 
-        public async Task SetImageSourceAsync(StorageFile file)
+        private async Task SetImageSourceAsync(StorageFile file)
         {
             using (var fs = await file.OpenAsync(FileAccessMode.Read))
             {
@@ -132,17 +99,13 @@ namespace MyerSplashShared.Utils
             }
         }
 
-        private string GenerateRandomFileName()
-        {
-            return DateTime.Now.ToFileTime().ToString() + ".jpg";
-        }
-
-        private async Task<StorageFile> SaveEncodedImageToFileAsync(Stream stream, string expectedFileName,
-            StorageFolder destinationFolder)
+        private async Task<StorageFile> SaveEncodedImageToFileAsync(Stream stream)
         {
             try
             {
-                var file = await destinationFolder.CreateFileAsync(expectedFileName, CreationCollisionOption.ReplaceExisting);
+                var cacheKey = _cacheKeyFactory.ProvideKey(RemoteUrl);
+
+                var file = await _cacheSupplier.GetFileToSaveAsync(cacheKey);
                 using (var fileStream = await file.OpenStreamForWriteAsync())
                 {
                     await stream.AsInputStream().AsStreamForRead().CopyToAsync(fileStream);

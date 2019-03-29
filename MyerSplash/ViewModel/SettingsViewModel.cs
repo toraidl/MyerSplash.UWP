@@ -3,17 +3,18 @@ using GalaSoft.MvvmLight.Command;
 using MyerSplash.Common;
 using MyerSplash.View.Uc;
 using MyerSplashCustomControl;
-using MyerSplashShared.Utils;
+using MyerSplashShared.Image;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
-using Windows.Storage;
 using Windows.System;
 
 namespace MyerSplash.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
+
         private RelayCommand _backgroundWallpaperHelpCommand;
         public RelayCommand BackgroundWallpaperHelpCommand
         {
@@ -127,7 +128,7 @@ namespace MyerSplash.ViewModel
         {
             CacheHint = ResourcesHelper.GetResString("CalculatingCache");
             ClearCacheCommandEnabled = false;
-            var size = await CalculateCacheAsync();
+            var size = await _cacheSupplier.GetSizeAsync();
 
             var sizeFormatted = (size / (1024 * 1024)).ToString("f0");
             CacheHint = ResourcesHelper.GetFormattedResString("CleanUpContent", sizeFormatted);
@@ -153,46 +154,13 @@ namespace MyerSplash.ViewModel
             ToastService.SendToast(ResourcesHelper.GetResString("TempFilesCleaned"));
         }
 
-        private Task<ulong> CalculateCacheAsync()
-        {
-            return Task.Run(async () =>
-            {
-                ulong size = 0;
-                var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
-                foreach (var file in tempFiles)
-                {
-                    var properties = await file.GetBasicPropertiesAsync();
-                    size += properties.Size;
-                }
-                return size;
-            });
-        }
-
         private async Task ClearCacheAsync()
         {
             ClearCacheCommandEnabled = false;
             CacheHint = ResourceLoader.GetForCurrentView().GetString("Cleaning");
-            await DoCleanUpAsync();
+            await _cacheSupplier.ClearAsync();
             ToastService.SendToast(ResourcesHelper.GetResString("TempFilesCleaned"), TimeSpan.FromMilliseconds(1000));
             await UpdateCacheSizeUIAsync();
-        }
-
-        private Task DoCleanUpAsync()
-        {
-            return Task.Run(async () =>
-            {
-                var localFiles = await CacheUtil.GetCachedFileFolder().GetItemsAsync();
-                foreach (var file in localFiles)
-                {
-                    await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                }
-
-                var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
-                foreach (var file in tempFiles)
-                {
-                    await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                }
-            });
         }
     }
 }

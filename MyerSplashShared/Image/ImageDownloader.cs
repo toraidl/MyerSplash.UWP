@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
-namespace MyerSplashShared.Utils
+namespace MyerSplashShared.Image
 {
     public static class ImageDownloader
     {
