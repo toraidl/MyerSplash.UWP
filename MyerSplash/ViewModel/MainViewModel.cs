@@ -22,6 +22,9 @@ using MyerSplashShared.Data;
 using Windows.ApplicationModel.Resources;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter;
+using MyerSplash.View.Uc;
+using MyerSplashCustomControl;
+using JP.Utils.Data;
 
 namespace MyerSplash.ViewModel
 {
@@ -651,6 +654,18 @@ namespace MyerSplash.ViewModel
         {
             var task = HandleLaunchArg(param as string);
             var task2 = UpdateLiveTileAsync();
+            var task3 = ShowFeatureDialogAsync();
+        }
+
+        private async Task ShowFeatureDialogAsync()
+        {
+            if (!LocalSettingHelper.HasValue("feature_light"))
+            {
+                LocalSettingHelper.AddValue("feature_light", true);
+                await Task.Delay(1000);
+                var uc = new TipsControl();
+                await PopupService.Instance.ShowAsync(uc);
+            }
         }
 
         private async Task UpdateLiveTileAsync()

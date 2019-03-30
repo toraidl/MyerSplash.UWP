@@ -420,4 +420,10 @@
   <data name="RequestTimeout" xml:space="preserve">
     <value>Request timeout</value>
   </data>
+  <data name="FeatureTitle.Text" xml:space="preserve">
+    <value>⚡ FEATURES</value>
+  </data>
+  <data name="FeatureContent.Text" xml:space="preserve">
+    <value>Support following system theme</value>
+  </data>
 </root>
