@@ -2,16 +2,14 @@
     x:Class="MyerSplash.View.Uc.TipsControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="400"
     Height="320"
     d:DesignHeight="320"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid cu:Background="{StaticResource AppBackgroundBrushDark}" fcu:Background="{StaticResource CustomAcrylicInAppBrush}">
+    <Grid Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -30,7 +28,7 @@
                     Margin="12"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="16"
-                    Foreground="White"
+                    Foreground="{ThemeResource SystemBaseHighColor}"
                     Glyph="&#xE106;" />
             </Button>
             <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
@@ -50,7 +48,10 @@
             Grid.Row="1"
             Margin="12,0,12,0"
             VerticalAlignment="Top">
-            <TextBlock x:Uid="FeatureContent" Text="Support following system theme" />
+            <TextBlock
+                x:Uid="FeatureContent"
+                Foreground="{ThemeResource SystemBaseHighColor}"
+                Text="Support following system theme" />
             <Image Margin="0,12,0,0" Source="/Assets/Image/prom.png" />
         </StackPanel>
     </Grid>
