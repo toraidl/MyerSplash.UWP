@@ -150,9 +150,6 @@
     <Compile Include="View\Uc\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Uc\Dialog\BackgroundHintDialog.xaml.cs">
-      <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Uc\Dialog\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
     </Compile>
@@ -312,10 +309,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Uc\AboutControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\Dialog\BackgroundHintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,20 +15,6 @@ namespace MyerSplash.ViewModel
     {
         private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
 
-        private RelayCommand _backgroundWallpaperHelpCommand;
-        public RelayCommand BackgroundWallpaperHelpCommand
-        {
-            get
-            {
-                if (_backgroundWallpaperHelpCommand != null) return _backgroundWallpaperHelpCommand;
-                return _backgroundWallpaperHelpCommand = new RelayCommand(async () =>
-                  {
-                      var uc = new BackgroundHintDialog();
-                      await PopupService.Instance.ShowAsync(uc);
-                  });
-            }
-        }
-
         private RelayCommand _diagnoseCommand;
         public RelayCommand DiagnoseCommand
         {
