@@ -424,4 +424,10 @@
   <data name="RequestTimeout" xml:space="preserve">
     <value>请求超时</value>
   </data>
+  <data name="FeatureTitle.Text" xml:space="preserve">
+    <value>⚡ 新功能</value>
+  </data>
+  <data name="FeatureContent.Text" xml:space="preserve">
+    <value>现在 MyerSplash 支持跟随系统切换主题了</value>
+  </data>
 </root>

@@ -1,11 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
+using MyerSplashShared.Image;
 using System;
 using System.Numerics;
+using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -43,6 +44,9 @@ namespace MyerSplash.View.Uc
         private ScrollViewer _scrollViewer;
         private GridViewItem _tappedContainer;
 
+        private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
+        private readonly ICacheKeyFactory _cacheKeyFactory = CacheKeyFactory.GetDefault();
+
         public double ScrollingPosition
         {
             get
@@ -78,20 +82,20 @@ namespace MyerSplash.View.Uc
             this._listVisual = ImageGridView.GetVisual();
         }
 
-        private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as ImageItem;
-            TapItem(item);
+            await TapItemAsync(item);
         }
 
-        private bool CheckListImageDownloaded(ImageItem image)
+        private async Task<bool> CheckListImageDownloadedAsync(ImageItem image)
         {
-            return !string.IsNullOrEmpty(image.BitmapSource.LocalPath);
+            return await _cacheSupplier.CheckCacheExistAsync(_cacheKeyFactory.ProvideKey(image.LoadingUrl));
         }
 
-        private void TapItem(ImageItem image)
+        private async Task TapItemAsync(ImageItem image)
         {
-            if (!CheckListImageDownloaded(image))
+            if (!(await CheckListImageDownloadedAsync(image)))
             {
                 return;
             }
@@ -162,7 +166,7 @@ namespace MyerSplash.View.Uc
             ToggleItemPointOverAnimation(maskBorder, img, false);
         }
 
-        private void RootGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        private async void RootGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerDeviceType == PointerDeviceType.Touch)
             {
@@ -182,7 +186,7 @@ namespace MyerSplash.View.Uc
             {
                 btn.Visibility = Visibility.Visible;
             }
-            if (!CheckListImageDownloaded(unsplashImage))
+            if (!await CheckListImageDownloadedAsync(unsplashImage))
             {
                 btn.Visibility = Visibility.Collapsed;
             }
@@ -271,10 +275,10 @@ namespace MyerSplash.View.Uc
             LoadingControl.Stop();
         }
 
-        private void RootGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void RootGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var image = (sender as FrameworkElement).DataContext as ImageItem;
-            TapItem(image);
+            await TapItemAsync(image);
         }
 
         private void DownloadBtn_Tapped(object sender, TappedRoutedEventArgs e)

@@ -100,6 +100,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Image\prom.png" />
     <Content Include="Assets\Json\keys.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -148,9 +149,6 @@
     <Compile Include="Model\ImageItem.cs" />
     <Compile Include="View\Uc\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Uc\Dialog\BackgroundHintDialog.xaml.cs">
-      <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Uc\Dialog\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
@@ -221,7 +219,6 @@
   <ItemGroup>
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
-    <Content Include="Assets\Image\Noise.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
@@ -312,10 +309,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Uc\AboutControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Uc\Dialog\BackgroundHintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

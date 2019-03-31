@@ -12,8 +12,10 @@ namespace MyerSplashShared.Service
     {
         private List<KeyValuePair<string, string>> GetDefaultParam()
         {
-            var param = new List<KeyValuePair<string, string>>();
-            param.Add(new KeyValuePair<string, string>("client_id", Keys.Instance.ClientKey));
+            var param = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("client_id", Keys.Instance.ClientKey)
+            };
             return param;
         }
 
