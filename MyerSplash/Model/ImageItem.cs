@@ -6,8 +6,8 @@ using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Data;
+using MyerSplashShared.Image;
 using MyerSplashShared.Service;
-using MyerSplashShared.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -197,7 +197,7 @@ namespace MyerSplash.Model
                 if (_navigateHomeCommand != null) return _navigateHomeCommand;
                 return _navigateHomeCommand = new RelayCommand(async () =>
                 {
-                    if (!string.IsNullOrEmpty(Image.Owner.Links.HomePageUrl))
+                    if (!string.IsNullOrEmpty(Image?.Owner?.Links?.HomePageUrl))
                     {
                         await Launcher.LaunchUriAsync(new Uri(Image.Owner.Links.HomePageUrl));
                     }
@@ -270,7 +270,7 @@ namespace MyerSplash.Model
         {
             get
             {
-                if (Image.IsUnsplash)
+                if (Image.IsUnsplash || Image.Owner.AuthorChanged)
                 {
                     return ResourcesHelper.GetResString("PhotoBy");
                 }
@@ -357,7 +357,8 @@ namespace MyerSplash.Model
 
             requestData.SetText(ShareText);
 
-            var file = await StorageFile.GetFileFromPathAsync(BitmapSource.LocalPath);
+            var cachekey = _cacheKeyFactory.ProvideKey(LoadingUrl);
+            var file = await _cacheSupplier.TryGetCacheAsync(cachekey);
             if (file != null)
             {
                 List<IStorageItem> imageItems = new List<IStorageItem>
@@ -375,15 +376,56 @@ namespace MyerSplash.Model
         public async Task TryLoadBitmapAsync()
         {
             if (BitmapSource.Bitmap != null) return;
-            var url = GetUrlFromSettings();
+            var url = LoadingUrl;
 
             if (string.IsNullOrEmpty(url)) return;
 
             var task = CheckAndGetDownloadedFileAsync();
 
-            BitmapSource.ExpectedFileName = Image.ID + ".jpg";
             BitmapSource.RemoteUrl = url;
-            await BitmapSource.LoadBitmapAsync();
+
+            try
+            {
+                await BitmapSource.LoadBitmapAsync();
+            }
+            catch (Exception e)
+            {
+                Events.LogDownloadError(e, url);
+            }
+        }
+
+        private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
+        private readonly ICacheKeyFactory _cacheKeyFactory = CacheKeyFactory.GetDefault();
+
+        public async Task LoadAuthorInfoAsync()
+        {
+            if (Image.Owner.AuthorChanged)
+            {
+                return;
+            }
+
+            var cachekey = _cacheKeyFactory.ProvideKey(LoadingUrl);
+            var cached = await _cacheSupplier.TryGetCacheAsync(cachekey);
+            if (cached == null)
+            {
+                return;
+            }
+
+            try
+            {
+                var props = await cached.Properties.GetDocumentPropertiesAsync();
+                var author = props.Author.FirstOrDefault();
+
+                if (author != null)
+                {
+                    Image.Owner.Name = author;
+                    Image.Owner.AuthorChanged = true;
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
 
         public async Task CheckAndGetDownloadedFileAsync()
@@ -404,15 +446,18 @@ namespace MyerSplash.Model
             }
         }
 
-        public string GetUrlFromSettings()
+        public string LoadingUrl
         {
-            var quality = App.AppSettings.LoadQuality;
-            switch (quality)
+            get
             {
-                case 0: return Image.Urls.Regular;
-                case 1: return Image.Urls.Small;
-                case 2: return Image.Urls.Thumb;
-                default: return "";
+                var quality = App.AppSettings.LoadQuality;
+                switch (quality)
+                {
+                    case 0: return Image.Urls.Regular;
+                    case 1: return Image.Urls.Small;
+                    case 2: return Image.Urls.Thumb;
+                    default: return "";
+                }
             }
         }
 

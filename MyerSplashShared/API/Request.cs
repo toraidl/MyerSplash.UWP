@@ -1,12 +1,14 @@
-﻿using JP.Utils.Data;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Web;
 
 namespace MyerSplashShared.API
 {
     public static class Request
     {
         public static string HOST => "api.unsplash.com";
+
+        public static string JP_HOST => "juniperphoton.dev";
 
         public static string GetNewImages => $"https://{HOST}/photos?";
 
@@ -20,33 +22,19 @@ namespace MyerSplashShared.API
 
         public static string GetImageDetail => $"https://{HOST}/photos/";
 
-        public static string GetTodayWallpaper => "https://juniperphoton.net/myersplash/wallpapers";
+        public static string GetTodayWallpaper => $"https://{JP_HOST}/myersplash/wallpapers";
 
-        public static string GetTodayThumbWallpaper => "https://juniperphoton.net/myersplash/wallpapers/thumbs";
+        public static string GetTodayThumbWallpaper => $"https://{JP_HOST}/myersplash/wallpapers/thumbs";
 
         public static string AppendParamsToUrl(string baseUrl, List<KeyValuePair<string, string>> paramList)
         {
-            if (!baseUrl.EndsWith("?"))
-            {
-                baseUrl = baseUrl + "?";
-            }
-            StringBuilder sb = new StringBuilder(baseUrl);
-            foreach (var item in paramList)
-            {
-                sb.Append(item.Key + "=" + item.Value + "&");
-            }
-            return sb.ToString();
-        }
+            var builder = new UriBuilder(baseUrl);
 
-        public static string AppendParamsToUrl(string baseUrl, bool withAuth)
-        {
-            StringBuilder sb = new StringBuilder(baseUrl);
-            if (withAuth)
-            {
-                sb.Append("&uid=" + LocalSettingHelper.GetValue("uid"));
-                sb.Append("&access_token=" + LocalSettingHelper.GetValue("access_token"));
-            }
-            return sb.ToString();
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            paramList.ForEach(e => query.Add(e.Key, e.Value));
+            builder.Query = query.ToString();
+
+            return builder.Uri.ToString();
         }
     }
 }

@@ -142,34 +142,25 @@
                             Text="Open the folder wallpapers are saved into" />
                     </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
-                        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-                            <TextBlock
-                                x:Uid="AutoChangeTitle"
-                                Margin="12,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource SettingItemTextBlockStyle}"
-                                Text="Auto-change wallpaper in background every day" />
-                            <Button
-                                Margin="12,0,0,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}"
-                                Style="{StaticResource ButtonCommonStyle}">
-                                <Grid>
-                                    <Ellipse
-                                        Width="20"
-                                        Height="20"
-                                        Fill="#FF454545" />
-                                    <FontIcon
-                                        FontFamily="Segoe MDL2 Assets"
-                                        FontSize="10"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Glyph="&#xE11B;" />
-                                </Grid>
-                            </Button>
-                        </StackPanel>
-                        <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=BackgroundWallpaperSource, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
+                        <TextBlock
+                            x:Uid="AutoChangeTitle"
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SettingItemTextBlockStyle}"
+                            Text="Auto-change wallpaper in background every day" />
+                        <TextBlock
+                            x:Uid="BackgroundHintContent"
+                            Margin="12"
+                            FontFamily="Segoe UI"
+                            Foreground="{ThemeResource SystemBaseHighColor}"
+                            Opacity="0.5"
+                            Style="{StaticResource SettingItemTextBlockStyle}"
+                            Text="Change your wallpaper automatically in background every day. Most wallpapers are from Unsplash and some of them are taken by myself :P"
+                            TextWrapping="Wrap" />
+                        <ComboBox
+                            Margin="12,0,12,0"
+                            SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=BackgroundWallpaperSource, Mode=TwoWay}"
+                            Style="{StaticResource SettingItemComboBoxStyle}">
                             <ComboBoxItem
                                 x:Uid="AutoChangeComboBoxDisable"
                                 Content="Disable"
