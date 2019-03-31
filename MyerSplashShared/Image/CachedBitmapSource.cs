@@ -72,8 +72,9 @@ namespace MyerSplashShared.Image
 
             Debug.WriteLine($"====Download file for: {cacheKey}");
 
-            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(RemoteUrl,
-                CancellationTokenSourceFactory.CreateDefault().Create().Token))
+            var token = CancellationTokenSourceFactory.CreateDefault(ImageDownloader.TIMEOUT_MILLIS).Create().Token;
+
+            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(RemoteUrl, token))
             {
                 var savedFile = await SaveEncodedImageToFileAsync(stream.AsStreamForRead());
                 if (stream != null && setBitmap)

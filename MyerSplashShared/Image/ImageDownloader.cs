@@ -10,13 +10,15 @@ namespace MyerSplashShared.Image
 {
     public static class ImageDownloader
     {
+        public static int TIMEOUT_MILLIS => 30_000;
+
         public static async Task<IRandomAccessStream> GetEncodedImageFromUrlAsync(string url, CancellationToken? token)
         {
             if (string.IsNullOrEmpty(url)) throw new UriFormatException("The url is null or empty.");
 
             using (var client = new HttpClient())
             {
-                if (token == null) token = CancellationTokenSourceFactory.CreateDefault(15000).Create().Token;
+                if (token == null) token = CancellationTokenSourceFactory.CreateDefault(TIMEOUT_MILLIS).Create().Token;
 
                 var downloadTask = client.GetAsync(new Uri(url), token.Value);
 
