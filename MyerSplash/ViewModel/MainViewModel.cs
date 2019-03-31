@@ -25,6 +25,7 @@ using Microsoft.AppCenter;
 using MyerSplash.View.Uc;
 using MyerSplashCustomControl;
 using JP.Utils.Data;
+using Microsoft.AppCenter.Push;
 
 namespace MyerSplash.ViewModel
 {
@@ -723,7 +724,7 @@ namespace MyerSplash.ViewModel
         private async Task InitAsync()
         {
             await Keys.Instance.InitializeAsync();
-            AppCenter.Start(Keys.Instance.AppCenterKey, typeof(Analytics));
+            AppCenter.Start(Keys.Instance.AppCenterKey, typeof(Analytics), typeof(Push));
         }
 
         private async Task InitOnLoadedAsync()
