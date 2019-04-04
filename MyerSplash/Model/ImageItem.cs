@@ -11,6 +11,7 @@ using MyerSplashShared.Service;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -316,6 +317,9 @@ namespace MyerSplash.Model
         private ImageService _service = new ImageService(null, new UnsplashImageFactory(false),
             CancellationTokenSourceFactory.CreateDefault());
 
+        private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
+        private readonly ICacheKeyFactory _cacheKeyFactory = CacheKeyFactory.GetDefault();
+
         public ImageItem()
         {
             BitmapSource = new CachedBitmapSource();
@@ -383,20 +387,19 @@ namespace MyerSplash.Model
 
             BitmapSource.RemoteUrl = url;
 
-            long startTime = DateTime.Now.Millisecond;
+            var watch = Stopwatch.StartNew();
             try
             {
                 await BitmapSource.LoadBitmapAsync();
-                Events.LogDownloadSuccess(DateTime.Now.Millisecond - startTime);
+                watch.Stop();
+                Events.LogDownloadSuccess(watch.ElapsedMilliseconds);
             }
             catch (Exception e)
             {
-                Events.LogDownloadError(e, url, DateTime.Now.Millisecond - startTime);
+                watch.Stop();
+                Events.LogDownloadError(e, url, watch.ElapsedMilliseconds);
             }
         }
-
-        private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
-        private readonly ICacheKeyFactory _cacheKeyFactory = CacheKeyFactory.GetDefault();
 
         public async Task LoadAuthorInfoAsync()
         {

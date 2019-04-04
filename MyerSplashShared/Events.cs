@@ -106,7 +106,7 @@ namespace MyerSplash.Common
 
         public static void LogDownloadSuccess(long durationMs)
         {
-            Analytics.TrackEvent("Download exception", new Dictionary<string, string> {
+            Analytics.TrackEvent("Download success", new Dictionary<string, string> {
                 { "DurationMillis", durationMs.ToString()}
             });
         }
