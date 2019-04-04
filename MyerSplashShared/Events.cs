@@ -95,11 +95,19 @@ namespace MyerSplash.Common
             Analytics.TrackEvent("Change background wallpapers source", new Dictionary<string, string> { { "Source", source.ToString() } });
         }
 
-        public static void LogDownloadError(Exception e, string url)
+        public static void LogDownloadError(Exception e, string url, long durationMs)
         {
             Analytics.TrackEvent("Download exception", new Dictionary<string, string> {
                 { "Error", e.ToString() },
-                { "Url", url }
+                { "Url", url },
+                { "DurationMillis", durationMs.ToString()}
+            });
+        }
+
+        public static void LogDownloadSuccess(long durationMs)
+        {
+            Analytics.TrackEvent("Download exception", new Dictionary<string, string> {
+                { "DurationMillis", durationMs.ToString()}
             });
         }
 

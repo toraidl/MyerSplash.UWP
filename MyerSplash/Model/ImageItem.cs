@@ -379,18 +379,19 @@ namespace MyerSplash.Model
             var url = LoadingUrl;
 
             if (string.IsNullOrEmpty(url)) return;
-
-            var task = CheckAndGetDownloadedFileAsync();
+            _ = CheckAndGetDownloadedFileAsync();
 
             BitmapSource.RemoteUrl = url;
 
+            long startTime = DateTime.Now.Millisecond;
             try
             {
                 await BitmapSource.LoadBitmapAsync();
+                Events.LogDownloadSuccess(DateTime.Now.Millisecond - startTime);
             }
             catch (Exception e)
             {
-                Events.LogDownloadError(e, url);
+                Events.LogDownloadError(e, url, DateTime.Now.Millisecond - startTime);
             }
         }
 
