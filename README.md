@@ -4,7 +4,7 @@
 
 You can search in Windows Store or visit [this](https://www.microsoft.com/en-us/store/p/myersplash/9nblggh4vcsn) to download the MyerSplash app.
 
-![](./Design/Hero/Hero2.png)
+![](./assets/hero.png)
 
 ## Introduction
 An UWP app that allows you to browse and download high-quality wallpaper from Unsplash.com.
