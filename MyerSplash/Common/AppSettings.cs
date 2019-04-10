@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using MyerSplash.ViewModel;
+using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
+using Windows.Globalization;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -264,6 +266,21 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(SaveQuality), value);
                 RaisePropertyChanged(() => SaveQuality);
+            }
+        }
+
+        public int Language
+        {
+            get
+            {
+                return ReadSettings(nameof(Language), 0);
+            }
+            set
+            {
+                SaveSettings(nameof(Language), value);
+                RaisePropertyChanged(() => Language);
+                ApplicationLanguages.PrimaryLanguageOverride = value == 1 ? "zh-CN" : "en-US";
+                ToastService.SendToast(ResourcesHelper.GetResString("RestartHint"));
             }
         }
 

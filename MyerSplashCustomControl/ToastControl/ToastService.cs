@@ -10,6 +10,33 @@ namespace MyerSplashCustomControl
 {
     public class ToastService : Control
     {
+        public static void SendToast(string text)
+        {
+            ToastService ts = new ToastService(text);
+            if (ts._prepared)
+            {
+                _ = ts.ShowAsync();
+            }
+        }
+
+        public static void SendToast(string text, TimeSpan time)
+        {
+            ToastService ts = new ToastService(text, time);
+            if (ts._prepared)
+            {
+                _ = ts.ShowAsync();
+            }
+        }
+
+        public static void SendToast(string text, int timeInMill)
+        {
+            ToastService ts = new ToastService(text, TimeSpan.FromMilliseconds(timeInMill));
+            if (ts._prepared)
+            {
+                _ = ts.ShowAsync();
+            }
+        }
+
         #region DependencyProperty
 
         public string ContentText
@@ -46,7 +73,7 @@ namespace MyerSplashCustomControl
             }
         }
 
-        private string _tempText;
+        private readonly string _tempText;
 
         private Grid _rootGrid;
         private TextBlock _contentTB;
@@ -54,13 +81,20 @@ namespace MyerSplashCustomControl
         private Storyboard _hideStory;
 
         //Use popup to show the control
-        private Popup _currentPopup;
+        private readonly Popup _currentPopup;
 
         //Provide the method to solve getting Storyboard before OnApplyTemplate() execute problem.
-        private TaskCompletionSource<int> _tcs;
+        private readonly TaskCompletionSource<int> _tcs;
+
+        private bool _prepared;
 
         private ToastService()
         {
+            if (CurrentPage == null)
+            {
+                return;
+            }
+
             DefaultStyleKey = (typeof(ToastService));
 
             if (!DesignMode.DesignModeEnabled)
@@ -69,8 +103,10 @@ namespace MyerSplashCustomControl
 
                 if (_currentPopup == null)
                 {
-                    _currentPopup = new Popup();
-                    _currentPopup.VerticalAlignment = VerticalAlignment.Stretch;
+                    _currentPopup = new Popup
+                    {
+                        VerticalAlignment = VerticalAlignment.Stretch
+                    };
 
                     this.Width = Window.Current.Bounds.Width;
                     this.Height = Window.Current.Bounds.Height;
@@ -80,8 +116,8 @@ namespace MyerSplashCustomControl
                 }
             }
 
-            CurrentPage.SizeChanged -= Page_SizeChanged;
             CurrentPage.SizeChanged += Page_SizeChanged;
+            _prepared = true;
         }
 
         private ToastService(string text) : this()
@@ -95,27 +131,9 @@ namespace MyerSplashCustomControl
             HideTimeSpan = time;
         }
 
-        public static void SendToast(string text)
-        {
-            ToastService ts = new ToastService(text);
-            var task = ts.ShowAsync();
-        }
-
-        public static void SendToast(string text, TimeSpan time)
-        {
-            ToastService ts = new ToastService(text, time);
-            var task = ts.ShowAsync();
-        }
-
-        public static void SendToast(string text, int timeInMill)
-        {
-            ToastService ts = new ToastService(text, TimeSpan.FromMilliseconds(timeInMill));
-            var task = ts.ShowAsync();
-        }
-
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var task = UpdateSize();
+            _ = UpdateSize();
         }
 
         private async Task UpdateSize()
@@ -130,11 +148,11 @@ namespace MyerSplashCustomControl
             base.OnApplyTemplate();
             if (!DesignMode.DesignModeEnabled)
             {
-                InitialPane();
+                InitPane();
             }
         }
 
-        private void InitialPane()
+        private void InitPane()
         {
             _contentTB = GetTemplateChild("ContentTB") as TextBlock;
             _rootGrid = GetTemplateChild("RootGrid") as Grid;
@@ -146,6 +164,7 @@ namespace MyerSplashCustomControl
 
         public async Task ShowAsync()
         {
+            // todo: ugly
             await _tcs.Task;
             await UpdateSize();
             _showStory.Begin();
@@ -153,6 +172,7 @@ namespace MyerSplashCustomControl
             _hideStory.Begin();
             await Task.Delay(1000);
             _currentPopup.IsOpen = false;
+            CurrentPage.SizeChanged -= Page_SizeChanged;
         }
     }
 }

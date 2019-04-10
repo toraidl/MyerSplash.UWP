@@ -198,6 +198,20 @@
                             Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
+                        x:Uid="LanguageTitle"
+                        Style="{StaticResource SettingItemTextBlockStyle}"
+                        Text="Language" />
+                    <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=Language, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
+                        <ComboBoxItem
+                            x:Uid="LanguageComboBoxEnglish"
+                            Content="English"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="LanguageComboBoxChinese"
+                            Content="Chinese"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock
                         Style="{StaticResource SettingItemTextBlockStyle}"
                         Text="Theme mode"
                         Visibility="Collapsed" />

@@ -122,9 +122,14 @@
   </data>
   <data name="EmailBody" xml:space="preserve">
     <value>
-来自开发者的话：你好，在反馈网络问题之前，请先阅读以下内容。&#13;&#13;在部分地区使用时，可能存在连接到 Unsplash 服务器不通畅的问题，请尝试改善网络环境。由于 Windows 系统限制，如果要使用代理工具，请考虑借助 Fiddler 等工具中的 "WinConfig" 功能解除 Loopback 限制。
-如果确认设置没问题，那么可以尝试使用 UWP app 比如（UWP 的 Edge）访问 google.com，unsplash.com 等网站看是否顺畅。&#13;&#13;此外，“每日推荐” 使用的是我个人的服务器，速度可能稍微快一点。
-&#13;给你带来了不好的体验，敬请谅解。
+来自开发者的话：你好，在反馈网络问题之前，请先阅读以下内容。
+
+在部分地区使用时，可能存在连接到 Unsplash 服务器不通畅的问题，请尝试改善网络环境。由于 Windows 系统限制，如果要使用代理工具，请考虑借助 Fiddler 等工具中的 "WinConfig" 功能解除 Loopback 限制。
+如果确认设置没问题，那么可以尝试使用 UWP app 比如（UWP 的 Edge）访问 google.com，unsplash.com 等网站看是否顺畅。
+
+此外，“每日推荐” 使用的是我个人的服务器，速度可能稍微快一点。
+
+给你带来了不好的体验，敬请谅解。
 
 </value>
   </data>
@@ -430,5 +435,17 @@
   </data>
   <data name="FeatureContent.Text" xml:space="preserve">
     <value>现在 MyerSplash 支持跟随系统切换主题了</value>
+  </data>
+  <data name="LanguageTitle.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="LanguageComboBoxEnglish.Content" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageComboBoxChinese.Content" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="RestartHint" xml:space="preserve">
+    <value>请重启以启用新语言</value>
   </data>
 </root>
