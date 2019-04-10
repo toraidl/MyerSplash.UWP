@@ -280,7 +280,7 @@ namespace MyerSplash.Common
                 SaveSettings(nameof(Language), value);
                 RaisePropertyChanged(() => Language);
                 ApplicationLanguages.PrimaryLanguageOverride = value == 1 ? "zh-CN" : "en-US";
-                ToastService.SendToast(ResourcesHelper.GetResString("RestartHint"));
+                ToastService.SendToast(ResourcesHelper.GetResString("RestartHint"), 3000);
             }
         }
 
