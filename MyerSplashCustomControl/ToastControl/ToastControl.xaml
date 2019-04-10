@@ -14,8 +14,8 @@
                         <Grid.Resources>
                             <Storyboard x:Name="ShowStory">
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="120" />
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="150"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                         <EasingDoubleKeyFrame.EasingFunction>
                                             <CircleEase EasingMode="EaseOut" />
                                         </EasingDoubleKeyFrame.EasingFunction>
@@ -24,14 +24,18 @@
                             </Storyboard>
                             <Storyboard x:Name="HideStory">
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="150">
+                                        <EasingDoubleKeyFrame.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </EasingDoubleKeyFrame.EasingFunction>
+                                    </EasingDoubleKeyFrame>
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </Grid.Resources>
                         <controls:DropShadowPanel
                             x:Name="border"
-                            Margin="0,0,0,60"
+                            Margin="0,0,0,50"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             Style="{StaticResource DropShadowStyle}">
