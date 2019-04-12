@@ -434,7 +434,7 @@
     <value>⚡ 新功能</value>
   </data>
   <data name="FeatureContent.Text" xml:space="preserve">
-    <value>现在 MyerSplash 支持跟随系统切换主题了</value>
+    <value>现在支持在设置切换语言和主题了 ⚙</value>
   </data>
   <data name="LanguageTitle.Text" xml:space="preserve">
     <value>语言</value>
@@ -447,5 +447,17 @@
   </data>
   <data name="RestartHint" xml:space="preserve">
     <value>请重启以启用新语言</value>
+  </data>
+  <data name="ThemeComboBoxDark.Content" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="ThemeComboBoxLight.Content" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="ThemeComboBoxSystem.Content" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="ThemeTitle.Text" xml:space="preserve">
+    <value>主题</value>
   </data>
 </root>

@@ -95,6 +95,16 @@ namespace MyerSplash.Common
             Analytics.TrackEvent("Change background wallpapers source", new Dictionary<string, string> { { "Source", source.ToString() } });
         }
 
+        public static void LogSwitchLanguage(int itemIndex)
+        {
+            Analytics.TrackEvent("Change language", new Dictionary<string, string> { { "ItemIndex", itemIndex.ToString() } });
+        }
+
+        public static void LogSwitchTheme(int itemIndex)
+        {
+            Analytics.TrackEvent("Change theme", new Dictionary<string, string> { { "ItemIndex", itemIndex.ToString() } });
+        }
+
         public static void LogDownloadError(Exception e, string url, long durationMs)
         {
             Analytics.TrackEvent("Download exception", new Dictionary<string, string> {

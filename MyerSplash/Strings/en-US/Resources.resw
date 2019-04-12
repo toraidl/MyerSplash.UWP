@@ -424,7 +424,7 @@
     <value>⚡ FEATURES</value>
   </data>
   <data name="FeatureContent.Text" xml:space="preserve">
-    <value>Support following system theme</value>
+    <value>Support changing theme and language in settings. ⚙</value>
   </data>
   <data name="LanguageTitle.Text" xml:space="preserve">
     <value>Language</value>
@@ -437,5 +437,17 @@
   </data>
   <data name="RestartHint" xml:space="preserve">
     <value>You need to restart app to apply the language setting.</value>
+  </data>
+  <data name="ThemeComboBoxDark.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeComboBoxLight.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeComboBoxSystem.Content" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ThemeTitle.Text" xml:space="preserve">
+    <value>Theme</value>
   </data>
 </root>

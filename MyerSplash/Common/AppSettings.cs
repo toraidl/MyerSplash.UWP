@@ -1,74 +1,27 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Toolkit.Uwp.UI.Helpers;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
-using Windows.Foundation.Metadata;
+using Windows.ApplicationModel.Core;
 using Windows.Globalization;
 using Windows.Storage;
-using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.Common
 {
     public class AppSettings : ViewModelBase
     {
+        private const int LightTheme = 0;
+        private const int DarkTheme = 1;
+        private const int SystemTheme = 2;
+
         public ApplicationDataContainer LocalSettings { get; set; }
-
-        private MainViewModel MainVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<MainViewModel>();
-            }
-        }
-
-        public Windows.UI.Xaml.Media.Brush MainPageBackgroundBrush
-        {
-            get
-            {
-                if (EnableCompactMode)
-                {
-                    return new SolidColorBrush((Color)Application.Current.Resources["SystemChromeMediumLowColor"]);
-                }
-                else
-                {
-                    if (IsFcuOrAbove())
-                    {
-                        return Application.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
-                    }
-                    else
-                    {
-                        return Application.Current.Resources["CustomAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
-                    }
-                }
-            }
-        }
-
-        public Windows.UI.Xaml.Media.Brush MainTopNavigationBackgroundBrush
-        {
-            get
-            {
-                if (EnableCompactMode)
-                {
-                    return Application.Current.Resources["SystemControlChromeMediumLowAcrylicElementMediumBrush"] as Windows.UI.Xaml.Media.Brush;
-                }
-                else
-                {
-                    if (IsFcuOrAbove())
-                    {
-                        return Application.Current.Resources["SystemControlChromeLowAcrylicWindowBrush"] as Windows.UI.Xaml.Media.Brush;
-                    }
-                    else
-                    {
-                        return Application.Current.Resources["AppBackgroundBrushDark"] as Windows.UI.Xaml.Media.Brush;
-                    }
-                }
-            }
-        }
 
         private Thickness _imageMargin;
         public Thickness ImageMargin
@@ -116,8 +69,6 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(EnableCompactMode), value);
                 RaisePropertyChanged(() => EnableCompactMode);
-                RaisePropertyChanged(() => MainPageBackgroundBrush);
-                RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
 
                 if (!_constructing)
                 {
@@ -280,7 +231,23 @@ namespace MyerSplash.Common
                 SaveSettings(nameof(Language), value);
                 RaisePropertyChanged(() => Language);
                 ApplicationLanguages.PrimaryLanguageOverride = value == 1 ? "zh-CN" : "en-US";
-                ToastService.SendToast(ResourcesHelper.GetResString("RestartHint"));
+                ToastService.SendToast(ResourcesHelper.GetResString("RestartHint"), 3000);
+
+                Events.LogSwitchLanguage(value);
+            }
+        }
+
+        private bool _isLight;
+        public bool IsLight
+        {
+            get
+            {
+                return _isLight;
+            }
+            set
+            {
+                _isLight = value;
+                TitleBarHelper.SetupTitleBarColor(!value);
             }
         }
 
@@ -288,33 +255,78 @@ namespace MyerSplash.Common
         {
             get
             {
-                return ReadSettings(nameof(ThemeMode), 2);
+                return ReadSettings(nameof(ThemeMode), SystemTheme);
             }
             set
             {
                 SaveSettings(nameof(ThemeMode), value);
                 RaisePropertyChanged(() => ThemeMode);
+
+                ElementTheme theme;
+                switch (value)
+                {
+                    case LightTheme:
+                        theme = ElementTheme.Light;
+                        IsLight = true;
+                        break;
+                    case DarkTheme:
+                        theme = ElementTheme.Dark;
+                        IsLight = false;
+                        break;
+                    default:
+                        theme = ElementTheme.Default;
+                        break;
+                }
+                if (Window.Current.Content is FrameworkElement rootElement)
+                {
+                    rootElement.RequestedTheme = theme;
+
+                    // If the user switch to follow the system, then we apply the App's theme instead of element's theme.
+                    if (theme == ElementTheme.Default)
+                    {
+                        IsLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
+                    }
+                }
+
+                Events.LogSwitchTheme(value);
             }
         }
 
-        private bool _constructing = true;
+        private readonly bool _constructing = true;
+        private readonly UISettings _uiSettings;
 
         public AppSettings()
         {
             LocalSettings = ApplicationData.Current.LocalSettings;
             EnableCompactMode = EnableCompactMode;
+            ThemeMode = ThemeMode;
+
+            _uiSettings = new UISettings();
+            _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
+
             _constructing = false;
         }
 
-        public void NotifyThemeChanged()
+        /// <summary>
+        /// Invoked on User change theme in Windows' Settings.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private async void Settings_ColorValuesChanged(UISettings sender, object args)
         {
-            RaisePropertyChanged(() => MainPageBackgroundBrush);
-            RaisePropertyChanged(() => MainTopNavigationBackgroundBrush);
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                UpdateThemeToSystemTheme();
+            });
         }
 
-        public static bool IsFcuOrAbove()
+        private void UpdateThemeToSystemTheme()
         {
-            return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
+            if (ThemeMode == SystemTheme)
+            {
+                // Currently the theme of Application should be the same as System's.
+                IsLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
+            }
         }
 
         public async Task<StorageFolder> GetSavingFolderAsync()
