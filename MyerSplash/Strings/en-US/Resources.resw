@@ -438,4 +438,16 @@
   <data name="RestartHint" xml:space="preserve">
     <value>You need to restart app to apply the language setting.</value>
   </data>
+  <data name="ThemeComboBoxDark.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeComboBoxLight.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeComboBoxSystem.Content" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ThemeTitle.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
 </root>
