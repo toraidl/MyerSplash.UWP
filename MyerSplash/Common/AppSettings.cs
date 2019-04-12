@@ -23,14 +23,6 @@ namespace MyerSplash.Common
 
         public ApplicationDataContainer LocalSettings { get; set; }
 
-        private MainViewModel MainVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<MainViewModel>();
-            }
-        }
-
         private Thickness _imageMargin;
         public Thickness ImageMargin
         {
@@ -240,6 +232,8 @@ namespace MyerSplash.Common
                 RaisePropertyChanged(() => Language);
                 ApplicationLanguages.PrimaryLanguageOverride = value == 1 ? "zh-CN" : "en-US";
                 ToastService.SendToast(ResourcesHelper.GetResString("RestartHint"), 3000);
+
+                Events.LogSwitchLanguage(value);
             }
         }
 
@@ -293,6 +287,8 @@ namespace MyerSplash.Common
                         IsLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
                     }
                 }
+
+                Events.LogSwitchTheme(value);
             }
         }
 
