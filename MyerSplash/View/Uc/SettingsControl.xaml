@@ -198,6 +198,38 @@
                             Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
+                        x:Uid="ThemeTitle"
+                        Style="{StaticResource SettingItemTextBlockStyle}"
+                        Text="Theme" />
+                    <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=ThemeMode, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
+                        <ComboBoxItem
+                            x:Uid="ThemeComboBoxLight"
+                            Content="Light"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="ThemeComboBoxDark"
+                            Content="Dark"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="ThemeComboBoxSystem"
+                            Content="System"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock
+                        x:Uid="LanguageTitle"
+                        Style="{StaticResource SettingItemTextBlockStyle}"
+                        Text="Language" />
+                    <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=Language, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
+                        <ComboBoxItem
+                            x:Uid="LanguageComboBoxEnglish"
+                            Content="English"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem
+                            x:Uid="LanguageComboBoxChinese"
+                            Content="Chinese"
+                            Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock
                         Style="{StaticResource SettingItemTextBlockStyle}"
                         Text="Theme mode"
                         Visibility="Collapsed" />

@@ -152,8 +152,7 @@
                             fcu:Style="{StaticResource MainButtonStyle}"
                             Command="{x:Bind DownloadCommand}"
                             RequestedTheme="Dark"
-                            Tapped="DownloadBtn_Tapped"
-                            ToolTipService.ToolTip="Download">
+                            Tapped="DownloadBtn_Tapped">
                             <FontIcon
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
