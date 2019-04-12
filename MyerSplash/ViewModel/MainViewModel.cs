@@ -54,22 +54,6 @@ namespace MyerSplash.ViewModel
         public event EventHandler<int> AboutToUpdateSelectedIndex;
         public event EventHandler DataUpdated;
 
-        private string DefaultTitleName
-        {
-            get
-            {
-                var key = AppSettings.Instance.DefaultCategory;
-                if (INDEX_TO_NAME.ContainsKey(key))
-                {
-                    return INDEX_TO_NAME[AppSettings.Instance.DefaultCategory];
-                }
-                else
-                {
-                    return "MyerSplash";
-                }
-            }
-        }
-
         private Dictionary<int, ImageDataViewModel> _vms = new Dictionary<int, ImageDataViewModel>();
 
         private ImageDataViewModel _dataVM;
@@ -660,9 +644,9 @@ namespace MyerSplash.ViewModel
 
         private async Task ShowFeatureDialogAsync()
         {
-            if (!LocalSettingHelper.HasValue("feature_light"))
+            if (!LocalSettingHelper.HasValue("feature_light_language"))
             {
-                LocalSettingHelper.AddValue("feature_light", true);
+                LocalSettingHelper.AddValue("feature_light_language", true);
                 await Task.Delay(1000);
                 var uc = new TipsControl();
                 await PopupService.Instance.ShowAsync(uc);

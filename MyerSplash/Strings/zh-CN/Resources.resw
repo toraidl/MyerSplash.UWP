@@ -434,7 +434,7 @@
     <value>⚡ 新功能</value>
   </data>
   <data name="FeatureContent.Text" xml:space="preserve">
-    <value>现在 MyerSplash 支持跟随系统切换主题了</value>
+    <value>现在支持在设置切换语言和主题了 ⚙</value>
   </data>
   <data name="LanguageTitle.Text" xml:space="preserve">
     <value>语言</value>

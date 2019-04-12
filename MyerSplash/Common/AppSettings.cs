@@ -356,7 +356,7 @@ namespace MyerSplash.Common
             {
                 return defaultValue;
             }
-            return default(T);
+            return default;
         }
 
         private static readonly Lazy<AppSettings> lazy = new Lazy<AppSettings>(() => new AppSettings());

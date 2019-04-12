@@ -424,7 +424,7 @@
     <value>⚡ FEATURES</value>
   </data>
   <data name="FeatureContent.Text" xml:space="preserve">
-    <value>Support following system theme</value>
+    <value>Support changing theme and language in settings. ⚙</value>
   </data>
   <data name="LanguageTitle.Text" xml:space="preserve">
     <value>Language</value>
