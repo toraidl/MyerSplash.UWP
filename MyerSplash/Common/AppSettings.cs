@@ -1,15 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Toolkit.Uwp.UI.Helpers;
 using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation.Metadata;
 using Windows.Globalization;
 using Windows.Storage;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -18,9 +17,9 @@ namespace MyerSplash.Common
 {
     public class AppSettings : ViewModelBase
     {
-        public const int LightTheme = 0;
-        public const int DarkTheme = 1;
-        public const int SystemTheme = 2;
+        private const int LightTheme = 0;
+        private const int DarkTheme = 1;
+        private const int SystemTheme = 2;
 
         public ApplicationDataContainer LocalSettings { get; set; }
 
@@ -287,12 +286,18 @@ namespace MyerSplash.Common
                 if (Window.Current.Content is FrameworkElement rootElement)
                 {
                     rootElement.RequestedTheme = theme;
+
+                    // If the user switch to follow the system, then we apply the App's theme instead of element's theme.
+                    if (theme == ElementTheme.Default)
+                    {
+                        IsLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
+                    }
                 }
             }
         }
 
         private readonly bool _constructing = true;
-        private UISettings _uiSettings;
+        private readonly UISettings _uiSettings;
 
         public AppSettings()
         {
@@ -302,23 +307,30 @@ namespace MyerSplash.Common
 
             _uiSettings = new UISettings();
             _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
-            UpdateThemeAndNotify(_uiSettings);
 
             _constructing = false;
         }
 
+        /// <summary>
+        /// Invoked on User change theme in Windows' Settings.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void Settings_ColorValuesChanged(UISettings sender, object args)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if (ThemeMode != SystemTheme) return;
-                UpdateThemeAndNotify(sender);
+                UpdateThemeToSystemTheme();
             });
         }
 
-        private void UpdateThemeAndNotify(UISettings settings)
+        private void UpdateThemeToSystemTheme()
         {
-            IsLight = settings.GetColorValue(UIColorType.Background) == Colors.Black;
+            if (ThemeMode == SystemTheme)
+            {
+                // Currently the theme of Application should be the same as System's.
+                IsLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
+            }
         }
 
         public async Task<StorageFolder> GetSavingFolderAsync()

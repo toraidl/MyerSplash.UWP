@@ -46,6 +46,7 @@ namespace MyerSplash.View.Page
         private FrameworkElement _clickedContainer;
 
         private Dictionary<int, double> _scrollingPositions = new Dictionary<int, double>();
+        private bool _showMoreFlyout = false;
 
         public bool IsLoading
         {
@@ -77,15 +78,13 @@ namespace MyerSplash.View.Page
             MainVM.AboutToUpdateSelectedIndex += MainVM_AboutToUpdateSelectedIndex;
             MainVM.DataUpdated += MainVM_DataUpdated;
 
-            this.SizeChanged += MainPage_SizeChanged;
+            SizeChanged += MainPage_SizeChanged;
             
             if (DeviceHelper.IsXbox)
             {
                 TitleGridContent.Padding = new Thickness(0);
             }
         }
-
-        private bool _showMoreFlyout = false;
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {

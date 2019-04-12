@@ -66,6 +66,8 @@ namespace MyerSplash
 
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
+
+            TitleBarHelper.SetupTitleBarColor(true);
         }
 
 #pragma warning restore
