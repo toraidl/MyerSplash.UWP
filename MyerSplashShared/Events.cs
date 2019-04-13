@@ -114,6 +114,14 @@ namespace MyerSplash.Common
             });
         }
 
+        public static void LogDownloadCancelled(string url, long durationMs)
+        {
+            Analytics.TrackEvent("Download cancelled", new Dictionary<string, string> {
+                { "Url", url },
+                { "DurationMillis", durationMs.ToString()}
+            });
+        }
+
         public static void LogDownloadSuccess(long durationMs)
         {
             Analytics.TrackEvent("Download success", new Dictionary<string, string> {

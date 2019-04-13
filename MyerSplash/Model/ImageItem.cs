@@ -377,6 +377,12 @@ namespace MyerSplash.Model
             }
         }
 
+        public void TryToCancelTask()
+        {
+            if (BitmapSource.Bitmap == null) return;
+            BitmapSource.CancelDownload();
+        }
+
         public async Task TryLoadBitmapAsync()
         {
             if (BitmapSource.Bitmap != null) return;
@@ -397,7 +403,15 @@ namespace MyerSplash.Model
             catch (Exception e)
             {
                 watch.Stop();
-                Events.LogDownloadError(e, url, watch.ElapsedMilliseconds);
+                var duration = watch.ElapsedMilliseconds;
+                if (e is TaskCanceledException)
+                {
+                    Events.LogDownloadCancelled(url, duration);
+                }
+                else
+                {
+                    Events.LogDownloadError(e, url, duration);
+                }
             }
         }
 

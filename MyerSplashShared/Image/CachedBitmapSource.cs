@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -49,9 +50,20 @@ namespace MyerSplashShared.Image
         private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
         private readonly ICacheKeyFactory _cacheKeyFactory = CacheKeyFactory.GetDefault();
 
+        private CancellationTokenSource _cancelTokenSource;
+
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void CancelDownload()
+        {
+            if (_cancelTokenSource != null)
+            {
+                Debug.WriteLine("======Cancel download======");
+                _cancelTokenSource.Cancel();
+            }
         }
 
         public async Task LoadBitmapAsync(bool setBitmap = true)
@@ -65,17 +77,17 @@ namespace MyerSplashShared.Image
             var file = await _cacheSupplier.TryGetCacheAsync(cacheKey);
             if (file != null)
             {
-                Debug.WriteLine($"====Find cache file: {cacheKey}");
                 await SetImageSourceAsync(file);
                 return;
             }
 
-            Debug.WriteLine($"====Download file for: {cacheKey}");
+            _cancelTokenSource = CancellationTokenSourceFactory.CreateDefault(ImageDownloader.TIMEOUT_MILLIS).Create();
 
-            var token = CancellationTokenSourceFactory.CreateDefault(ImageDownloader.TIMEOUT_MILLIS).Create().Token;
-
-            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(RemoteUrl, token))
+            using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(RemoteUrl, _cancelTokenSource.Token))
             {
+                _cancelTokenSource.Dispose();
+                _cancelTokenSource = null;
+
                 var savedFile = await SaveEncodedImageToFileAsync(stream.AsStreamForRead());
                 if (stream != null && setBitmap)
                 {

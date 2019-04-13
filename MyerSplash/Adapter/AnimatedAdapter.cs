@@ -30,6 +30,11 @@ namespace MyerSplash.Adapter
 
         }
 
+        protected virtual void OnItemAboutToRecycle(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+
+        }
+
         public virtual void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
             int index = args.ItemIndex;
@@ -44,6 +49,7 @@ namespace MyerSplash.Adapter
             if (args.InRecycleQueue)
             {
                 elementVisual.ImplicitAnimations = null;
+                OnItemAboutToRecycle(sender, args);
             }
             else
             {

@@ -16,5 +16,13 @@ namespace MyerSplash.Adapter
                 }
             }
         }
+
+        protected override void OnItemAboutToRecycle(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if ((args.Item is ImageItem imageItem))
+            {
+                imageItem.TryToCancelTask();
+            }
+        }
     }
 }
