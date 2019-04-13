@@ -12,34 +12,32 @@ namespace MyerSplashShared.Image
     {
         public static int TIMEOUT_MILLIS => 30_000;
 
+        private static readonly HttpClient _client = new HttpClient();
+
         public static async Task<IRandomAccessStream> GetEncodedImageFromUrlAsync(string url, CancellationToken? token)
+        {
+            if (token == null) token = CancellationTokenSourceFactory.CreateDefault(TIMEOUT_MILLIS).Create().Token;
+            return await GetEncodedImageFromUrlInternalAsync(url, token.Value);
+        }
+
+        private static async Task<IRandomAccessStream> GetEncodedImageFromUrlInternalAsync(string url, CancellationToken token)
         {
             if (string.IsNullOrEmpty(url)) throw new UriFormatException("The url is null or empty.");
 
-            using (var client = new HttpClient())
-            {
-                if (token == null) token = CancellationTokenSourceFactory.CreateDefault(TIMEOUT_MILLIS).Create().Token;
+            var downloadTask = _client.GetAsync(new Uri(url), token);
 
-                var downloadTask = client.GetAsync(new Uri(url), token.Value);
+            token.ThrowIfCancellationRequested();
 
-                token?.ThrowIfCancellationRequested();
+            var response = await downloadTask;
+            response.EnsureSuccessStatusCode();
 
-                var response = await downloadTask;
-                response.EnsureSuccessStatusCode();
+            var streamTask = response.Content.ReadAsStreamAsync();
 
-                var streamTask = response.Content.ReadAsStreamAsync();
+            token.ThrowIfCancellationRequested();
 
-                token?.ThrowIfCancellationRequested();
+            var stream = await streamTask;
 
-                var stream = await streamTask;
-
-                return stream.AsRandomAccessStream();
-            }
-        }
-
-        public static async Task<IRandomAccessStream> GetIRandomAccessStreamFromUrlAsync(string url)
-        {
-            return await GetEncodedImageFromUrlAsync(url, null);
+            return stream.AsRandomAccessStream();
         }
     }
 }
