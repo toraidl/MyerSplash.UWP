@@ -3,11 +3,10 @@ using System;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.View.Uc
 {
-    public sealed partial class GestureHintControl : UserControl
+    public sealed partial class GestureHintControl
     {
         private CompositionAnimation _animation;
         public event EventHandler<EventArgs> OnClickToDismiss;

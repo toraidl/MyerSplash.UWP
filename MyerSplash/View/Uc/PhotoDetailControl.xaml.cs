@@ -26,13 +26,7 @@ namespace MyerSplash.View.Uc
 {
     public sealed partial class PhotoDetailControl : UserControl, INotifyPropertyChanged
     {
-        public DownloadsViewModel DownloadsVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
-            }
-        }
+        public DownloadsViewModel DownloadsVM => SimpleIoc.Default.GetInstance<DownloadsViewModel>();
 
         public event EventHandler<EventArgs> OnHidden;
 
@@ -66,10 +60,7 @@ namespace MyerSplash.View.Uc
         private ImageItem _currentImage;
         public ImageItem CurrentImage
         {
-            get
-            {
-                return _currentImage;
-            }
+            get => _currentImage;
             set
             {
                 if (_currentImage != value)
@@ -452,7 +443,7 @@ namespace MyerSplash.View.Uc
                     savedResult = await item.DownloadFullImageAsync(_cts);
                 }
 
-                //Still in this page
+                // Still in this page
                 if (IsShown && savedResult)
                 {
                     CurrentImage.DownloadStatus = DownloadStatus.Ok;
@@ -466,7 +457,7 @@ namespace MyerSplash.View.Uc
             }
             catch (Exception ex)
             {
-                var task = Logger.LogAsync(ex);
+                _ = Logger.LogAsync(ex);
                 FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
                 ToastService.SendToast(ResourcesHelper.GetResString("ErrorStatus") + ex.Message, 3000);
             }
@@ -532,13 +523,13 @@ namespace MyerSplash.View.Uc
                 InfoPlaceHolderGrid.Background = new SolidColorBrush(Colors.Transparent);
             }
 
-            var showDurationForInfo = 600;
+            const int showDurationForInfo = 600;
             var hideDurationForInfo = _hideAfterHidingExif ? 200 : 400;
 
-            var showDurationForExif = 400;
+            const int showDurationForExif = 400;
             var hideDurationForExif = _hideAfterHidingExif ? 200 : 600;
 
-            AutherNameBtn.BorderThickness = new Thickness(0, 0, 0, show ? 0 : 2);
+            AuthorNameBtn.BorderThickness = new Thickness(0, 0, 0, show ? 0 : 2);
 
             _infoGridVisual.StartBuildAnimation().Animate(AnimateProperties.TranslationY)
                 .To(show ? -100f : 0f)
@@ -596,12 +587,10 @@ namespace MyerSplash.View.Uc
                 case 0:
                     {
                         fadingVisual = _lockScreenImageVisual;
-                        showingVisual = null;
                     }
                     break;
                 case 1:
                     {
-                        fadingVisual = null;
                         showingVisual = _taskbarImageVisual;
                     }
                     break;
@@ -712,7 +701,7 @@ namespace MyerSplash.View.Uc
         {
             Events.LogSetAsInDetails();
 
-            if (_setAsSPVisual.Opacity == 0)
+            if (_setAsSPVisual.Opacity == 0f)
             {
                 FlipperControl.DisplayIndex = 3;
                 ToggleSetAsSP(true);
@@ -773,7 +762,7 @@ namespace MyerSplash.View.Uc
             ToggleSetAsSP(false);
         }
 
-        private void AutherNameBtn_Click(object sender, RoutedEventArgs e)
+        private void AuthorNameBtn_Click(object sender, RoutedEventArgs e)
         {
             ToggleSetAsSP(false);
         }

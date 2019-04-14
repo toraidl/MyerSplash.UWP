@@ -8,7 +8,7 @@ namespace MyerSplash.View.Uc
 {
     public sealed partial class SettingsControl : NavigableUserControl
     {
-        private SettingsViewModel SettingsVM { get; set; }
+        private SettingsViewModel SettingsVM { get; }
 
         public SettingsControl()
         {
@@ -35,16 +35,6 @@ namespace MyerSplash.View.Uc
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Presented = false;
-        }
-
-        private void CompactModeOffHintImage_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            CompactModeSwitch.IsOn = false;
-        }
-
-        private void CompactModeOnHintImage_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            CompactModeSwitch.IsOn = true;
         }
     }
 }

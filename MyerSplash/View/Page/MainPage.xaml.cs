@@ -20,15 +20,9 @@ using Windows.UI.Xaml.Hosting;
 
 namespace MyerSplash.View.Page
 {
-    public sealed partial class MainPage : BindablePage
+    public sealed partial class MainPage
     {
-        private MainViewModel MainVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<MainViewModel>();
-            }
-        }
+        private MainViewModel MainVM => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         private Compositor _compositor;
         private Visual _refreshBtnVisual;
@@ -47,8 +41,8 @@ namespace MyerSplash.View.Page
 
         public bool IsLoading
         {
-            get { return (bool)GetValue(IsLoadingProperty); }
-            set { SetValue(IsLoadingProperty, value); }
+            get => (bool)GetValue(IsLoadingProperty);
+            set => SetValue(IsLoadingProperty, value);
         }
 
         public static readonly DependencyProperty IsLoadingProperty =
@@ -276,7 +270,7 @@ namespace MyerSplash.View.Page
         {
             ToggleGestureTipsControlAnimation(false);
 
-            var key = (string)App.Current.Resources["GestureKey"];
+            var key = (string)Application.Current.Resources["GestureKey"];
             LocalSettingHelper.AddValue(key, true);
         }
 

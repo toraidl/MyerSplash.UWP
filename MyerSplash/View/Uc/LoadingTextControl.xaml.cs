@@ -7,8 +7,8 @@ namespace MyerSplash.View.Uc
     {
         public string LoadingText
         {
-            get { return (string)GetValue(LoadingTextProperty); }
-            set { SetValue(LoadingTextProperty, value); }
+            get => (string)GetValue(LoadingTextProperty);
+            set => SetValue(LoadingTextProperty, value);
         }
 
         public static readonly DependencyProperty LoadingTextProperty =

@@ -54,15 +54,12 @@ namespace MyerSplash.ViewModel
         public event EventHandler<int> AboutToUpdateSelectedIndex;
         public event EventHandler DataUpdated;
 
-        private Dictionary<int, ImageDataViewModel> _vms = new Dictionary<int, ImageDataViewModel>();
+        private readonly Dictionary<int, ImageDataViewModel> _vms = new Dictionary<int, ImageDataViewModel>();
 
         private ImageDataViewModel _dataVM;
         public ImageDataViewModel DataVM
         {
-            get
-            {
-                return _dataVM;
-            }
+            get => _dataVM;
             set
             {
                 if (_dataVM != value)
@@ -78,10 +75,7 @@ namespace MyerSplash.ViewModel
         private ObservableCollection<string> _tabs;
         public ObservableCollection<string> Tabs
         {
-            get
-            {
-                return _tabs;
-            }
+            get => _tabs;
             set
             {
                 if (_tabs != value)
@@ -217,10 +211,7 @@ namespace MyerSplash.ViewModel
         private bool _isRefreshing;
         public bool IsRefreshing
         {
-            get
-            {
-                return _isRefreshing;
-            }
+            get => _isRefreshing;
             set
             {
                 if (_isRefreshing != value)
@@ -234,10 +225,7 @@ namespace MyerSplash.ViewModel
         private Visibility _footerLoadingVisibility;
         public Visibility FooterLoadingVisibility
         {
-            get
-            {
-                return _footerLoadingVisibility;
-            }
+            get => _footerLoadingVisibility;
             set
             {
                 if (_footerLoadingVisibility != value)
@@ -248,18 +236,15 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private Visibility _endVisiblity;
+        private Visibility _endVisibility;
         public Visibility EndVisibility
         {
-            get
-            {
-                return _endVisiblity;
-            }
+            get => _endVisibility;
             set
             {
-                if (_endVisiblity != value)
+                if (_endVisibility != value)
                 {
-                    _endVisiblity = value;
+                    _endVisibility = value;
                     RaisePropertyChanged(() => EndVisibility);
                 }
             }
@@ -268,10 +253,7 @@ namespace MyerSplash.ViewModel
         private Visibility _noItemHintVisibility;
         public Visibility NoItemHintVisibility
         {
-            get
-            {
-                return _noItemHintVisibility;
-            }
+            get => _noItemHintVisibility;
             set
             {
                 if (_noItemHintVisibility != value)
@@ -285,10 +267,7 @@ namespace MyerSplash.ViewModel
         private Visibility _noNetworkHintVisibility;
         public Visibility NoNetworkHintVisibility
         {
-            get
-            {
-                return _noNetworkHintVisibility;
-            }
+            get => _noNetworkHintVisibility;
             set
             {
                 if (_noNetworkHintVisibility != value)
@@ -302,10 +281,7 @@ namespace MyerSplash.ViewModel
         private Visibility _footerReloadVisibility;
         public Visibility FooterReloadVisibility
         {
-            get
-            {
-                return _footerReloadVisibility;
-            }
+            get => _footerReloadVisibility;
             set
             {
                 if (_footerReloadVisibility != value)
@@ -344,10 +320,7 @@ namespace MyerSplash.ViewModel
         private bool _aboutPagePresented;
         public bool AboutPagePresented
         {
-            get
-            {
-                return _aboutPagePresented;
-            }
+            get => _aboutPagePresented;
             set
             {
                 if (_aboutPagePresented != value)
@@ -361,10 +334,7 @@ namespace MyerSplash.ViewModel
         private bool _downloadsPagePresented;
         public bool DownloadsPagePresented
         {
-            get
-            {
-                return _downloadsPagePresented;
-            }
+            get => _downloadsPagePresented;
             set
             {
                 if (_downloadsPagePresented != value)
@@ -378,10 +348,7 @@ namespace MyerSplash.ViewModel
         private bool _settingsPagePresented;
         public bool SettingsPagePresented
         {
-            get
-            {
-                return _settingsPagePresented;
-            }
+            get => _settingsPagePresented;
             set
             {
                 if (_settingsPagePresented != value)
@@ -448,10 +415,7 @@ namespace MyerSplash.ViewModel
         private int _selectedIndex;
         public int SelectedIndex
         {
-            get
-            {
-                return _selectedIndex;
-            }
+            get => _selectedIndex;
             set
             {
                 if (_selectedIndex != value)
@@ -482,31 +446,16 @@ namespace MyerSplash.ViewModel
         }
 
         private CancellationTokenSourceFactory _ctsFactory;
-        public CancellationTokenSourceFactory CtsFactory
-        {
-            get
-            {
-                return _ctsFactory ?? (_ctsFactory = CancellationTokenSourceFactory.CreateDefault());
-            }
-        }
+        public CancellationTokenSourceFactory CtsFactory =>
+            _ctsFactory ?? (_ctsFactory = CancellationTokenSourceFactory.CreateDefault());
 
         private UnsplashImageFactory _normalFactory;
-        public UnsplashImageFactory NormalFactory
-        {
-            get
-            {
-                return _normalFactory ?? (_normalFactory = new UnsplashImageFactory(false));
-            }
-        }
+        public UnsplashImageFactory NormalFactory =>
+            _normalFactory ?? (_normalFactory = new UnsplashImageFactory(false));
 
         private UnsplashImageFactory _featuredFactory;
-        public UnsplashImageFactory FeaturedFactory
-        {
-            get
-            {
-                return _featuredFactory ?? (_featuredFactory = new UnsplashImageFactory(true));
-            }
-        }
+        public UnsplashImageFactory FeaturedFactory =>
+            _featuredFactory ?? (_featuredFactory = new UnsplashImageFactory(true));
 
         public bool IsFirstActived { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -606,13 +555,10 @@ namespace MyerSplash.ViewModel
         private void RemoveTodayHighlight()
         {
             var vm = _vms[NEW_INDEX];
-            if (vm != null)
+            var first = vm?.DataList.FirstOrDefault();
+            if (first != null && !first.Image.IsUnsplash)
             {
-                var first = vm.DataList.FirstOrDefault();
-                if (first != null && !first.Image.IsUnsplash)
-                {
-                    vm.DataList.Remove(first);
-                }
+                vm.DataList.Remove(first);
             }
         }
 
@@ -637,12 +583,12 @@ namespace MyerSplash.ViewModel
 
         public void Activate(object param)
         {
-            var task = HandleLaunchArg(param as string);
-            var task2 = UpdateLiveTileAsync();
-            var task3 = ShowFeatureDialogAsync();
+            _ = HandleLaunchArg(param as string);
+            _ = UpdateLiveTileAsync();
+            _ = ShowFeatureDialogAsync();
         }
 
-        private async Task ShowFeatureDialogAsync()
+        private static async Task ShowFeatureDialogAsync()
         {
             if (!LocalSettingHelper.HasValue("feature_light_language"))
             {
@@ -653,7 +599,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private async Task UpdateLiveTileAsync()
+        private static async Task UpdateLiveTileAsync()
         {
             if (App.AppSettings.EnableTile)
             {
@@ -664,34 +610,39 @@ namespace MyerSplash.ViewModel
 
         private async Task HandleLaunchArg(string arg)
         {
-            if (arg == Value.SEARCH)
+            switch (arg)
             {
-                ShowSearchBar = true;
-            }
-            else if (arg == Value.DOWNLOADS)
-            {
-                DownloadsPagePresented = true;
-            }
-            else
-            {
-                var queryStr = QueryString.Parse(arg);
-                var action = queryStr[Key.ACTION_KEY];
-                if (!queryStr.Contains(Key.FILE_PATH_KEY))
+                case Value.SEARCH:
+                    ShowSearchBar = true;
+                    break;
+                case Value.DOWNLOADS:
+                    DownloadsPagePresented = true;
+                    break;
+                default:
                 {
-                    return;
-                }
-                var filePath = queryStr[Key.FILE_PATH_KEY];
-                if (filePath != null)
-                {
-                    switch (action)
+                    var queryStr = QueryString.Parse(arg);
+                    var action = queryStr[Key.ACTION_KEY];
+                    if (!queryStr.Contains(Key.FILE_PATH_KEY))
                     {
-                        case Value.SET_AS:
-                            await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
-                            break;
-                        case Value.VIEW:
-                            await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
-                            break;
+                        return;
                     }
+                    var filePath = queryStr[Key.FILE_PATH_KEY];
+                    if (filePath != null)
+                    {
+                        switch (action)
+                        {
+                            case Value.SET_AS:
+                                await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
+                                break;
+                            case Value.VIEW:
+                                await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    break;
                 }
             }
         }
@@ -702,7 +653,7 @@ namespace MyerSplash.ViewModel
 
         public void OnLoaded()
         {
-            var initTask = InitOnLoadedAsync();
+            _ = InitOnLoadedAsync();
         }
 
         private async Task InitAsync()

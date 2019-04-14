@@ -6,7 +6,7 @@ namespace MyerSplash.View.Uc
 {
     public sealed partial class AboutControl : NavigableUserControl
     {
-        private AboutViewModel AboutVM { get; set; }
+        private AboutViewModel AboutVM { get; }
 
         public AboutControl()
         {

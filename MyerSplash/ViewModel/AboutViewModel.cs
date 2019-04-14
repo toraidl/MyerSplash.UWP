@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Debug;
 using JP.Utils.Helper;
-using MyerSplash.Common;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
@@ -16,10 +15,7 @@ namespace MyerSplash.ViewModel
         private string _version;
         public string Version
         {
-            get
-            {
-                return _version;
-            }
+            get => _version;
             set
             {
                 if (_version != value)
@@ -77,8 +73,8 @@ namespace MyerSplash.ViewModel
                 if (_feedbackCommand != null) return _feedbackCommand;
                 return _feedbackCommand = new RelayCommand(async () =>
                   {
-                      EmailRecipient rec = new EmailRecipient("dengweichao@hotmail.com");
-                      EmailMessage mes = new EmailMessage();
+                      var rec = new EmailRecipient("dengweichao@hotmail.com");
+                      var mes = new EmailMessage();
                       mes.To.Add(rec);
                       var attach = await Logger.GetLogFileAttachementAsync();
                       if (attach != null)

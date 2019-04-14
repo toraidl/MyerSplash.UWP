@@ -14,18 +14,12 @@ namespace MyerSplash.View.Uc
 {
     public sealed partial class SearchBarControl : UserControl
     {
-        private MainViewModel MainVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<MainViewModel>();
-            }
-        }
+        private MainViewModel MainVM => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         public bool Shown
         {
-            get { return (bool)GetValue(ShownProperty); }
-            set { SetValue(ShownProperty, value); }
+            get => (bool)GetValue(ShownProperty);
+            set => SetValue(ShownProperty, value);
         }
 
         public static readonly DependencyProperty ShownProperty =
@@ -35,7 +29,7 @@ namespace MyerSplash.View.Uc
         private static void OnShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as SearchBarControl;
-            control.ToggleAnimation();
+            control?.ToggleAnimation();
         }
 
         private Compositor _compositor;

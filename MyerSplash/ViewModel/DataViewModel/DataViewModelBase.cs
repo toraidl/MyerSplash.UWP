@@ -13,17 +13,14 @@ namespace MyerSplash.ViewModel.DataViewModel
 {
     public abstract class DataViewModelBase<T> : ViewModelBase
     {
-        public static int DEFAULT_PAGE_INDEX => 1;
+        private static int DEFAULT_PAGE_INDEX = 1;
 
         private int PageIndex { get; set; } = DEFAULT_PAGE_INDEX;
 
         private IncrementalLoadingCollection<T> _dataList;
         public IncrementalLoadingCollection<T> DataList
         {
-            get
-            {
-                return _dataList;
-            }
+            get => _dataList;
             set
             {
                 _dataList = value;
@@ -73,10 +70,7 @@ namespace MyerSplash.ViewModel.DataViewModel
 
                 if (DataList == null)
                 {
-                    DataList = new IncrementalLoadingCollection<T>(count =>
-                    {
-                        return GetIncrementalListData(PageIndex++);
-                    });
+                    DataList = new IncrementalLoadingCollection<T>(count => GetIncrementalListData(PageIndex++));
                 }
 
                 await DataList.LoadMoreItemsAsync(20u);
@@ -85,7 +79,7 @@ namespace MyerSplash.ViewModel.DataViewModel
             }
             catch (Exception e)
             {
-                var task = Logger.LogAsync(e);
+                _ = Logger.LogAsync(e);
                 return false;
             }
         }
@@ -98,11 +92,11 @@ namespace MyerSplash.ViewModel.DataViewModel
         private async Task<ResultData<T>> GetIncrementalListData(int pageIndex)
         {
             IEnumerable<T> newList = new List<T>();
-            bool HasMoreItems = false;
+            var hasMoreItems = false;
             try
             {
                 newList = await GetList(pageIndex);
-                HasMoreItems = newList?.Count() > 0;
+                hasMoreItems = newList?.Count() > 0;
 
                 await RunOnUiThread(() =>
                 {
@@ -116,9 +110,9 @@ namespace MyerSplash.ViewModel.DataViewModel
             }
             catch (Exception e)
             {
-                var task = Logger.LogAsync(e);
+                _ = Logger.LogAsync(e);
             }
-            return new ResultData<T>() { Data = newList, HasMoreItems = HasMoreItems };
+            return new ResultData<T>() { Data = newList, HasMoreItems = hasMoreItems };
         }
 
         protected async Task RunOnUiThread(DispatchedHandler handler)

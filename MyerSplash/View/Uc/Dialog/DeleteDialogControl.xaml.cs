@@ -8,13 +8,7 @@ namespace MyerSplash.View.Uc
 {
     public sealed partial class DeleteDialogControl : UserControl
     {
-        public DownloadsViewModel DownloadsVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
-            }
-        }
+        public DownloadsViewModel DownloadsVM => SimpleIoc.Default.GetInstance<DownloadsViewModel>();
 
         public DeleteDialogControl()
         {

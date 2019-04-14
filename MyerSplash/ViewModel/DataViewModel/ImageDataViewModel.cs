@@ -35,12 +35,7 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         protected IEnumerable<ImageItem> CreateImageItems(IEnumerable<UnsplashImage> images)
         {
-            var list = new List<ImageItem>();
-            foreach (var i in images)
-            {
-                list.Add(new ImageItem(i));
-            }
-            return list;
+            return images.Select(i => new ImageItem(i)).ToList();
         }
 
         protected void UpdateHintVisibility(IEnumerable<ImageItem> list)
@@ -53,7 +48,7 @@ namespace MyerSplash.ViewModel.DataViewModel
             // No items at all
             if (DataList.Count == 0)
             {
-                if (list.Count() == 0)
+                if (!list.Any())
                 {
                     _mainViewModel.NoItemHintVisibility = Visibility.Visible;
                 }
@@ -62,14 +57,14 @@ namespace MyerSplash.ViewModel.DataViewModel
             {
                 _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
 
-                if (list.Count() == 0)
+                if (!list.Any())
                 {
                     _mainViewModel.EndVisibility = Visibility.Visible;
                 }
             }
         }
 
-        protected async override Task<IEnumerable<ImageItem>> GetList(int pageIndex)
+        protected override async Task<IEnumerable<ImageItem>> GetList(int pageIndex)
         {
             try
             {
@@ -131,7 +126,7 @@ namespace MyerSplash.ViewModel.DataViewModel
             }
         }
 
-        protected async virtual Task<IEnumerable<ImageItem>> RequestAsync(int pageIndex)
+        protected virtual async Task<IEnumerable<ImageItem>> RequestAsync(int pageIndex)
         {
             try
             {

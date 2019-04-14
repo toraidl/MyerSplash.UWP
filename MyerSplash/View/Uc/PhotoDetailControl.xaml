@@ -292,12 +292,12 @@
                             Text="{x:Bind CurrentImage.PhotoByText, Mode=OneWay}" />
                         <StackPanel Orientation="Horizontal">
                             <Button
-                                x:Name="AutherNameBtn"
+                                x:Name="AuthorNameBtn"
                                 VerticalAlignment="Center"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                                 BorderThickness="{x:Bind CurrentImage.NameThickness, Mode=OneWay}"
-                                Click="AutherNameBtn_Click"
+                                Click="AuthorNameBtn_Click"
                                 Command="{x:Bind CurrentImage.NavigateHomeCommand, Mode=OneWay}"
                                 Style="{StaticResource ButtonCommonStyle}">
                                 <TextBlock

@@ -23,21 +23,21 @@ namespace MyerSplash.View.Uc
 
         public SolidColorBrush BackgroundBrush
         {
-            get { return (SolidColorBrush)GetValue(BackgroundBrushProperty); }
-            set { SetValue(BackgroundBrushProperty, value); }
+            get => (SolidColorBrush)GetValue(BackgroundBrushProperty);
+            set => SetValue(BackgroundBrushProperty, value);
         }
 
         public static readonly DependencyProperty BackgroundBrushProperty =
             DependencyProperty.Register("BackgroundBrush", typeof(SolidColorBrush),
                 typeof(ExifInfoControl), new PropertyMetadata(null, (s, e) =>
                 {
-                    var control = s as ExifInfoControl;
+                    
                 }));
 
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         public static readonly DependencyProperty TextProperty =
@@ -50,8 +50,8 @@ namespace MyerSplash.View.Uc
 
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -64,8 +64,8 @@ namespace MyerSplash.View.Uc
 
         public string Symbol
         {
-            get { return (string)GetValue(SymbolProperty); }
-            set { SetValue(SymbolProperty, value); }
+            get => (string)GetValue(SymbolProperty);
+            set => SetValue(SymbolProperty, value);
         }
 
         public static readonly DependencyProperty SymbolProperty =

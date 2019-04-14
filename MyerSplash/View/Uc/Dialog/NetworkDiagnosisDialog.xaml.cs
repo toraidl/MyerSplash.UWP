@@ -8,32 +8,29 @@ using System;
 using Windows.UI.Core;
 using MyerSplashShared.Data;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.ApplicationModel.Email;
 using JP.Utils.Helper;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
-using MyerSplashShared.API;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using MyerSplash.Common;
 using Windows.ApplicationModel.Resources;
 using MyerSplashShared.Utils;
 
 namespace MyerSplash.View.Uc
 {
-    public sealed partial class NetworkDiagnosisDialog : UserControl
+    public sealed partial class NetworkDiagnosisDialog
     {
-        private HttpClient _client = new HttpClient();
-        private CancellationTokenSource _cts = new CancellationTokenSource();
-        private IList<DiagnosisItem> _diagosisItems = new List<DiagnosisItem>();
-        private Paragraph _paragraph = new Paragraph();
+        private readonly HttpClient _client = new HttpClient();
+        private readonly CancellationTokenSource _cts = new CancellationTokenSource();
+        private readonly IList<DiagnosisItem> _diagosisItems = new List<DiagnosisItem>();
+        private readonly Paragraph _paragraph = new Paragraph();
 
         public NetworkDiagnosisDialog()
         {
             this.InitializeComponent();
-
-            var tokenSource = new CancellationTokenSource();
 
             _diagosisItems.Add(new DiagnosisItem(_client, "https://juniperphoton.net/myersplash/wallpapers/thumbs/20180401.jpg", "auto-change wallpaper server"));
             _diagosisItems.Add(new DiagnosisItem(_client, $"https://unsplash.com/photos?client_id={Keys.Instance.ClientKey}&page=1&per_page=30", "unsplash server api"));
@@ -42,7 +39,7 @@ namespace MyerSplash.View.Uc
             _diagosisItems.Add(new DiagnosisItem(_client, "https://www.google.com"));
 
             InfoBlock.Blocks.Add(_paragraph);
-            var task = StartAsync();
+            _ = StartAsync();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -128,14 +125,7 @@ namespace MyerSplash.View.Uc
             var mes = new EmailMessage();
             mes.To.Add(rec);
 
-            var result = "";
-            foreach (var l in _paragraph.Inlines)
-            {
-                if (l is Run)
-                {
-                    result += (l as Run).Text;
-                }
-            }
+            var result = _paragraph.Inlines.OfType<Run>().Aggregate("", (current, run) => current + run.Text);
 
             var cachedFolder = ApplicationData.Current.TemporaryFolder;
             var file = await cachedFolder.CreateFileAsync("network_diagnosis.txt", CreationCollisionOption.ReplaceExisting);

@@ -18,7 +18,7 @@ namespace MyerSplash.ViewModel
 {
     public class DownloadsViewModel : ViewModelBase
     {
-        public static string CACHED_FILE_NAME => "DownloadList.list";
+        private const string CACHED_FILE_NAME = "DownloadList.list";
 
         private DownloadItem _menuOpenedItem;
 
@@ -27,10 +27,7 @@ namespace MyerSplash.ViewModel
         private ObservableCollection<DownloadItem> _downloadingImages;
         public ObservableCollection<DownloadItem> DownloadingImages
         {
-            get
-            {
-                return _downloadingImages;
-            }
+            get => _downloadingImages;
             set
             {
                 if (_downloadingImages != value)
@@ -46,10 +43,7 @@ namespace MyerSplash.ViewModel
         private Visibility _noItemVisibility;
         public Visibility NoItemVisibility
         {
-            get
-            {
-                return _noItemVisibility;
-            }
+            get => _noItemVisibility;
             set
             {
                 if (_noItemVisibility != value)
@@ -90,7 +84,7 @@ namespace MyerSplash.ViewModel
 
         public DownloadsViewModel()
         {
-            var task = RestoreListAsync();
+            _ = RestoreListAsync();
         }
 
         private async void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -100,12 +94,12 @@ namespace MyerSplash.ViewModel
             {
                 foreach (var item in e.NewItems)
                 {
-                    await (item as DownloadItem).AwaitGuidCreatedAsync();
+                    await (item as DownloadItem)?.AwaitGuidCreatedAsync();
                 }
             }
             lock (o)
             {
-                var task = SaveListAsync();
+                _ = SaveListAsync();
             }
         }
 
@@ -172,10 +166,7 @@ namespace MyerSplash.ViewModel
                 DownloadingImages = new ObservableCollection<DownloadItem>();
             }
 
-            var existItem = DownloadingImages.Where(s =>
-             {
-                 return s.ImageItem.Image.ID == item.ImageItem.Image.ID;
-             }).FirstOrDefault();
+            var existItem = DownloadingImages.FirstOrDefault(s => s.ImageItem.Image.ID == item.ImageItem.Image.ID);
 
             if (existItem != null)
             {
@@ -211,7 +202,7 @@ namespace MyerSplash.ViewModel
 
         private void DownloadItemsInternal(Func<DownloadItem, bool> canDownload)
         {
-            for (int i = 0; i < DownloadingImages.Count; i++)
+            for (var i = 0; i < DownloadingImages.Count; i++)
             {
                 var item = DownloadingImages[i];
                 if (canDownload(item))

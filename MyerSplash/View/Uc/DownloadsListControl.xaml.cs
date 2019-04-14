@@ -8,18 +8,12 @@ namespace MyerSplash.View.Uc
 {
     public sealed partial class ManageDownloadControl : NavigableUserControl
     {
-        public DownloadsViewModel DownloadsVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
-            }
-        }
+        public DownloadsViewModel DownloadsVM => SimpleIoc.Default.GetInstance<DownloadsViewModel>();
 
         public RelayCommand CloseCommand
         {
-            get { return (RelayCommand)GetValue(CloseCommandProperty); }
-            set { SetValue(CloseCommandProperty, value); }
+            get => (RelayCommand)GetValue(CloseCommandProperty);
+            set => SetValue(CloseCommandProperty, value);
         }
 
         public static readonly DependencyProperty CloseCommandProperty =

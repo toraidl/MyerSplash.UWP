@@ -45,10 +45,7 @@ namespace MyerSplash.ViewModel
         private bool _clearCacheCommandEnabled;
         public bool ClearCacheCommandEnabled
         {
-            get
-            {
-                return _clearCacheCommandEnabled;
-            }
+            get => _clearCacheCommandEnabled;
             set
             {
                 if (_clearCacheCommandEnabled != value)
@@ -75,10 +72,7 @@ namespace MyerSplash.ViewModel
         private string _cacheHint;
         public string CacheHint
         {
-            get
-            {
-                return _cacheHint;
-            }
+            get => _cacheHint;
             set
             {
                 if (_cacheHint != value)
@@ -104,10 +98,6 @@ namespace MyerSplash.ViewModel
                       }
                   });
             }
-        }
-
-        public SettingsViewModel()
-        {
         }
 
         public async Task UpdateCacheSizeUIAsync()
