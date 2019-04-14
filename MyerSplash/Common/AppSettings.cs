@@ -304,6 +304,17 @@ namespace MyerSplash.Common
             _uiSettings = new UISettings();
             _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
 
+            var language = ApplicationLanguages.PrimaryLanguageOverride;
+            if (language == "")
+            {
+                var languages = ApplicationLanguages.Languages;
+                if (languages.Count > 0)
+                {
+                    var primary = languages[0];
+                    SaveSettings(nameof(Language), primary.Contains("zh") ? 1 : 0);
+                }
+            }
+
             _constructing = false;
         }
 

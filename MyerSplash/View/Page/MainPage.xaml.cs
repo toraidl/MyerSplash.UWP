@@ -17,14 +17,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
 {
     public sealed partial class MainPage : BindablePage
     {
-        private const float TITLE_GRID_HEIGHT = 70;
-
         private MainViewModel MainVM
         {
             get

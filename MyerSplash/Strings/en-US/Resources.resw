@@ -340,7 +340,8 @@
     <value>Saved:D</value>
   </data>
   <data name="PermissonError" xml:space="preserve">
-    <value>No permission to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.</value>
+    <value>No permission to create file for writing. Please check your security settings.
+    If necessary, please contact me via about page.</value>
   </data>
   <data name="CancelStatus" xml:space="preserve">
     <value>The download has been cancelled.</value>
