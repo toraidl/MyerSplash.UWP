@@ -110,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter\AnimatedAdapter.cs" />
-    <Compile Include="Adapter\DownloadItemAdatper.cs" />
+    <Compile Include="Adapter\DownloadItemAdapter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -120,18 +120,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="Common\AppSettings.cs" />
-    <Compile Include="Common\Brush\AcrylicBrush.cs" />
-    <Compile Include="Common\Brush\AcrylicBrushBase.cs" />
-    <Compile Include="Common\Brush\AcrylicHostBrush.cs" />
     <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
-    <Compile Include="Common\Brush\CompositionBrushBuilder.cs" />
     <Compile Include="Common\Composition\CompositionAnimationBuilder.cs" />
     <Compile Include="Common\Composition\ImplicitAnimationFactory.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\DownloadStatus.cs" />
     <Compile Include="Common\Composition\CompositionExtensions.cs" />
-    <Compile Include="Common\GlobalLocaleHelper.cs" />
     <Compile Include="Common\JumpListHelper.cs" />
     <Compile Include="Common\MessengerTokens.cs" />
     <Compile Include="Common\NavigationService.cs" />
