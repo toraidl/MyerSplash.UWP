@@ -82,7 +82,7 @@ namespace MyerSplash.Common
             }
             if (resultFile != null)
             {
-                StorageFile file = null;
+                StorageFile file;
 
                 //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
                 var folder = ApplicationData.Current.LocalFolder;

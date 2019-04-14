@@ -7,7 +7,7 @@ namespace MyerSplash.Common.Composition
 {
     public class CompositionAnimationBuilder
     {
-        private Visual _visusal;
+        private readonly Visual _visual;
         private AnimateProperties _property;
 
         private float _durationMillis;
@@ -19,7 +19,7 @@ namespace MyerSplash.Common.Composition
 
         public event TypedEventHandler<object, CompositionBatchCompletedEventArgs> OnCompleted;
 
-        public CompositionAnimationBuilder(Visual visual) => _visusal = visual;
+        public CompositionAnimationBuilder(Visual visual) => _visual = visual;
 
         public CompositionAnimationBuilder Animate(AnimateProperties property)
         {
@@ -55,7 +55,7 @@ namespace MyerSplash.Common.Composition
 
         public CompositionAnimationBuilder Start()
         {
-            var comp = _visusal.Compositor;
+            var comp = _visual.Compositor;
             KeyFrameAnimation animation;
             switch (_type)
             {
@@ -76,7 +76,7 @@ namespace MyerSplash.Common.Composition
             animation.DelayTime = TimeSpan.FromMilliseconds(_delayMillis);
 
             var batch = comp.CreateScopedBatch(CompositionBatchTypes.Animation);
-            _visusal.StartAnimation(_property.GetPropertyValue(), animation);
+            _visual.StartAnimation(_property.GetPropertyValue(), animation);
             batch.Completed += Batch_Completed;
             batch.End();
 

@@ -1,7 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Toolkit.Uwp.UI.Helpers;
-using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Utils;
 using System;
@@ -26,10 +23,7 @@ namespace MyerSplash.Common
         private Thickness _imageMargin;
         public Thickness ImageMargin
         {
-            get
-            {
-                return _imageMargin;
-            }
+            get => _imageMargin;
             set
             {
                 if (value != _imageMargin)
@@ -43,10 +37,7 @@ namespace MyerSplash.Common
         private Thickness _imageListPadding;
         public Thickness ImageListPadding
         {
-            get
-            {
-                return _imageListPadding;
-            }
+            get => _imageListPadding;
             set
             {
                 if (value != _imageListPadding)
@@ -62,8 +53,7 @@ namespace MyerSplash.Common
             get
             {
                 // No option for Xbox.
-                if (DeviceUtil.IsXbox) return true;
-                return ReadSettings(nameof(EnableCompactMode), false);
+                return DeviceUtil.IsXbox || ReadSettings(nameof(EnableCompactMode), false);
             }
             set
             {
@@ -90,10 +80,7 @@ namespace MyerSplash.Common
 
         public bool EnableTile
         {
-            get
-            {
-                return ReadSettings(nameof(EnableTile), true);
-            }
+            get => ReadSettings(nameof(EnableTile), true);
             set
             {
                 SaveSettings(nameof(EnableTile), value);
@@ -108,20 +95,11 @@ namespace MyerSplash.Common
             }
         }
 
-        public bool EnableTodayRecommendation
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public bool EnableTodayRecommendation => true;
 
         public bool EnableQuickDownload
         {
-            get
-            {
-                return ReadSettings(nameof(EnableQuickDownload), false);
-            }
+            get => ReadSettings(nameof(EnableQuickDownload), false);
             set
             {
                 SaveSettings(nameof(EnableQuickDownload), value);
@@ -131,10 +109,7 @@ namespace MyerSplash.Common
 
         public bool EnableScaleAnimation
         {
-            get
-            {
-                return ReadSettings(nameof(EnableScaleAnimation), true);
-            }
+            get => ReadSettings(nameof(EnableScaleAnimation), true);
             set
             {
                 SaveSettings(nameof(EnableScaleAnimation), value);
@@ -146,10 +121,7 @@ namespace MyerSplash.Common
 
         public string SaveFolderPath
         {
-            get
-            {
-                return ReadSettings(nameof(SaveFolderPath), "");
-            }
+            get => ReadSettings(nameof(SaveFolderPath), "");
             set
             {
                 SaveSettings(nameof(SaveFolderPath), value);
@@ -159,10 +131,7 @@ namespace MyerSplash.Common
 
         public int DefaultCategory
         {
-            get
-            {
-                return ReadSettings(nameof(DefaultCategory), 0);
-            }
+            get => ReadSettings(nameof(DefaultCategory), 0);
             set
             {
                 SaveSettings(nameof(DefaultCategory), value);
@@ -172,10 +141,7 @@ namespace MyerSplash.Common
 
         public int BackgroundWallpaperSource
         {
-            get
-            {
-                return ReadSettings(nameof(BackgroundWallpaperSource), 0);
-            }
+            get => ReadSettings(nameof(BackgroundWallpaperSource), 0);
             set
             {
                 SaveSettings(nameof(BackgroundWallpaperSource), value);
@@ -199,20 +165,11 @@ namespace MyerSplash.Common
             }
         }
 
-        public int LoadQuality
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public int LoadQuality => 0;
 
         public int SaveQuality
         {
-            get
-            {
-                return ReadSettings(nameof(SaveQuality), 1);
-            }
+            get => ReadSettings(nameof(SaveQuality), 1);
             set
             {
                 SaveSettings(nameof(SaveQuality), value);
@@ -222,10 +179,7 @@ namespace MyerSplash.Common
 
         public int Language
         {
-            get
-            {
-                return ReadSettings(nameof(Language), 0);
-            }
+            get => ReadSettings(nameof(Language), 0);
             set
             {
                 SaveSettings(nameof(Language), value);
@@ -240,10 +194,7 @@ namespace MyerSplash.Common
         private bool _isLight;
         public bool IsLight
         {
-            get
-            {
-                return _isLight;
-            }
+            get => _isLight;
             set
             {
                 _isLight = value;
@@ -253,10 +204,7 @@ namespace MyerSplash.Common
 
         public int ThemeMode
         {
-            get
-            {
-                return ReadSettings(nameof(ThemeMode), SystemTheme);
-            }
+            get => ReadSettings(nameof(ThemeMode), SystemTheme);
             set
             {
                 SaveSettings(nameof(ThemeMode), value);
@@ -293,7 +241,6 @@ namespace MyerSplash.Common
         }
 
         private readonly bool _constructing = true;
-        private readonly UISettings _uiSettings;
 
         public AppSettings()
         {
@@ -301,8 +248,8 @@ namespace MyerSplash.Common
             EnableCompactMode = EnableCompactMode;
             ThemeMode = ThemeMode;
 
-            _uiSettings = new UISettings();
-            _uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
+            var uiSettings = new UISettings();
+            uiSettings.ColorValuesChanged += Settings_ColorValuesChanged;
 
             var language = ApplicationLanguages.PrimaryLanguageOverride;
             if (language == "")
@@ -325,10 +272,7 @@ namespace MyerSplash.Common
         /// <param name="args"></param>
         private async void Settings_ColorValuesChanged(UISettings sender, object args)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                UpdateThemeToSystemTheme();
-            });
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, UpdateThemeToSystemTheme);
         }
 
         private void UpdateThemeToSystemTheme()
@@ -343,12 +287,6 @@ namespace MyerSplash.Common
         public async Task<StorageFolder> GetSavingFolderAsync()
         {
             var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
-            return folder;
-        }
-
-        public async Task<StorageFolder> GetWallpaperFolderAsync()
-        {
-            var folder = await ApplicationData.Current.TemporaryFolder.CreateFolderAsync("WallpapersTemp", CreationCollisionOption.OpenIfExists);
             return folder;
         }
 
@@ -370,8 +308,8 @@ namespace MyerSplash.Common
             return default(T);
         }
 
-        private static readonly Lazy<AppSettings> lazy = new Lazy<AppSettings>(() => new AppSettings());
+        private static readonly Lazy<AppSettings> Lazy = new Lazy<AppSettings>(() => new AppSettings());
 
-        public static AppSettings Instance { get { return lazy.Value; } }
+        public static AppSettings Instance => Lazy.Value;
     }
 }

@@ -5,7 +5,7 @@ namespace MyerSplash.Adapter
 {
     public class UnsplashImageAdapter : AnimatedAdapter
     {
-        public async override void OnChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
+        public override async void OnChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
         {
             if ((args.Item is ImageItem imageItem))
             {

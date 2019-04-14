@@ -22,8 +22,8 @@ namespace MyerSplash.Common
     {
         public bool Presented
         {
-            get { return (bool)GetValue(PresentedProperty); }
-            set { SetValue(PresentedProperty, value); }
+            get => (bool)GetValue(PresentedProperty);
+            set => SetValue(PresentedProperty, value);
         }
 
         public static readonly DependencyProperty PresentedProperty =

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Windows.UI;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.Common
@@ -37,7 +38,7 @@ namespace MyerSplash.Common
         private static void SetUpLightTitleBar()
         {
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.BackgroundColor = (App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
+            titleBar.BackgroundColor = (Application.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
             titleBar.ForegroundColor = Colors.White;
             titleBar.InactiveBackgroundColor = (App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
             titleBar.InactiveForegroundColor = Colors.White;

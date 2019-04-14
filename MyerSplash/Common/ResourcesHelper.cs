@@ -19,7 +19,7 @@ namespace MyerSplash.Common
             return Windows.UI.Xaml.Application.Current.Resources[key] as string;
         }
 
-        public static double GetDimentionInPixel(string key)
+        public static double GetDimensionInPixel(string key)
         {
             return (double)Windows.UI.Xaml.Application.Current.Resources[key];
         }

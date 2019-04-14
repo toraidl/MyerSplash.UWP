@@ -349,7 +349,7 @@
   <data name="SavedTitle" xml:space="preserve">
     <value>下载完成</value>
   </data>
-  <data name="PermissonError" xml:space="preserve">
+  <data name="PermissionError" xml:space="preserve">
     <value>没有权限写入文件，请检查图片文件夹下的 MyerSplash 目录的权限设置。</value>
   </data>
   <data name="CancelStatus" xml:space="preserve">

@@ -33,20 +33,14 @@ namespace MyerSplash.Model
     public class DownloadItem : ModelBase
     {
         [IgnoreDataMember]
-        public DownloadsViewModel DownloadsVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
-            }
-        }
+        public DownloadsViewModel DownloadsVM => SimpleIoc.Default.GetInstance<DownloadsViewModel>();
 
         public event Action<DownloadItem, bool> OnMenuStatusChanged;
 
         private TaskCompletionSource<int> _tcs;
-        private CloudService _service = new CloudService();
+        private readonly CloudService _service = new CloudService();
 
-        public Guid DownloadOperationGUID { get; set; }
+        public Guid DownloadOperationGuid { get; set; }
 
         private IStorageFile _resultFile;
         private CancellationTokenSource _cts;
@@ -54,10 +48,7 @@ namespace MyerSplash.Model
         private ImageItem _imageItem;
         public ImageItem ImageItem
         {
-            get
-            {
-                return _imageItem;
-            }
+            get => _imageItem;
             set
             {
                 if (_imageItem != value)
@@ -71,10 +62,7 @@ namespace MyerSplash.Model
         private double _progress;
         public double Progress
         {
-            get
-            {
-                return _progress;
-            }
+            get => _progress;
             set
             {
                 if (_progress != value)
@@ -82,7 +70,7 @@ namespace MyerSplash.Model
                     _progress = double.Parse(value.ToString("f0"));
                     RaisePropertyChanged(() => Progress);
                     ProgressString = $"{_progress} %";
-                    if (value >= 100) UpateUiWhenCompleted();
+                    if (value >= 100) UpdateUiWhenCompleted();
                 }
             }
         }
@@ -90,10 +78,7 @@ namespace MyerSplash.Model
         private string _progressString;
         public string ProgressString
         {
-            get
-            {
-                return _progressString;
-            }
+            get => _progressString;
             set
             {
                 if (_progressString != value)
@@ -107,10 +92,7 @@ namespace MyerSplash.Model
         private string _downloadStatus;
         public string DownloadStatus
         {
-            get
-            {
-                return _downloadStatus;
-            }
+            get => _downloadStatus;
             set
             {
                 if (_downloadStatus != value)
@@ -124,10 +106,7 @@ namespace MyerSplash.Model
         private string _resolution;
         public string Resolution
         {
-            get
-            {
-                return _resolution;
-            }
+            get => _resolution;
             set
             {
                 if (_resolution != value)
@@ -141,10 +120,7 @@ namespace MyerSplash.Model
         private int _displayIndex;
         public int DisplayIndex
         {
-            get
-            {
-                return _displayIndex;
-            }
+            get => _displayIndex;
             set
             {
                 if (_displayIndex != value)
@@ -158,10 +134,7 @@ namespace MyerSplash.Model
         private bool _isMenuOn;
         public bool IsMenuOn
         {
-            get
-            {
-                return _isMenuOn;
-            }
+            get => _isMenuOn;
             set
             {
                 if (_isMenuOn != value)
@@ -241,10 +214,7 @@ namespace MyerSplash.Model
                 if (_cancelCommand != null) return _cancelCommand;
                 return _cancelCommand = new RelayCommand(() =>
                   {
-                      if (_cts != null)
-                      {
-                          _cts.Cancel();
-                      }
+                      _cts?.Cancel();
 
                       DisplayIndex = (int)DisplayMenu.Retry;
                   });
@@ -297,10 +267,6 @@ namespace MyerSplash.Model
             }
         }
 
-        public DownloadItem()
-        {
-        }
-
         public DownloadItem(ImageItem image)
         {
             ImageItem = image;
@@ -327,7 +293,7 @@ namespace MyerSplash.Model
             await DownloadFullImageAsync(_cts = new CancellationTokenSource());
         }
 
-        public async void UpateUiWhenCompleted()
+        public async void UpdateUiWhenCompleted()
         {
             await Task.Delay(500);
             DownloadStatus = "";
@@ -337,7 +303,7 @@ namespace MyerSplash.Model
         public async Task CheckDownloadStatusAsync(IReadOnlyList<DownloadOperation> operations)
         {
             ImageItem.Init();
-            var task = ImageItem.TryLoadBitmapAsync();
+            _ = ImageItem.TryLoadBitmapAsync();
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
             var item = await folder.TryGetItemAsync(ImageItem.GetFileNameForDownloading());
@@ -355,7 +321,7 @@ namespace MyerSplash.Model
             }
             if (Progress != 100)
             {
-                var downloadOperation = operations.Where(s => s.Guid == DownloadOperationGUID).FirstOrDefault();
+                var downloadOperation = operations.FirstOrDefault(s => s.Guid == DownloadOperationGuid);
                 if (downloadOperation != null)
                 {
                     var progress = new Progress<DownloadOperation>();
@@ -392,8 +358,8 @@ namespace MyerSplash.Model
 
             ImageItem.DownloadStatus = Common.DownloadStatus.Downloading;
 
-            StorageFolder savedFolder = null;
-            StorageFile savedFile = null;
+            StorageFolder savedFolder;
+            StorageFile savedFile;
 
             try
             {
@@ -403,7 +369,7 @@ namespace MyerSplash.Model
             catch (Exception e)
             {
                 await Logger.LogAsync(e);
-                ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("PermissonError"), 5000);
+                ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("PermissionError"), 5000);
                 return false;
             }
 
@@ -422,7 +388,7 @@ namespace MyerSplash.Model
             var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), savedFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
 
-            DownloadOperationGUID = downloadOperation.Guid;
+            DownloadOperationGuid = downloadOperation.Guid;
             _tcs.TrySetResult(0);
 
             ToastService.SendToast(ResourceLoader.GetForCurrentView().GetString("DownloadingHint"), 2000);

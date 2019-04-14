@@ -7,14 +7,6 @@ namespace MyerSplash.Common
 {
     public static class NavigationService
     {
-        private static Frame RootFrame
-        {
-            get
-            {
-                return Window.Current.Content as Frame;
-            }
-        }
-
         private static Stack<Func<bool>> HistoryOperations { get; set; } = new Stack<Func<bool>>();
 
         public static void AddOperation(Func<bool> func)

@@ -775,7 +775,7 @@ namespace MyerSplash.View.Uc
             var height = Math.Min(windowWidth * (1 / _listItemAspectRatio), windowHeight - 200);
             var width = _listItemAspectRatio * height;
 
-            var maxWidth = ResourcesHelper.GetDimentionInPixel("MaxWidthOfDetails");
+            var maxWidth = ResourcesHelper.GetDimensionInPixel("MaxWidthOfDetails");
             if (width >= maxWidth)
             {
                 width = maxWidth;
@@ -793,7 +793,7 @@ namespace MyerSplash.View.Uc
             var height = Math.Min(windowWidth * (1 / _listItemAspectRatio), windowHeight - 200);
             var width = _listItemAspectRatio * height;
 
-            var maxWidth = ResourcesHelper.GetDimentionInPixel("MaxWidthOfDetails");
+            var maxWidth = ResourcesHelper.GetDimensionInPixel("MaxWidthOfDetails");
             if (width >= maxWidth)
             {
                 width = maxWidth;

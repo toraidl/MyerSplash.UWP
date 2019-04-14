@@ -31,16 +31,16 @@ namespace MyerSplash.Common
 
         private void BindablePage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (this.DataContext is INavigable)
+            if (this.DataContext is INavigable navigable)
             {
-                (this.DataContext as INavigable).OnLoaded();
+                navigable.OnLoaded();
             }
         }
 
         protected virtual void SetupPageAnimation()
         {
-            TransitionCollection collection = new TransitionCollection();
-            NavigationThemeTransition theme = new NavigationThemeTransition
+            var collection = new TransitionCollection();
+            var theme = new NavigationThemeTransition
             {
                 DefaultNavigationTransitionInfo = new ContinuumNavigationTransitionInfo()
             };
@@ -59,11 +59,7 @@ namespace MyerSplash.Common
 
         protected virtual void SetupNavigationBackBtn()
         {
-            if (this.Frame.CanGoBack)
-            {
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            }
-            else SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = this.Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
@@ -74,12 +70,9 @@ namespace MyerSplash.Common
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (DataContext is INavigable NavigationViewModel)
+            if (DataContext is INavigable navigable)
             {
-                if (NavigationViewModel != null)
-                {
-                    NavigationViewModel.Activate(e.Parameter);
-                }
+                navigable.Activate(e.Parameter);
             }
 
             SetupNavigationBackBtn();
@@ -94,12 +87,9 @@ namespace MyerSplash.Common
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            if (DataContext is INavigable NavigationViewModel)
+            if (DataContext is INavigable navigable)
             {
-                if (NavigationViewModel != null)
-                {
-                    NavigationViewModel.Deactivate(null);
-                }
+                navigable.Deactivate(null);
             }
 
             if (GlobalPageKeyDown != null)

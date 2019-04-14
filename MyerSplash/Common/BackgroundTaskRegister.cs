@@ -1,6 +1,7 @@
 ﻿using BackgroundTask;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
@@ -32,11 +33,11 @@ namespace MyerSplash.Common
                 return;
             }
 
-            foreach (var cur in BackgroundTaskRegistration.AllTasks)
+            foreach (var (_, value) in BackgroundTaskRegistration.AllTasks)
             {
-                if (cur.Value.Name == NAME)
+                if (value.Name == NAME)
                 {
-                    cur.Value.Unregister(true);
+                    value.Unregister(true);
                 }
             }
 
@@ -54,11 +55,11 @@ namespace MyerSplash.Common
                 return null;
             }
 
-            foreach (var cur in BackgroundTaskRegistration.AllTasks)
+            foreach (var (_, value) in BackgroundTaskRegistration.AllTasks)
             {
-                if (cur.Value.Name == NAME)
+                if (value.Name == NAME)
                 {
-                    cur.Value.Unregister(true);
+                    value.Unregister(true);
                 }
             }
 
@@ -75,7 +76,7 @@ namespace MyerSplash.Common
                 builder.AddCondition(condition);
             }
 
-            BackgroundTaskRegistration task = builder.Register();
+            var task = builder.Register();
 
             Debug.WriteLine($"===================Task {NAME} registered successfully===================");
 
@@ -84,15 +85,7 @@ namespace MyerSplash.Common
 
         private static bool IsBackgroundTaskRegistered()
         {
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-            {
-                if (task.Value.Name == NAME)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return BackgroundTaskRegistration.AllTasks.Any(task => task.Value.Name == NAME);
         }
     }
 }

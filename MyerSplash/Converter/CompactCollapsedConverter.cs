@@ -8,7 +8,7 @@ namespace MyerSplash.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (bool)value == true ? Visibility.Collapsed : Visibility.Visible;
+            return (bool)value ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

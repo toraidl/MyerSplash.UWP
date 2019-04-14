@@ -32,8 +32,6 @@ namespace MyerSplash.Adapter
 
         public virtual void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
-            int index = args.ItemIndex;
-
             if (!args.InRecycleQueue)
             {
                 args.ItemContainer.Loaded -= ItemContainer_Loaded;
@@ -41,14 +39,7 @@ namespace MyerSplash.Adapter
             }
 
             var elementVisual = args.ItemContainer.GetVisual();
-            if (args.InRecycleQueue)
-            {
-                elementVisual.ImplicitAnimations = null;
-            }
-            else
-            {
-                elementVisual.ImplicitAnimations = _elementImplicitAnimation;
-            }
+            elementVisual.ImplicitAnimations = args.InRecycleQueue ? null : _elementImplicitAnimation;
         }
 
         private void ItemContainer_Loaded(object sender, RoutedEventArgs e)

@@ -30,21 +30,12 @@ namespace MyerSplash.Model
     public class ImageItem : ModelBase
     {
         [IgnoreDataMember]
-        public DownloadsViewModel DownloadsVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
-            }
-        }
+        public DownloadsViewModel DownloadsVM => SimpleIoc.Default.GetInstance<DownloadsViewModel>();
 
         private UnsplashImage _image;
         public UnsplashImage Image
         {
-            get
-            {
-                return _image;
-            }
+            get => _image;
             set
             {
                 if (_image != value)
@@ -59,10 +50,7 @@ namespace MyerSplash.Model
         [IgnoreDataMember]
         public CachedBitmapSource BitmapSource
         {
-            get
-            {
-                return _bitmapSource;
-            }
+            get => _bitmapSource;
             set
             {
                 if (_bitmapSource != value)
@@ -74,29 +62,13 @@ namespace MyerSplash.Model
         }
 
         [IgnoreDataMember]
-        public Thickness NameThickness
-        {
-            get
-            {
-                if (Image.IsUnsplash)
-                {
-                    return new Thickness(0, 0, 0, 2);
-                }
-                else
-                {
-                    return new Thickness(0);
-                }
-            }
-        }
+        public Thickness NameThickness => Image.IsUnsplash ? new Thickness(0, 0, 0, 2) : new Thickness(0);
 
         private SolidColorBrush _majorColor;
         [IgnoreDataMember]
         public SolidColorBrush MajorColor
         {
-            get
-            {
-                return _majorColor;
-            }
+            get => _majorColor;
             set
             {
                 if (_majorColor != value)
@@ -125,10 +97,7 @@ namespace MyerSplash.Model
         [IgnoreDataMember]
         public SolidColorBrush InfoForeColor
         {
-            get
-            {
-                return _infoForeColor;
-            }
+            get => _infoForeColor;
             set
             {
                 if (_infoForeColor != value)
@@ -143,10 +112,7 @@ namespace MyerSplash.Model
         [IgnoreDataMember]
         public SolidColorBrush BtnForeColor
         {
-            get
-            {
-                return _btnForeColor;
-            }
+            get => _btnForeColor;
             set
             {
                 if (_btnForeColor != value)
@@ -161,10 +127,7 @@ namespace MyerSplash.Model
         [IgnoreDataMember]
         public SolidColorBrush BackColorBrush
         {
-            get
-            {
-                return _backColorBrush;
-            }
+            get => _backColorBrush;
             set
             {
                 if (_backColorBrush != value)
@@ -182,10 +145,7 @@ namespace MyerSplash.Model
             get
             {
                 if (_shareCommand != null) return _shareCommand;
-                return _shareCommand = new RelayCommand(() =>
-                {
-                    ToggleShare();
-                });
+                return _shareCommand = new RelayCommand(ToggleShare);
             }
         }
 
@@ -216,32 +176,16 @@ namespace MyerSplash.Model
                 return _downloadCommand = new RelayCommand(() =>
                 {
                     Events.LogDownloadButtonOnList();
-                    var downloaditem = new DownloadItem(this);
-                    var task = downloaditem.DownloadFullImageAsync(JP.Utils.Network.CTSFactory.MakeCTS());
-                    var task2 = DownloadsVM.AddDownloadingImageAsync(downloaditem);
+                    var downloadItem = new DownloadItem(this);
+                    _ = downloadItem.DownloadFullImageAsync(JP.Utils.Network.CTSFactory.MakeCTS());
+                    _ = DownloadsVM.AddDownloadingImageAsync(downloadItem);
                 });
             }
         }
 
-        public Visibility AuthorVisibility
-        {
-            get
-            {
-                if (Image.IsUnsplash)
-                {
-                    return Visibility.Visible;
-                }
-                else return Visibility.Collapsed;
-            }
-        }
+        public Visibility AuthorVisibility => Image.IsUnsplash ? Visibility.Visible : Visibility.Collapsed;
 
-        public Visibility DateTimeVisibility
-        {
-            get
-            {
-                return Image.IsInHighlightList ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
+        public Visibility DateTimeVisibility => Image.IsInHighlightList ? Visibility.Visible : Visibility.Collapsed;
 
         public Visibility RecommendationVisibility
         {
@@ -251,20 +195,14 @@ namespace MyerSplash.Model
                 {
                     return Visibility.Collapsed;
                 }
-                else return Visibility.Visible;
+
+                return Visibility.Visible;
             }
         }
 
         public Visibility ExifThumbVisibility
         {
-            get
-            {
-                if (Image.IsUnsplash)
-                {
-                    return Visibility.Visible;
-                }
-                else return Visibility.Collapsed;
-            }
+            get { return Image.IsUnsplash ? Visibility.Visible : Visibility.Collapsed; }
         }
 
         public string PhotoByText
@@ -275,7 +213,8 @@ namespace MyerSplash.Model
                 {
                     return ResourcesHelper.GetResString("PhotoBy");
                 }
-                else return ResourcesHelper.GetResString("RecommendBy");
+
+                return ResourcesHelper.GetResString("RecommendBy");
             }
         }
 
@@ -286,19 +225,13 @@ namespace MyerSplash.Model
 
         public string ShareText => ResourcesHelper.GetFormattedResString("ShareText", Image.Owner.Name, Image.Urls.Full);
 
-        public string OwnerString
-        {
-            get
-            {
-                return Image.Owner.Name;
-            }
-        }
+        public string OwnerString => Image.Owner.Name;
 
         public string LocationString
         {
             get
             {
-                if (Image.Location == null || Image.Location.City == null || Image.Location.Country == null)
+                if (Image.Location?.City == null || Image.Location.Country == null)
                 {
                     return ResourcesHelper.GetResString("Unknown");
                 }
@@ -306,15 +239,9 @@ namespace MyerSplash.Model
             }
         }
 
-        public string SizeString
-        {
-            get
-            {
-                return $"{Image.Width} x {Image.Height}";
-            }
-        }
+        public string SizeString => $"{Image.Width} x {Image.Height}";
 
-        private ImageService _service = new ImageService(null, new UnsplashImageFactory(false),
+        private readonly ImageService _service = new ImageService(null, new UnsplashImageFactory(false),
             CancellationTokenSourceFactory.CreateDefault());
 
         private readonly DiskCacheSupplier _cacheSupplier = DiskCacheSupplier.Instance;
@@ -361,11 +288,11 @@ namespace MyerSplash.Model
 
             requestData.SetText(ShareText);
 
-            var cachekey = _cacheKeyFactory.ProvideKey(LoadingUrl);
-            var file = await _cacheSupplier.TryGetCacheAsync(cachekey);
+            var cacheKey = _cacheKeyFactory.ProvideKey(LoadingUrl);
+            var file = await _cacheSupplier.TryGetCacheAsync(cacheKey);
             if (file != null)
             {
-                List<IStorageItem> imageItems = new List<IStorageItem>
+                var imageItems = new List<IStorageItem>
                 {
                     file
                 };
@@ -408,8 +335,8 @@ namespace MyerSplash.Model
                 return;
             }
 
-            var cachekey = _cacheKeyFactory.ProvideKey(LoadingUrl);
-            var cached = await _cacheSupplier.TryGetCacheAsync(cachekey);
+            var cacheKey = _cacheKeyFactory.ProvideKey(LoadingUrl);
+            var cached = await _cacheSupplier.TryGetCacheAsync(cacheKey);
             if (cached == null)
             {
                 return;

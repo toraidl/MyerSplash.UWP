@@ -65,7 +65,7 @@
                 </DataTemplate>
             </cc:AdaptiveGridView.ItemTemplate>
             <cc:AdaptiveGridView.Adapter>
-                <adapter:DownloadItemAdatper />
+                <adapter:DownloadItemAdapter />
             </cc:AdaptiveGridView.Adapter>
             <cc:AdaptiveGridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">

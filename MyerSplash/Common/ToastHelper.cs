@@ -9,7 +9,7 @@ namespace MyerSplash.Common
     {
         public static ToastNotification CreateToastNotification(string title, string content, string filePath)
         {
-            ToastContent toastContent = new ToastContent()
+            var toastContent = new ToastContent()
             {
                 Visual = new ToastVisual()
                 {

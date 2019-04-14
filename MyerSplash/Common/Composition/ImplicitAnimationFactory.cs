@@ -7,12 +7,12 @@ namespace MyerSplash.Common.Composition
     {
         public static CompositionAnimationGroup CreateListOffsetAnimationGroup(Compositor compositor)
         {
-            Vector3KeyFrameAnimation offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
+            var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
             offsetAnimation.InsertExpressionKeyFrame(1f, "this.FinalValue");
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(400);
             offsetAnimation.Target = "Offset";
 
-            CompositionAnimationGroup animationGroup = compositor.CreateAnimationGroup();
+            var animationGroup = compositor.CreateAnimationGroup();
             animationGroup.Add(offsetAnimation);
 
             return animationGroup;
