@@ -8,10 +8,7 @@ namespace MyerSplash.Data
         [JsonProperty("id")]
         public int Id
         {
-            get
-            {
-                return _id;
-            }
+            get => _id;
             set
             {
                 if (_id != value)
@@ -26,10 +23,7 @@ namespace MyerSplash.Data
         [JsonProperty("title")]
         public string Title
         {
-            get
-            {
-                return _title;
-            }
+            get => _title;
             set
             {
                 if (_title != value)
@@ -44,10 +38,7 @@ namespace MyerSplash.Data
         [JsonProperty("photo_count")]
         public int PhotoCount
         {
-            get
-            {
-                return _photoCount;
-            }
+            get => _photoCount;
             set
             {
                 if (_photoCount != value)
@@ -60,9 +51,5 @@ namespace MyerSplash.Data
 
         [JsonProperty("links")]
         public Links Links { get; set; }
-
-        public UnsplashCategory()
-        {
-        }
     }
 }

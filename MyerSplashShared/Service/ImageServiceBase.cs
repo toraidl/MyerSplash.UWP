@@ -9,15 +9,15 @@ namespace MyerSplashShared.Service
     public abstract class ImageServiceBase : IService
     {
         protected CloudService _cloudService = new CloudService();
-        protected UnsplashImageFactory _ImageFactory;
-        private CancellationTokenSourceFactory _ctsFactory;
+        protected UnsplashImageFactory _imageFactory;
+        private readonly CancellationTokenSourceFactory _ctsFactory;
         private CancellationTokenSource _cts;
 
         public int Page { get; set; } = 1;
 
         public ImageServiceBase(UnsplashImageFactory factory, CancellationTokenSourceFactory ctsFactory)
         {
-            _ImageFactory = factory;
+            _imageFactory = factory;
             _ctsFactory = ctsFactory;
         }
 

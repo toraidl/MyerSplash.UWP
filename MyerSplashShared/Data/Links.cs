@@ -9,10 +9,7 @@ namespace MyerSplash.Data
 
         public string HomePageUrl
         {
-            get
-            {
-                return _homePageUrl;
-            }
+            get => _homePageUrl;
             set
             {
                 if (_homePageUrl != value)

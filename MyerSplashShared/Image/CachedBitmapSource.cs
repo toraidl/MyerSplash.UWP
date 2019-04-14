@@ -20,10 +20,7 @@ namespace MyerSplashShared.Image
         [IgnoreDataMember]
         public WeakReference<BitmapImage> BitmapRef
         {
-            get
-            {
-                return _bitmapRef;
-            }
+            get => _bitmapRef;
             private set
             {
                 if (_bitmapRef != value)
@@ -76,7 +73,7 @@ namespace MyerSplashShared.Image
 
             using (var stream = await ImageDownloader.GetEncodedImageFromUrlAsync(RemoteUrl, token))
             {
-                var savedFile = await SaveEncodedImageToFileAsync(stream.AsStreamForRead());
+                await SaveEncodedImageToFileAsync(stream.AsStreamForRead());
                 if (stream != null && setBitmap)
                 {
                     stream.Seek(0);
@@ -115,7 +112,7 @@ namespace MyerSplashShared.Image
             }
             catch (Exception e)
             {
-                var task = Logger.LogAsync(e);
+                _ = Logger.LogAsync(e);
                 return null;
             }
         }

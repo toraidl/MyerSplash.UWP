@@ -14,18 +14,12 @@ namespace MyerSplashShared.Service
         {
         }
 
-        public RandomImageService(int count, UnsplashImageFactory factory,
-            CancellationTokenSourceFactory ctsFactory) : base(factory, ctsFactory)
-        {
-            Count = count;
-        }
-
         public override async Task<IEnumerable<UnsplashImage>> GetImagesAsync()
         {
             var result = await _cloudService.GetRandomImagesAsync(Count, GetCancellationToken());
             if (result.IsRequestSuccessful)
             {
-                var imageList = _ImageFactory.GetImages(result.JsonSrc);
+                var imageList = _imageFactory.GetImages(result.JsonSrc);
                 return imageList;
             }
             else

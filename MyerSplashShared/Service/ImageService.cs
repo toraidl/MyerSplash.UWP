@@ -29,7 +29,7 @@ namespace MyerSplashShared.Service
             var result = await _cloudService.GetImagesAsync(Page, Count, GetCancellationToken(), RequestUrl);
             if (result.IsRequestSuccessful)
             {
-                var imageList = _ImageFactory.GetImages(result.JsonSrc);
+                var imageList = _imageFactory.GetImages(result.JsonSrc);
                 return imageList;
             }
             else

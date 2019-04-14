@@ -12,7 +12,7 @@ namespace MyerSplashCustomControl
     {
         public static void SendToast(string text)
         {
-            ToastService ts = new ToastService(text);
+            var ts = new ToastService(text);
             if (ts._prepared)
             {
                 _ = ts.ShowAsync();
@@ -21,7 +21,7 @@ namespace MyerSplashCustomControl
 
         public static void SendToast(string text, TimeSpan time)
         {
-            ToastService ts = new ToastService(text, time);
+            var ts = new ToastService(text, time);
             if (ts._prepared)
             {
                 _ = ts.ShowAsync();
@@ -30,7 +30,7 @@ namespace MyerSplashCustomControl
 
         public static void SendToast(string text, int timeInMill)
         {
-            ToastService ts = new ToastService(text, TimeSpan.FromMilliseconds(timeInMill));
+            var ts = new ToastService(text, TimeSpan.FromMilliseconds(timeInMill));
             if (ts._prepared)
             {
                 _ = ts.ShowAsync();
@@ -41,8 +41,8 @@ namespace MyerSplashCustomControl
 
         public string ContentText
         {
-            get { return (string)GetValue(ContentTextProperty); }
-            set { SetValue(ContentTextProperty, value); }
+            get => (string)GetValue(ContentTextProperty);
+            set => SetValue(ContentTextProperty, value);
         }
 
         public static DependencyProperty ContentTextProperty = DependencyProperty.Register("ContentText",
@@ -50,8 +50,8 @@ namespace MyerSplashCustomControl
 
         public TimeSpan HideTimeSpan
         {
-            get { return (TimeSpan)GetValue(HideTimeSpanProperty); }
-            set { SetValue(HideTimeSpanProperty, value); }
+            get => (TimeSpan)GetValue(HideTimeSpanProperty);
+            set => SetValue(HideTimeSpanProperty, value);
         }
 
         public static readonly DependencyProperty HideTimeSpanProperty =
@@ -65,12 +65,9 @@ namespace MyerSplashCustomControl
             get
             {
                 if (_currentPage != null) return _currentPage;
-                else return ((Window.Current.Content as Frame).Content) as Page;
+                return ((Window.Current.Content as Frame).Content) as Page;
             }
-            set
-            {
-                _currentPage = value;
-            }
+            set => _currentPage = value;
         }
 
         private readonly string _tempText;
@@ -86,7 +83,7 @@ namespace MyerSplashCustomControl
         //Provide the method to solve getting Storyboard before OnApplyTemplate() execute problem.
         private readonly TaskCompletionSource<int> _tcs;
 
-        private bool _prepared;
+        private readonly bool _prepared;
 
         private ToastService()
         {

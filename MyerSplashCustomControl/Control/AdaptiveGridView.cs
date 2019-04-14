@@ -15,8 +15,8 @@ namespace MyerSplashCustomControl
         /// </summary>
         public double MinItemHeight
         {
-            get { return (double)GetValue(AdaptiveGridView.MinItemHeightProperty); }
-            set { SetValue(AdaptiveGridView.MinItemHeightProperty, value); }
+            get => (double)GetValue(AdaptiveGridView.MinItemHeightProperty);
+            set => SetValue(AdaptiveGridView.MinItemHeightProperty, value);
         }
 
         public static readonly DependencyProperty MinItemHeightProperty =
@@ -37,8 +37,8 @@ namespace MyerSplashCustomControl
         /// </summary>
         public double MinItemWidth
         {
-            get { return (double)GetValue(AdaptiveGridView.MinimumItemWidthProperty); }
-            set { SetValue(AdaptiveGridView.MinimumItemWidthProperty, value); }
+            get => (double)GetValue(AdaptiveGridView.MinimumItemWidthProperty);
+            set => SetValue(AdaptiveGridView.MinimumItemWidthProperty, value);
         }
 
         public static readonly DependencyProperty MinimumItemWidthProperty =
@@ -59,10 +59,7 @@ namespace MyerSplashCustomControl
         private IListViewAdapter _adapter;
         public IListViewAdapter Adapter
         {
-            get
-            {
-                return _adapter;
-            }
+            get => _adapter;
             set
             {
                 if (_adapter != value)
@@ -80,7 +77,7 @@ namespace MyerSplashCustomControl
                 this.ItemContainerStyle = new Style(typeof(GridViewItem));
             }
 
-            this.ItemContainerStyle.Setters.Add(new Setter(GridViewItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
+            this.ItemContainerStyle.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
 
             this.Loaded += (s, a) =>
             {
@@ -106,8 +103,7 @@ namespace MyerSplashCustomControl
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            var panel = this.ItemsPanelRoot as ItemsWrapGrid;
-            if (panel != null)
+            if (ItemsPanelRoot is ItemsWrapGrid panel)
             {
                 if (MinItemWidth == 0)
                     throw new DivideByZeroException("You need to have a MinItemWidth greater than zero");
@@ -116,7 +112,6 @@ namespace MyerSplashCustomControl
 
                 var numColumns = Math.Floor(availableWidth / MinItemWidth);
                 numColumns = numColumns == 0 ? 1 : numColumns;
-                var numRows = Math.Ceiling(this.Items.Count / numColumns);
 
                 var itemWidth = availableWidth / numColumns;
                 var aspectRatio = MinItemHeight / MinItemWidth;

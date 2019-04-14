@@ -10,10 +10,7 @@ namespace MyerSplash.Data
         [JsonProperty("model")]
         public string Model
         {
-            get
-            {
-                return _model;
-            }
+            get => _model;
             set
             {
                 if (_model != value)
@@ -28,10 +25,7 @@ namespace MyerSplash.Data
         [JsonProperty("exposure_time")]
         public string ExposureTime
         {
-            get
-            {
-                return $"{_exposureTime}s";
-            }
+            get => $"{_exposureTime}s";
             set
             {
                 if (_exposureTime != value)
@@ -46,10 +40,7 @@ namespace MyerSplash.Data
         [JsonProperty("aperture")]
         public string Aperture
         {
-            get
-            {
-                return $"f/{_aperture}";
-            }
+            get => $"f/{_aperture}";
             set
             {
                 if (_aperture != value)
@@ -64,10 +55,7 @@ namespace MyerSplash.Data
         [JsonProperty("iso")]
         public int? Iso
         {
-            get
-            {
-                return _iso;
-            }
+            get => _iso;
             set
             {
                 if (_iso != value)
@@ -79,14 +67,7 @@ namespace MyerSplash.Data
             }
         }
 
-        public string IsoString
-        {
-            get
-            {
-                if (Iso == null) return DEFAULT;
-                return Iso.ToString();
-            }
-        }
+        public string IsoString => Iso == null ? DEFAULT : Iso.ToString();
 
         public ImageExif()
         {

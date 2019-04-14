@@ -59,7 +59,7 @@ namespace MyerSplash.View.Uc
                 {
                     await AppendInfoAsync(item.ToString());
                     var result = await item.RunAsync();
-                    await AppendInfoAsync(result.BriefMesasge, item.IsStatusCodeSuccessful ? Colors.Green : Colors.Red);
+                    await AppendInfoAsync(result.BriefMessage, item.IsStatusCodeSuccessful ? Colors.Green : Colors.Red);
                     await AppendInfoAsync(result.Response?.ToString());
                     await AppendInfoAsync(string.Empty);
                 }

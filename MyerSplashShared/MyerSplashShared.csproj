@@ -122,7 +122,6 @@
     <Compile Include="Data\Links.cs" />
     <Compile Include="Data\ModelBase.cs" />
     <Compile Include="Data\UnsplashCategory.cs" />
-    <Compile Include="Data\UnsplashCategoryFactory.cs" />
     <Compile Include="Data\UnsplashImage.cs" />
     <Compile Include="Data\UnsplashImageFactory.cs" />
     <Compile Include="Data\UnsplashUrl.cs" />

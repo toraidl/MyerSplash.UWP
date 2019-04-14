@@ -10,7 +10,7 @@ namespace MyerSplashShared.Data
     {
         private const int TIME_OUT_MILLIS = 6000;
 
-        private HttpClient _client;
+        private readonly HttpClient _client;
         private readonly string _uri;
         private readonly string _desc;
         private readonly int _timeoutMillis;

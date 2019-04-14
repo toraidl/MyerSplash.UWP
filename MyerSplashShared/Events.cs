@@ -77,17 +77,17 @@ namespace MyerSplash.Common
 
         public static void LogCompatMode(bool on)
         {
-            LogSwitch("Swtich compat mode", on);
+            LogSwitch("Switch compat mode", on);
         }
 
         public static void LogTile(bool on)
         {
-            LogSwitch("Swtich live tile", on);
+            LogSwitch("Switch live tile", on);
         }
 
         public static void LogScaleAnimation(bool on)
         {
-            LogSwitch("Swtich scale animation", on);
+            LogSwitch("Switch scale animation", on);
         }
 
         public static void LogBackgroundWallpapersSource(int source)

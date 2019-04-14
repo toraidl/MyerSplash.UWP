@@ -14,10 +14,7 @@ namespace MyerSplash.Data
         private string _title;
         public string Title
         {
-            get
-            {
-                return _title;
-            }
+            get => _title;
             set
             {
                 if (_title != value)
@@ -35,10 +32,7 @@ namespace MyerSplash.Data
         [JsonProperty("width")]
         public double Width
         {
-            get
-            {
-                return _width;
-            }
+            get => _width;
             set
             {
                 if (_width != value)
@@ -53,10 +47,7 @@ namespace MyerSplash.Data
         [JsonProperty("height")]
         public double Height
         {
-            get
-            {
-                return _height;
-            }
+            get => _height;
             set
             {
                 if (_height != value)
@@ -74,10 +65,7 @@ namespace MyerSplash.Data
         [JsonProperty("exif")]
         public ImageExif Exif
         {
-            get
-            {
-                return _exif;
-            }
+            get => _exif;
             set
             {
                 if (_exif != value)
@@ -92,10 +80,7 @@ namespace MyerSplash.Data
         [JsonProperty("location")]
         public ImageLocation Location
         {
-            get
-            {
-                return _location;
-            }
+            get => _location;
             set
             {
                 if (_location != value)
@@ -110,10 +95,7 @@ namespace MyerSplash.Data
         [JsonProperty("user")]
         public UnsplashUser Owner
         {
-            get
-            {
-                return _owner;
-            }
+            get => _owner;
             set
             {
                 if (_owner != value)
@@ -128,10 +110,7 @@ namespace MyerSplash.Data
         [JsonProperty("liked_by_user")]
         public bool Liked
         {
-            get
-            {
-                return _liked;
-            }
+            get => _liked;
             set
             {
                 if (_liked != value)
@@ -146,10 +125,7 @@ namespace MyerSplash.Data
         [JsonProperty("likes")]
         public int Likes
         {
-            get
-            {
-                return _likes;
-            }
+            get => _likes;
             set
             {
                 if (_likes != value)
@@ -172,21 +148,12 @@ namespace MyerSplash.Data
             }
         }
 
-        public string SimpleCreateTimeString
-        {
-            get
-            {
-                return CreateTime.ToString("yyyy-MM-dd hh-mm-ss");
-            }
-        }
+        public string SimpleCreateTimeString => CreateTime.ToString("yyyy-MM-dd hh-mm-ss");
 
         private bool _isUnsplash;
         public bool IsUnsplash
         {
-            get
-            {
-                return _isUnsplash;
-            }
+            get => _isUnsplash;
             set
             {
                 if (_isUnsplash != value)
@@ -200,10 +167,7 @@ namespace MyerSplash.Data
         private bool _isInHighlightList;
         public bool IsInHighlightList
         {
-            get
-            {
-                return _isInHighlightList;
-            }
+            get => _isInHighlightList;
             set
             {
                 if (_isInHighlightList != value)

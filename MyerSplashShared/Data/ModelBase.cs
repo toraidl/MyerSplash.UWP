@@ -13,7 +13,7 @@ namespace MyerSplash.Data
             var memberExpr = exp.Body as MemberExpression;
             if (memberExpr == null)
                 throw new ArgumentException("propertyExpression should represent access to a member");
-            string memberName = memberExpr.Member.Name;
+            var memberName = memberExpr.Member.Name;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
         }
     }

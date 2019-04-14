@@ -20,14 +20,7 @@ namespace MyerSplash.Data
 
         public ObservableCollection<UnsplashImage> GetImages(string json)
         {
-            if (_isFeatured)
-            {
-                return GetFeaturedImageFromJson(json);
-            }
-            else
-            {
-                return GetImageFromJson(json);
-            }
+            return _isFeatured ? GetFeaturedImageFromJson(json) : GetImageFromJson(json);
         }
 
         private static ObservableCollection<UnsplashImage> GetImageFromJson(string json)

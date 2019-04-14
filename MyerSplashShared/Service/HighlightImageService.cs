@@ -17,7 +17,7 @@ namespace MyerSplashShared.Service
         {
         }
 
-        public async override Task<IEnumerable<UnsplashImage>> GetImagesAsync()
+        public override async Task<IEnumerable<UnsplashImage>> GetImagesAsync()
         {
             var list = new ObservableCollection<UnsplashImage>();
 

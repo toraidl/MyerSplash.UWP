@@ -34,15 +34,15 @@ namespace MyerSplashCustomControl
 
         public event EventHandler<TitleClickEventArg> TitleClicked;
 
-        public Collection<Object> Items
+        public Collection<object> Items
         {
             get;
         }
 
         public IEnumerable ItemsSource
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
         public static readonly DependencyProperty ItemsSourceProperty =
@@ -51,7 +51,7 @@ namespace MyerSplashCustomControl
 
         private static void OnItemsSourcePropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            TopNavigationControl target = o as TopNavigationControl;
+            var target = o as TopNavigationControl;
 
             var oldValue = e.OldValue;
             if (oldValue is INotifyCollectionChanged oldNotify)
@@ -75,8 +75,8 @@ namespace MyerSplashCustomControl
 
         public int SelectedIndex
         {
-            get { return (int)GetValue(SelectedIndexProperty); }
-            set { SetValue(SelectedIndexProperty, value); }
+            get => (int)GetValue(SelectedIndexProperty);
+            set => SetValue(SelectedIndexProperty, value);
         }
 
         public static readonly DependencyProperty SelectedIndexProperty =
@@ -89,8 +89,8 @@ namespace MyerSplashCustomControl
 
         public DataTemplate ItemTemplate
         {
-            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
-            set { SetValue(ItemTemplateProperty, value); }
+            get => (DataTemplate)GetValue(ItemTemplateProperty);
+            set => SetValue(ItemTemplateProperty, value);
         }
 
         public static readonly DependencyProperty ItemTemplateProperty =
@@ -103,8 +103,8 @@ namespace MyerSplashCustomControl
 
         public object SliderBrush
         {
-            get { return (object)GetValue(SliderBrushProperty); }
-            set { SetValue(SliderBrushProperty, value); }
+            get => (object)GetValue(SliderBrushProperty);
+            set => SetValue(SliderBrushProperty, value);
         }
 
         public static readonly DependencyProperty SliderBrushProperty =
@@ -140,17 +140,16 @@ namespace MyerSplashCustomControl
 
         protected virtual void PrepareContainerForItemOverride(DependencyObject container, Object item)
         {
-            if (container is ContentControl)
+            switch (container)
             {
-                ContentControl control = container as ContentControl;
-                control.Content = item;
-                control.ContentTemplate = ItemTemplate;
-            }
-            else if (container is ContentPresenter)
-            {
-                ContentPresenter presenter = container as ContentPresenter;
-                presenter.Content = item;
-                presenter.ContentTemplate = ItemTemplate;
+                case ContentControl control:
+                    control.Content = item;
+                    control.ContentTemplate = ItemTemplate;
+                    break;
+                case ContentPresenter presenter:
+                    presenter.Content = item;
+                    presenter.ContentTemplate = ItemTemplate;
+                    break;
             }
         }
 
@@ -172,7 +171,7 @@ namespace MyerSplashCustomControl
                 visual.Opacity = i == SelectedIndex ? 1f : 0.5f;
             }
 
-            UIElement element = _rootPanel.Children[SelectedIndex];
+            var element = _rootPanel.Children[SelectedIndex];
             if (element is ContentPresenter)
             {
                 if (!(VisualTreeHelper.GetChild(element, 0) is FrameworkElement child)) return;
@@ -180,15 +179,16 @@ namespace MyerSplashCustomControl
                 var paddingLeft = 0.0;
                 var paddingRight = 0.0;
 
-                if (child is TextBlock)
+                switch (child)
                 {
-                    paddingLeft = (child as TextBlock).Padding.Left;
-                    paddingRight = (child as TextBlock).Padding.Right;
-                }
-                else if (child is Control)
-                {
-                    paddingLeft = (child as Control).Padding.Left;
-                    paddingLeft = (child as Control).Padding.Right;
+                    case TextBlock block:
+                        paddingLeft = block.Padding.Left;
+                        paddingRight = block.Padding.Right;
+                        break;
+                    case Control control:
+                        paddingLeft = control.Padding.Left;
+                        paddingRight = control.Padding.Right;
+                        break;
                 }
 
                 var transform = child.TransformToVisual(_rootPanel);
@@ -245,9 +245,8 @@ namespace MyerSplashCustomControl
                     PrepareContainerForItemOverride(container, item);
                 }
 
-                if (container is UIElement)
+                if (container is UIElement element)
                 {
-                    var element = container as UIElement;
                     element.PointerReleased += Element_PointerReleased;
 
                     var implicitAnimationCollection = _compositor.CreateImplicitAnimationCollection();
@@ -298,7 +297,7 @@ namespace MyerSplashCustomControl
 
         private void Element_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            int old = SelectedIndex;
+            var old = SelectedIndex;
             SelectedIndex = _rootPanel.Children.IndexOf(sender as UIElement);
             TitleClicked?.Invoke(this, new TitleClickEventArg()
             {

@@ -18,31 +18,25 @@ namespace MyerSplashCustomControl
 
     public class ContentPopupEx : ContentControl
     {
-        private TaskCompletionSource<int> _tcs;
+        private readonly TaskCompletionSource<int> _tcs;
 
         private Grid _rootGrid;
         private Grid _contentGrid;
         private FrameworkElement _rootFramework;
-        private bool _solidBackground;
+        private readonly bool _solidBackground;
         private Border _maskBorder;
 
-        private Popup _currentPopup;
-        private LayoutStretch _layoutStretch;
+        private readonly Popup _currentPopup;
+        private readonly LayoutStretch _layoutStretch;
 
         public bool PlayPopupAnim = true;
 
         private Storyboard _inStory;
         private Storyboard _outStory;
 
-        public Page CurrentPage
-        {
-            get
-            {
-                return ((Window.Current.Content as Frame).Content) as Page;
-            }
-        }
+        public Page CurrentPage => ((Window.Current.Content as Frame).Content) as Page;
 
-        private bool _isOpen = false;
+        private bool _isOpen;
 
         public bool AllowTapMaskToHide { get; set; } = true;
 
@@ -54,8 +48,7 @@ namespace MyerSplashCustomControl
 
             if (_currentPopup == null)
             {
-                _currentPopup = new Popup();
-                _currentPopup.VerticalAlignment = VerticalAlignment.Stretch;
+                _currentPopup = new Popup {VerticalAlignment = VerticalAlignment.Stretch};
                 this.Height = (Window.Current.Content as Frame).Height;
                 this.Width = (Window.Current.Content as Frame).Width;
                 _currentPopup.Child = this;
@@ -78,15 +71,16 @@ namespace MyerSplashCustomControl
             base.OnApplyTemplate();
             _rootGrid = GetTemplateChild("RootGrid") as Grid;
             _contentGrid = GetTemplateChild("ContentGrid") as Grid;
-            if (_layoutStretch == LayoutStretch.Stretch)
+            switch (_layoutStretch)
             {
-                _contentGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
-                _contentGrid.VerticalAlignment = VerticalAlignment.Stretch;
-            }
-            else if (_layoutStretch == LayoutStretch.Bottom)
-            {
-                _contentGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
-                _contentGrid.VerticalAlignment = VerticalAlignment.Bottom;
+                case LayoutStretch.Stretch:
+                    _contentGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    _contentGrid.VerticalAlignment = VerticalAlignment.Stretch;
+                    break;
+                case LayoutStretch.Bottom:
+                    _contentGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    _contentGrid.VerticalAlignment = VerticalAlignment.Bottom;
+                    break;
             }
             _contentGrid.Children.Add(_rootFramework);
 
@@ -103,7 +97,7 @@ namespace MyerSplashCustomControl
             {
                 _currentPopup.IsOpen = false;
             });
-            _maskBorder.Tapped += ((sendert, et) =>
+            _maskBorder.Tapped += ((_, et) =>
             {
                 if (!AllowTapMaskToHide) return;
                 if (!_isOpen)

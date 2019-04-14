@@ -27,7 +27,7 @@ namespace MyerSplashShared.Service
             {
                 var rootObj = JsonObject.Parse(result.JsonSrc);
                 var resultArray = JsonParser.GetJsonArrayFromJsonObj(rootObj, "results");
-                var imageList = _ImageFactory.GetImages(resultArray.ToString());
+                var imageList = _imageFactory.GetImages(resultArray.ToString());
                 return imageList;
             }
             else

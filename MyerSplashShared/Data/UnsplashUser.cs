@@ -10,10 +10,7 @@ namespace MyerSplash.Data
         [JsonProperty("name")]
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get => _name;
             set
             {
                 if (_name != value)
@@ -32,10 +29,7 @@ namespace MyerSplash.Data
 
         public Links Links
         {
-            get
-            {
-                return _links;
-            }
+            get => _links;
             set
             {
                 if (_links != value)
@@ -50,10 +44,7 @@ namespace MyerSplash.Data
         [JsonProperty("bio")]
         public string Bio
         {
-            get
-            {
-                return _bio;
-            }
+            get => _bio;
             set
             {
                 if (_bio != value)
@@ -62,10 +53,6 @@ namespace MyerSplash.Data
                     RaisePropertyChanged(() => Bio);
                 }
             }
-        }
-
-        public UnsplashUser()
-        {
         }
     }
 }

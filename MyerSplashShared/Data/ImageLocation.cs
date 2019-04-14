@@ -8,10 +8,7 @@ namespace MyerSplash.Data
         [JsonProperty("city")]
         public string City
         {
-            get
-            {
-                return _city;
-            }
+            get => _city;
             set
             {
                 if (_city != value)
@@ -26,10 +23,7 @@ namespace MyerSplash.Data
         [JsonProperty("country")]
         public string Country
         {
-            get
-            {
-                return _country;
-            }
+            get => _country;
             set
             {
                 if (_country != value)
@@ -38,10 +32,6 @@ namespace MyerSplash.Data
                     RaisePropertyChanged(() => Country);
                 }
             }
-        }
-
-        public ImageLocation()
-        {
         }
     }
 }

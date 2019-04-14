@@ -45,7 +45,7 @@ namespace MyerSplashShared.Utils
             }
         }
 
-        public async static Task ClearAllTileFile()
+        public static async Task ClearAllTileFile()
         {
             var folder = await ApplicationData.Current.TemporaryFolder.CreateFolderAsync("temptile", CreationCollisionOption.OpenIfExists);
             var files = await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery);

@@ -2,7 +2,7 @@
 {
     public static class CacheKeyFactory
     {
-        private static readonly object o = new object();
+        private static readonly object O = new object();
 
         private static ICacheKeyFactory _default;
 
@@ -10,7 +10,7 @@
         {
             if (_default == null)
             {
-                lock (o)
+                lock (O)
                 {
                     if (_default == null)
                     {

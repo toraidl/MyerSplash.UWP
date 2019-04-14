@@ -9,11 +9,11 @@ namespace MyerSplashShared.Image
 {
     public class DiskCacheSupplier : ICacheSupplier<StorageFile>
     {
-        private static readonly Lazy<DiskCacheSupplier> lazy = new Lazy<DiskCacheSupplier>(() => new DiskCacheSupplier());
+        private static readonly Lazy<DiskCacheSupplier> Lazy = new Lazy<DiskCacheSupplier>(() => new DiskCacheSupplier());
 
-        public static DiskCacheSupplier Instance { get { return lazy.Value; } }
+        public static DiskCacheSupplier Instance => Lazy.Value;
 
-        private Dictionary<string, StorageFile> _cacheMap = new Dictionary<string, StorageFile>();
+        private readonly Dictionary<string, StorageFile> _cacheMap = new Dictionary<string, StorageFile>();
 
         private DiskCacheSupplier()
         {
@@ -52,11 +52,6 @@ namespace MyerSplashShared.Image
         {
             var tempFolder = ApplicationData.Current.TemporaryFolder;
             return await tempFolder.CreateFolderAsync("cache", CreationCollisionOption.OpenIfExists);
-        }
-
-        private string GenerateRandomFileName()
-        {
-            return DateTime.Now.ToFileTime().ToString() + ".jpg";
         }
 
         public async Task<long> GetSizeAsync()
