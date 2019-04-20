@@ -18,7 +18,7 @@ namespace MyerSplashShared.Utils
                 var tile = new TileBinding();
                 var photosContent = new TileBindingContentPhotos();
 
-                var url = UnsplashImageFactory.CreateTodayHighlightImage().Urls.Full;
+                var url = UnsplashImageFactory.CreateTodayHighlightImage().Urls.Thumb;
 
                 photosContent.Images.Add(new TileImageSource(url));
 
