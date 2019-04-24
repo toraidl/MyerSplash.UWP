@@ -658,7 +658,7 @@ namespace MyerSplash.ViewModel
             if (App.AppSettings.EnableTile)
             {
                 Debug.WriteLine("About to update tile.");
-                await LiveTileUpdater.UpdateLiveTileAsync();
+                LiveTileUpdater.UpdateLiveTile();
             }
         }
 
