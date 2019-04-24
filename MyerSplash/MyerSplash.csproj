@@ -100,7 +100,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icon\unsplash.png" />
     <Content Include="Assets\Image\prom.png" />
     <Content Include="Assets\Json\keys.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
