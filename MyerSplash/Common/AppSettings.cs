@@ -88,46 +88,11 @@ namespace MyerSplash.Common
             }
         }
 
-        public bool EnableTile
-        {
-            get
-            {
-                return ReadSettings(nameof(EnableTile), true);
-            }
-            set
-            {
-                SaveSettings(nameof(EnableTile), value);
-                RaisePropertyChanged(() => EnableTile);
+        public bool EnableTile => true;
 
-                Events.LogTile(value);
+        public bool EnableTodayRecommendation => true;
 
-                if (!value)
-                {
-                    LiveTileUpdater.CleanUpTile();
-                }
-            }
-        }
-
-        public bool EnableTodayRecommendation
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        public bool EnableQuickDownload
-        {
-            get
-            {
-                return ReadSettings(nameof(EnableQuickDownload), false);
-            }
-            set
-            {
-                SaveSettings(nameof(EnableQuickDownload), value);
-                RaisePropertyChanged(() => EnableQuickDownload);
-            }
-        }
+        public bool EnableQuickDownload => true;
 
         public bool EnableScaleAnimation
         {

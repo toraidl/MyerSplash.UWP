@@ -62,22 +62,6 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            x:Uid="LiveTitleTextBlock"
-                            Margin="12,0,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource SettingItemButtonContentStyle}"
-                            Text="Live Tile" />
-                        <ToggleSwitch
-                            Grid.Column="1"
-                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTile, Mode=TwoWay}"
-                            Style="{StaticResource ToggleSwitchStyle}" />
-                    </Grid>
-                    <Grid Height="{StaticResource SettingsSwitchItemHeight}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
                             x:Uid="ScaleAnimatioinTextBlock"
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
@@ -119,7 +103,7 @@
                             Style="{StaticResource SettingItemButtonContentStyle}"
                             Text="Open the folder wallpapers are saved into" />
                     </Button>
-                    <StackPanel x:Name="AutoChangeSP" Margin="0 12 0 0">
+                    <StackPanel x:Name="AutoChangeSP" Margin="0,12,0,0">
                         <TextBlock
                             x:Uid="AutoChangeTitle"
                             Margin="12,0,0,0"
