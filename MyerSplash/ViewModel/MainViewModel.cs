@@ -637,9 +637,10 @@ namespace MyerSplash.ViewModel
 
         public void Activate(object param)
         {
-            var task = HandleLaunchArg(param as string);
-            var task2 = UpdateLiveTileAsync();
-            var task3 = ShowFeatureDialogAsync();
+            UpdateLiveTile();
+
+            _ = HandleLaunchArg(param as string);
+            _ = ShowFeatureDialogAsync();
         }
 
         private async Task ShowFeatureDialogAsync()
@@ -653,7 +654,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private async Task UpdateLiveTileAsync()
+        private void UpdateLiveTile()
         {
             if (App.AppSettings.EnableTile)
             {
