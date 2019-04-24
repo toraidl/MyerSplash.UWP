@@ -288,7 +288,10 @@ namespace MyerSplash.Common
                     }
                 }
 
-                Events.LogSwitchTheme(value);
+                if (!_constructing)
+                {
+                    Events.LogSwitchTheme(value);
+                }
             }
         }
 
